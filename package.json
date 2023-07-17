@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start"
   },
-  "author": "Surjith S M",
+  "author": "Titouan Hirsch",
   "license": "ISC",
   "dependencies": {
     "@emotion/css": "^11.10.6",
