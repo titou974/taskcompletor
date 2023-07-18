@@ -50,14 +50,14 @@ export const langType = [
 export const persoType = [
   {
     id: "élève",
-    title: "Élève",
+    title: "Élève 👩‍🎓",
   },
   {
     id: "professeur",
-    title: "Professeur",
+    title: "Professeur 👨‍🏫",
   },
   {
     id: "expert",
-    title: "Expert"
+    title: "Expert 👨‍💼"
   }
 ];

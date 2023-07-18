@@ -5,10 +5,10 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@heroicons/react/20/solid";
-import { langType } from "../utils/constants";
+import { persoType } from "../utils/constants";
 
 
-const DropDownLang = ({type, setType}) => {
+const DropDownType = ({type, setType}) => {
 
   return (
     <Menu as="div" className="relative block text-left w-full text-[16px]">
@@ -39,7 +39,7 @@ const DropDownLang = ({type, setType}) => {
           className="absolute left-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
         >
           <div className="">
-            {langType.map((typeItem) => (
+            {persoType.map((typeItem) => (
               <Menu.Item key={typeItem.id}>
                 {({ active }) => (
                   <button
@@ -61,4 +61,4 @@ const DropDownLang = ({type, setType}) => {
   )
 }
 
-export default DropDownLang
+export default DropDownType

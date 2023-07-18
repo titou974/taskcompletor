@@ -8,9 +8,12 @@ import Image from 'next/image'
 import Cercle1 from '../public/img/icon1white.svg'
 import Cercle2 from '../public/img/icon2white.svg'
 import Cercle3 from '../public/img/icon3white.svg'
+import Cercle4 from '../public/img/icon4white.svg'
+import Cercle5 from '../public/img/icon5white.svg'
 import { styles } from '../pages/style'
 import DropDown from './dropdown'
 import DropDownLang from './dropdownlang'
+import DropDownType from './dropdowntype'
 import { PlusIcon } from '@heroicons/react/20/solid'
 import Loader from './loader'
 import {
@@ -30,7 +33,7 @@ const Generator = () => {
   const [lang, setLang] = useState("Formel 📝")
   const [prompt, setPrompt] = useState("")
   const [dest, setDest] = useState("")
-  const [persoType, setPersoType] = useState("Élève")
+  const [persoType, setPersoType] = useState("Élève 👩‍🎓")
   const [domain, setDomain] = useState("")
   const [theme, setTheme] = useState("")
   const [generatedDoc, setGeneratedDoc] = useState("")
@@ -132,28 +135,74 @@ const Generator = () => {
         </motion.div>
         <motion.div variants={fadeIn("", "", 0.1, 1)} className={`w-full md:w-1/2 flex justify-between ${doc === "Lettre" || doc === "Lettre de motivation" ? "" : "hidden"}`}>
           <textarea value={myName} onChange={(e) => setMyName(e.target.value)} rows={2} className="w-5/12 rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black px-4 py-1 text-gray-700 caret-gray-700" placeholder='Votre nom'/>
-          <textarea value={dest} onChange={(e) => setDest(e.target.value)} rows={2} className="w-5/12 rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black px-4 py-1 text-gray-700 caret-gray-700" placeholder={`${doc === "Lettre" ? "Mike Tyson" : "LVMH"}`}/>
+          <textarea value={doc === "Lettre" ? dest : company} onChange={doc === "Lettre" ? (e) => setDest(e.target.value) : (e) => setCompany(e.target.value)} rows={2} className="w-5/12 rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black px-4 py-1 text-gray-700 caret-gray-700" placeholder={`${doc === "Lettre" ? "Mike Tyson" : "Café Élementaire"}`}/>
         </motion.div>
       </div>
-      <div className='flex flex-col items-center justify-center gap-10'>
+      <div className={`flex flex-col items-center justify-center gap-10 ${doc === "Lettre" || doc === "Rapport" || doc === "Lettre de motivation" || doc === "Fiche de révision" ? "" : "hidden"}`}>
         <motion.div variants={textVariant()} className='flex items-center gap-4 w-full md:w-1/2'>
           <Image src={Cercle2} width={50} height={50} alt="step 2"/>
-          <h2 className={`${styles.sectionSubText} ${doc !== "Lettre" || doc !== "Rapport" ? "lg:hidden" : ""} font-bold hidden lg:block`}>Sélectionner un language</h2>
-          <h2 className={`${styles.sectionSubText} ${doc !== "Lettre" || doc !== "Rapport" ? "hidden" : ""} font-bold lg:hidden`}>Language</h2>
-          <h2 className={`${styles.sectionSubText} ${doc !== "Exercice" ? "lg:hidden" : ""} font-bold hidden lg:block`}>Sélectionner un type de réponse</h2>
-          <h2 className={`${styles.sectionSubText} ${doc !== "Exercice" ? "hidden" : ""} font-bold lg:hidden`}>Type</h2>
+          <h2 className={`${styles.sectionSubText} ${doc === "Lettre" || doc === "Rapport" ? "lg:block" : "lg:hidden"} hidden font-bold`}>Sélectionner un language</h2>
+          <h2 className={`${styles.sectionSubText} ${doc === "Lettre" || doc === "Rapport" ? "lg:hidden" : "hidden"} font-bold`}>Language</h2>
+          <h2 className={`${styles.sectionSubText} ${doc === "Lettre de motivation" ? "" : "hidden"} font-bold`}>Job visé</h2>
+          <h2 className={`${styles.sectionSubText} ${doc === "Fiche de révision" ? "" : "hidden"} font-bold`}>Matière</h2>
         </motion.div>
-        <motion.div variants={fadeIn("", "", 0.1, 1)} className='w-full md:w-1/2'>
+        <motion.div variants={fadeIn("", "", 0.1, 1)} className={`w-full md:w-1/2 ${doc === "Lettre" || doc === "Rapport" ? "" : "hidden"}`}>
           <DropDownLang type={lang} setType={(newLang) => setLang(newLang)}/>
         </motion.div>
+        <motion.div variants={fadeIn("", "", 0.1, 1)} className={`w-full md:w-1/2 ${doc === "Lettre de motivation" || doc === "Fiche de révision" ? "" : "hidden"}`}>
+          <textarea value={job} onChange={(e) => setJob(e.target.value)} rows={1} className={`w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${doc == "Lettre de motivation" ? "" : "hidden"}`} placeholder="Serveur"/>
+          <textarea value={theme} onChange={(e) => setTheme(e.target.value)} rows={1} className={`w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${doc == "Fiche de révision" ? "" : "hidden"}`} placeholder="Marketing digital"/>
+        </motion.div>
       </div>
-      <div className='flex flex-col items-center justify-center gap-6'>
+      <div className={`flex flex-col items-center justify-center gap-10 ${doc === "Exercice" ? "" : "hidden"}`}>
         <motion.div variants={textVariant()} className='flex items-center gap-4 w-full md:w-1/2'>
-          <Image src={Cercle3} width={50} height={50} alt="step 3"/>
-          <h2 className={`${styles.sectionSubText} font-bold`}>Décrivez le(s) sujet(s)</h2>
+          <Image src={Cercle2} width={50} height={50} alt="step 2"/>
+          <h2 className={`${styles.sectionSubText} font-bold hidden lg:block`}>Sélectionner un type d'écriture</h2>
+          <h2 className={`${styles.sectionSubText} font-bold lg:hidden`}>Type d'écriture</h2>
         </motion.div>
         <motion.div variants={fadeIn("", "", 0.1, 1)} className='w-full md:w-1/2'>
-          <textarea value={subject} onChange={(e) => setSubject(e.target.value)} rows={4} className="w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5  px-4 py-2 text-gray-700 caret-gray-700" placeholder='Les espèces d’insectes qui vivent dans les tropiques, avec des précisions sur le moustique.'/>
+          <DropDownType type={persoType} setType={(newType) => setPersoType(newType)}/>
+        </motion.div>
+      </div>
+      <div className={`flex flex-col items-center justify-center gap-6`}>
+        <motion.div variants={textVariant()} className='flex items-center gap-4 w-full md:w-1/2'>
+          <Image src={Cercle3} width={50} height={50} alt="step 3"/>
+          <h2 className={`${styles.sectionSubText} font-bold ${doc === "Rapport" || doc === "Lettre" ? "" : "hidden"}`}>Décrivez le(s) sujet(s)</h2>
+          <h2 className={`${styles.sectionSubText} font-bold ${doc === "Exercice" ? "" : "hidden"}`}>Nom de la matière</h2>
+          <h2 className={`${styles.sectionSubText} font-bold ${doc === "Lettre de motivation" ? "" : "hidden"}`}>Compétences</h2>
+          <h2 className={`${styles.sectionSubText} font-bold ${doc === "Fiche de révision" ? "" : "hidden"}`}>Chapitre(s)</h2>
+        </motion.div>
+        <motion.div variants={fadeIn("", "", 0.1, 1)} className='w-full md:w-1/2'>
+          <textarea value={subject} onChange={(e) => setSubject(e.target.value)} rows={4} className={`w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${doc === "Rapport" || doc === "Lettre" ? "" : "hidden"}`} placeholder='Les espèces d’insectes qui vivent dans les tropiques, avec des précisions sur le moustique.'/>
+          <textarea value={theme} onChange={(e) => setTheme(e.target.value)} rows={1} className={`w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${doc == "Exercice" ? "" : "hidden"}`} placeholder="Financial Reporting"/>
+          <textarea value={domain} onChange={(e) => setDomain(e.target.value)} rows={1} className={`w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${doc == "Fiche de révision" ? "" : "hidden"}`} placeholder="SEO et SEA"/>
+          <textarea value={competences} onChange={(e) => setCompetences(e.target.value)} rows={1} className={`w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${doc == "Lettre de motivation" ? "" : "hidden"}`} placeholder="Bilingue anglais, dynamique, bonne mémoire"/>
+        </motion.div>
+      </div>
+      <div className={`flex flex-col items-center justify-center gap-6 ${doc === "Lettre de motivation" || doc === "Exercice" ? "" : "hidden"}`}>
+        <motion.div variants={textVariant()} className='flex items-center gap-4 w-full md:w-1/2'>
+          <Image src={Cercle4} width={50} height={50} alt="step 3"/>
+          <h2 className={`${styles.sectionSubText} font-bold ${doc === "Exercice" ? "" : "hidden"}`}>Domaine de la matière</h2>
+          <h2 className={`${styles.sectionSubText} font-bold ${doc === "Lettre de motivation" ? "" : "hidden"}`}>Expériences</h2>
+        </motion.div>
+        <motion.div variants={fadeIn("", "", 0.1, 1)} className='w-full md:w-1/2'>
+          <textarea value={domain} onChange={(e) => setDomain(e.target.value)} rows={1} className={`w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${doc == "Exercice" ? "" : "hidden"}`} placeholder="Capital immatériel du groupe Kering"/>
+          <textarea value={experiences} onChange={(e) => setExperiences(e.target.value)} rows={4} className={`w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${doc == "Lettre de motivation" ? "" : "hidden"}`} placeholder="barman pendant 1 mois aux fontaines (le mois dernier) et serveur au Ritz l'été 2022"/>
+        </motion.div>
+      </div>
+      <div className={`flex flex-col items-center justify-center gap-6 ${doc === "Exercice" ? "" : "hidden"}`}>
+        <motion.div variants={textVariant()} className='flex items-center gap-4 w-full md:w-1/2'>
+          <Image src={Cercle5} width={50} height={50} alt="step 3"/>
+          <h2 className={`${styles.sectionSubText} font-bold ${doc === "Exercice" ? "" : "hidden"}`}>Consignes et Questions</h2>
+        </motion.div>
+        <motion.div variants={fadeIn("", "", 0.1, 1)} className='w-full md:w-1/2'>
+          <textarea value={questions} onChange={(e) => setQuestions(e.target.value)} rows={4} className={`w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${doc == "Exercice" ? "" : "hidden"}`}
+            placeholder="5.1 Qu'est-ce qui est le plus frappant lorsque l'on regarde les actifs de KERING ?
+            5.2 Quelle est la valeur présentée par KERING pour son portefeuille de marques ? Cette valeur vous semble-t-elle réaliste ?
+            5.3 Quels sont les autres actifs incorporels ?
+            5.4 Comment les marques sont-elles comptabilisées ?
+            5.5 Comment les autres actifs incorporels sont-ils comptabilisés ?
+            5.6 Est-ce que le groupe KERING a une politique de recherche et développement ?"/>
         </motion.div>
       </div>
       {!loading && (
