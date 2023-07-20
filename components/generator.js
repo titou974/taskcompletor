@@ -46,8 +46,7 @@ const Generator = () => {
   const [myName, setMyName] = useState("")
   const [generatedTitle, setGeneratedTitle] = useState("")
   const [generatedDoc, setGeneratedDoc] = useState("")
-  const [generatedTitles, setGeneratedTitles] = useState([])
-  const [generatedParagraphs, setGeneratedParagraphs] = useState("")
+  const [generatedSections, setGeneratedSections] = useState([])
 
 
   const docRef = useRef()
@@ -75,8 +74,7 @@ const Generator = () => {
   const generateDoc = async(e) => {
     e.preventDefault();
     setGeneratedDoc("");
-    setGeneratedTitle("");
-    setGeneratedParagraphs("");
+    setGeneratedSections([]);
     setLoading(true);
     const response = await fetch("/api/generate", {
       method: "POST",
@@ -104,19 +102,16 @@ const Generator = () => {
         try {
           let text = JSON.parse(data).text ?? "";
           const regex1 = /Rapport[^.]*\n/
-          const regex2 = /^\d+\.\s.*$/gm;
-          const regex3 = /((?!(Rapport[^.]*\n|\d+\.\s.*$)).)*/g
+          const regex3 = /(\d+\.\s.+)\n(.+)/g
 
-          text = text.replace(/(\d+)\.\s/g, "\n$1. ");
           setGeneratedDoc((prev) => {
             const fulltext = prev + text;
             if (regex1.test(fulltext) === false) {
               setGeneratedTitle(fulltext);
-              generatedParagraphs.replace(fulltext)
 
             };
-            const titles = fulltext.match(regex2);
-            setGeneratedTitles(titles);
+            const sections = [...fulltext.matchAll(regex3)]
+            setGeneratedSections(sections);
             return fulltext;
           })
 
@@ -245,17 +240,15 @@ const Generator = () => {
       )}
       <div className='a4-container' ref={docRef}>
         <div className='a4'>
-          <p className='font-bold text-lg text-center'>{generatedTitle}</p>
+          <h2 className='font-bold text-center'>{generatedTitle}</h2>
           <div>
-            {generatedTitles && generatedTitles.map((title, index) => (
-              <span key={index}>{title}</span>
-            ))}
-            {generatedParagraphs && generatedParagraphs.map((paragraph, index) => (
-              <span key={index}>{paragraph}</span>
-            ))}
+          {generatedSections.map((section, index) => (
+            <div key={index} className='py-4'>
+              <h3 className='py-2'>{section[1]}</h3>
+              <p>{section[2]}</p>
+            </div>
+          ))}
           </div>
-          <div></div>
-          <p>{generatedDoc}</p>
         </div>
       </div>
     </div>
