@@ -102,3 +102,29 @@
   right: 15%;
   animation-delay: 0.3s;
 }
+
+.a4-container {
+  width: 50%;
+  height: 100%;
+  background-color: #f6f6f8;
+  padding: 2.5rem 0;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.a4 {
+  width: 496px;
+  height: 701.6px;
+  background-color: white;
+  margin: 0 auto;
+  padding: 5em;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 9px;
+  color: black;
+}
+
+.a4 p {
+  font-family: 'Times New Roman', Times, serif;
+  white-space: pre-wrap;
+}

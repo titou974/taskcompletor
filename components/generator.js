@@ -21,6 +21,8 @@ import {
   ParsedEvent,
   ReconnectInterval,
 } from "eventsource-parser";
+import reactStringReplace from 'react-string-replace';
+
 
 
 
@@ -36,13 +38,17 @@ const Generator = () => {
   const [persoType, setPersoType] = useState("Élève 👩‍🎓")
   const [domain, setDomain] = useState("")
   const [theme, setTheme] = useState("")
-  const [generatedDoc, setGeneratedDoc] = useState("")
   const [questions, setQuestions] = useState("")
   const [job, setJob] = useState("")
   const [competences, setCompetences] = useState("")
   const [experiences, setExperiences] = useState("")
   const [company, setCompany] = useState("")
   const [myName, setMyName] = useState("")
+  const [generatedTitle, setGeneratedTitle] = useState("")
+  const [generatedDoc, setGeneratedDoc] = useState("")
+  const [generatedTitles, setGeneratedTitles] = useState([])
+  const [generatedParagraphs, setGeneratedParagraphs] = useState("")
+
 
   const docRef = useRef()
 
@@ -69,6 +75,8 @@ const Generator = () => {
   const generateDoc = async(e) => {
     e.preventDefault();
     setGeneratedDoc("");
+    setGeneratedTitle("");
+    setGeneratedParagraphs("");
     setLoading(true);
     const response = await fetch("/api/generate", {
       method: "POST",
@@ -94,13 +102,31 @@ const Generator = () => {
       if (event.type === "event") {
         const data = event.data;
         try {
-          const text = JSON.parse(data).text ?? ""
-          setGeneratedDoc((prev) => prev + text);
+          let text = JSON.parse(data).text ?? "";
+          const regex1 = /Rapport[^.]*\n/
+          const regex2 = /^\d+\.\s.*$/gm;
+          const regex3 = /((?!(Rapport[^.]*\n|\d+\.\s.*$)).)*/g
+
+          text = text.replace(/(\d+)\.\s/g, "\n$1. ");
+          setGeneratedDoc((prev) => {
+            const fulltext = prev + text;
+            if (regex1.test(fulltext) === false) {
+              setGeneratedTitle(fulltext);
+              generatedParagraphs.replace(fulltext)
+
+            };
+            const titles = fulltext.match(regex2);
+            setGeneratedTitles(titles);
+            return fulltext;
+          })
+
+
         } catch (e) {
           console.error(e);
         }
       }
-    }
+    };
+
 
     // https://web.dev/streams/#the-getreader-and-read-methods
     const reader = data.getReader();
@@ -116,6 +142,7 @@ const Generator = () => {
     scrollToDoc();
     setLoading(false);
   };
+
 
   return (
     <div className='w-full flex flex-col gap-20 text-white'>
@@ -216,11 +243,21 @@ const Generator = () => {
           <Loader/>
         </button>
       )}
-      <div className='py-10' ref={docRef}>
-        <p>{generatedDoc}</p>
+      <div className='a4-container' ref={docRef}>
+        <div className='a4'>
+          <p className='font-bold text-lg text-center'>{generatedTitle}</p>
+          <div>
+            {generatedTitles && generatedTitles.map((title, index) => (
+              <span key={index}>{title}</span>
+            ))}
+            {generatedParagraphs && generatedParagraphs.map((paragraph, index) => (
+              <span key={index}>{paragraph}</span>
+            ))}
+          </div>
+          <div></div>
+          <p>{generatedDoc}</p>
+        </div>
       </div>
-      { console.log(doc) }
-      { console.log(prompt) }
     </div>
   )
 }
