@@ -1,22 +1,22 @@
 "use client"
 
-import { motion } from 'framer-motion'
-import { useRef, useState, useEffect } from 'react'
-import { fadeIn, textVariant } from '../utils/motion'
-import SectionWrapper from './sectionwrapper'
-import Image from 'next/image'
-import Cercle1 from '../public/img/icon1white.svg'
-import Cercle2 from '../public/img/icon2white.svg'
-import Cercle3 from '../public/img/icon3white.svg'
-import Cercle4 from '../public/img/icon4white.svg'
-import Cercle5 from '../public/img/icon5white.svg'
-import { styles } from '../pages/style'
-import DropDown from './dropdown'
-import DropDownLang from './dropdownlang'
-import DropDownType from './dropdowntype'
-import PenLoader from './penloader'
-import { PlusIcon } from '@heroicons/react/20/solid'
-import Loader from './loader'
+import { motion } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import { fadeIn, textVariant } from '../utils/motion';
+import SectionWrapper from './sectionwrapper';
+import Image from 'next/image';
+import Cercle1 from '../public/img/icon1white.svg';
+import Cercle2 from '../public/img/icon2white.svg';
+import Cercle3 from '../public/img/icon3white.svg';
+import Cercle4 from '../public/img/icon4white.svg';
+import Cercle5 from '../public/img/icon5white.svg';
+import { styles } from '../pages/style';
+import DropDown from './dropdown';
+import DropDownLang from './dropdownlang';
+import DropDownType from './dropdowntype';
+import PenLoader from './penloader';
+import { PlusIcon } from '@heroicons/react/20/solid';
+import Loader from './loader';
 import {
   createParser,
   ParsedEvent,
@@ -25,45 +25,44 @@ import {
 import reactStringReplace from 'react-string-replace';
 
 
-
-
-
 const Generator = () => {
 
-  const [loading, setLoading] = useState(false)
-  const [subject, setSubject] = useState("")
-  const [doc, setDoc] = useState("Exercice")
-  const [lang, setLang] = useState("Formel 📝")
-  const [prompt, setPrompt] = useState("")
-  const [dest, setDest] = useState("")
-  const [persoType, setPersoType] = useState("Élève 👩‍🎓")
-  const [domain, setDomain] = useState("")
-  const [theme, setTheme] = useState("")
-  const [questions, setQuestions] = useState("")
-  const [job, setJob] = useState("")
-  const [competences, setCompetences] = useState("")
-  const [experiences, setExperiences] = useState("")
-  const [company, setCompany] = useState("")
-  const [myName, setMyName] = useState("")
-  const [generatedTitle, setGeneratedTitle] = useState("")
-  const [generatedDoc, setGeneratedDoc] = useState("")
-  const [generatedSections, setGeneratedSections] = useState([])
-  let replacedTitle
-  let replacedLogo
+  const [loading, setLoading] = useState(false);
+  const [subject, setSubject] = useState("");
+  const [doc, setDoc] = useState("Exercice");
+  const [lang, setLang] = useState("Formel 📝");
+  const [prompt, setPrompt] = useState("");
+  const [dest, setDest] = useState("");
+  const [persoType, setPersoType] = useState("Élève 👩‍🎓");
+  const [domain, setDomain] = useState("");
+  const [theme, setTheme] = useState("");
+  const [questions, setQuestions] = useState("");
+  const [job, setJob] = useState("");
+  const [competences, setCompetences] = useState("");
+  const [experiences, setExperiences] = useState("");
+  const [company, setCompany] = useState("");
+  const [myName, setMyName] = useState("");
+  const [generatedTitle, setGeneratedTitle] = useState("");
+  const [generatedDoc, setGeneratedDoc] = useState("");
+  const [generatedSections, setGeneratedSections] = useState([]);
+  const [length, setLength] = useState(0);
+  const [doneGeneration, setDoneGeneration] = useState(false);
+  let replacedTitle;
+  let replacedLogo;
 
   const regexTitle = /^\d+\.\s(.+)/;
 
-  const docRef = useRef()
+  const docRef = useRef();
 
   const scrollToDoc = () => {
     if (docRef.current !== null) {
       docRef.current.scrollIntoView({ behavior: "smooth" })
     }
-  }
+  };
 
   useEffect(() => {
     if (doc === "Rapport") {
-      setPrompt(`Écrivez un rapport d'une page maximum sur le sujet ${subject} en utilisant un langage ${lang}. Structurez votre rapport en sections principales, numérotées de manière claire et concise (1, 2, 3, etc.). Assurez-vous d'inclure les informations les plus importantes et les principales idées dans chaque section. Veillez à utiliser le ton et le registre appropriés pour le style de langage choisi. Concentrez-vous sur la clarté et la précision de votre écriture tout en respectant la limite d'une page maximum. Ne dépasse pas les 300 mots.`)
+      setPrompt(`Écrivez un rapport d'une page maximum sur le sujet ${subject} en utilisant un langage ${lang}. Structurez votre rapport en sections principales, numérotées de manière claire et concise (1, 2, 3, etc.). Assurez-vous d'inclure les informations les plus importantes et les principales idées dans chaque section. Veillez à utiliser le ton et le registre appropriés pour le style de langage choisi. Concentrez-vous sur la clarté et la précision de votre écriture tout en respectant la limite d'une page maximum.`)
     } else if (doc === "Lettre") {
       setPrompt(`Cher ChatGPT, je souhaiterais que vous rédigiez une lettre détaillée à ${dest}. La lettre devrait aborder ${subject} et fournir des informations spécifiques, des explications détaillées et des arguments convaincants. ${lang === "Formelle" ? "Veuillez utiliser un ton formel et respectueux tout au long de la lettre." : "Veuillez utiliser un ton familier et amical tout au long de la lettre."} Assurez-vous d'inclure une introduction claire, des paragraphes bien structurés et une conclusion pertinente. Merci d'avance pour votre aide et votre expertise dans la rédaction de cette lettre importante.`)
     } else if (doc === "Exercice") {
@@ -73,13 +72,15 @@ const Generator = () => {
     } else if (doc === "Lettre de motivation") {
       setPrompt(`Cher ChatGPT, je suis à la recherche d'un emploi dans ${job}. Pouvez-vous m'aider à rédiger une lettre de motivation convaincante qui mettra en valeur mes compétences (compétences: ${competences}), mon expérience pertinente (mes expériences: ${experiences}) et ma motivation à travailler pour l'entreprise ${company} ? Mon nom est ${myName}. J'aimerais que ma lettre soit claire, concise et engageante, et qu'elle capture l'attention du recruteur dès le début. Merci d'avance pour votre aide précieuse !`)
     }
-  })
+  });
 
   const generateDoc = async(e) => {
     e.preventDefault();
     setGeneratedDoc("");
     setGeneratedSections([]);
+    setDoneGeneration(false);
     setLoading(true);
+    setLength(0);
     const response = await fetch("/api/generate", {
       method: "POST",
       headers: {
@@ -92,30 +93,30 @@ const Generator = () => {
 
     if (!response.ok) {
       throw new Error(response.statusText);
-    }
+    };
 
     // This data is a ReadableStream
     const data = response.body;
     if (!data) {
       return;
-    }
+    };
 
     const onParse = (event) => {
       if (event.type === "event") {
         const data = event.data;
         try {
           let text = JSON.parse(data).text ?? "";
-          const regex1 = /Rapport[^.]*\n/
-          const regex3 = /(\d+\.\s.+)\n(.+)/g
+          const regex1 = /Rapport[^.]*\n/;
+          const regex3 = /(\d+\.\s.+)\n(.+)/g;
 
           setGeneratedDoc((prev) => {
             const fulltext = prev + text;
             if (regex1.test(fulltext) === false) {
               setGeneratedTitle(fulltext);
-
             };
-            const sections = [...fulltext.matchAll(regex3)]
+            const sections = [...fulltext.matchAll(regex3)];
             setGeneratedSections(sections);
+            setLength(sections.length);
             return fulltext;
           })
 
@@ -242,11 +243,11 @@ const Generator = () => {
           <Loader/>
         </button>
       )}
-      <div className='a4-container' ref={docRef}>
+      <div className='a4-container align-center flex' ref={docRef} id="page1">
         <div className='a4'>
           <h2 className='font-bold text-center'>{generatedTitle}</h2>
           <div className='py-3'>
-          {generatedSections.map((section, index) => (
+          {generatedSections.slice(0, 5).map((section, index) => (
             <div key={index} className='py-4'>
               <div className='report-title flex items-center py-3'>
                   {
@@ -262,6 +263,31 @@ const Generator = () => {
                   </h3>
 
                 </div>
+              <p>{section[2]}</p>
+            </div>
+          ))}
+          </div>
+        </div>
+      </div>
+      <div className={`a4-container ${length > 5 ? "" : "hidden"} align-center flex`} id="page2">
+        <div className='a4'>
+          <h2 className='font-bold text-center'>{}</h2>
+          <div className='py-3'>
+          {generatedSections.slice(5, length).map((section, index) => (
+            <div key={index} className='py-4'>
+              <div className='report-title flex items-center py-3'>
+                {
+                  replacedLogo = reactStringReplace(section[1], /\b\d+\./g, (match, i) => (
+                    <Image key={`number ${index + 6}`} src={`/img/icon${index + 6}black.svg`} width={30} height={30} />
+                  ))
+                }
+
+                <h3 className="px-2" >
+                  {
+                    section[1].match(regexTitle) ? section[1].match(regexTitle)[1] : null
+                  }
+                </h3>
+              </div>
               <p>{section[2]}</p>
             </div>
           ))}
