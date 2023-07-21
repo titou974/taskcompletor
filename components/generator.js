@@ -14,6 +14,7 @@ import { styles } from '../pages/style'
 import DropDown from './dropdown'
 import DropDownLang from './dropdownlang'
 import DropDownType from './dropdowntype'
+import PenLoader from './penloader'
 import { PlusIcon } from '@heroicons/react/20/solid'
 import Loader from './loader'
 import {
@@ -47,7 +48,10 @@ const Generator = () => {
   const [generatedTitle, setGeneratedTitle] = useState("")
   const [generatedDoc, setGeneratedDoc] = useState("")
   const [generatedSections, setGeneratedSections] = useState([])
+  let replacedTitle
+  let replacedLogo
 
+  const regexTitle = /^\d+\.\s(.+)/;
 
   const docRef = useRef()
 
@@ -59,7 +63,7 @@ const Generator = () => {
 
   useEffect(() => {
     if (doc === "Rapport") {
-      setPrompt(`Écrivez un rapport d'une page maximum sur le sujet ${subject} en utilisant un langage ${lang}. Structurez votre rapport en sections principales, numérotées de manière claire et concise (1, 2, 3, etc.). Assurez-vous d'inclure les informations les plus importantes et les principales idées dans chaque section. Veillez à utiliser le ton et le registre appropriés pour le style de langage choisi. Concentrez-vous sur la clarté et la précision de votre écriture tout en respectant la limite d'une page maximum.`)
+      setPrompt(`Écrivez un rapport d'une page maximum sur le sujet ${subject} en utilisant un langage ${lang}. Structurez votre rapport en sections principales, numérotées de manière claire et concise (1, 2, 3, etc.). Assurez-vous d'inclure les informations les plus importantes et les principales idées dans chaque section. Veillez à utiliser le ton et le registre appropriés pour le style de langage choisi. Concentrez-vous sur la clarté et la précision de votre écriture tout en respectant la limite d'une page maximum. Ne dépasse pas les 300 mots.`)
     } else if (doc === "Lettre") {
       setPrompt(`Cher ChatGPT, je souhaiterais que vous rédigiez une lettre détaillée à ${dest}. La lettre devrait aborder ${subject} et fournir des informations spécifiques, des explications détaillées et des arguments convaincants. ${lang === "Formelle" ? "Veuillez utiliser un ton formel et respectueux tout au long de la lettre." : "Veuillez utiliser un ton familier et amical tout au long de la lettre."} Assurez-vous d'inclure une introduction claire, des paragraphes bien structurés et une conclusion pertinente. Merci d'avance pour votre aide et votre expertise dans la rédaction de cette lettre importante.`)
     } else if (doc === "Exercice") {
@@ -241,15 +245,31 @@ const Generator = () => {
       <div className='a4-container' ref={docRef}>
         <div className='a4'>
           <h2 className='font-bold text-center'>{generatedTitle}</h2>
-          <div>
+          <div className='py-3'>
           {generatedSections.map((section, index) => (
             <div key={index} className='py-4'>
-              <h3 className='py-2'>{section[1]}</h3>
+              <div className='report-title flex items-center py-3'>
+                  {
+                    replacedLogo = reactStringReplace(section[1], /\b\d+\./g, (match, i) => (
+                      <Image key={`number ${index + 1}`} src={`/img/icon${index + 1}black.svg`} width={30} height={30}/>
+                    ))
+                  }
+
+                  <h3 className="px-2" >
+                    {
+                      section[1].match(regexTitle) ? section[1].match(regexTitle)[1] : null
+                    }
+                  </h3>
+
+                </div>
               <p>{section[2]}</p>
             </div>
           ))}
           </div>
         </div>
+      </div>
+      <div className={`${styles.paddingX} m-0 fixed bottom-0 right-0 left-0 ${loading ? "" : "hidden"}`} >
+        <PenLoader />
       </div>
     </div>
   )
