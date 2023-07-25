@@ -58,6 +58,9 @@ const PdfReport = ({generatedTitle, generatedSections, length}) => {
           </div>
         </div>
       </div>
+      <Document>
+        
+      </Document>
     </div>
   )
 };
