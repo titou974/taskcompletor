@@ -8,7 +8,7 @@ const Loader = () => {
       <div class="typing-shadow"></div>
       <div class="typing-shadow"></div>
     </div>
-  )
-}
+  );
+};
 
-export default Loader
+export default Loader;

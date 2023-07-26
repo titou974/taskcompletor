@@ -1,5 +1,5 @@
 import { navLinks } from "../utils/constants";
-import { styles } from "../pages/style";
+import styles from "./style";
 import Image from 'next/image';
 import feather from '../public/img/feather.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

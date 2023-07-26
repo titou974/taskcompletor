@@ -10,7 +10,7 @@ export const navLinks = [
   {
     id: "faq",
     title: "FAQ",
-  }
+  },
 ];
 
 export const docType = [
@@ -33,7 +33,7 @@ export const docType = [
   {
     id: "fiche de révision",
     title: "Fiche de révision",
-  }
+  },
 ];
 
 export const langType = [
@@ -58,6 +58,6 @@ export const persoType = [
   },
   {
     id: "expert",
-    title: "Expert 👨‍💼"
-  }
+    title: "Expert 👨‍💼",
+  },
 ];

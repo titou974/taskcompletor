@@ -1,5 +1,5 @@
-import { Menu, Transition } from "@headlessui/react"
-import { Fragment } from "react"
+import { Menu, Transition } from "@headlessui/react";
+import { Fragment } from "react";
 import {
   CheckIcon,
   ChevronDownIcon,
@@ -7,9 +7,7 @@ import {
 } from "@heroicons/react/20/solid";
 import { langType } from "../utils/constants";
 
-
-const DropDownLang = ({type, setType}) => {
-
+const DropDownLang = ({ type, setType }) => {
   return (
     <Menu as="div" className="relative block text-left w-full text-[16px]">
       <div>
@@ -35,16 +33,18 @@ const DropDownLang = ({type, setType}) => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items
-          className="absolute left-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-        >
+        <Menu.Items className="absolute left-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="">
             {langType.map((typeItem) => (
               <Menu.Item key={typeItem.id}>
                 {({ active }) => (
                   <button
                     onClick={() => setType(typeItem.title)}
-                    className={`${active ? "bg-gray-100 text-gray-900" : "text-gray-700"} ${type === typeItem.title ? "bg-gray-200" : ""} "px-4 py-2 w-full text-left flex items-center space-x-2 justify-between"`}
+                    className={`${
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700"
+                    } ${
+                      type === typeItem.title ? "bg-gray-200" : ""
+                    } "px-4 py-2 w-full text-left flex items-center space-x-2 justify-between"`}
                   >
                     <span className="ps-3">{typeItem.title}</span>
                     {type === typeItem.title ? (
@@ -58,7 +58,7 @@ const DropDownLang = ({type, setType}) => {
         </Menu.Items>
       </Transition>
     </Menu>
-  )
-}
+  );
+};
 
-export default DropDownLang
+export default DropDownLang;

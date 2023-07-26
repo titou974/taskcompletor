@@ -19,4 +19,4 @@ const styles = {
     "font-medium md:text-[20px] sm:text-[26px] xs:text-[20px] text-[20px] lg:leading-[40px]",
 };
 
-export { styles };
+export default styles;

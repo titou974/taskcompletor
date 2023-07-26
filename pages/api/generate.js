@@ -11,22 +11,19 @@ export const config = {
   runtime: "edge",
 };
 
-const handler = async(req) => {
-  const { prompt } = await req.json()
+const handler = async (req) => {
+  const { prompt } = await req.json();
 
   if (!prompt) {
     return new Response("No prompt in the request", { status: 400 });
   }
 
-
   const stream = await OpenAIStream(prompt);
-  return new Response(
-    stream, {
-      headers: new Headers({
-        'Cache-Control': 'no-cache',
-      })
-    }
-  )
+  return new Response(stream, {
+    headers: new Headers({
+      "Cache-Control": "no-cache",
+    }),
+  });
 };
 
 export default handler;

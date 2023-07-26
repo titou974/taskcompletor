@@ -1,14 +1,12 @@
 import {
   createParser,
   ParsedEvent,
-  ReconnectInterval
-} from "eventsource-parser"
-
+  ReconnectInterval,
+} from "eventsource-parser";
 
 export async function OpenAIStream(prompt) {
-
   const encoder = new TextEncoder();
-  const decoder = new TextDecoder;
+  const decoder = new TextDecoder();
 
   const payload = {
     model: "gpt-3.5-turbo",
@@ -20,7 +18,7 @@ export async function OpenAIStream(prompt) {
     max_tokens: 1000,
     stream: true,
     n: 1,
-  }
+  };
 
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
     headers: {
@@ -28,26 +26,28 @@ export async function OpenAIStream(prompt) {
       Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}`,
     },
     method: "POST",
-    body: JSON.stringify(payload)
-  })
+    body: JSON.stringify(payload),
+  });
 
   const readableStream = new ReadableStream({
     async start(controller) {
       const onParse = (event) => {
         if (event.type === "event") {
           const data = event.data;
-          controller.enqueue(encoder.encode(data))
+          controller.enqueue(encoder.encode(data));
         }
-      }
+      };
       if (res.status !== 200) {
         const data = {
           status: res.status,
-          statusText:res.statusText,
+          statusText: res.statusText,
           body: await res.text(),
-        }
-        console.log(`Error: received non-200 status code, ${JSON.stringify(data)}`)
+        };
+        console.log(
+          `Error: received non-200 status code, ${JSON.stringify(data)}`,
+        );
         controller.close();
-        return
+        return;
       }
 
       const parser = createParser(onParse);
@@ -56,7 +56,6 @@ export async function OpenAIStream(prompt) {
         parser.feed(decoder.decode(chunk));
       }
     },
-
   });
   let counter = 0;
   const transformStream = new TransformStream({
@@ -69,18 +68,18 @@ export async function OpenAIStream(prompt) {
       try {
         const json = JSON.parse(data);
         const text = json.choices[0].delta?.content || "";
-        if (counter < 2 && (text.match(/\n/))) {
+        if (counter < 2 && text.match(/\n/)) {
           return;
         }
-        const payload = {text: text};
+        const payload = { text: text };
         controller.enqueue(
-          encoder.encode(`data: ${JSON.stringify(payload)}\n\n`)
+          encoder.encode(`data: ${JSON.stringify(payload)}\n\n`),
         );
         counter++;
       } catch (e) {
         controller.error(e);
       }
-    }
+    },
   });
   return readableStream.pipeThrough(transformStream);
 }
