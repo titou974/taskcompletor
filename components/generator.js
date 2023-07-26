@@ -538,4 +538,4 @@ const Generator = () => {
   );
 };
 
-export default Generator;
+export default SectionWrapper(Generator, "#id");
