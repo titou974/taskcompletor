@@ -22,8 +22,8 @@ import {
   ParsedEvent,
   ReconnectInterval,
 } from "eventsource-parser";
-import PdfReport from './pdf';
-
+import RenderReport from './pdf/pdfreport';
+import axios from 'axios';
 
 const Generator = () => {
 
@@ -47,6 +47,7 @@ const Generator = () => {
   const [generatedSections, setGeneratedSections] = useState([]);
   const [length, setLength] = useState(0);
   const [doneGeneration, setDoneGeneration] = useState(false);
+  const [finalText, setFinalText] = useState("");
   const docRef = useRef();
 
   const scrollToDoc = () => {
@@ -112,6 +113,7 @@ const Generator = () => {
             const sections = [...fulltext.matchAll(regex3)];
             setGeneratedSections(sections);
             setLength(sections.length);
+            setFinalText(fulltext)
             return fulltext;
           })
 
@@ -136,6 +138,12 @@ const Generator = () => {
     }
     scrollToDoc();
     setLoading(false);
+    try {
+      const apiResponse = await axios.post('/api/saveGeneratedText', { finalText });
+      console.log(apiResponse.data.message); // 'Generated title saved successfully!'
+    } catch (error) {
+      console.error('Error saving generatedTitle:', error);
+    }
   };
 
 
@@ -239,13 +247,14 @@ const Generator = () => {
         </button>
       )}
       <div ref={docRef}>
-        <PdfReport generatedTitle={generatedTitle} generatedSections={generatedSections} length={length} />
+        <RenderReport generatedTitle={generatedTitle} generatedSections={generatedSections} length={length} />
       </div>
       <div className={`${styles.paddingX} m-0 fixed bottom-0 right-0 left-0 ${loading ? "" : "hidden"}`} >
         <PenLoader />
       </div>
+      {finalText}
     </div>
   )
 }
 
-export default SectionWrapper(Generator, "generator")
+export default Generator;

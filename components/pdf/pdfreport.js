@@ -1,11 +1,9 @@
-import Image from 'next/image';
 import reactStringReplace from 'react-string-replace';
-import { Document } from "@react-pdf/renderer";
-let replacedLogo
+let replacedLogo;
 
 const regexTitle = /^\d+\.\s(.+)/;
 
-const PdfReport = ({generatedTitle, generatedSections, length}) => {
+const RenderReport = ({generatedTitle, generatedSections, length}) => {
   return (
     <div className='w-full'>
       <div className='a4-container align-center flex gap-x-4' id="page1">
@@ -17,7 +15,7 @@ const PdfReport = ({generatedTitle, generatedSections, length}) => {
                 <div className='report-title flex items-center py-3'>
                   {
                     replacedLogo = reactStringReplace(section[1], /\b\d+\./g, (match, i) => (
-                      <Image key={`number ${index + 1}`} src={`/img/icon${index + 1}black.svg`} width={30} height={30}/>
+                      <img key={`number ${index + 1}`} src={`/img/icon${index + 1}black.svg`} width={30} height={30}/>
                     ))
                   }
 
@@ -42,7 +40,7 @@ const PdfReport = ({generatedTitle, generatedSections, length}) => {
               <div className='report-title flex items-center py-3'>
                 {
                   replacedLogo = reactStringReplace(section[1], /\b\d+\./g, (match, i) => (
-                  <Image key={`number ${index + 6}`} src={`/img/icon${index + 6}black.svg`} width={30} height={30} />
+                  <img key={`number ${index + 6}`} src={`/img/icon${index + 6}black.svg`} width={30} height={30} />
                   ))
                 }
 
@@ -58,11 +56,8 @@ const PdfReport = ({generatedTitle, generatedSections, length}) => {
           </div>
         </div>
       </div>
-      <Document>
-        
-      </Document>
     </div>
   )
 };
 
-export default PdfReport;
+export default RenderReport;
