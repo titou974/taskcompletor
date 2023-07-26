@@ -1,6 +1,4 @@
-import { Document, Page, View, Text, Image, PDFViewer, StyleSheet, Font } from "@react-pdf/renderer";
 import { useState, useEffect } from "react";
-import PDF from "./pdfcreate";
 import axios from "axios";
 
 const PDFView = () => {

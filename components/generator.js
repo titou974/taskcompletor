@@ -77,6 +77,7 @@ const Generator = () => {
     setDoneGeneration(false);
     setLoading(true);
     setLength(0);
+    setFinalText('');
     const response = await fetch("/api/generate", {
       method: "POST",
       headers: {
@@ -252,7 +253,6 @@ const Generator = () => {
       <div className={`${styles.paddingX} m-0 fixed bottom-0 right-0 left-0 ${loading ? "" : "hidden"}`} >
         <PenLoader />
       </div>
-      {finalText}
     </div>
   )
 }
