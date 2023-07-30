@@ -15,7 +15,8 @@ import DropDown from "./dropdown";
 import DropDownLang from "./dropdownlang";
 import DropDownType from "./dropdowntype";
 import PenLoader from "./penloader";
-import { PlusIcon } from "@heroicons/react/20/solid";
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
+import feather from "../public/img/feather.png"
 import Loader from "./loader";
 import {
   createParser,
@@ -214,7 +215,7 @@ const Generator = () => {
             value={myName}
             onChange={(e) => setMyName(e.target.value)}
             rows={2}
-            className="w-5/12 rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black px-4 py-1 text-gray-700 caret-gray-700"
+            className="w-5/12 bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black px-4 py-1 text-gray-700 caret-gray-700"
             placeholder="Votre nom"
           />
           <textarea
@@ -225,7 +226,7 @@ const Generator = () => {
                 : (e) => setCompany(e.target.value)
             }
             rows={2}
-            className="w-5/12 rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black px-4 py-1 text-gray-700 caret-gray-700"
+            className="w-5/12 bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black px-4 py-1 text-gray-700 caret-gray-700"
             placeholder={`${
               doc === "Lettre" ? "Mike Tyson" : "Café Élementaire"
             }`}
@@ -296,7 +297,7 @@ const Generator = () => {
             value={job}
             onChange={(e) => setJob(e.target.value)}
             rows={1}
-            className={`w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${
+            className={`w-full bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${
               doc == "Lettre de motivation" ? "" : "hidden"
             }`}
             placeholder="Serveur"
@@ -305,7 +306,7 @@ const Generator = () => {
             value={theme}
             onChange={(e) => setTheme(e.target.value)}
             rows={1}
-            className={`w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${
+            className={`w-full bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${
               doc == "Fiche de révision" ? "" : "hidden"
             }`}
             placeholder="Marketing digital"
@@ -382,7 +383,7 @@ const Generator = () => {
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
             rows={4}
-            className={`w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${
+            className={`w-full bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${
               doc === "Rapport" || doc === "Lettre" ? "" : "hidden"
             }`}
             placeholder="Les espèces d’insectes qui vivent dans les tropiques, avec des précisions sur le moustique."
@@ -391,7 +392,7 @@ const Generator = () => {
             value={theme}
             onChange={(e) => setTheme(e.target.value)}
             rows={1}
-            className={`w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${
+            className={`w-full bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${
               doc == "Exercice" ? "" : "hidden"
             }`}
             placeholder="Financial Reporting"
@@ -400,7 +401,7 @@ const Generator = () => {
             value={domain}
             onChange={(e) => setDomain(e.target.value)}
             rows={1}
-            className={`w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${
+            className={`w-full bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${
               doc == "Fiche de révision" ? "" : "hidden"
             }`}
             placeholder="SEO et SEA"
@@ -409,7 +410,7 @@ const Generator = () => {
             value={competences}
             onChange={(e) => setCompetences(e.target.value)}
             rows={1}
-            className={`w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${
+            className={`w-full bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${
               doc == "Lettre de motivation" ? "" : "hidden"
             }`}
             placeholder="Bilingue anglais, dynamique, bonne mémoire"
@@ -449,7 +450,7 @@ const Generator = () => {
             value={domain}
             onChange={(e) => setDomain(e.target.value)}
             rows={1}
-            className={`w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${
+            className={`w-full bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${
               doc == "Exercice" ? "" : "hidden"
             }`}
             placeholder="Capital immatériel du groupe Kering"
@@ -458,7 +459,7 @@ const Generator = () => {
             value={experiences}
             onChange={(e) => setExperiences(e.target.value)}
             rows={4}
-            className={`w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${
+            className={`w-full bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${
               doc == "Lettre de motivation" ? "" : "hidden"
             }`}
             placeholder="barman pendant 1 mois aux fontaines (le mois dernier) et serveur au Ritz l'été 2022"
@@ -491,7 +492,7 @@ const Generator = () => {
             value={questions}
             onChange={(e) => setQuestions(e.target.value)}
             rows={4}
-            className={`w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${
+            className={`w-full bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${
               doc == "Exercice" ? "" : "hidden"
             }`}
             placeholder="5.1 Qu'est-ce qui est le plus frappant lorsque l'on regarde les actifs de KERING ?
@@ -505,17 +506,17 @@ const Generator = () => {
       </div>
       {!loading && (
         <button
-          className={`${styles.sectionSubText} bg-white hover:bg-black text-black hover:text-white w-full md:w-1/2 mx-auto h-20 py-2 px-4 rounded-md flex justify-center items-center`}
+          className={`${styles.sectionSubText} cta2`}
           onClick={(e) => generateDoc(e)}
         >
           {`Générer votre document`}
-          <PlusIcon className="w-[35px] ms-2"></PlusIcon>
+          <PencilSquareIcon className="ms-3 cta2-icon" src={feather}></PencilSquareIcon>
         </button>
       )}
       {loading && (
         <button
           disabled
-          className={`${styles.sectionSubText} bg-white text-black w-full md:w-1/2 mx-auto h-20 py-2 px-4 rounded-md`}
+          className={`${styles.sectionSubText} cta2 disabled cursor-wait`}
         >
           <Loader />
         </button>
