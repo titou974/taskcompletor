@@ -104,9 +104,9 @@
 }
 
 .a4-container {
-  width: 50%;
+  width: 100%;
   height: 100%;
-  margin: 5em auto;
+  margin: 0 auto;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
   border-radius: 0.375rem;
 }
@@ -429,5 +429,26 @@ h3 {
 }
 
 .cta2:hover .cta2-icon {
+  width: 30px;
+}
+
+.cta4 {
+  width: 33%;
+  background-color: #00003f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  border-radius: 6px;
+}
+
+.cta4-icon {
+  width: 30px;
+  overflow: hidden;
+  transition: 0.5s;
+  width: 0;
+}
+
+.cta4:hover .cta4-icon {
   width: 30px;
 }

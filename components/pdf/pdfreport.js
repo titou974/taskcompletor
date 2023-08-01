@@ -5,7 +5,7 @@ const regexTitle = /^\d+\.\s(.+)/;
 
 const RenderReport = ({ generatedTitle, generatedSections, length }) => {
   return (
-    <div>
+    <div className="w-full mx-auto">
       <div className="a4-container align-center flex gap-x-4" id="page1">
         <div className="a4">
           <h2 className="font-bold text-center">{generatedTitle}</h2>

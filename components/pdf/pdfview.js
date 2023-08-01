@@ -1,26 +1,30 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { PDFViewer } from "@react-pdf/renderer";
+import PDF from "./pdfcreate";
+
+
 
 const PDFView = () => {
   const [client, setClient] = useState(false);
   const [fetchedText, setFetchedText] = useState("");
   useEffect(() => {
-    const fetchGeneratedText = async () => {
+    const getServersSideProps = async() => {
       try {
-        const response = await axios.get("/api/getGeneratedText");
-        const { finalText } = response.data;
-        setFetchedText(finalText);
+        const res = await axios.get('/api/documents');
+        const props  = res.data[0].content;
+        setFetchedText(props)
       } catch (error) {
-        console.error("Error fetching generatedTitle:", error);
+        console.log('Error fetching props:', error)
       }
     };
-    fetchGeneratedText();
+    getServersSideProps();
     setClient(true);
   }, []);
 
   return (
     <PDFViewer className="w-full h-screen">
-      <PDF test={fetchedText} />
+      <PDF props={fetchedText} />
     </PDFViewer>
   );
 };

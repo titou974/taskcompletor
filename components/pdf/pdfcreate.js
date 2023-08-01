@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Font,
 } from "@react-pdf/renderer";
-import { useState, useEffect } from "react";
+
 
 Font.register({ family: "OpenSansLight", src: "/assets/OpenSans-Light.ttf" });
 
@@ -20,12 +20,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const PDF = ({ test }) => {
+const PDF = ({ props }) => {
   return (
     <Document>
       <Page size="A4" style={styles.body}>
         <View style={{ display: "flex", justifyContent: "center" }}>
-          <Text wrap={false}>{test}</Text>
+          <Text wrap={false}>{props}</Text>
         </View>
       </Page>
     </Document>

@@ -15,7 +15,7 @@ import DropDown from "./dropdown";
 import DropDownLang from "./dropdownlang";
 import DropDownType from "./dropdowntype";
 import PenLoader from "./penloader";
-import { PencilSquareIcon } from "@heroicons/react/24/outline";
+import { PencilSquareIcon, CheckCircleIcon, DocumentIcon } from "@heroicons/react/24/solid";
 import feather from "../public/img/feather.png"
 import Loader from "./loader";
 import {
@@ -25,6 +25,7 @@ import {
 } from "eventsource-parser";
 import RenderReport from "./pdf/pdfreport";
 import axios from "axios";
+import Link from 'next/link';
 
 const Generator = () => {
   const [loading, setLoading] = useState(false);
@@ -48,11 +49,25 @@ const Generator = () => {
   const [length, setLength] = useState(0);
   const [doneGeneration, setDoneGeneration] = useState(false);
   const [finalText, setFinalText] = useState("");
+  const [saved, setSaved] = useState(false)
   const docRef = useRef();
+  const [showCustom, setShowCustom] = useState(false);
 
   const scrollToDoc = () => {
     if (docRef.current !== null) {
       docRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const saveDocument = async e => {
+    e.preventDefault()
+    try {
+      await axios.post("/api/documents", {
+        content: finalText,
+      });
+      setSaved(true)
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -86,12 +101,15 @@ const Generator = () => {
 
   const generateDoc = async (e) => {
     e.preventDefault();
+    setSaved(false);
     setGeneratedDoc("");
+    setGeneratedTitle("");
     setGeneratedSections([]);
     setDoneGeneration(false);
     setLoading(true);
     setLength(0);
     setFinalText("");
+    setShowCustom(false);
     const response = await fetch("/api/generate", {
       method: "POST",
       headers: {
@@ -149,15 +167,8 @@ const Generator = () => {
       parser.feed(chunkValue);
     }
     scrollToDoc();
+    setShowCustom(true);
     setLoading(false);
-    try {
-      const apiResponse = await axios.post("/api/saveGeneratedText", {
-        finalText,
-      });
-      console.log(apiResponse.data.message); // 'Generated title saved successfully!'
-    } catch (error) {
-      console.error("Error saving generatedTitle:", error);
-    }
   };
 
   return (
@@ -510,7 +521,7 @@ const Generator = () => {
           onClick={(e) => generateDoc(e)}
         >
           {`Générer votre document`}
-          <PencilSquareIcon className="ms-3 cta2-icon" src={feather}></PencilSquareIcon>
+          <PencilSquareIcon className="ms-3 cta2-icon " src={feather}></PencilSquareIcon>
         </button>
       )}
       {loading && (
@@ -521,12 +532,28 @@ const Generator = () => {
           <Loader />
         </button>
       )}
-      <div ref={docRef}>
-        <RenderReport
-          generatedTitle={generatedTitle}
-          generatedSections={generatedSections}
-          length={length}
-        />
+      <div ref={docRef} className="h-full">
+        <div className="relative h-full w-1/2 mx-auto">
+          <div className="w-full mx-auto flex justify-end absolute top-0 left-0 z-50 bg-transparent">
+            <Link href="/mypdf" className={`w-full flex justify-end ${saved ? "" : "hidden"}`}>
+              <button className="cta4">
+                <div className="flex justify-center align-center my-auto">
+                  <p>Voir le PDF</p>
+                  <DocumentIcon className="w-[22px] h-[22px] ms-3 cta4-icon"/>
+                </div>
+              </button>
+            </Link>
+            <button className={`transition-colors px-4 py-4 rounded-md hover:bg-green-800 hover:text-white text-green-800 font-bold flex justify-center align-center text-upcase ${ !showCustom || saved ? "hidden" : ""}`} onClick={saveDocument}>
+              Sauvegarder
+              <CheckCircleIcon className="w-[24px] h-[24px] ms-1" />
+            </button>
+          </div>
+            <RenderReport
+              generatedTitle={generatedTitle}
+              generatedSections={generatedSections}
+              length={length}
+            />
+        </div>
       </div>
       <div
         className={`${styles.paddingX} m-0 fixed bottom-0 right-0 left-0 ${
