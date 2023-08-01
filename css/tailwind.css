@@ -452,3 +452,24 @@ h3 {
 .cta4:hover .cta4-icon {
   width: 30px;
 }
+
+.cta5 {
+  width: 33%;
+  background-color: rgb(22 163 74);
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  border-radius: 6px;
+  color: white;
+}
+
+.cta5-icon {
+  width: 30px;
+  overflow: hidden;
+  transition: 0.5s;
+  width: 0;
+}
+
+.cta5:hover .cta5-icon {
+  width: 30px;
+}

@@ -60,7 +60,8 @@ const Generator = () => {
   };
 
   const saveDocument = async e => {
-    e.preventDefault()
+    e.preventDefault();
+    setLoading(true);
     try {
       await axios.post("/api/documents", {
         content: finalText,
@@ -69,6 +70,7 @@ const Generator = () => {
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -543,10 +545,13 @@ const Generator = () => {
                 </div>
               </button>
             </Link>
-            <button className={`transition-colors px-4 py-4 rounded-md hover:bg-green-800 hover:text-white text-green-800 font-bold flex justify-center align-center text-upcase ${ !showCustom || saved ? "hidden" : ""}`} onClick={saveDocument}>
+            <button className={`cta5 ${ loading || !showCustom || saved ? "hidden" : "flex"}`} onClick={saveDocument}>
               Sauvegarder
-              <CheckCircleIcon className="w-[24px] h-[24px] ms-1" />
+              <CheckCircleIcon className="w-[24px] h-[24px] ms-1 cta5-icon" />
             </button>
+              <button className={`${ !loading || !showCustom || saved ? "hidden" : ""} flex w-1/3 rounded-md justify-center align-center bg-green-600 text-white p-1`} disabled>
+                <Loader />
+              </button>
           </div>
             <RenderReport
               generatedTitle={generatedTitle}
