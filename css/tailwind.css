@@ -103,20 +103,21 @@
   animation-delay: 0.3s;
 }
 
+/* a4 for report */
+
 .a4-container {
   width: 100%;
-  height: 100%;
-  margin: 0 auto;
+  height: 550px;
+  margin: 0 auto 2em auto;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
   border-radius: 0.375rem;
 }
 
 .a4 {
-  width: 5895.2px;
-  height: 841.92px;
+  width: 100%;
+  height: 100%;
   background-color: white;
   margin: 0 auto;
-  padding: 5em;
   font-family: "Times New Roman", Times, serif;
   font-size: 9px;
   color: black;
@@ -126,16 +127,49 @@
 .a4 p {
   font-family: "Times New Roman", Times, serif;
   white-space: pre-wrap;
+  font-size: 12px;
 }
 
 .a4 h2,
 h3 {
   font-family: "Times New Roman", Times, serif;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .a4 h2 {
   text-decoration: underline;
+}
+
+@media (min-width: 450px)  {
+  .a4-container {
+    height: 600px;
+  }
+  .a4 p {
+
+  }
+
+  .a4 h2,
+  h3 {
+
+  }
+}
+
+@media (min-width: 640px)  {
+  .a4-container {
+    height: 900px;
+  }
+}
+
+@media (min-width: 768px)  {
+  .a4-container {
+    height: 1100px;
+  }
+}
+
+@media (min-width: 1024px)  {
+  .a4-container {
+    height: 1500px;
+  }
 }
 
 /* Pencil Loader */
@@ -409,9 +443,8 @@ h3 {
 }
 
 .cta2 {
-  width: 50%;
+  width: 100%;
   background-color: #00003f;
-  display: flex;
   margin: 0 auto;
   justify-content: center;
   align-items: center;
@@ -472,4 +505,9 @@ h3 {
 
 .cta5:hover .cta5-icon {
   width: 30px;
+}
+
+.titlemodal {
+  font-family: "Roboto Mono", monospace;
+
 }

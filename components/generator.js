@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, Fragment } from "react";
 import { fadeIn, textVariant } from "../utils/motion";
 import SectionWrapper from "./sectionwrapper";
 import Image from "next/image";
@@ -26,6 +26,10 @@ import {
 import RenderReport from "./pdf/pdfreport";
 import axios from "axios";
 import Link from 'next/link';
+import { Dialog, Transition } from '@headlessui/react';
+import ModalIntro from "./modalintro";
+import ModalSaved from "./modalsaved";
+import { ShareIcon } from "@heroicons/react/24/outline";
 
 const Generator = () => {
   const [loading, setLoading] = useState(false);
@@ -50,13 +54,49 @@ const Generator = () => {
   const [doneGeneration, setDoneGeneration] = useState(false);
   const [finalText, setFinalText] = useState("");
   const [saved, setSaved] = useState(false)
-  const docRef = useRef();
   const [showCustom, setShowCustom] = useState(false);
+  const [modalIntroVisible, setModalIntroVisible] = useState(false);
+  const [modalIntroDesactivate, setModalIntroDesactivate] = useState(false);
+
+  let [isOpen, setIsOpen] = useState(false);
+
+  const docRef = useRef();
+  const modalIntroRef = useRef();
+
+  const closeModalIntro = () => {
+    setModalIntroDesactivate(true);
+  }
+
+  useEffect(() => {
+    const observerIntro = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      if (entry.isIntersecting && !modalIntroDesactivate) {
+        setModalIntroVisible(true);
+      } else {
+        setModalIntroVisible(false);
+      }
+      console.log('entry', entry);
+    })
+    observerIntro.observe(modalIntroRef.current);
+
+    return () => {
+      observerIntro.disconnect();
+
+    }
+  })
 
   const scrollToDoc = () => {
     if (docRef.current !== null) {
       docRef.current.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  function closeModal() {
+    setIsOpen(false)
+  };
+
+  function openModal() {
+    setIsOpen(true)
   };
 
   const saveDocument = async e => {
@@ -67,6 +107,7 @@ const Generator = () => {
         content: finalText,
       });
       setSaved(true)
+      openModal();
     } catch (error) {
       console.log(error);
     }
@@ -101,6 +142,8 @@ const Generator = () => {
     }
   });
 
+
+
   const generateDoc = async (e) => {
     e.preventDefault();
     setSaved(false);
@@ -112,6 +155,7 @@ const Generator = () => {
     setLength(0);
     setFinalText("");
     setShowCustom(false);
+    setShowCustom(true);
     const response = await fetch("/api/generate", {
       method: "POST",
       headers: {
@@ -169,13 +213,12 @@ const Generator = () => {
       parser.feed(chunkValue);
     }
     scrollToDoc();
-    setShowCustom(true);
     setLoading(false);
   };
 
   return (
     <div className="w-full flex flex-col gap-20 text-white">
-      <div className="flex flex-col items-center justify-center gap-10">
+      <div className="flex flex-col items-center justify-center gap-10 z-30">
         <motion.div
           variants={textVariant()}
           className="flex items-center gap-4 w-full md:w-1/2"
@@ -391,6 +434,7 @@ const Generator = () => {
         <motion.div
           variants={fadeIn("", "", 0.1, 1)}
           className="w-full md:w-1/2"
+          ref={modalIntroRef}
         >
           <textarea
             value={subject}
@@ -519,11 +563,11 @@ const Generator = () => {
       </div>
       {!loading && (
         <button
-          className={`${styles.sectionSubText} cta2`}
+          className={`${styles.sectionSubText} cta2 md:w-1/2 flex`}
           onClick={(e) => generateDoc(e)}
         >
           {`Générer votre document`}
-          <PencilSquareIcon className="ms-3 cta2-icon " src={feather}></PencilSquareIcon>
+          <PencilSquareIcon className="ms-3 cta2-icon" src={feather}></PencilSquareIcon>
         </button>
       )}
       {loading && (
@@ -535,23 +579,21 @@ const Generator = () => {
         </button>
       )}
       <div ref={docRef} className="h-full">
-        <div className="relative h-full w-1/2 mx-auto">
+        <div className="relative h-full mx-auto">
           <div className="w-full mx-auto flex justify-end absolute top-0 left-0 z-50 bg-transparent">
             <Link href="/mypdf" className={`w-full flex justify-end ${saved ? "" : "hidden"}`}>
-              <button className="cta4">
-                <div className="flex justify-center align-center my-auto">
-                  <p>Voir le PDF</p>
-                  <DocumentIcon className="w-[22px] h-[22px] ms-3 cta4-icon"/>
-                </div>
+              <button className="cta2 flex">
+                <p className={`${styles.sectionSubText}`}>Voir le PDF</p>
+                <DocumentIcon className="w-[22px] h-[22px] ms-3 cta2-icon"/>
               </button>
             </Link>
-            <button className={`cta5 ${ loading || !showCustom || saved ? "hidden" : "flex"}`} onClick={saveDocument}>
-              Sauvegarder
-              <CheckCircleIcon className="w-[24px] h-[24px] ms-1 cta5-icon" />
+            <button className={`cta2 ${ loading || !showCustom || saved ? "hidden" : "flex"}`} onClick={saveDocument}>
+              <p className={`${styles.sectionSubText}`}>Partager</p>
+              <ShareIcon className="cta2-icon h-8 w-8 ps-3"/>
             </button>
-              <button className={`${ !loading || !showCustom || saved ? "hidden" : ""} flex w-1/3 rounded-md justify-center align-center bg-green-600 text-white p-1`} disabled>
-                <Loader />
-              </button>
+            <button className={`cta2 ${ !loading || !showCustom || saved ? "hidden" : "flex"}`} disabled>
+              <Loader />
+            </button>
           </div>
             <RenderReport
               generatedTitle={generatedTitle}
@@ -560,6 +602,10 @@ const Generator = () => {
             />
         </div>
       </div>
+      {/* Modal Intro */}
+      <ModalIntro isOpen={modalIntroVisible} closeModal={closeModalIntro}/>
+      {/* Modal Saved */}
+      <ModalSaved isOpen={isOpen} closeModal={closeModal} generatedTitle={generatedTitle} doc={doc} />
       <div
         className={`${styles.paddingX} m-0 fixed bottom-0 right-0 left-0 ${
           loading ? "" : "hidden"

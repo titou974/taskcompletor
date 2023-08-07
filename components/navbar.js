@@ -12,7 +12,7 @@ import {
 
 const Navbar = () => {
   return (
-    <nav className={`${styles.paddingX} w-full fixed top-0 py-5 flex items-center justify-center z-50 text-[16px] bg-primary text-white`}>
+    <nav className={`${styles.paddingX} w-full fixed top-0 py-5 flex items-center justify-center z-20 text-[16px] bg-primary text-white`}>
       <div className="w-full flex items-center justify-between max-w-7xl">
         <div className="cursor-pointer">
           <Image src={feather} alt="A writer feather" className= "w-[35px] lg:w-[50px] z-50"/>

@@ -23,7 +23,7 @@ const Hero = () => {
             Générer un beau document n’a jamais été aussi simple.
           </p>
           <a
-            className={`${styles.heroSubTextLight} my-8 w-1/3 z-50 bg-tertiary rounded-md`}
+            className={`${styles.heroSubTextLight} my-8 w-1/3 z-10 bg-tertiary rounded-md`}
           >
             <button className="cta1">
               <p>Créer</p>
@@ -42,7 +42,7 @@ const Hero = () => {
           />
         </div>
       </div>
-      <div className="absolute bottom-12 w-full flex justify-center">
+      <div className="absolute bottom-12 w-full flex justify-center z-10">
         <FontAwesomeIcon
           icon={faChevronCircleDown}
           className="w-[50px] hover:text-tertiary cursor-pointer transition-colors"
