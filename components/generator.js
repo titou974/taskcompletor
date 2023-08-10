@@ -31,6 +31,7 @@ import ModalIntro from "./modalintro";
 import ModalSaved from "./modalsaved";
 import { ShareIcon } from "@heroicons/react/24/outline";
 
+
 const Generator = () => {
   const [loading, setLoading] = useState(false);
   const [subject, setSubject] = useState("");
@@ -563,17 +564,17 @@ const Generator = () => {
       </div>
       {!loading && (
         <button
-          className={`${styles.sectionSubText} cta2 md:w-1/2 flex`}
+          className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 md:w-1/2 flex`}
           onClick={(e) => generateDoc(e)}
         >
-          {`Générer votre document`}
-          <PencilSquareIcon className="ms-3 cta2-icon" src={feather}></PencilSquareIcon>
+          {`Générer`}
+          <PencilSquareIcon className="ms-3 lg:ms-5 cta2-icon" src={feather}></PencilSquareIcon>
         </button>
       )}
       {loading && (
         <button
           disabled
-          className={`${styles.sectionSubText} cta2 disabled cursor-wait`}
+          className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 disabled cursor-wait`}
         >
           <Loader />
         </button>
@@ -588,7 +589,7 @@ const Generator = () => {
               </button>
             </Link>
             <button className={`cta2 ${ loading || !showCustom || saved ? "hidden" : "flex"}`} onClick={saveDocument}>
-              <p className={`${styles.sectionSubText}`}>Partager</p>
+              <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Partager</p>
               <ShareIcon className="cta2-icon h-8 w-8 ps-3"/>
             </button>
             <button className={`cta2 ${ !loading || !showCustom || saved ? "hidden" : "flex"}`} disabled>
