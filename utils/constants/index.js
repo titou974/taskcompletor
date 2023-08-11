@@ -33,7 +33,7 @@ export const docType = [
   {
     id: "fiche de révision",
     title: "Fiche de révision",
-  },
+  }
 ];
 
 export const langType = [
