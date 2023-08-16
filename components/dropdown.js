@@ -8,8 +8,6 @@ import {
 } from "@heroicons/react/20/solid";
 import { docType } from "../utils/constants";
 
-const DocumentType = ["Étude de cas", "Rapport", "Lettre"];
-
 const DropDown = ({ type, setType }) => {
   return (
     <Menu as="div" className="relative block text-left w-full text-[16px]">

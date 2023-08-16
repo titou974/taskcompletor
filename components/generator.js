@@ -30,7 +30,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import ModalIntro from "./modalintro";
 import ModalSaved from "./modalsaved";
 import { ShareIcon } from "@heroicons/react/24/outline";
-
+import TabsDocument from "./tabsdocument";
 
 const Generator = () => {
   const [loading, setLoading] = useState(false);
@@ -237,6 +237,7 @@ const Generator = () => {
           className="w-full md:w-1/2"
         >
           <DropDown type={doc} setType={(newDoc) => setDoc(newDoc)} />
+          <TabsDocument type={doc} setType={(newDoc) => setDoc(newDoc)}/>
         </motion.div>
         <motion.div
           variants={textVariant()}
