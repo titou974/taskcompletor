@@ -221,9 +221,9 @@ const Generator = () => {
     <div className="w-full flex flex-col gap-20 text-white">
       <div className="flex flex-col items-center justify-center gap-10 z-30">
         <motion.div
-          variants={textVariant()}
-          className="flex items-center gap-4 w-full md:w-1/2"
-        >
+            variants={textVariant()}
+            className="flex items-center gap-4 w-full text-center justify-center"
+          >
           <Image src={Cercle1} width={50} height={50} alt="step 1" />
           <h2 className={`${styles.sectionSubText} font-bold hidden lg:block`}>
             Sélectionner un type de document
@@ -234,9 +234,8 @@ const Generator = () => {
         </motion.div>
         <motion.div
           variants={fadeIn("", "", 0.1, 1)}
-          className="w-full md:w-1/2"
+          className="w-full"
         >
-          <DropDown type={doc} setType={(newDoc) => setDoc(newDoc)} />
           <TabsDocument type={doc} setType={(newDoc) => setDoc(newDoc)}/>
         </motion.div>
         <motion.div
