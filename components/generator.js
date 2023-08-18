@@ -31,6 +31,7 @@ import ModalIntro from "./modalintro";
 import ModalSaved from "./modalsaved";
 import { ShareIcon } from "@heroicons/react/24/outline";
 import TabsDocument from "./tabsdocument";
+import RadioGroupLangType from "./radiogrouplangtype";
 
 const Generator = () => {
   const [loading, setLoading] = useState(false);
@@ -141,6 +142,7 @@ const Generator = () => {
         `Cher ChatGPT, je suis à la recherche d'un emploi dans ${job}. Pouvez-vous m'aider à rédiger une lettre de motivation convaincante qui mettra en valeur mes compétences (compétences: ${competences}), mon expérience pertinente (mes expériences: ${experiences}) et ma motivation à travailler pour l'entreprise ${company} ? Mon nom est ${myName}. J'aimerais que ma lettre soit claire, concise et engageante, et qu'elle capture l'attention du recruteur dès le début. Merci d'avance pour votre aide précieuse !`,
       );
     }
+    console.log(lang);
   });
 
 
@@ -340,7 +342,7 @@ const Generator = () => {
             doc === "Lettre" || doc === "Rapport" ? "" : "hidden"
           }`}
         >
-          <DropDownLang type={lang} setType={(newLang) => setLang(newLang)} />
+          <RadioGroupLangType lang={lang} setLang={(newLang) => setLang(newLang)} />
         </motion.div>
         <motion.div
           variants={fadeIn("", "", 0.1, 1)}
