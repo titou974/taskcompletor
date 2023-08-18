@@ -73,12 +73,14 @@ export const docType = [
 
 export const langType = [
   {
-    id: "formelle",
+    id: "formel",
     title: "Formel 📝",
+    description: "Le rapport utilise un language spécifique au sujet"
   },
   {
-    id: "informelle",
+    id: "informel",
     title: "Informel 📢",
+    description: "Le rapport utilise un language courant"
   },
 ];
 

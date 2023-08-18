@@ -9,7 +9,7 @@ function classNames(...classes) {
 const TabsDocument = ({type, setType}) => {
 
   return (
-    <div className="w-full py-16 sm:px-0 mx-auto">
+    <div className="w-full sm:px-0 mx-auto">
       <Tab.Group vertical onChange={(index) => {
         setType(docType[index].title)
       }}>
@@ -19,10 +19,10 @@ const TabsDocument = ({type, setType}) => {
               key={category.id}
               className={({ selected }) =>
                 classNames(
-                  'w-full rounded-md py-2.5 text-sm font-medium leading-5 text-black',
-                  'ring-black ring-opacity-60 focus:outline-none focus:ring-2',
+                  'w-full rounded-md py-2.5 text-sm font-medium leading-5 text-white',
+                  'ring-white ring-opacity-100 focus:outline-none focus:ring-2',
                   selected
-                    ? 'bg-white shadow'
+                    ? 'bg-tertiary shadow'
                     : 'text-white hover:bg-white/[0.12] hover:text-white'
                 )
               }
@@ -31,12 +31,12 @@ const TabsDocument = ({type, setType}) => {
             </Tab>
           ))}
         </Tab.List>
-        <Tab.Panels className="mt-10 mx-auto">
+        <Tab.Panels className="mt-10 mx-auto bg-white">
           {docType.map((type) => (
             <Tab.Panel
               key={type.id}
               className={classNames(
-                'rounded-md bg-white p-5 text-center',
+                'rounded-md w-full md:w-1/2 py-5 text-center mx-auto',
               )}
             >
                 <h2 className="px-2 text-black font-bold leading-5">
