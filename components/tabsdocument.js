@@ -22,7 +22,7 @@ const TabsDocument = ({type, setType}) => {
                   'ring-white ring-opacity-100 focus:outline-none focus:ring-2',
                   selected
                     ? 'bg-tertiary shadow'
-                    : 'text-white hover:bg-white/[0.12] hover:text-white'
+                    : 'text-white hover:bg-white/[0.12] transition-colors'
                 )
               }
             >

@@ -21,7 +21,7 @@ const RadioGroupLangType = ({lang, setLang}) => {
                       : ''
                   }
                   ${
-                    checked ? 'bg-tertiary bg-opacity-75 text-white' : 'bg-white'
+                    checked ? 'bg-tertiary bg-opacity-75 text-white' : 'bg-[#0256c2] hover:bg-white/[0.12] transition-colors'
                   }
                     relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none`
                 }
@@ -34,7 +34,7 @@ const RadioGroupLangType = ({lang, setLang}) => {
                           <RadioGroup.Label
                             as="p"
                             className={`font-medium  ${
-                              checked ? 'text-white' : 'text-gray-900'
+                              checked ? 'text-white' : 'text-slate-300'
                             }`}
                           >
                             {type.title}
@@ -42,7 +42,7 @@ const RadioGroupLangType = ({lang, setLang}) => {
                           <RadioGroup.Description
                             as="span"
                             className={`inline ${
-                              checked ? 'text-sky-100' : 'text-gray-500'
+                              checked ? 'text-sky-100' : 'text-slate-400'
                             }`}
                           >
                             <span>

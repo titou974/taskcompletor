@@ -11,7 +11,7 @@ import Cercle3 from "../public/img/icon3white.svg";
 import Cercle4 from "../public/img/icon4white.svg";
 import Cercle5 from "../public/img/icon5white.svg";
 import styles from "./style";
-import DropDown from "./dropdown";
+import DropDownDoc from "./dropdowndoc";
 import DropDownLang from "./dropdownlang";
 import DropDownType from "./dropdowntype";
 import PenLoader from "./penloader";
@@ -38,10 +38,10 @@ const Generator = () => {
   const [loading, setLoading] = useState(false);
   const [subject, setSubject] = useState("");
   const [doc, setDoc] = useState("Exercice");
-  const [lang, setLang] = useState("Formel 📝");
+  const [lang, setLang] = useState("formel");
   const [prompt, setPrompt] = useState("");
   const [dest, setDest] = useState("");
-  const [persoType, setPersoType] = useState("Élève 👩‍🎓");
+  const [persoType, setPersoType] = useState("élève");
   const [domain, setDomain] = useState("");
   const [theme, setTheme] = useState("");
   const [questions, setQuestions] = useState("");
@@ -143,12 +143,9 @@ const Generator = () => {
         `Cher ChatGPT, je suis à la recherche d'un emploi dans ${job}. Pouvez-vous m'aider à rédiger une lettre de motivation convaincante qui mettra en valeur mes compétences (compétences: ${competences}), mon expérience pertinente (mes expériences: ${experiences}) et ma motivation à travailler pour l'entreprise ${company} ? Mon nom est ${myName}. J'aimerais que ma lettre soit claire, concise et engageante, et qu'elle capture l'attention du recruteur dès le début. Merci d'avance pour votre aide précieuse !`,
       );
     }
-    console.log(persoType);
+    console.log(doc);
   });
 
-  const RegexFilter = (fulltext) => {
-    
-  }
 
   const generateDoc = async (e) => {
     e.preventDefault();
@@ -226,7 +223,6 @@ const Generator = () => {
     <div className="w-full flex flex-col gap-20 text-white">
       <div className="flex flex-col items-center justify-center gap-10 z-30">
         <motion.div
-            variants={textVariant()}
             className="flex items-center gap-4 w-full md:w-1/2"
           >
           <Image src={Cercle1} width={50} height={50} alt="step 1" />
@@ -237,12 +233,14 @@ const Generator = () => {
             Type de document
           </h2>
         </motion.div>
-        <motion.div
-          variants={fadeIn("", "", 0.1, 1)}
-          className="w-full"
+        <div
+          className="sm:hidden w-full"
         >
+          <DropDownDoc className="sm:hidden" type={doc} setType={(newDoc) => setDoc(newDoc)} />
+        </div>
+        <div className="hidden sm:block w-full">
           <TabsDocument type={doc} setType={(newDoc) => setDoc(newDoc)}/>
-        </motion.div>
+        </div>
         <motion.div
           variants={textVariant()}
           className={`w-full md:w-1/2 flex justify-between ${
