@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Tab } from '@headlessui/react'
 import { docType } from "../utils/constants";
 
@@ -31,7 +30,7 @@ const TabsDocument = ({type, setType}) => {
             </Tab>
           ))}
         </Tab.List>
-        <Tab.Panels className="mt-10 mx-auto bg-white">
+        <Tab.Panels className="mt-10 mx-auto bg-white rounded-md">
           {docType.map((type) => (
             <Tab.Panel
               key={type.id}

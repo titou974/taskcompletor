@@ -1,16 +1,16 @@
 import { RadioGroup } from '@headlessui/react'
-import { langType } from '../utils/constants/index';
+import { persoType } from '../utils/constants/index';
 
 
-const RadioGroupLangType = ({lang, setLang}) => {
+const RadioGroupPersoType = ({perso, setPerso}) => {
 
   return (
     <div className="w-full">
       <div className="mx-auto w-full">
-        <RadioGroup value={lang} onChange={setLang}>
+        <RadioGroup value={perso} onChange={setPerso}>
           <RadioGroup.Label className="sr-only">Type de Language</RadioGroup.Label>
           <div className="space-y-2">
-            {langType.map((type) => (
+            {persoType.map((type) => (
               <RadioGroup.Option
                 key={type.id}
                 value={type.id}
@@ -83,4 +83,4 @@ const CheckIcon = (props) => {
   )
 }
 
-export default RadioGroupLangType
+export default RadioGroupPersoType;

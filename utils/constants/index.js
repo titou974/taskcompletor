@@ -88,13 +88,16 @@ export const persoType = [
   {
     id: "élève",
     title: "Élève 👩‍🎓",
+    description: "Répondez aux questions comme un étudiant",
   },
   {
     id: "professeur",
     title: "Professeur 👨‍🏫",
+    description: "Répondez aux questions comme un professeur",
   },
   {
     id: "expert",
     title: "Expert 👨‍💼",
+    description: "Répondez aux questions comme un expert",
   },
 ];
