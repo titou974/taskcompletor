@@ -52,7 +52,7 @@ const RadioGroupPersoType = ({perso, setPerso}) => {
                         </div>
                       </div>
                       {checked && (
-                        <div className="shrink-0 text-white">
+                        <div className="shrink-0 text-white ps-2 sm:ps-0">
                           <CheckIcon className="h-6 w-6" />
                         </div>
                       )}

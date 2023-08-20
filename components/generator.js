@@ -33,6 +33,7 @@ import { ShareIcon } from "@heroicons/react/24/outline";
 import TabsDocument from "./tabsdocument";
 import RadioGroupLangType from "./radiogrouplangtype";
 import RadioGroupPersoType from "./radiogrouppersotype";
+import { docType } from "../utils/constants";
 
 const Generator = () => {
   const [loading, setLoading] = useState(false);
@@ -143,7 +144,6 @@ const Generator = () => {
         `Cher ChatGPT, je suis à la recherche d'un emploi dans ${job}. Pouvez-vous m'aider à rédiger une lettre de motivation convaincante qui mettra en valeur mes compétences (compétences: ${competences}), mon expérience pertinente (mes expériences: ${experiences}) et ma motivation à travailler pour l'entreprise ${company} ? Mon nom est ${myName}. J'aimerais que ma lettre soit claire, concise et engageante, et qu'elle capture l'attention du recruteur dès le début. Merci d'avance pour votre aide précieuse !`,
       );
     }
-    console.log(doc);
   });
 
 
@@ -179,23 +179,31 @@ const Generator = () => {
       return;
     }
 
+    const regexSelector = (fulltext) => {
+      const regex1 = /Rapport[^.]*\n/;
+      const regex3 = /(\d+\.\s.+)\n(.+)/g;
+      console.log(fulltext);
+      console.log(docType);
+      console.log(lang);
+      if (doc === "Rapport" && lang === "formel") {
+        if (regex1.test(fulltext) === false) {
+          setGeneratedTitle(fulltext);
+        }
+        const sections = [...fulltext.matchAll(regex3)];
+        setGeneratedSections(sections);
+        setLength(sections.length);
+        setFinalText(fulltext);
+      }
+    }
+
     const onParse = (event) => {
       if (event.type === "event") {
         const data = event.data;
         try {
           let text = JSON.parse(data).text ?? "";
-          const regex1 = /Rapport[^.]*\n/;
-          const regex3 = /(\d+\.\s.+)\n(.+)/g;
-
           setGeneratedDoc((prev) => {
             const fulltext = prev + text;
-            if (regex1.test(fulltext) === false) {
-              setGeneratedTitle(fulltext);
-            }
-            const sections = [...fulltext.matchAll(regex3)];
-            setGeneratedSections(sections);
-            setLength(sections.length);
-            setFinalText(fulltext);
+            regexSelector(fulltext);
             return fulltext;
           });
         } catch (e) {

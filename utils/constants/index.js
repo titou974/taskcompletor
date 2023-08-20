@@ -75,12 +75,12 @@ export const langType = [
   {
     id: "formel",
     title: "Formel 📝",
-    description: "Le rapport utilise un language spécifique au sujet"
+    description: "Le rapport utilise un language soutenu et spécifique au sujet"
   },
   {
     id: "informel",
     title: "Informel 📢",
-    description: "Le rapport utilise un language courant"
+    description: "Le rapport utilise un language familier et vulgarise le sujet"
   },
 ];
 
