@@ -121,7 +121,7 @@ const Generator = () => {
   useEffect(() => {
     if (doc === "Rapport") {
       setPrompt(
-        `Écrivez un rapport d'une page maximum sur le sujet ${subject} en utilisant un langage ${lang}. Structurez votre rapport en sections principales, numérotées de manière claire et concise (1, 2, 3, etc.). Assurez-vous d'inclure les informations les plus importantes et les principales idées dans chaque section. Veillez à utiliser le ton et le registre appropriés pour le style de langage choisi. Concentrez-vous sur la clarté et la précision de votre écriture tout en respectant la limite d'une page maximum.`,
+        `Écrivez un rapport d'une page maximum sur le sujet ${subject} en utilisant un langage ${lang === "informel" ? "familier" : "formel"}. Structurez votre rapport ${lang === "informel" ? "avec un titre et" : ""} en sections principales, numérotées de manière claire et concise (1, 2, 3, etc.). Assurez-vous d'inclure les informations les plus importantes et les principales idées dans chaque section. Veillez à utiliser le ton et le registre appropriés pour le style de langage choisi. Concentrez-vous sur la clarté et la précision de votre écriture tout en respectant la limite d'une page maximum.`,
       );
     } else if (doc === "Lettre") {
       setPrompt(
@@ -182,17 +182,26 @@ const Generator = () => {
     const regexSelector = (fulltext) => {
       const regex1 = /Rapport[^.]*\n/;
       const regex3 = /(\d+\.\s.+)\n(.+)/g;
+      const titleRegex = /^([^\n]+)/;
       console.log(fulltext);
-      console.log(docType);
-      console.log(lang);
-      if (doc === "Rapport" && lang === "formel") {
-        if (regex1.test(fulltext) === false) {
-          setGeneratedTitle(fulltext);
+      if (doc === "Rapport") {
+        if (lang === "formel") {
+          if (regex1.test(fulltext) === false) {
+            setGeneratedTitle(fulltext);
+          }
+          const sections = [...fulltext.matchAll(regex3)];
+          setGeneratedSections(sections);
+          setLength(sections.length);
+          setFinalText(fulltext);
+        } else {
+          if (fulltext.match(titleRegex) && fulltext.match(titleRegex)[0]) {
+            setGeneratedTitle(fulltext.match(titleRegex)[0]);
+          }
+          const sections = [...fulltext.matchAll(regex3)];
+          setGeneratedSections(sections);
+          setLength(sections.length);
+          setFinalText(fulltext);
         }
-        const sections = [...fulltext.matchAll(regex3)];
-        setGeneratedSections(sections);
-        setLength(sections.length);
-        setFinalText(fulltext);
       }
     }
 
