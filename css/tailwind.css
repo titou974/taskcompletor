@@ -491,8 +491,7 @@ h3 {
   align-items: center;
   padding: 1em;
   border-radius: 6px;
-  border: 3px white solid;
-
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
 .cta2-icon {
@@ -502,6 +501,27 @@ h3 {
 }
 
 .cta2:hover .cta2-icon {
+  width: 30px;
+}
+
+.cta6 {
+  width: 30%;
+  background-color: #00003f;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  border-radius: 6px;
+  margin-right: 0;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.cta6-icon {
+  overflow: hidden;
+  transition: 0.5s;
+  width: 0;
+}
+
+.cta6:hover .cta6-icon {
   width: 30px;
 }
 

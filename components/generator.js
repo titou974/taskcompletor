@@ -259,7 +259,6 @@ const Generator = () => {
           <TabsDocument type={doc} setType={(newDoc) => setDoc(newDoc)}/>
         </div>
         <motion.div
-          variants={textVariant()}
           className={`w-full md:w-1/2 flex justify-between ${
             doc === "Lettre" || doc === "Lettre de motivation" ? "" : "hidden"
           }`}
@@ -282,8 +281,7 @@ const Generator = () => {
             Entreprise
           </h2>
         </motion.div>
-        <motion.div
-          variants={fadeIn("", "", 0.1, 1)}
+        <motion.div          
           className={`w-full md:w-1/2 flex justify-between ${
             doc === "Lettre" || doc === "Lettre de motivation" ? "" : "hidden"
           }`}
@@ -321,7 +319,6 @@ const Generator = () => {
         }`}
       >
         <motion.div
-          variants={textVariant()}
           className="flex items-center gap-4 w-full md:w-1/2"
         >
           <Image src={Cercle2} width={50} height={50} alt="step 2" />
@@ -354,16 +351,14 @@ const Generator = () => {
             Matière
           </h2>
         </motion.div>
-        <motion.div
-          variants={fadeIn("", "", 0.1, 1)}
+        <motion.div          
           className={`w-full md:w-1/2 ${
             doc === "Lettre" || doc === "Rapport" ? "" : "hidden"
           }`}
         >
           <RadioGroupLangType lang={lang} setLang={(newLang) => setLang(newLang)} />
         </motion.div>
-        <motion.div
-          variants={fadeIn("", "", 0.1, 1)}
+        <motion.div          
           className={`w-full md:w-1/2 ${
             doc === "Lettre de motivation" || doc === "Fiche de révision"
               ? ""
@@ -396,7 +391,6 @@ const Generator = () => {
         }`}
       >
         <motion.div
-          variants={textVariant()}
           className="flex items-center gap-4 w-full md:w-1/2"
         >
           <Image src={Cercle2} width={50} height={50} alt="step 2" />
@@ -407,8 +401,7 @@ const Generator = () => {
             Type d'écriture
           </h2>
         </motion.div>
-        <motion.div
-          variants={fadeIn("", "", 0.1, 1)}
+        <motion.div          
           className="w-full md:w-1/2"
         >
           <RadioGroupPersoType perso={persoType} setPerso={(newType) => setPersoType(newType)} />
@@ -416,7 +409,6 @@ const Generator = () => {
       </div>
       <div className={`flex flex-col items-center justify-center gap-6`}>
         <motion.div
-          variants={textVariant()}
           className="flex items-center gap-4 w-full md:w-1/2"
         >
           <Image src={Cercle3} width={50} height={50} alt="step 3" />
@@ -449,8 +441,7 @@ const Generator = () => {
             Chapitre(s)
           </h2>
         </motion.div>
-        <motion.div
-          variants={fadeIn("", "", 0.1, 1)}
+        <motion.div          
           className="w-full md:w-1/2"
           ref={modalIntroRef}
         >
@@ -498,7 +489,6 @@ const Generator = () => {
         }`}
       >
         <motion.div
-          variants={textVariant()}
           className="flex items-center gap-4 w-full md:w-1/2"
         >
           <Image src={Cercle4} width={50} height={50} alt="step 3" />
@@ -517,8 +507,7 @@ const Generator = () => {
             Expériences
           </h2>
         </motion.div>
-        <motion.div
-          variants={fadeIn("", "", 0.1, 1)}
+        <motion.div          
           className="w-full md:w-1/2"
         >
           <textarea
@@ -547,7 +536,6 @@ const Generator = () => {
         }`}
       >
         <motion.div
-          variants={textVariant()}
           className="flex items-center gap-4 w-full md:w-1/2"
         >
           <Image src={Cercle5} width={50} height={50} alt="step 3" />
@@ -559,8 +547,7 @@ const Generator = () => {
             Consignes et Questions
           </h2>
         </motion.div>
-        <motion.div
-          variants={fadeIn("", "", 0.1, 1)}
+        <motion.div          
           className="w-full md:w-1/2"
         >
           <textarea
@@ -596,20 +583,20 @@ const Generator = () => {
           <Loader />
         </button>
       )}
-      <div ref={docRef} className="h-full">
-        <div className="relative h-full mx-auto">
-          <div className="w-full mx-auto flex justify-end absolute top-0 left-0 z-50 bg-transparent">
-            <Link href="/mypdf" className={`w-full flex justify-end ${saved ? "" : "hidden"}`}>
-              <button className="cta2 flex">
+      <div className="h-full">
+        <div className=" h-full mx-auto">
+          <div className="w-full z-50 bg-transparent relative">
+            <Link ref={docRef} href="/mypdf" className={`w-full flex justify-end ${saved ? "" : "hidden"}`}>
+              <button className="cta6">
                 <p className={`${styles.sectionSubText}`}>Voir le PDF</p>
-                <DocumentIcon className="w-[22px] h-[22px] ms-3 cta2-icon"/>
+                <DocumentIcon className="w-[22px] h-[22px] ms-3 cta6-icon"/>
               </button>
             </Link>
-            <button className={`cta2 ${ loading || !showCustom || saved ? "hidden" : "flex"}`} onClick={saveDocument}>
+            <button className={`cta6 ${ loading || !showCustom || saved ? "hidden" : "flex"} absolute right-[-50px] top-[-30px]`} onClick={saveDocument}>
               <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Partager</p>
-              <ShareIcon className="cta2-icon h-8 w-8 ps-3"/>
+              <ShareIcon className="cta6-icon h-8 w-8 ps-3"/>
             </button>
-            <button className={`cta2 ${ !loading || !showCustom || saved ? "hidden" : "flex"}`} disabled>
+            <button className={`cta6 ${ !loading || !showCustom || saved ? "hidden" : "flex"}`} disabled>
               <Loader />
             </button>
           </div>
