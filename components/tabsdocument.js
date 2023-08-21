@@ -18,7 +18,7 @@ const TabsDocument = ({type, setType}) => {
               key={category.id}
               className={({ selected }) =>
                 classNames(
-                  'w-full rounded-md py-2.5 text-sm font-medium leading-5 text-white',
+                  'w-full rounded-md py-2.5 font-medium leading-5 text-white',
                   'ring-white ring-opacity-100 focus:outline-none focus:ring-2',
                   selected
                     ? 'bg-tertiary shadow'
@@ -30,7 +30,7 @@ const TabsDocument = ({type, setType}) => {
             </Tab>
           ))}
         </Tab.List>
-        <Tab.Panels className="mt-10 mx-auto bg-white rounded-md">
+        <Tab.Panels className="mt-10 mx-auto bg-white rounded-md text-sm">
           {docType.map((type) => (
             <Tab.Panel
               key={type.id}

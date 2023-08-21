@@ -33,11 +33,11 @@ const ModalSaved = ({isOpen, closeModal, generatedTitle, doc}) => {
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900 titlemodal"
                 >
-                  Votre {generatedTitle} a bien été sauvegardé !
+                  Votre {doc} a bien été sauvegardé !
                 </Dialog.Title>
                 <div className="mt-2">
                   <p className="text-sm text-gray-500">
-                    Vous pouvez télécharger votre {doc}. <br/> Ça c'est fait ✅
+                    Vous pouvez télécharger votre Pdf. <br/> Ça c'est fait ✅
                   </p>
                 </div>
 

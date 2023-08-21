@@ -34,6 +34,8 @@ import TabsDocument from "./tabsdocument";
 import RadioGroupLangType from "./radiogrouplangtype";
 import RadioGroupPersoType from "./radiogrouppersotype";
 import { docType } from "../utils/constants";
+import EditTextAreaReport from "./editableinputs";
+
 
 const Generator = () => {
   const [loading, setLoading] = useState(false);
@@ -72,6 +74,7 @@ const Generator = () => {
   }
 
   useEffect(() => {
+    {/* Modal Intro Apparition on Intersection*/}
     const observerIntro = new IntersectionObserver((entries) => {
       const entry = entries[0];
       if (entry.isIntersecting && !modalIntroDesactivate) {
@@ -79,9 +82,9 @@ const Generator = () => {
       } else {
         setModalIntroVisible(false);
       }
-      console.log('entry', entry);
     })
     observerIntro.observe(modalIntroRef.current);
+    {/* Download Modal Apparition on Intersection*/}
 
     return () => {
       observerIntro.disconnect();
@@ -90,6 +93,7 @@ const Generator = () => {
   })
 
   const scrollToDoc = () => {
+    {/* Scroll to Share Button after Generation*/}
     if (docRef.current !== null) {
       docRef.current.scrollIntoView({ behavior: "smooth" });
     }
@@ -119,6 +123,7 @@ const Generator = () => {
   };
 
   useEffect(() => {
+    {/* Prompt Set Up*/}
     if (doc === "Rapport") {
       setPrompt(
         `Écrivez un rapport d'une page maximum sur le sujet ${subject} en utilisant un langage ${lang === "informel" ? "familier" : "formel"}. Structurez votre rapport ${lang === "informel" ? "avec un titre et" : ""} en sections principales, numérotées de manière claire et concise (1, 2, 3, etc.). Assurez-vous d'inclure les informations les plus importantes et les principales idées dans chaque section. Veillez à utiliser le ton et le registre appropriés pour le style de langage choisi. Concentrez-vous sur la clarté et la précision de votre écriture tout en respectant la limite d'une page maximum.`,
@@ -148,6 +153,7 @@ const Generator = () => {
 
 
   const generateDoc = async (e) => {
+    {/* Generate The Document*/}
     e.preventDefault();
     setSaved(false);
     setGeneratedDoc("");
@@ -184,6 +190,7 @@ const Generator = () => {
       const regex3 = /(\d+\.\s.+)\n(.+)/g;
       const titleRegex = /^([^\n]+)/;
       console.log(fulltext);
+      {/* Structuring the Document */}
       if (doc === "Rapport") {
         if (lang === "formel") {
           if (regex1.test(fulltext) === false) {
@@ -206,6 +213,7 @@ const Generator = () => {
     }
 
     const onParse = (event) => {
+      {/* Parsing the Answer */}
       if (event.type === "event") {
         const data = event.data;
         try {
@@ -239,6 +247,7 @@ const Generator = () => {
   return (
     <div className="w-full flex flex-col gap-20 text-white">
       <div className="flex flex-col items-center justify-center gap-10 z-30">
+        {/* Generation Form */}
         <motion.div
             className="flex items-center gap-4 w-full md:w-1/2"
           >
@@ -566,10 +575,14 @@ const Generator = () => {
           />
         </motion.div>
       </div>
+      <div className="w-full">
+        <EditTextAreaReport title={generatedTitle} setTitle={(newDoc) => setGeneratedTitle(newDoc)} />
+      </div>
       {!loading && (
         <button
           className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 md:w-1/2 flex`}
           onClick={(e) => generateDoc(e)}
+          ref={docRef}
         >
           {`Générer`}
           <PencilSquareIcon className="ms-3 lg:ms-5 cta2-icon" src={feather}></PencilSquareIcon>
@@ -585,18 +598,18 @@ const Generator = () => {
       )}
       <div className="h-full">
         <div className=" h-full mx-auto">
-          <div className="w-full z-50 bg-transparent relative">
-            <Link ref={docRef} href="/mypdf" className={`w-full flex justify-end ${saved ? "" : "hidden"}`}>
-              <button className="cta6">
+          <div className="w-full bg-transparent relative">
+            <Link href="/mypdf" className={`w-full flex justify-end ${saved ? "" : "hidden"}`}>
+              <button className="cta6 flex absolute right-[-50px] top-[-30px]">
                 <p className={`${styles.sectionSubText}`}>Voir le PDF</p>
                 <DocumentIcon className="w-[22px] h-[22px] ms-3 cta6-icon"/>
               </button>
             </Link>
-            <button className={`cta6 ${ loading || !showCustom || saved ? "hidden" : "flex"} absolute right-[-50px] top-[-30px]`} onClick={saveDocument}>
+            <button className={`cta6 ${ loading || !showCustom || saved ? "hidden" : "flex"} absolute right-[-50px] top-[-30px] z-40`} onClick={saveDocument}>
               <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Partager</p>
-              <ShareIcon className="cta6-icon h-8 w-8 ps-3"/>
+              <ShareIcon className="cta6-icon h-[22px] w-[22px] ms-3"/>
             </button>
-            <button className={`cta6 ${ !loading || !showCustom || saved ? "hidden" : "flex"}`} disabled>
+            <button className={`cta6 ${ !loading || !showCustom || saved ? "hidden" : "flex"} absolute right-[-50px] top-[-30px]`}  disabled>
               <Loader />
             </button>
           </div>
