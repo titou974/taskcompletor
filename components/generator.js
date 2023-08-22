@@ -35,6 +35,11 @@ import RadioGroupLangType from "./radiogrouplangtype";
 import RadioGroupPersoType from "./radiogrouppersotype";
 import { docType } from "../utils/constants";
 import EditTextAreaReport from "./editableinputs";
+import {
+  Alert,
+  AlertIcon,
+  CloseButton
+} from '@chakra-ui/react'
 
 
 const Generator = () => {
@@ -63,6 +68,8 @@ const Generator = () => {
   const [showCustom, setShowCustom] = useState(false);
   const [modalIntroVisible, setModalIntroVisible] = useState(false);
   const [modalIntroDesactivate, setModalIntroDesactivate] = useState(false);
+  const [modifyingStep, setModifyingStep] = useState(false);
+  const [generationError, setGenerationError] = useState(false);
 
   let [isOpen, setIsOpen] = useState(false);
 
@@ -72,6 +79,8 @@ const Generator = () => {
   const closeModalIntro = () => {
     setModalIntroDesactivate(true);
   }
+
+
 
   useEffect(() => {
     {/* Modal Intro Apparition on Intersection*/}
@@ -165,6 +174,8 @@ const Generator = () => {
     setFinalText("");
     setShowCustom(false);
     setShowCustom(true);
+    setModifyingStep(false);
+    setGenerationError(false);
     const response = await fetch("/api/generate", {
       method: "POST",
       headers: {
@@ -176,6 +187,7 @@ const Generator = () => {
     });
 
     if (!response.ok) {
+      setGenerationError(true);
       throw new Error(response.statusText);
     }
 
@@ -225,6 +237,7 @@ const Generator = () => {
           });
         } catch (e) {
           console.error(e);
+          setGenerationError(true);
         }
       }
     };
@@ -240,22 +253,26 @@ const Generator = () => {
       const chunkValue = decoder.decode(value);
       parser.feed(chunkValue);
     }
-    scrollToDoc();
-    setLoading(false);
+    if (!generationError) {
+      scrollToDoc();
+      setLoading(false);
+      setModifyingStep(true);
+    } else {
+      
+    }
   };
 
   return (
     <div className="w-full flex flex-col gap-20 text-white">
-      <div className="flex flex-col items-center justify-center gap-10 z-30">
+      <div className={`flex-col items-center justify-center gap-10 ${modifyingStep ? "hidden" : "flex"}`}>
         {/* Generation Form */}
         <motion.div
-            className="flex items-center gap-4 w-full md:w-1/2"
+            className="flex items-center gap-4 w-full text-center"
           >
-          <Image src={Cercle1} width={50} height={50} alt="step 1" />
-          <h2 className={`${styles.sectionSubText} font-bold hidden lg:block`}>
+          <h2 className={`${styles.heroSubText} font-bold hidden lg:block mx-auto mb-10`}>
             Sélectionner un type de document
           </h2>
-          <h2 className={`${styles.sectionSubText} font-bold lg:hidden`}>
+          <h2 className={`${styles.heroSubText} font-bold lg:hidden mx-auto`}>
             Type de document
           </h2>
         </motion.div>
@@ -316,21 +333,12 @@ const Generator = () => {
             }`}
           />
         </motion.div>
-      </div>
-      <div
-        className={`flex flex-col items-center justify-center gap-10 ${
-          doc === "Lettre" ||
-          doc === "Rapport" ||
-          doc === "Lettre de motivation" ||
-          doc === "Fiche de révision"
-            ? ""
-            : "hidden"
-        }`}
-      >
         <motion.div
-          className="flex items-center gap-4 w-full md:w-1/2"
+          className={`flex items-center gap-4 w-full md:w-1/2 pt-10`}
         >
-          <Image src={Cercle2} width={50} height={50} alt="step 2" />
+          <Image src={Cercle1} width={50} height={50} alt="step 2" className={`${
+              doc === "Lettre" || doc === "Rapport" || doc ==="Fiche de révision" ? "lg:block" : "lg:hidden"
+          }`}/>
           <h2
             className={`${styles.sectionSubText} ${
               doc === "Lettre" || doc === "Rapport" ? "lg:block" : "lg:hidden"
@@ -363,7 +371,7 @@ const Generator = () => {
         <motion.div          
           className={`w-full md:w-1/2 ${
             doc === "Lettre" || doc === "Rapport" ? "" : "hidden"
-          }`}
+          } pb-10`}
         >
           <RadioGroupLangType lang={lang} setLang={(newLang) => setLang(newLang)} />
         </motion.div>
@@ -393,16 +401,12 @@ const Generator = () => {
             placeholder="Marketing digital"
           />
         </motion.div>
-      </div>
-      <div
-        className={`flex flex-col items-center justify-center gap-10 ${
-          doc === "Exercice" ? "" : "hidden"
-        }`}
-      >
         <motion.div
-          className="flex items-center gap-4 w-full md:w-1/2"
+          className={`flex items-center gap-4 w-full md:w-1/2 ${
+            doc === "Exercice" ? "" : "hidden"
+          }`}
         >
-          <Image src={Cercle2} width={50} height={50} alt="step 2" />
+          <Image src={Cercle1} width={50} height={50} alt="step 2" />
           <h2 className={`${styles.sectionSubText} font-bold hidden lg:block`}>
             Sélectionner un type d'écriture
           </h2>
@@ -411,16 +415,16 @@ const Generator = () => {
           </h2>
         </motion.div>
         <motion.div          
-          className="w-full md:w-1/2"
+          className={`w-full md:w-1/2 ${
+            doc === "Exercice" ? "" : "hidden"
+          }`}
         >
           <RadioGroupPersoType perso={persoType} setPerso={(newType) => setPersoType(newType)} />
         </motion.div>
-      </div>
-      <div className={`flex flex-col items-center justify-center gap-6`}>
         <motion.div
-          className="flex items-center gap-4 w-full md:w-1/2"
+          className="flex items-center gap-4 w-full md:w-1/2 mt-10"
         >
-          <Image src={Cercle3} width={50} height={50} alt="step 3" />
+          <Image src={Cercle2} width={50} height={50} alt="step 3" />
           <h2
             className={`${styles.sectionSubText} font-bold ${
               doc === "Rapport" || doc === "Lettre" ? "" : "hidden"
@@ -451,7 +455,7 @@ const Generator = () => {
           </h2>
         </motion.div>
         <motion.div          
-          className="w-full md:w-1/2"
+          className="w-full md:w-1/2 mb-10"
           ref={modalIntroRef}
         >
           <textarea
@@ -491,16 +495,12 @@ const Generator = () => {
             placeholder="Bilingue anglais, dynamique, bonne mémoire"
           />
         </motion.div>
-      </div>
-      <div
-        className={`flex flex-col items-center justify-center gap-6 ${
-          doc === "Lettre de motivation" || doc === "Exercice" ? "" : "hidden"
-        }`}
-      >
         <motion.div
-          className="flex items-center gap-4 w-full md:w-1/2"
+          className={`flex items-center gap-4 w-full md:w-1/2 ${
+            doc === "Lettre de motivation" || doc === "Exercice" ? "" : "hidden"
+          }`}
         >
-          <Image src={Cercle4} width={50} height={50} alt="step 3" />
+          <Image src={Cercle3} width={50} height={50} alt="step 3" />
           <h2
             className={`${styles.sectionSubText} font-bold ${
               doc === "Exercice" ? "" : "hidden"
@@ -517,7 +517,9 @@ const Generator = () => {
           </h2>
         </motion.div>
         <motion.div          
-          className="w-full md:w-1/2"
+          className={`w-full md:w-1/2 ${
+            doc === "Lettre de motivation" || doc === "Exercice" ? "" : "hidden"
+          }`}
         >
           <textarea
             value={domain}
@@ -538,16 +540,12 @@ const Generator = () => {
             placeholder="barman pendant 1 mois aux fontaines (le mois dernier) et serveur au Ritz l'été 2022"
           />
         </motion.div>
-      </div>
-      <div
-        className={`flex flex-col items-center justify-center gap-6 ${
-          doc === "Exercice" ? "" : "hidden"
-        }`}
-      >
         <motion.div
-          className="flex items-center gap-4 w-full md:w-1/2"
+          className={`flex items-center gap-4 w-full md:w-1/2 ${
+            doc === "Exercice" ? "" : "hidden"
+          } mt-10`}
         >
-          <Image src={Cercle5} width={50} height={50} alt="step 3" />
+          <Image src={Cercle4} width={50} height={50} alt="step 3" />
           <h2
             className={`${styles.sectionSubText} font-bold ${
               doc === "Exercice" ? "" : "hidden"
@@ -557,7 +555,9 @@ const Generator = () => {
           </h2>
         </motion.div>
         <motion.div          
-          className="w-full md:w-1/2"
+          className={`w-full md:w-1/2 ${
+            doc === "Exercice" ? "" : "hidden"
+          }`}
         >
           <textarea
             value={questions}
@@ -574,44 +574,58 @@ const Generator = () => {
             5.6 Est-ce que le groupe KERING a une politique de recherche et développement ?"
           />
         </motion.div>
+        {!loading && (
+          <button
+            className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 md:w-1/2 flex`}
+            onClick={(e) => generateDoc(e)}
+            ref={docRef}
+          >
+            {`Générer`}
+            <PencilSquareIcon className="ms-3 lg:ms-5 cta2-icon" src={feather}></PencilSquareIcon>
+          </button>
+        )}
+        {loading && (
+          <button
+            disabled
+            className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 disabled cursor-wait`}
+          >
+            <Loader />
+          </button>
+        )}
       </div>
-      <div className="w-full">
-        <EditTextAreaReport title={generatedTitle} setTitle={(newDoc) => setGeneratedTitle(newDoc)} />
+      {/* Step 2 : Modifying Text */}
+      <div className={`w-full ${modifyingStep ? "" : "hidden"}`}>
+          <h2
+            className={`${styles.heroSubText} font-bold mx-auto text-center mt-5 mb-14`}
+          >
+            Modifier votre {doc} 
+          </h2>
+        <EditTextAreaReport title={generatedTitle} setTitle={(newDoc) => setGeneratedTitle(newDoc)} setSections={(newDoc) => setGeneratedSections(newDoc)} sections={generatedSections}/>
+        <div className="flex mt-20  justify-center align-center">
+          <button
+            disabled
+            className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta6 w-1/3`}
+          >
+            Recommencer
+          </button>
+          <button className={`cta6 ${ loading || !showCustom || saved ? "hidden" : "flex"} w-1/3 mx-10`} onClick={saveDocument}>
+            <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Partager</p>
+            <ShareIcon className="cta6-icon h-[22px] w-[22px] ms-3"/>
+          </button>
+          <Link href="/mypdf" className={`w-full flex justify-end ${saved ? "" : "hidden"}`}>
+            <button className="cta6 flex">
+              <p className={`${styles.sectionSubText}`}>Voir le PDF</p>
+              <DocumentIcon className="w-[22px] h-[22px] ms-3 cta6-icon"/>
+            </button>
+          </Link>
+          <button className={`cta6 ${ !loading || !showCustom || saved ? "hidden" : "flex"} absolute right-[-50px] top-[-30px] z-40`}  disabled>
+            <Loader />
+          </button>
+        </div> 
       </div>
-      {!loading && (
-        <button
-          className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 md:w-1/2 flex`}
-          onClick={(e) => generateDoc(e)}
-          ref={docRef}
-        >
-          {`Générer`}
-          <PencilSquareIcon className="ms-3 lg:ms-5 cta2-icon" src={feather}></PencilSquareIcon>
-        </button>
-      )}
-      {loading && (
-        <button
-          disabled
-          className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 disabled cursor-wait`}
-        >
-          <Loader />
-        </button>
-      )}
       <div className="h-full">
         <div className=" h-full mx-auto">
           <div className="w-full bg-transparent relative">
-            <Link href="/mypdf" className={`w-full flex justify-end ${saved ? "" : "hidden"}`}>
-              <button className="cta6 flex absolute right-[-50px] top-[-30px]">
-                <p className={`${styles.sectionSubText}`}>Voir le PDF</p>
-                <DocumentIcon className="w-[22px] h-[22px] ms-3 cta6-icon"/>
-              </button>
-            </Link>
-            <button className={`cta6 ${ loading || !showCustom || saved ? "hidden" : "flex"} absolute right-[-50px] top-[-30px] z-40`} onClick={saveDocument}>
-              <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Partager</p>
-              <ShareIcon className="cta6-icon h-[22px] w-[22px] ms-3"/>
-            </button>
-            <button className={`cta6 ${ !loading || !showCustom || saved ? "hidden" : "flex"} absolute right-[-50px] top-[-30px]`}  disabled>
-              <Loader />
-            </button>
           </div>
             <RenderReport
               generatedTitle={generatedTitle}
@@ -624,12 +638,22 @@ const Generator = () => {
       <ModalIntro isOpen={modalIntroVisible} closeModal={closeModalIntro}/>
       {/* Modal Saved */}
       <ModalSaved isOpen={isOpen} closeModal={closeModal} generatedTitle={generatedTitle} doc={doc} />
+      {/* Loader */}
       <div
         className={`${styles.paddingX} m-0 fixed bottom-0 right-0 left-0 ${
           loading ? "" : "hidden"
         }`}
       >
         <PenLoader />
+      </div>
+      <div className={`w-full md:w-1/2 mx-auto bottom-10 right-0 left-0 z-50 ${generationError ? "" : "hidden"}`}>
+        {/* Alert for Generation Problem */}
+        <Alert status='error' variant='solid' flexDirection='row'
+          alignItems='center'
+          justifyContent='center' className="rounded-md">
+          <AlertIcon />
+          Badaboum. Petit bug, c'est en développement les gars...
+        </Alert>
       </div>
     </div>
   );
