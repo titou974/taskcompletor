@@ -64,6 +64,7 @@ const Generator = () => {
   const [length, setLength] = useState(0);
   const [finalText, setFinalText] = useState("");
   const [saved, setSaved] = useState(false)
+  const [modalIntroIntersection, setModalIntroIntersection] = useState(false);
   const [modalIntroVisible, setModalIntroVisible] = useState(false);
   const [modalIntroDesactivate, setModalIntroDesactivate] = useState(false);
   const [modifyingStep, setModifyingStep] = useState(false);
@@ -87,17 +88,43 @@ const Generator = () => {
     setModifyingStep(true);
   }
 
+  {/* Modal Intro Apparition on Intersection*/}
 
-  {useEffect(() => {
+  useEffect(() => {
+    const observerIntro = new IntersectionObserver(
+      ([entry]) => {
+      console.log(entry.isIntersecting);
+      setModalIntroIntersection(entry.isIntersecting);
+      },
+      { rootMargin: "-150px" }
+    )
+    observerIntro.observe(modalIntroRef.current);
+    return () => {
+      observerIntro.disconnect();
+    }
+  })
+
+  useEffect(() => {
+    if (modalIntroIntersection && !modalIntroDesactivate) {
+      setModalIntroVisible(true)
+    } else {
+      setModalIntroVisible(false)
+    }
+  })
+
+  {/* Generation Bug Alert */}
+
+  useEffect(() => {
     if (finalText === "" && doneGeneration) {
       setGenerationError(true);
     } else if (finalText !== "" && doneGeneration) {
       setModifyingStep(true);
-    };
-  })}
+    }
+  });
+
+  {/* Scroll to Save Button after Generation*/}
 
   const scrollToDoc = () => {
-    {/* Scroll to Share Button after Generation*/}
     if (docRef.current !== null) {
       docRef.current.scrollIntoView({ behavior: "smooth" });
     }
@@ -570,7 +597,6 @@ const Generator = () => {
             <button
               className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta6 w-2/3" : "cta2 w-full"} flex`}
               onClick={(e) => generateDoc(e)}
-              ref={docRef}
             >
               {`Générer`}
               <PencilSquareIcon className={`ms-3 lg:ms-5 ${modifyingStep ? "cta6-icon" : "cta2-icon"}`} src={feather}></PencilSquareIcon>
@@ -595,7 +621,7 @@ const Generator = () => {
         </div>
       </div>
       {/* Step 2 : Modifying Text */}
-      <div className={`w-full ${modifyingStep ? "" : "hidden"}`}>
+      <div className={`w-full ${modifyingStep ? "" : "hidden"}`} ref={docRef}>
           <h2
             className={`${styles.heroSubText} font-bold mx-auto text-center mt-5 mb-14`}
           >
@@ -659,6 +685,7 @@ const Generator = () => {
           justifyContent='center' className="rounded-md">
           <AlertIcon />
           Badaboum. Petit bug, c'est en développement les gars...
+          <CloseButton onClick={() => setGenerationError(false)}/>
         </Alert>
       </div>
     </div>
