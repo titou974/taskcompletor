@@ -285,7 +285,7 @@ const Generator = () => {
 
   return (
     <div className="w-full flex flex-col gap-20 text-white">
-      <h2>{generateDoc}</h2>
+      <h2>{generatedDoc}</h2>
       <div className={`flex-col items-center justify-center gap-10 ${modifyingStep ? "hidden" : "flex"}`}>
         {/* Generation Form */}
         <motion.div
