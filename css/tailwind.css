@@ -401,7 +401,9 @@ h3 {
   }
 }
 
-
+.shadow-button {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
 /* Call to action 1 */
 
 
@@ -526,6 +528,9 @@ h3 {
 
 @media (min-width: 1024px)  {
   .cta2:hover .cta2-icon {
+    width: 40px;
+  }
+  .cta6:hover .cta6-icon {
     width: 40px;
   }
 }

@@ -15,7 +15,7 @@ import DropDownDoc from "./dropdowndoc";
 import DropDownLang from "./dropdownlang";
 import DropDownType from "./dropdowntype";
 import PenLoader from "./penloader";
-import { PencilSquareIcon, CheckCircleIcon, DocumentIcon } from "@heroicons/react/24/solid";
+import { PencilSquareIcon, CheckCircleIcon, DocumentIcon, ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid";
 import feather from "../public/img/feather.png"
 import Loader from "./loader";
 import {
@@ -29,7 +29,7 @@ import Link from 'next/link';
 import { Dialog, Transition } from '@headlessui/react';
 import ModalIntro from "./modalintro";
 import ModalSaved from "./modalsaved";
-import { ShareIcon } from "@heroicons/react/24/outline";
+import { ShareIcon, BackspaceIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import TabsDocument from "./tabsdocument";
 import RadioGroupLangType from "./radiogrouplangtype";
 import RadioGroupPersoType from "./radiogrouppersotype";
@@ -62,14 +62,13 @@ const Generator = () => {
   const [generatedDoc, setGeneratedDoc] = useState("");
   const [generatedSections, setGeneratedSections] = useState([]);
   const [length, setLength] = useState(0);
-  const [doneGeneration, setDoneGeneration] = useState(false);
   const [finalText, setFinalText] = useState("");
   const [saved, setSaved] = useState(false)
-  const [showCustom, setShowCustom] = useState(false);
   const [modalIntroVisible, setModalIntroVisible] = useState(false);
   const [modalIntroDesactivate, setModalIntroDesactivate] = useState(false);
   const [modifyingStep, setModifyingStep] = useState(false);
   const [generationError, setGenerationError] = useState(false);
+  const [doneGeneration, setDoneGeneration] = useState(false);
 
   let [isOpen, setIsOpen] = useState(false);
 
@@ -79,7 +78,14 @@ const Generator = () => {
   const closeModalIntro = () => {
     setModalIntroDesactivate(true);
   }
+  
+  const backToGeneration = () => {
+    setModifyingStep(false);
+  }
 
+  const goToModifying = () => {
+    setModifyingStep(true);
+  }
 
 
   useEffect(() => {
@@ -172,8 +178,6 @@ const Generator = () => {
     setLoading(true);
     setLength(0);
     setFinalText("");
-    setShowCustom(false);
-    setShowCustom(true);
     setModifyingStep(false);
     setGenerationError(false);
     const response = await fetch("/api/generate", {
@@ -257,8 +261,9 @@ const Generator = () => {
       scrollToDoc();
       setLoading(false);
       setModifyingStep(true);
+      setDoneGeneration(true);
     } else {
-      
+      setGenerationError(true);
     }
   };
 
@@ -269,11 +274,8 @@ const Generator = () => {
         <motion.div
             className="flex items-center gap-4 w-full text-center"
           >
-          <h2 className={`${styles.heroSubText} font-bold hidden lg:block mx-auto mb-10`}>
+          <h2 className={`${styles.heroSubText} font-bold mx-auto mb-10`}>
             Sélectionner un type de document
-          </h2>
-          <h2 className={`${styles.heroSubText} font-bold lg:hidden mx-auto`}>
-            Type de document
           </h2>
         </motion.div>
         <div
@@ -337,7 +339,7 @@ const Generator = () => {
           className={`flex items-center gap-4 w-full md:w-1/2 pt-10`}
         >
           <Image src={Cercle1} width={50} height={50} alt="step 2" className={`${
-              doc === "Lettre" || doc === "Rapport" || doc ==="Fiche de révision" ? "lg:block" : "lg:hidden"
+              doc === "Lettre" || doc === "Rapport" || doc ==="Fiche de révision" ? "block" : "hidden"
           }`}/>
           <h2
             className={`${styles.sectionSubText} ${
@@ -574,24 +576,34 @@ const Generator = () => {
             5.6 Est-ce que le groupe KERING a une politique de recherche et développement ?"
           />
         </motion.div>
-        {!loading && (
-          <button
-            className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 md:w-1/2 flex`}
-            onClick={(e) => generateDoc(e)}
-            ref={docRef}
-          >
-            {`Générer`}
-            <PencilSquareIcon className="ms-3 lg:ms-5 cta2-icon" src={feather}></PencilSquareIcon>
-          </button>
-        )}
-        {loading && (
-          <button
-            disabled
-            className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 disabled cursor-wait`}
-          >
-            <Loader />
-          </button>
-        )}
+        <div className="w-full md:w-1/2 flex justify-between align-center">
+          {!loading && (
+            <button
+              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${doneGeneration ? "cta6 w-2/3" : "cta2 w-full"} flex`}
+              onClick={(e) => generateDoc(e)}
+              ref={docRef}
+            >
+              {`Générer`}
+              <PencilSquareIcon className={`ms-3 lg:ms-5 ${doneGeneration ? "cta6-icon" : "cta2-icon"}`} src={feather}></PencilSquareIcon>
+            </button>
+          )}
+          {loading && (
+            <button
+              disabled
+              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 ${doneGeneration ? "w-2/3" : "w-full"} disabled cursor-wait`}
+            >
+              <Loader />
+            </button>
+          )}
+          {doneGeneration && (
+            <button
+              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} w-[80px] h-[80px] bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary shadow-button lg:w-[100px] lg:h-[100px]`}
+              onClick={() => goToModifying()}
+            >
+              <ArrowRightCircleIcon className="h-[35px] w-[35px] lg:w-[50px] lg:h-[50px] mx-auto" />
+            </button>
+          )}
+        </div>
       </div>
       {/* Step 2 : Modifying Text */}
       <div className={`w-full ${modifyingStep ? "" : "hidden"}`}>
@@ -601,26 +613,31 @@ const Generator = () => {
             Modifier votre {doc} 
           </h2>
         <EditTextAreaReport title={generatedTitle} setTitle={(newDoc) => setGeneratedTitle(newDoc)} setSections={(newDoc) => setGeneratedSections(newDoc)} sections={generatedSections}/>
-        <div className="flex mt-20  justify-center align-center">
+        <div className="flex mt-20 justify-between align-center w-full md:w-1/2 mx-auto">
           <button
-            disabled
-            className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta6 w-1/3`}
+            className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} w-[80px] h-[80px] bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary lg:w-[100px] lg:h-[100px]`}
+            onClick={() => backToGeneration()}
           >
-            Recommencer
+            <ArrowLeftCircleIcon className="h-[35px] w-[35px] mx-auto lg:w-[50px] lg:h-[50px]" />
           </button>
-          <button className={`cta6 ${ loading || !showCustom || saved ? "hidden" : "flex"} w-1/3 mx-10`} onClick={saveDocument}>
-            <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Partager</p>
-            <ShareIcon className="cta6-icon h-[22px] w-[22px] ms-3"/>
+          <button className={`cta6 ${ loading ||  saved ? "hidden" : "flex"} w-2/3 lg:h-[100px] mx-10`} onClick={saveDocument}>
+            <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Enregistrer</p>
+            <ArrowDownTrayIcon className="cta6-icon ms-3"/>
           </button>
-          <Link href="/mypdf" className={`w-full flex justify-end ${saved ? "" : "hidden"}`}>
-            <button className="cta6 flex">
-              <p className={`${styles.sectionSubText}`}>Voir le PDF</p>
-              <DocumentIcon className="w-[22px] h-[22px] ms-3 cta6-icon"/>
+          {loading && (
+            <button
+              disabled
+              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta6 w-2/3 mx-10 disabled cursor-wait`}
+            >
+              <Loader />
             </button>
+          )}
+          <Link href="/mypdf" legacyBehavior className={`w-full flex justify-end ${saved ? "" : "hidden"}`}>
+            <a target="_blank" className={`cta6 flex w-2/3 ${saved ? "" : "hidden"}`}>
+              <p className={`${styles.sectionSubText}`}>Voir le PDF</p>
+              <DocumentIcon className="ms-3 cta6-icon h-[35px] w-[35px] "/>
+            </a>
           </Link>
-          <button className={`cta6 ${ !loading || !showCustom || saved ? "hidden" : "flex"} absolute right-[-50px] top-[-30px] z-40`}  disabled>
-            <Loader />
-          </button>
         </div> 
       </div>
       <div className="h-full">
