@@ -2,8 +2,12 @@ import Head from "next/head";
 import Navbar from "../components/navbar";
 import Hero from "../components/hero";
 import Generator from "../components/generator";
+import { useState } from "react";
 
 const Home = () => {
+  const [navbarStepper, setNavbarStepper] = useState(false);
+
+
   return (
     <>
       <Head>

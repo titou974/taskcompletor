@@ -8,12 +8,41 @@ import {
   faQuestion,
   faFileCirclePlus,
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  Step,
+  StepDescription,
+  StepIcon,
+  StepIndicator,
+  StepNumber,
+  StepSeparator,
+  StepStatus,
+  StepTitle,
+  Stepper,
+  useSteps,
+  Box,
+  Stack,
+  Text
+} from '@chakra-ui/react';
+
+const steps = [
+  { title: 'Générer', description: 'Rentrez vos informations' },
+  { title: 'Modifier', description: 'Personnalisez le contenu' },
+  { title: 'Télécharger', description: 'PDF ou Word' },
+]
 
 
 const Navbar = () => {
+  const { activeStep } = useSteps({
+    index: 1,
+    count: steps.length,
+  })
+
+  const activeStepText = steps[activeStep].description
+
   return (
     <nav className={`${styles.paddingX} w-full fixed top-0 py-5 flex items-center justify-center z-20 text-[16px] bg-primary text-white`}>
-      <div className="w-full flex items-center justify-between max-w-7xl">
+      {/* General Navbar  */}
+      <div className="w-full flex items-center justify-between max-w-7xl hidden">
         <div className="cursor-pointer">
           <Image src={feather} alt="A writer feather" className= "w-[35px] lg:w-[50px] z-50"/>
         </div>
@@ -47,6 +76,46 @@ const Navbar = () => {
             <p>S'enregistrer</p>
           </a>
         </div>
+      </div>
+      {/* Navbar for Generator */}
+      <div className="w-full max-w-7xl hidden md:block">
+        <Stepper size='lg' colorScheme='whatsapp' index={activeStep}>
+        {steps.map((step, index) => (
+          <Step key={index}>
+            <StepIndicator>
+              <StepStatus
+                complete={<StepIcon />}
+                incomplete={<StepNumber />}
+                active={<StepNumber />}
+              />
+            </StepIndicator>
+
+            <Box flexShrink='0'>
+              <StepTitle>{step.title}</StepTitle>
+              <StepDescription color='gray.200' >{step.description}</StepDescription>
+            </Box>
+
+            <StepSeparator />
+          </Step>
+        ))}
+        </Stepper>
+      </div>
+      <div className="md:hidden">
+        <Stack>
+          <Stepper size='sm' index={activeStep} gap='0' colorScheme='whatsapp'>
+            {steps.map((step, index) => (
+              <Step key={index} gap='0'>
+                <StepIndicator>
+                  <StepStatus complete={<StepIcon />} />
+                </StepIndicator>
+                <StepSeparator _horizontal={{ ml: '0' }} />
+              </Step>
+            ))}
+          </Stepper>
+          <Text>
+            Etape {activeStep + 1}: <b>{activeStepText}</b>
+          </Text>
+        </Stack>
       </div>
     </nav>
   )

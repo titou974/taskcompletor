@@ -72,7 +72,7 @@ const Generator = () => {
   const [doneGeneration, setDoneGeneration] = useState(false);
 
   let [isOpen, setIsOpen] = useState(false);
-
+  const generatorRef = useRef();
   const docRef = useRef();
   const modalIntroRef = useRef();
 
@@ -88,27 +88,21 @@ const Generator = () => {
     setModifyingStep(true);
   }
 
-  {/* Modal Intro Apparition on Intersection*/}
+  {/* Navbar Stepper Apparition on Intersection with Generator*/}
 
   useEffect(() => {
     const observerIntro = new IntersectionObserver(
       ([entry]) => {
-      console.log(entry.isIntersecting);
-      setModalIntroIntersection(entry.isIntersecting);
+      if (entry.isIntersecting) {
+        
+      }
+      console.log(entry.isIntersecting)
       },
-      { rootMargin: "-150px" }
+      { rootMargin: "-400px" }
     )
-    observerIntro.observe(modalIntroRef.current);
+    observerIntro.observe(generatorRef.current);
     return () => {
       observerIntro.disconnect();
-    }
-  })
-
-  useEffect(() => {
-    if (modalIntroIntersection && !modalIntroDesactivate) {
-      setGeneratedDoc('test')
-    } else {
-      setModalIntroVisible(false)
     }
   })
 
@@ -284,7 +278,7 @@ const Generator = () => {
   };
 
   return (
-    <div className="w-full flex flex-col gap-20 text-white">
+    <div className="w-full flex flex-col gap-20 text-white" ref={generatorRef}>
       <h2>{generatedDoc}</h2>
       <div className={`flex-col items-center justify-center gap-10 ${modifyingStep ? "hidden" : "flex"}`}>
         {/* Generation Form */}
@@ -475,7 +469,6 @@ const Generator = () => {
         </motion.div>
         <motion.div          
           className="w-full md:w-1/2 mb-10"
-          ref={modalIntroRef}
         >
           <textarea
             value={subject}
