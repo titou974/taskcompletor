@@ -88,25 +88,6 @@ const Generator = () => {
   }
 
 
-  useEffect(() => {
-    {/* Modal Intro Apparition on Intersection*/}
-    const observerIntro = new IntersectionObserver((entries) => {
-      const entry = entries[0];
-      if (entry.isIntersecting && !modalIntroDesactivate) {
-        setModalIntroVisible(true);
-      } else {
-        setModalIntroVisible(false);
-      }
-    })
-    observerIntro.observe(modalIntroRef.current);
-    {/* Download Modal Apparition on Intersection*/}
-
-    return () => {
-      observerIntro.disconnect();
-
-    }
-  })
-
   const scrollToDoc = () => {
     {/* Scroll to Share Button after Generation*/}
     if (docRef.current !== null) {
