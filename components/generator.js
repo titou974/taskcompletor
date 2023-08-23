@@ -88,6 +88,14 @@ const Generator = () => {
   }
 
 
+  {useEffect(() => {
+    if (finalText === "" && doneGeneration) {
+      setGenerationError(true);
+    } else if (finalText !== "" && doneGeneration) {
+      setModifyingStep(true);
+    };
+  })}
+
   const scrollToDoc = () => {
     {/* Scroll to Share Button after Generation*/}
     if (docRef.current !== null) {
@@ -145,6 +153,7 @@ const Generator = () => {
         `Cher ChatGPT, je suis à la recherche d'un emploi dans ${job}. Pouvez-vous m'aider à rédiger une lettre de motivation convaincante qui mettra en valeur mes compétences (compétences: ${competences}), mon expérience pertinente (mes expériences: ${experiences}) et ma motivation à travailler pour l'entreprise ${company} ? Mon nom est ${myName}. J'aimerais que ma lettre soit claire, concise et engageante, et qu'elle capture l'attention du recruteur dès le début. Merci d'avance pour votre aide précieuse !`,
       );
     }
+    console.log(generationError);
   });
 
 
@@ -241,9 +250,8 @@ const Generator = () => {
     if (!generationError) {
       scrollToDoc();
       setLoading(false);
-      setModifyingStep(true);
       setDoneGeneration(true);
-    } else {
+    } else if (generationError || finalText === "") {
       setGenerationError(true);
     }
   };
@@ -560,23 +568,23 @@ const Generator = () => {
         <div className="w-full md:w-1/2 flex justify-between align-center">
           {!loading && (
             <button
-              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${doneGeneration ? "cta6 w-2/3" : "cta2 w-full"} flex`}
+              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta6 w-2/3" : "cta2 w-full"} flex`}
               onClick={(e) => generateDoc(e)}
               ref={docRef}
             >
               {`Générer`}
-              <PencilSquareIcon className={`ms-3 lg:ms-5 ${doneGeneration ? "cta6-icon" : "cta2-icon"}`} src={feather}></PencilSquareIcon>
+              <PencilSquareIcon className={`ms-3 lg:ms-5 ${modifyingStep ? "cta6-icon" : "cta2-icon"}`} src={feather}></PencilSquareIcon>
             </button>
           )}
           {loading && (
             <button
               disabled
-              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 ${doneGeneration ? "w-2/3" : "w-full"} disabled cursor-wait`}
+              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 ${modifyingStep ? "w-2/3" : "w-full"} disabled cursor-wait`}
             >
               <Loader />
             </button>
           )}
-          {doneGeneration && (
+          {modifyingStep && (
             <button
               className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} w-[80px] h-[80px] bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary shadow-button lg:w-[100px] lg:h-[100px]`}
               onClick={() => goToModifying()}
@@ -644,7 +652,7 @@ const Generator = () => {
       >
         <PenLoader />
       </div>
-      <div className={`w-full md:w-1/2 mx-auto bottom-10 right-0 left-0 z-50 ${generationError ? "" : "hidden"}`}>
+      <div className={`${styles.paddingX} w-full md:w-1/2 mx-auto fixed bottom-10 right-0 left-0 z-50 ${generationError ? "" : "hidden"}`}>
         {/* Alert for Generation Problem */}
         <Alert status='error' variant='solid' flexDirection='row'
           alignItems='center'
