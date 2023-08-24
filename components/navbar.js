@@ -42,7 +42,7 @@ const Navbar = () => {
   return (
     <nav className={`${styles.paddingX} w-full fixed top-0 py-5 flex items-center justify-center z-20 text-[16px] bg-primary text-white`}>
       {/* General Navbar  */}
-      <div className="w-full flex items-center justify-between max-w-7xl hidden">
+      <div className="w-full flex items-center justify-between max-w-7xl">
         <div className="cursor-pointer">
           <Image src={feather} alt="A writer feather" className= "w-[35px] lg:w-[50px] z-50"/>
         </div>
@@ -70,7 +70,7 @@ const Navbar = () => {
             </a>
           </li>
         </ul>
-        <div className="hidden lg:flex items-center">
+        <div className="hidden items-center">
           <a className="hover:text-secondary cursor-pointer transition-colors">Se connecter</a>
           <a className="cta3 cursor-pointer ms-4">
             <p>S'enregistrer</p>
@@ -78,7 +78,7 @@ const Navbar = () => {
         </div>
       </div>
       {/* Navbar for Generator */}
-      <div className="w-full max-w-7xl hidden md:block">
+      <div className="w-full max-w-7xl hidden">
         <Stepper size='lg' colorScheme='whatsapp' index={activeStep}>
         {steps.map((step, index) => (
           <Step key={index}>
@@ -100,7 +100,7 @@ const Navbar = () => {
         ))}
         </Stepper>
       </div>
-      <div className="md:hidden">
+      <div className="hidden">
         <Stack>
           <Stepper size='sm' index={activeStep} gap='0' colorScheme='whatsapp'>
             {steps.map((step, index) => (
