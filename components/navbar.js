@@ -23,6 +23,7 @@ import {
   Stack,
   Text
 } from '@chakra-ui/react';
+import { useState, useEffect } from "react";
 
 const steps = [
   { title: 'Générer', description: 'Rentrez vos informations' },
@@ -39,8 +40,24 @@ const Navbar = () => {
 
   const activeStepText = steps[activeStep].description
 
+  const [navbar, setNavbar] = useState(false);
+
+
+  const changeNavbar = () => {
+    if (window.scrollY >= 66) {
+      setNavbar(true)
+    } else {
+      setNavbar(false)
+    }
+  }
+
+  useEffect(() => {
+    changeNavbar()
+    window.addEventListener("scroll", changeNavbar)
+  })
+
   return (
-    <nav className={`${styles.paddingX} w-full fixed top-0 py-5 flex items-center justify-center z-20 text-[16px] bg-primary text-white`}>
+    <nav className={`${styles.paddingX} w-full fixed top-0 py-5 flex items-center justify-center z-20 text-[16px] ${navbar ? "bg-tertiary" : "bg-transparent"} transition-colors text-white`}>
       {/* General Navbar  */}
       <div className="w-full flex items-center justify-between max-w-7xl">
         <div className="cursor-pointer">
