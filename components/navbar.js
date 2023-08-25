@@ -42,6 +42,18 @@ const Navbar = () => {
 
   const [navbar, setNavbar] = useState(false);
 
+  const [stepper, setStepper] = useState(false);
+
+  useEffect(() => {
+    if (document.documentElement.classList.contains("stepper")) {
+      setStepper(true)
+      console.log('yes')
+    } else {
+      setStepper(false)
+      console.log('nope')
+    }
+  })
+
 
   const changeNavbar = () => {
     if (window.scrollY >= 66) {

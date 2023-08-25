@@ -68,12 +68,13 @@ const Generator = () => {
   const [length, setLength] = useState(0);
   const [finalText, setFinalText] = useState("");
   const [saved, setSaved] = useState(false)
-  const [modalIntroIntersection, setModalIntroIntersection] = useState(false);
+  const [generatorIntersection, setGeneratorIntersection] = useState(false);
   const [modalIntroVisible, setModalIntroVisible] = useState(false);
   const [modalIntroDesactivate, setModalIntroDesactivate] = useState(false);
   const [modifyingStep, setModifyingStep] = useState(false);
   const [generationError, setGenerationError] = useState(false);
   const [doneGeneration, setDoneGeneration] = useState(false);
+  const [navTwoStep, setNavTwoStep] = useState(false); 
 
   let [isOpen, setIsOpen] = useState(false);
   const generatorRef = useRef();
@@ -85,11 +86,11 @@ const Generator = () => {
   }
   
   const backToGeneration = () => {
-    setModifyingStep(false);
+    setNavTwoStep(false);
   }
 
   const goToModifying = () => {
-    setModifyingStep(true);
+    setNavTwoStep(true);
   }
 
   {/* Navbar Stepper Apparition on Intersection with Generator*/}
@@ -98,15 +99,27 @@ const Generator = () => {
     const observerIntro = new IntersectionObserver(
       ([entry]) => {
       if (entry.isIntersecting) {
-        
+        setGeneratorIntersection(true)
+      } else {
+        setGeneratorIntersection(false)
       }
       console.log(entry.isIntersecting)
       },
-      { rootMargin: "-400px" }
+      { rootMargin: "200px" }
     )
     observerIntro.observe(generatorRef.current);
     return () => {
       observerIntro.disconnect();
+    }
+  })
+
+  {/* ClassList adding for navbar display*/}
+
+  useEffect(() => {
+    if (generatorIntersection) {
+      document.documentElement.classList.add("stepper")
+    } else {
+      document.documentElement.classList.remove("stepper")
     }
   })
 
@@ -115,8 +128,10 @@ const Generator = () => {
   useEffect(() => {
     if (finalText === "" && doneGeneration) {
       setGenerationError(true);
-    } else if (finalText !== "" && doneGeneration) {
+    } else if (finalText !== "" && doneGeneration && navTwoStep) {
       setModifyingStep(true);
+    } else if (finalText !== "" && doneGeneration && !navTwoStep) {
+      setModifyingStep(false);
     }
   });
 
@@ -282,11 +297,11 @@ const Generator = () => {
   };
 
   return (
-    <div className="w-full flex flex-col gap-20 text-white" ref={generatorRef}>
+    <div className="w-full flex flex-col gap-20 text-white">
       <div className={`flex-col items-center justify-center gap-10 ${modifyingStep ? "hidden" : "flex"}`}>
         {/* Generation Form */}
         <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} persoType={persoType} setPersoType={(newPersoType) => setPersoType(newPersoType)} domain={domain} setDomain={(newDomain) => setDomain(newDomain)} theme={theme} setTheme={(newTheme) => setTheme(newTheme)} questions={questions} setQuestions={(newQuestions) => setQuestions(newQuestions)} job={job} setJob={(newJob) => setJob(newJob)} compentences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} company={company} setCompany={(newCompany) => setCompany(newCompany)} myName={myName} setMyName={(newName) => setMyName(newName)} />
-        <div className="w-full md:w-1/2 flex justify-between align-center">
+        <div className="w-full md:w-1/2 flex justify-between align-center" ref={generatorRef}>
           {!loading && (
             <button
               className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta6 w-2/3" : "cta2 w-full"} flex`}
