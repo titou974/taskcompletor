@@ -286,6 +286,33 @@ const Generator = () => {
       <div className={`flex-col items-center justify-center gap-10 ${modifyingStep ? "hidden" : "flex"}`}>
         {/* Generation Form */}
         <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} persoType={persoType} setPersoType={(newPersoType) => setPersoType(newPersoType)} domain={domain} setDomain={(newDomain) => setDomain(newDomain)} theme={theme} setTheme={(newTheme) => setTheme(newTheme)} questions={questions} setQuestions={(newQuestions) => setQuestions(newQuestions)} job={job} setJob={(newJob) => setJob(newJob)} compentences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} company={company} setCompany={(newCompany) => setCompany(newCompany)} myName={myName} setMyName={(newName) => setMyName(newName)} />
+        <div className="w-full md:w-1/2 flex justify-between align-center">
+          {!loading && (
+            <button
+              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta6 w-2/3" : "cta2 w-full"} flex`}
+              onClick={(e) => generateDoc(e)}
+            >
+              {`Générer`}
+              <PencilSquareIcon className={`ms-3 lg:ms-5 ${modifyingStep ? "cta6-icon" : "cta2-icon"}`} src={feather}></PencilSquareIcon>
+            </button>
+          )}
+          {loading && (
+            <button
+              disabled
+              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 ${modifyingStep ? "w-2/3" : "w-full"} disabled cursor-wait`}
+            >
+              <Loader />
+            </button>
+          )}
+          {modifyingStep && (
+            <button
+              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} w-[80px] h-[80px] bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary shadow-button lg:w-[100px] lg:h-[100px]`}
+              onClick={() => goToModifying()}
+            >
+              <ArrowRightCircleIcon className="h-[35px] w-[35px] lg:w-[50px] lg:h-[50px] mx-auto" />
+            </button>
+          )}
+        </div>
       </div>
       {/* Step 2 : Modifying Text */}
       <div className={`w-full ${modifyingStep ? "" : "hidden"}`} ref={docRef}>
