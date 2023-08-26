@@ -4,16 +4,7 @@ import { motion } from "framer-motion";
 import { useRef, useState, useEffect, Fragment } from "react";
 import { fadeIn, textVariant } from "../utils/motion";
 import SectionWrapper from "./sectionwrapper";
-import Image from "next/image";
-import Cercle1 from "../public/img/icon1white.svg";
-import Cercle2 from "../public/img/icon2white.svg";
-import Cercle3 from "../public/img/icon3white.svg";
-import Cercle4 from "../public/img/icon4white.svg";
-import Cercle5 from "../public/img/icon5white.svg";
 import styles from "./style";
-import DropDownDoc from "./dropdowndoc";
-import DropDownLang from "./dropdownlang";
-import DropDownType from "./dropdowntype";
 import PenLoader from "./penloader";
 import { PencilSquareIcon, CheckCircleIcon, DocumentIcon, ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid";
 import feather from "../public/img/feather.png"
@@ -30,10 +21,6 @@ import { Dialog, Transition } from '@headlessui/react';
 import ModalIntro from "./modalintro";
 import ModalSaved from "./modalsaved";
 import { ShareIcon, BackspaceIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline";
-import TabsDocument from "./tabsdocument";
-import RadioGroupLangType from "./radiogrouplangtype";
-import RadioGroupPersoType from "./radiogrouppersotype";
-import { docType } from "../utils/constants";
 import EditTextAreaReport from "./editableinputs";
 import {
   Alert,
@@ -132,8 +119,8 @@ const Generator = () => {
       setModifyingStep(true);
     } else if (finalText !== "" && doneGeneration && !navTwoStep) {
       setModifyingStep(false);
-    }
-  });
+  }
+});
 
   {/* Scroll to Save Button after Generation*/}
 
@@ -291,6 +278,7 @@ const Generator = () => {
       scrollToDoc();
       setLoading(false);
       setDoneGeneration(true);
+      goToModifying();
     } else if (generationError || finalText === "") {
       setGenerationError(true);
     }
@@ -304,22 +292,22 @@ const Generator = () => {
         <div className="w-full md:w-1/2 flex justify-between align-center" ref={generatorRef}>
           {!loading && (
             <button
-              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta6 w-2/3" : "cta2 w-full"} flex`}
+              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${!modifyingStep ? "cta6 w-2/3" : "cta2 w-full"} flex`}
               onClick={(e) => generateDoc(e)}
             >
               {`Générer`}
-              <PencilSquareIcon className={`ms-3 lg:ms-5 ${modifyingStep ? "cta6-icon" : "cta2-icon"}`} src={feather}></PencilSquareIcon>
+              <PencilSquareIcon className={`ms-3 lg:ms-5 ${!modifyingStep ? "cta6-icon" : "cta2-icon"}`} src={feather}></PencilSquareIcon>
             </button>
           )}
           {loading && (
             <button
               disabled
-              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 ${modifyingStep ? "w-2/3" : "w-full"} disabled cursor-wait`}
+              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 ${!modifyingStep ? "w-2/3" : "w-full"} disabled cursor-wait`}
             >
               <Loader />
             </button>
           )}
-          {modifyingStep && (
+          {!modifyingStep && (
             <button
               className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} w-[80px] h-[80px] bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary shadow-button lg:w-[100px] lg:h-[100px]`}
               onClick={() => goToModifying()}

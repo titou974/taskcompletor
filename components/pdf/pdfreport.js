@@ -7,7 +7,7 @@ const RenderReport = ({ generatedTitle, generatedSections, length }) => {
   return (
     <div className="w-full mx-auto">
       <div className="a4-container align-center flex gap-x-4 mb-2" id="page1">
-        <div className="a4 py-[80px] lg:py-[100px] px-5 sm:px-10 lg:px-20">
+        <div className="a4 py-[40px] lg:py-[100px] px-5 sm:px-10 lg:px-20">
           <h2 className="font-bold text-center">{generatedTitle}</h2>
           <div className={`py-3 sm:hidden`}>
             {generatedSections.slice(0, 2).map((section, index) => (

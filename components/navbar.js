@@ -69,7 +69,7 @@ const Navbar = () => {
   })
 
   return (
-    <nav className={`${styles.paddingX} w-full fixed top-0 py-5 flex items-center justify-center z-20 text-[16px] ${navbar ? "bg-tertiary" : "bg-transparent"} transition-colors text-white`}>
+    <nav className={`${styles.paddingX} w-full fixed top-0 py-5 my-0 flex items-center justify-center z-20 text-[16px] ${navbar ? "bg-tertiary" : "bg-transparent"} transition-colors text-white`}>
       {/* General Navbar  */}
       <div className="w-full flex items-center justify-between max-w-7xl">
         <div className="cursor-pointer">
