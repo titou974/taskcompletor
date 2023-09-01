@@ -47,10 +47,8 @@ const Navbar = () => {
   useEffect(() => {
     if (document.documentElement.classList.contains("stepper")) {
       setStepper(true)
-      console.log('yes')
     } else {
       setStepper(false)
-      console.log('nope')
     }
   })
 

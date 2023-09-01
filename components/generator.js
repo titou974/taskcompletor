@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef, useState, useEffect, Fragment } from "react";
+import { useRef, useState, useEffect, forwardRef } from "react";
 import { fadeIn, textVariant } from "../utils/motion";
 import SectionWrapper from "./sectionwrapper";
 import styles from "./style";
@@ -30,7 +30,7 @@ import {
 import FormGenerator from "./formgenerator";
 
 
-const Generator = () => {
+const Generator = forwardRef(({onIntersection}, generatorRef) => {
   const [loading, setLoading] = useState(false);
   {/* States for form */}
   const [subject, setSubject] = useState("");
@@ -64,7 +64,6 @@ const Generator = () => {
   const [navTwoStep, setNavTwoStep] = useState(false); 
 
   let [isOpen, setIsOpen] = useState(false);
-  const generatorRef = useRef();
   const docRef = useRef();
   const modalIntroRef = useRef();
 
@@ -86,19 +85,22 @@ const Generator = () => {
     const observerIntro = new IntersectionObserver(
       ([entry]) => {
       if (entry.isIntersecting) {
-        setGeneratorIntersection(true)
+      if (onIntersection) {
+        onIntersection(true)
+      } 
       } else {
-        setGeneratorIntersection(false)
+        if (onIntersection) {
+          onIntersection(false)
+        } 
       }
       console.log(entry.isIntersecting)
       },
-      { rootMargin: "200px" }
     )
-    observerIntro.observe(generatorRef.current);
+      generatorRef !== null ? observerIntro.observe(generatorRef.current) : "";
     return () => {
       observerIntro.disconnect();
     }
-  })
+  }, [[onIntersection]])
 
   {/* ClassList adding for navbar display*/}
 
@@ -110,17 +112,29 @@ const Generator = () => {
     }
   })
 
-  {/* Generation Bug Alert */}
+  {/* Generation Bug Alert  && nav between steps*/}
 
   useEffect(() => {
     if (finalText === "" && doneGeneration) {
       setGenerationError(true);
-    } else if (finalText !== "" && doneGeneration && navTwoStep) {
+    } else if (finalText !== "" && doneGeneration) {
       setModifyingStep(true);
-    } else if (finalText !== "" && doneGeneration && !navTwoStep) {
+    } else if (finalText === "" || !doneGeneration) {
       setModifyingStep(false);
   }
 });
+
+  {/* Scroll to Form */}
+
+  const scrollToForm = () => {
+    if (generatorRef.current !== null) {
+      generatorRef.current.scrollIntoView({            
+        behavior: 'auto',
+        block: 'center',
+        inline: 'center'
+      })
+    }
+  }
 
   {/* Scroll to Save Button after Generation*/}
 
@@ -286,28 +300,28 @@ const Generator = () => {
 
   return (
     <div className="w-full flex flex-col gap-20 text-white">
-      <div className={`flex-col items-center justify-center gap-10 ${modifyingStep ? "hidden" : "flex"}`}>
+      <div className={`flex-col items-center justify-center gap-10 ${navTwoStep ? "hidden" : "flex"}`} ref={generatorRef}>
         {/* Generation Form */}
         <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} persoType={persoType} setPersoType={(newPersoType) => setPersoType(newPersoType)} domain={domain} setDomain={(newDomain) => setDomain(newDomain)} theme={theme} setTheme={(newTheme) => setTheme(newTheme)} questions={questions} setQuestions={(newQuestions) => setQuestions(newQuestions)} job={job} setJob={(newJob) => setJob(newJob)} compentences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} company={company} setCompany={(newCompany) => setCompany(newCompany)} myName={myName} setMyName={(newName) => setMyName(newName)} />
-        <div className="w-full md:w-1/2 flex justify-between align-center" ref={generatorRef}>
+        <div className="w-full md:w-1/2 flex justify-between align-center">
           {!loading && (
             <button
-              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${!modifyingStep ? "cta6 w-2/3" : "cta2 w-full"} flex`}
+              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta6 w-2/3" : "cta2 w-full"} flex`}
               onClick={(e) => generateDoc(e)}
             >
               {`Générer`}
-              <PencilSquareIcon className={`ms-3 lg:ms-5 ${!modifyingStep ? "cta6-icon" : "cta2-icon"}`} src={feather}></PencilSquareIcon>
+              <PencilSquareIcon className={`ms-3 lg:ms-5 ${modifyingStep ? "cta6-icon" : "cta2-icon"}`} src={feather}></PencilSquareIcon>
             </button>
           )}
           {loading && (
             <button
               disabled
-              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 ${!modifyingStep ? "w-2/3" : "w-full"} disabled cursor-wait`}
+              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 ${modifyingStep ? "w-2/3" : "w-full"} disabled cursor-wait`}
             >
               <Loader />
             </button>
           )}
-          {!modifyingStep && (
+          {modifyingStep && (
             <button
               className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} w-[80px] h-[80px] bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary shadow-button lg:w-[100px] lg:h-[100px]`}
               onClick={() => goToModifying()}
@@ -318,7 +332,7 @@ const Generator = () => {
         </div>
       </div>
       {/* Step 2 : Modifying Text */}
-      <div className={`w-full ${modifyingStep ? "" : "hidden"}`} ref={docRef}>
+      <div className={`w-full ${navTwoStep ? "" : "hidden"}`} ref={docRef}>
           <h2
             className={`${styles.heroSubText} font-bold mx-auto text-center mt-5 mb-14`}
           >
@@ -332,7 +346,7 @@ const Generator = () => {
           >
             <ArrowLeftCircleIcon className="h-[35px] w-[35px] mx-auto lg:w-[50px] lg:h-[50px]" />
           </button>
-          <button className={`cta6 ${ loading ||  saved ? "hidden" : "flex"} w-2/3 lg:h-[100px] mx-10`} onClick={saveDocument}>
+          <button className={`cta6 ${ loading || saved ? "hidden" : "flex"} w-2/3 lg:h-[100px] mx-10`} onClick={saveDocument}>
             <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Enregistrer</p>
             <ArrowDownTrayIcon className="cta6-icon ms-3"/>
           </button>
@@ -387,6 +401,6 @@ const Generator = () => {
       </div>
     </div>
   );
-};
+});
 
 export default SectionWrapper(Generator, "#id");
