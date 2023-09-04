@@ -1,12 +1,11 @@
 import Head from "next/head";
 import Navbar from "../components/navbar";
 import Hero from "../components/hero";
-import Generator from "../components/generator";
+import Generator from "./generate";
 import { useState, useEffect, useRef } from "react";
 
 const Home = () => {
   const [navbarStepper, setNavbarStepper] = useState(false);
-  const generatorRef = useRef();
   const handleNavbarChange = (isVisible) => {
     setNavbarStepper(isVisible);
   }
@@ -46,7 +45,7 @@ const Home = () => {
       <Navbar />
       <div className="w-full bg-primary">
         <Hero />
-        <Generator generatorRef={generatorRef} onIntersection = {(e) => handleNavbarChange(e)} />
+        <Generator onIntersection = {(e) => handleNavbarChange(e)} />
       </div>
     </>
   );

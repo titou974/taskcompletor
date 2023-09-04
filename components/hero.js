@@ -2,7 +2,7 @@ import Image from "next/image";
 import styles from "./style";
 import innovation from "../public/img/innovation.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { useRouter } from 'next/router'
 // import the icons you need
 import {
   faChevronCircleDown,
@@ -10,6 +10,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Hero = () => {
+
+  const router = useRouter();
   return (
     <div className="relative w-full h-screen flex justify-center bg-primary text-white">
       <div
@@ -25,7 +27,7 @@ const Hero = () => {
           <a
             className={`${styles.heroSubTextLight} my-8 w-1/3 z-10 bg-tertiary rounded-md`}
           >
-            <button className="cta1">
+            <button className="cta1" onClick={() => router.push("/generator")}>
               <p>Créer</p>
               <FontAwesomeIcon
                 icon={faChevronRight}
