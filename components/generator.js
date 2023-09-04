@@ -271,8 +271,6 @@ const Generator = ({onIntersection}) => {
   };
 
   return (
-    <div className="w-full">
-      <Navbar />
       <div className="w-full flex flex-col gap-20 text-white bg-primary pt-10">
         <div className={`flex-col items-center justify-center gap-10 ${navTwoStep ? "hidden" : "flex"}`}>
           {/* Generation Form */}
@@ -374,7 +372,6 @@ const Generator = ({onIntersection}) => {
           </Alert>
         </div>
       </div>
-    </div>
   );
 };
 

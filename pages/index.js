@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Navbar from "../components/navbar";
 import Hero from "../components/hero";
-import Generator from "./generate";
+import Generator from "../components/generator";
 import { useState, useEffect, useRef } from "react";
 
 const Home = () => {
