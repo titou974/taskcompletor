@@ -7,13 +7,21 @@ import PDF from "./pdfcreate";
 
 const PDFView = () => {
   const [client, setClient] = useState(false);
-  const [fetchedText, setFetchedText] = useState("");
+  const [fetchedTitle, setFetchedTitle] = useState("");
+  const [fetchedType, setFetchedType] = useState("");
+  const [fetchedSubtitles, setFetchedSubtitles] = useState([]);
+  const [fetchedSections, setFetchedSections] = useState([]);
+
   useEffect(() => {
     const getServersSideProps = async() => {
       try {
         const res = await axios.get('/api/documents');
-        const props  = res.data[0].sections;
-        setFetchedText(props)
+        const content  = res.data[0];
+        console.log(content)
+        setFetchedType(content.type);
+        setFetchedTitle(content.title);
+        setFetchedSubtitles(content.subtitles);
+        setFetchedSections(content.sections);
       } catch (error) {
         console.log('Error fetching props:', error)
       }
@@ -24,7 +32,7 @@ const PDFView = () => {
 
   return (
     <PDFViewer className="w-full h-screen">
-      <PDF props={fetchedText} />
+      <PDF title={fetchedTitle} subtitles={fetchedSubtitles} sections={fetchedSections} />
     </PDFViewer>
   );
 };
