@@ -1,5 +1,6 @@
 import DropDownDoc from "./dropdowndoc";
 import TabsDocument from "./tabsdocument";
+import TabsEmotion from "./tabsemotion";
 import RadioGroupLangType from "./radiogrouplangtype";
 import RadioGroupPersoType from "./radiogrouppersotype";
 import styles from "./style";
@@ -10,7 +11,7 @@ import Cercle3 from "../public/img/icon3white.svg";
 import Cercle4 from "../public/img/icon4white.svg";
 import { motion } from "framer-motion";
 
-const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, setDest, persoType, setPersoType, domain, setDomain, theme, setTheme, questions, setQuestions, job, setJob, competences, setCompetences, experiences, setExperiences, company, setCompany, myName, setMyName}) => {
+const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, setDest, persoType, setPersoType, domain, setDomain, theme, setTheme, questions, setQuestions, job, setJob, competences, setCompetences, experiences, setExperiences, company, setCompany, myName, setMyName, emotion, setEmotion}) => {
     return (
         <>
             <motion.div
@@ -30,7 +31,7 @@ const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, s
             </div>
             <motion.div
             className={`w-full md:w-1/2 flex justify-between ${
-                doc === "Lettre" || doc === "Lettre de motivation" ? "" : "hidden"
+                doc === "Email" || doc === "Lettre de motivation" ? "" : "hidden"
             }`}
             >
             <h2 className={`${styles.sectionSubText} font-bold w-5/12`}>
@@ -38,7 +39,7 @@ const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, s
             </h2>
             <h2
                 className={`${styles.sectionSubText} ${
-                doc === "Lettre de motivation" ? "hidden" : ""
+                doc === "Lettre de motivation" || "Email" ? "hidden" : ""
                 } font-bold w-5/12`}
             >
                 Destinataire
@@ -48,12 +49,12 @@ const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, s
                 doc === "Lettre" ? "hidden" : ""
                 } font-bold w-5/12`}
             >
-                Entreprise
+                Destinataire
             </h2>
             </motion.div>
             <motion.div          
             className={`w-full md:w-1/2 flex justify-between ${
-                doc === "Lettre" || doc === "Lettre de motivation" ? "" : "hidden"
+                doc === "Email" || doc === "Lettre de motivation" ? "" : "hidden"
             }`}
             >
             <textarea
@@ -81,7 +82,7 @@ const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, s
             className={`flex items-center gap-4 w-full md:w-1/2 pt-10`}
             >
             <Image src={Cercle1} width={50} height={50} alt="step 2" className={`${
-                doc === "Lettre" || doc === "Rapport" || doc ==="Fiche de révision" ? "block" : "hidden"
+                doc === "Email" || doc === "Rapport" || doc ==="Fiche de révision" ? "block" : "hidden"
             }`}/>
             <h2
                 className={`${styles.sectionSubText} ${
@@ -111,13 +112,27 @@ const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, s
             >
                 Matière
             </h2>
+            <h2
+                className={`${styles.sectionSubText} ${
+                doc === "Email" ? "" : "hidden"
+                } font-bold`}
+            >
+                Choisir une émotion
+            </h2>
             </motion.div>
             <motion.div          
             className={`w-full md:w-1/2 ${
-                doc === "Lettre" || doc === "Rapport" ? "" : "hidden"
+                doc === "Rapport" ? "" : "hidden"
             } pb-10`}
             >
             <RadioGroupLangType lang={lang} setLang={(newLang) => setLang(newLang)} />
+            </motion.div>
+            <motion.div          
+            className={`w-full md:w-1/2 ${
+                doc === "Email" ? "" : "hidden"
+            } pb-10`}
+            >
+                <TabsEmotion emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} />
             </motion.div>
             <motion.div          
             className={`w-full md:w-1/2 ${
@@ -171,7 +186,7 @@ const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, s
             <Image src={Cercle2} width={50} height={50} alt="step 3" />
             <h2
                 className={`${styles.sectionSubText} font-bold ${
-                doc === "Rapport" || doc === "Lettre" ? "" : "hidden"
+                doc === "Rapport" || doc === "Email" ? "" : "hidden"
                 }`}
             >
                 Décrivez le(s) sujet(s)
@@ -206,7 +221,7 @@ const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, s
                 onChange={(e) => setSubject(e.target.value)}
                 rows={4}
                 className={`w-full bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-4 py-2 text-gray-700 caret-gray-700 ${
-                doc === "Rapport" || doc === "Lettre" ? "" : "hidden"
+                doc === "Rapport" || doc === "Email" ? "" : "hidden"
                 }`}
                 placeholder="Les espèces d’insectes qui vivent dans les tropiques, avec des précisions sur le moustique."
             />

@@ -48,7 +48,7 @@ const Generator = ({onIntersection}) => {
   const [competences, setCompetences] = useState("");
   const [experiences, setExperiences] = useState("");
   const [company, setCompany] = useState("");
-  const [myName, setMyName] = useState("Jean Pierre");
+  const [myName, setMyName] = useState("");
 
   const [prompt, setPrompt] = useState("");
 
@@ -67,8 +67,9 @@ const Generator = ({onIntersection}) => {
   const [generationError, setGenerationError] = useState(false);
   const [doneGeneration, setDoneGeneration] = useState(false);
   const [navTwoStep, setNavTwoStep] = useState(false);
-  const [generatedMail, setGeneratedMail] = useState("Chère Grand-mère, C'est avec le cœur lourd que je t'écris aujourd'hui. J'aimerais te remercier pour ton soutien infaillible pendant cette période difficile après le décès de Grand-père. Sa perte a été une épreuve déchirante pour nous tous, mais ta présence et ton amour ont apporté un certain réconfort dans ces moments sombres. Grand-père était une figure aimante et inspirante dans nos vies, et il nous manquera énormément. Tes souvenirs partagés avec lui et les moments que nous avons passés en famille resteront précieux pour nous. Sache que tu n'es pas seule dans cette peine, Grand-mère. Nous sommes là pour toi, prêts à t'entourer de tout notre amour et de notre soutien. Si tu as besoin de parler ou de quoi que ce soit, n'hésite pas à me le faire savoir. Encore une fois, je tiens à exprimer ma gratitude pour tout ce que tu as fait pour nous pendant cette période difficile. Ton amour et ta force sont des trésors inestimables. Avec toute mon affection, Titouan");
-  const [generatedObject, setGeneratedObject] = useState("Remerciement pour le décès de Grand-père");
+  const [generatedMail, setGeneratedMail] = useState("");
+  const [generatedObject, setGeneratedObject] = useState("");
+  const [emotion, setEmotion] = useState("")
 
   let [isOpen, setIsOpen] = useState(false);
   const docRef = useRef();
@@ -154,14 +155,8 @@ const Generator = ({onIntersection}) => {
       setPrompt(
         `Écrivez un rapport d'une page maximum sur le sujet ${subject} en utilisant un langage ${lang === "informel" ? "familier" : "formel"}. Structurez votre rapport ${lang === "informel" ? "avec un titre et" : ""} en sections principales, numérotées de manière claire et concise (1, 2, 3, etc.). Assurez-vous d'inclure les informations les plus importantes et les principales idées dans chaque section. Veillez à utiliser le ton et le registre appropriés pour le style de langage choisi. Concentrez-vous sur la clarté et la précision de votre écriture tout en respectant la limite d'une page maximum.`,
       );
-    } else if (doc === "Lettre") {
-      setPrompt(
-        `Cher ChatGPT, je souhaiterais que vous rédigiez une lettre détaillée à ${dest}. La lettre devrait aborder ${subject} et fournir des informations spécifiques, des explications détaillées et des arguments convaincants. ${
-          lang === "Formelle"
-            ? "Veuillez utiliser un ton formel et respectueux tout au long de la lettre."
-            : "Veuillez utiliser un ton familier et amical tout au long de la lettre."
-        } Assurez-vous d'inclure une introduction claire, des paragraphes bien structurés et une conclusion pertinente. Merci d'avance pour votre aide et votre expertise dans la rédaction de cette lettre importante.`,
-      );
+    } else if (doc === "Email") {
+      setPrompt(`Écris un email de ${emotion} de ${myName} à ${dest} avec pour sujet ${subject} en précisant l'objet du mail au début`)
     } else if (doc === "Exercice") {
       setPrompt(
         `Vous êtes un ${persoType} dans le domaine de ${domain}. Vous êtes sollicité pour résoudre un exercice sur ${theme}. Veuillez répondre aux questions suivantes en tant que ${persoType} : ${questions}. Veuillez fournir des explications détaillées et des exemples pertinents pour soutenir vos réponses.`,
@@ -229,9 +224,15 @@ const Generator = ({onIntersection}) => {
     }
 
     const regexSelector = (fulltext) => {
+      {/* Regex for Report */}
       const regex1 = /Rapport[^.]*\n/;
       const regex3 = /(\d+\.\s.+)\n(.+)/g;
       const titleRegex = /^([^\n]+)/;
+
+      {/* Regex for Email */}
+      const regexObject = /^Objet\s*:\s*([\s\S]*?)$/gm
+
+
       {/* Structuring the Document */}
       if (doc === "Rapport") {
         if (lang === "formel") {
@@ -251,6 +252,12 @@ const Generator = ({onIntersection}) => {
           setLength(sections.length);
           setFinalText(fulltext);
         }
+      } else if (doc === "Email") {
+        const object = fulltext.match(regexObject);
+        const mail = fulltext.replace(regexObject, '');
+        setGeneratedObject(object);
+        setGeneratedMail(mail);
+        setFinalText(fulltext);
       }
     }
 
@@ -297,7 +304,7 @@ const Generator = ({onIntersection}) => {
       <div className="w-full flex flex-col gap-20 text-white bg-primary pt-10">
         <div className={`flex-col items-center justify-center gap-10 ${navTwoStep ? "hidden" : "flex"}`}>
           {/* Generation Form */}
-          <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} persoType={persoType} setPersoType={(newPersoType) => setPersoType(newPersoType)} domain={domain} setDomain={(newDomain) => setDomain(newDomain)} theme={theme} setTheme={(newTheme) => setTheme(newTheme)} questions={questions} setQuestions={(newQuestions) => setQuestions(newQuestions)} job={job} setJob={(newJob) => setJob(newJob)} compentences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} company={company} setCompany={(newCompany) => setCompany(newCompany)} myName={myName} setMyName={(newName) => setMyName(newName)} />
+          <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} persoType={persoType} setPersoType={(newPersoType) => setPersoType(newPersoType)} domain={domain} setDomain={(newDomain) => setDomain(newDomain)} theme={theme} setTheme={(newTheme) => setTheme(newTheme)} questions={questions} setQuestions={(newQuestions) => setQuestions(newQuestions)} job={job} setJob={(newJob) => setJob(newJob)} compentences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} company={company} setCompany={(newCompany) => setCompany(newCompany)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} />
           <div className="w-full md:w-1/2 flex justify-between align-center">
             {!loading && (
               <button
@@ -362,16 +369,15 @@ const Generator = ({onIntersection}) => {
           </div> 
         </div>
         <div className="h-full">
-          <div className="h-full mx-auto">
-            <div className="w-full bg-transparent relative">
-            </div>
-
+          <div className={`h-full mx-auto ${doc === "Rapport" ? "" : "hidden"}`}>
               <RenderReport
                 generatedTitle={generatedTitle}
                 generatedSections={generatedSections}
                 length={length}
               />
-              <MailTemplate object={generatedObject} mail={generatedMail} name={myName}/>
+          </div>
+          <div className={`h-full mx-auto ${doc === "Email" ? "" : "hidden"}`}>
+            <MailTemplate object={generatedObject} mail={generatedMail} name={myName}/>
           </div>
         </div>
         {/* Modal Intro */}

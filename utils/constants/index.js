@@ -101,3 +101,26 @@ export const persoType = [
     description: "Répondez aux questions comme un expert",
   },
 ];
+
+export const emotions = [
+  {
+    id: "joie",
+    title: "Joie",
+  },
+  {
+    id: "tristesse",
+    title: "Tristesse",
+  },
+  {
+    id: "colère",
+    title: "Colère",
+  },
+  {
+    id: "gratitude",
+    title: "Gratitude",
+  },
+  {
+    id: "inquiétude",
+    title: "Inquiétude"
+  }
+];
