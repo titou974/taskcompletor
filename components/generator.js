@@ -30,6 +30,7 @@ import {
 import FormGenerator from "../components/formgenerator";
 import Navbar from "../components/navbar";
 import { docType } from "../utils/constants";
+import MailTemplate from "../components/mailtemplate";
 
 
 const Generator = ({onIntersection}) => {
@@ -47,7 +48,7 @@ const Generator = ({onIntersection}) => {
   const [competences, setCompetences] = useState("");
   const [experiences, setExperiences] = useState("");
   const [company, setCompany] = useState("");
-  const [myName, setMyName] = useState("");
+  const [myName, setMyName] = useState("Jean Pierre");
 
   const [prompt, setPrompt] = useState("");
 
@@ -65,7 +66,9 @@ const Generator = ({onIntersection}) => {
   const [modifyingStep, setModifyingStep] = useState(false);
   const [generationError, setGenerationError] = useState(false);
   const [doneGeneration, setDoneGeneration] = useState(false);
-  const [navTwoStep, setNavTwoStep] = useState(false); 
+  const [navTwoStep, setNavTwoStep] = useState(false);
+  const [generatedMail, setGeneratedMail] = useState("Chère Grand-mère, C'est avec le cœur lourd que je t'écris aujourd'hui. J'aimerais te remercier pour ton soutien infaillible pendant cette période difficile après le décès de Grand-père. Sa perte a été une épreuve déchirante pour nous tous, mais ta présence et ton amour ont apporté un certain réconfort dans ces moments sombres. Grand-père était une figure aimante et inspirante dans nos vies, et il nous manquera énormément. Tes souvenirs partagés avec lui et les moments que nous avons passés en famille resteront précieux pour nous. Sache que tu n'es pas seule dans cette peine, Grand-mère. Nous sommes là pour toi, prêts à t'entourer de tout notre amour et de notre soutien. Si tu as besoin de parler ou de quoi que ce soit, n'hésite pas à me le faire savoir. Encore une fois, je tiens à exprimer ma gratitude pour tout ce que tu as fait pour nous pendant cette période difficile. Ton amour et ta force sont des trésors inestimables. Avec toute mon affection, Titouan");
+  const [generatedObject, setGeneratedObject] = useState("Remerciement pour le décès de Grand-père");
 
   let [isOpen, setIsOpen] = useState(false);
   const docRef = useRef();
@@ -359,14 +362,16 @@ const Generator = ({onIntersection}) => {
           </div> 
         </div>
         <div className="h-full">
-          <div className=" h-full mx-auto">
+          <div className="h-full mx-auto">
             <div className="w-full bg-transparent relative">
             </div>
+
               <RenderReport
                 generatedTitle={generatedTitle}
                 generatedSections={generatedSections}
                 length={length}
               />
+              <MailTemplate object={generatedObject} mail={generatedMail} name={myName}/>
           </div>
         </div>
         {/* Modal Intro */}
