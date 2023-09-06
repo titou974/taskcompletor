@@ -29,6 +29,7 @@ import {
 } from '@chakra-ui/react';
 import FormGenerator from "../components/formgenerator";
 import Navbar from "../components/navbar";
+import { docType } from "../utils/constants";
 
 
 const Generator = ({onIntersection}) => {
@@ -53,6 +54,8 @@ const Generator = ({onIntersection}) => {
   const [generatedTitle, setGeneratedTitle] = useState("");
   const [generatedDoc, setGeneratedDoc] = useState("");
   const [generatedSections, setGeneratedSections] = useState([]);
+  const [generatedSectionsTexts,  setGeneratedSectionsTexts] = useState([]);
+  const [generatedSectionsTitles, setGeneratedSectionsTitles]  = useState([]);
   const [length, setLength] = useState(0);
   const [finalText, setFinalText] = useState("");
   const [saved, setSaved] = useState(false)
@@ -106,7 +109,6 @@ const Generator = ({onIntersection}) => {
   }
 });
 
-  {/* Scroll to Form */}
 
 
   {/* Scroll to Save Button after Generation*/}
@@ -130,7 +132,10 @@ const Generator = ({onIntersection}) => {
     setLoading(true);
     try {
       await axios.post("/api/documents", {
-        content: finalText,
+        type: doc, 
+        title: generatedTitle,
+        subtitles: generatedSectionsTitles,
+        sections: generatedSectionsTexts,
       });
       setSaved(true)
       openModal();
@@ -169,7 +174,23 @@ const Generator = ({onIntersection}) => {
     }
   });
 
+  {/* Separate Sectionstitles and Sections */}
 
+  useEffect(() => {
+    const extractedTitles = [];
+    const extractedContent = [];
+
+    generatedSections.forEach((section) => {
+      if (section.length >= 2) {
+        extractedTitles.push(section[1]); // Index 1 contains the title
+      }
+      if (section.length >= 3) {
+        extractedContent.push(section[2]); // Index 2 contains the content
+      }
+    })
+    setGeneratedSectionsTitles(extractedTitles);
+    setGeneratedSectionsTexts(extractedContent);
+  })
   const generateDoc = async (e) => {
     {/* Generate The Document*/}
     e.preventDefault();
@@ -208,7 +229,6 @@ const Generator = ({onIntersection}) => {
       const regex1 = /Rapport[^.]*\n/;
       const regex3 = /(\d+\.\s.+)\n(.+)/g;
       const titleRegex = /^([^\n]+)/;
-      console.log(fulltext);
       {/* Structuring the Document */}
       if (doc === "Rapport") {
         if (lang === "formel") {

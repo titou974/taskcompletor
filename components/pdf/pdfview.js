@@ -12,7 +12,7 @@ const PDFView = () => {
     const getServersSideProps = async() => {
       try {
         const res = await axios.get('/api/documents');
-        const props  = res.data[0].content;
+        const props  = res.data[0].sections;
         setFetchedText(props)
       } catch (error) {
         console.log('Error fetching props:', error)

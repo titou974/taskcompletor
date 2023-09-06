@@ -13,7 +13,10 @@ datasource db {
 
 model Document {
   id        Int     @id @default(autoincrement())
-  content   String? @db.Text
+  title   String? @db.Text
+  subtitles String[]
+  sections String[]
+  type  String? 
   author    User?   @relation(fields: [authorId], references: [id])
   authorId  String?
 }
