@@ -1,4 +1,6 @@
-import { useState } from 'react';
+"use client"
+
+import { useState, useEffect } from 'react';
 
 
 const MailTemplate = ({object, mail, name}) => {
@@ -12,6 +14,14 @@ const MailTemplate = ({object, mail, name}) => {
         navigator.clipboard.writeText(object);
         setObjectCopied(true)
     }
+
+    const wordCurlyRegex = /\[[^\]]+\]/g;
+    const parts = mail.split(wordCurlyRegex);
+
+    useEffect(() => {
+        console.log(parts);
+    })
+
     return (
         <div className="w-full bg-white text-black rounded-md">
             <div className="flex items-center h-full border-b border-slate-300 py-4 px-10">
@@ -25,7 +35,17 @@ const MailTemplate = ({object, mail, name}) => {
                 <div className="w-full flex justify-end">
                     <button className={`px-4 py-3 rounded-md ${mailCopied ? "bg-tertiary text-white" : "bg-transparent hover:bg-tertiary text-tertiary hover:text-white"} border-2 border-tertiary font-bold mb-5 transition-colors`} onClick={copyMail}>{mailCopied ? "Copié ✅" : "Copier l'Email"}</button>
                 </div>
-                <p className="leading-10">{mail}</p>
+                <p className="leading-10">
+                          {parts.map((part, index) => (
+        <span key={index}>
+          {index % 2 === 0 ? (
+            part // Non-matching text
+          ) : (
+            <span className="highlighted-text">{part}</span> // Matching text
+          )}
+        </span>
+      ))}
+                </p>
             </div>
         </div>
     )

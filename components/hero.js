@@ -8,6 +8,7 @@ import {
   faChevronCircleDown,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 const Hero = () => {
 
@@ -24,17 +25,17 @@ const Hero = () => {
           <p className={`${styles.heroSubText} text-center md:text-start`}>
             Générer un beau document n’a jamais été aussi simple.
           </p>
-          <a
-            className={`${styles.heroSubTextLight} my-8 w-1/3 z-10 bg-tertiary rounded-md`}
+          <Link
+            href="/generator" className={`${styles.heroSubTextLight} my-8 w-1/3 z-10 bg-tertiary rounded-md`}
           >
-            <button className="cta1" onClick={() => router.push("/generator")}>
+            <button className="cta1">
               <p>Créer</p>
               <FontAwesomeIcon
                 icon={faChevronRight}
                 className="w-[10px] pt-[3px] sm:w-[13px]"
               />
             </button>
-          </a>
+          </Link>
         </div>
         <div className="w-9/12 xs:w-4/12 sm:w-3/12 md:w-full min-w-[300px]">
           <Image
@@ -44,12 +45,12 @@ const Hero = () => {
           />
         </div>
       </div>
-      <div className="absolute bottom-12 w-full flex justify-center z-10">
+      <Link href="/generator" className="absolute bottom-12 w-full flex justify-center z-10">
         <FontAwesomeIcon
           icon={faChevronCircleDown}
           className="w-[50px] hover:text-tertiary cursor-pointer transition-colors"
         />
-      </div>
+      </Link>
     </div>
   );
 };

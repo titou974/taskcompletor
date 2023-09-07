@@ -1,14 +1,14 @@
 export const navLinks = [
   {
-    id: "completor",
+    id: "generator",
     title: "Générer un document",
   },
   {
-    id: "about",
+    id: "",
     title: "À Propos",
   },
   {
-    id: "faq",
+    id: "",
     title: "FAQ",
   },
 ];

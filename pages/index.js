@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Navbar from "../components/navbar";
 import Hero from "../components/hero";
-import Generator from "../components/generator";
 import { useState, useEffect, useRef } from "react";
 
 const Home = () => {
@@ -45,7 +44,6 @@ const Home = () => {
       <Navbar />
       <div className="w-full bg-primary">
         <Hero />
-        <Generator onIntersection = {(e) => handleNavbarChange(e)} />
       </div>
     </>
   );

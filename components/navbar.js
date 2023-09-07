@@ -24,6 +24,7 @@ import {
   Text
 } from '@chakra-ui/react';
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 const steps = [
   { title: 'Générer', description: 'Rentrez vos informations' },
@@ -76,25 +77,25 @@ const Navbar = () => {
         <ul className="hidden lg:flex list-none">
           {navLinks.map((link) => (
             <li key={link.id} className="px-5 transition-colors hover:text-secondary">
-              <a href={link.id}>{link.title}</a>
+              <Link href={`/${link.id}`}>{link.title}</Link>
             </li>
           ))}
         </ul>
         <ul className="flex lg:hidden list-none">
           <li className="px-5">
-            <a>
-              <FontAwesomeIcon icon={faFileCirclePlus} className='w-[40px]  transition-colors hover:text-tertiary cursor-pointer'/>
-            </a>
+            <Link href={`/${navLinks[0].id}`}>
+              <FontAwesomeIcon icon={faFileCirclePlus} className='w-[40px] transition-colors hover:text-tertiary cursor-pointer'/>
+            </Link>
           </li>
           <li className="px-5">
-            <a>
+            <Link href="/">
               <FontAwesomeIcon icon={faQuestion} className='w-[22px]  transition-colors hover:text-tertiary cursor-pointer'/>
-            </a>
+            </Link>
           </li>
           <li className="px-5">
-            <a>
+            <Link href={`/`}>
               <FontAwesomeIcon icon={faUser} className='w-[28px] transition-colors hover:text-tertiary cursor-pointer'/>
-            </a>
+            </Link>
           </li>
         </ul>
         <div className="hidden items-center">
