@@ -5,7 +5,7 @@ import { langType } from '../utils/constants/index';
 const RadioGroupLangType = ({lang, setLang}) => {
 
   return (
-    <div className="w-full">
+    <div className="w-full pt-10">
       <div className="mx-auto w-full">
         <RadioGroup value={lang} onChange={setLang}>
           <RadioGroup.Label className="sr-only">Type de Language</RadioGroup.Label>

@@ -10,6 +10,7 @@ import Cercle2 from "../public/img/icon2white.svg";
 import Cercle3 from "../public/img/icon3white.svg";
 import Cercle4 from "../public/img/icon4white.svg";
 import { motion } from "framer-motion";
+import ReportForm from "./forminputs.js/reportform";
 
 const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, setDest, persoType, setPersoType, domain, setDomain, theme, setTheme, questions, setQuestions, job, setJob, competences, setCompetences, experiences, setExperiences, company, setCompany, myName, setMyName, emotion, setEmotion}) => {
     return (
@@ -17,17 +18,20 @@ const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, s
             <motion.div
             className="flex items-center gap-4 w-full text-center"
             >
-            <h2 className={`${styles.heroSubText} font-bold mx-auto mb-10`}>
-                Sélectionner un type de document
-            </h2>
+                <h2 className={`${styles.heroSubText} font-bold mx-auto mb-10`}>
+                    Sélectionner un type de document
+                </h2>
             </motion.div>
             <div
             className="sm:hidden w-full"
             >
-            <DropDownDoc className="sm:hidden" type={doc} setType={(newDoc) => setDoc(newDoc)} />
+                <DropDownDoc className="sm:hidden" type={doc} setType={(newDoc) => setDoc(newDoc)} />
             </div>
             <div className="hidden sm:block w-full">
-            <TabsDocument type={doc} setType={(newDoc) => setDoc(newDoc)}/>
+                <TabsDocument type={doc} setType={(newDoc) => setDoc(newDoc)}/>
+            </div>
+            <div className={`w-full ${doc === "Rapport" ? "" : "hidden"}`}>
+                <ReportForm subject={subject} setSubject={(newSubject) => setSubject(newSubject)} lang={lang} setLang={(newLang) => setLang(newLang)}/>
             </div>
             <motion.div
             className={`w-full md:w-1/2 flex justify-between ${
@@ -39,14 +43,7 @@ const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, s
             </h2>
             <h2
                 className={`${styles.sectionSubText} ${
-                doc === "Lettre de motivation" || "Email" ? "hidden" : ""
-                } font-bold w-5/12`}
-            >
-                Destinataire
-            </h2>
-            <h2
-                className={`${styles.sectionSubText} ${
-                doc === "Lettre" ? "hidden" : ""
+                doc === "Lettre de motivation" || "Email" ? "" : "hidden"
                 } font-bold w-5/12`}
             >
                 Destinataire

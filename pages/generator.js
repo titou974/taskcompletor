@@ -69,7 +69,9 @@ const Generator = ({onIntersection}) => {
   const [navTwoStep, setNavTwoStep] = useState(false);
   const [generatedMail, setGeneratedMail] = useState("");
   const [generatedObject, setGeneratedObject] = useState("");
-  const [emotion, setEmotion] = useState("")
+  const [emotion, setEmotion] = useState("");
+  const [mailType, setMailType] = useState("");
+  const [language, setLanguage] = useState("");
 
   let [isOpen, setIsOpen] = useState(false);
   const docRef = useRef();
@@ -156,7 +158,14 @@ const Generator = ({onIntersection}) => {
         `Écrivez un rapport d'une page maximum sur le sujet ${subject} en utilisant un langage ${lang === "informel" ? "familier" : "formel"}. Structurez votre rapport ${lang === "informel" ? "avec un titre et" : ""} en sections principales, numérotées de manière claire et concise (1, 2, 3, etc.). Assurez-vous d'inclure les informations les plus importantes et les principales idées dans chaque section. Veillez à utiliser le ton et le registre appropriés pour le style de langage choisi. Concentrez-vous sur la clarté et la précision de votre écriture tout en respectant la limite d'une page maximum.`,
       );
     } else if (doc === "Email") {
-      setPrompt(`Écris un email de ${emotion} de ${myName} à ${dest} avec pour sujet ${subject} en précisant l'objet du mail au début`)
+      setPrompt(`Peux-tu rédiger un courrier électronique qui commence par l'objet, suivi par le texte, et la signature, s'il te plaît ? (tu dois strictement suivre cette structure.) J'aimerais que tu inclues les informations suivantes :
+
+      Nom de l'expéditeur (à mettre en signature du mail) : ${myName}
+      Nom du destinataire : ${dest}
+      Type de mail et sa forme (pour l'école, une entreprise, administratif ou personnel) :  ${mailType}
+      Langue (français, anglais ou espagnol) : ${language}
+      Sujet du mail : ${subject}
+      Merci beaucoup !`)
     } else if (doc === "Exercice") {
       setPrompt(
         `Vous êtes un ${persoType} dans le domaine de ${domain}. Vous êtes sollicité pour résoudre un exercice sur ${theme}. Veuillez répondre aux questions suivantes en tant que ${persoType} : ${questions}. Veuillez fournir des explications détaillées et des exemples pertinents pour soutenir vos réponses.`,
