@@ -31,6 +31,7 @@ import FormGenerator from "../components/formgenerator";
 import Navbar from "../components/navbar";
 import { docType } from "../utils/constants";
 import MailTemplate from "../components/mailtemplate";
+import MessageTemplate from "../components/messagetemplate";
 
 
 const Generator = ({onIntersection}) => {
@@ -54,7 +55,7 @@ const Generator = ({onIntersection}) => {
 
   const [generatedTitle, setGeneratedTitle] = useState("");
   const [generatedDoc, setGeneratedDoc] = useState("");
-  const [generatedSections, setGeneratedSections] = useState([]);
+  const [generatedSections, setGeneratedSections] = useState(["Salut Lola,", "J'espère que tu vas bien ! Je voulais te partager une nouvelle super excitante : j'ai réussi à prendre de la masse musculaire et je me sens vraiment costaud en ce moment. C'est incroyable à quel point l'entraînement et la nutrition ont fait une différence.", "Je suis tellement heureux de voir les résultats de tous mes efforts et cela me met de bonne humeur tous les jours. J'espère que tu es aussi heureuse pour moi !", "Prends soin de toi, et on se voit bientôt !", "Amicalement,", "Antoine"]);
   const [generatedSectionsTexts,  setGeneratedSectionsTexts] = useState([]);
   const [generatedSectionsTitles, setGeneratedSectionsTitles]  = useState([]);
   const [length, setLength] = useState(0);
@@ -73,6 +74,7 @@ const Generator = ({onIntersection}) => {
   const [mailType, setMailType] = useState("école");
   const [language, setLanguage] = useState("français");
   const [messageLength, setMessageLength] = useState("moyen");
+  const [generatedParagraphesMessage, setGeneratedParagraphesMessage] = useState([""])
 
   let [isOpen, setIsOpen] = useState(false);
   const docRef = useRef();
@@ -250,7 +252,8 @@ const Generator = ({onIntersection}) => {
 
       {/* Regex for Email */}
       const regexObject = /^Objet\s*:\s*([\s\S]*?)$/gm
-
+      const regexObjectWithoutWord = /Objet : (.+)/
+      const regexParagraphsSplit = /\n+/;
 
       {/* Structuring the Document */}
       if (doc === "Rapport") {
@@ -272,10 +275,21 @@ const Generator = ({onIntersection}) => {
           setFinalText(fulltext);
         }
       } else if (doc === "Email") {
-        const object = fulltext.match(regexObject);
+        const objectWithWord = fulltext.match(regexObject);
+        let object
+        if (objectWithWord) {
+          const matchWithoutWord = objectWithWord[0].match(regexObjectWithoutWord)
+          if (matchWithoutWord) {
+            object = matchWithoutWord[1];
+          }
+        }
         const mail = fulltext.replace(regexObject, '');
         setGeneratedObject(object);
         setGeneratedMail(mail);
+        setFinalText(fulltext);
+      } else if (doc === "Message") {
+        const paragraphs = fulltext.split(regexParagraphsSplit)
+        setGeneratedParagraphesMessage(paragraphs);
         setFinalText(fulltext);
       }
     }
@@ -397,6 +411,9 @@ const Generator = ({onIntersection}) => {
           </div>
           <div className={`h-full mx-auto ${doc === "Email" ? "" : "hidden"}`}>
             <MailTemplate object={generatedObject} mail={generatedMail} name={myName}/>
+          </div>
+          <div className={`h-full mx-auto ${doc === "Message" ? "" : "hidden"}`}>
+            <MessageTemplate paragraphes={generatedParagraphesMessage}/>
           </div>
         </div>
         {/* Modal Intro */}
