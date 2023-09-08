@@ -25,7 +25,7 @@ const TabsDocument = ({type, setType}) => {
               )
             }
           >
-            <p>{docType[0].title}<span role="img" aria-label="exercice" className='px-2'>✒️</span></p>
+            <p>{docType[0].title}<span role="img" aria-label="rapport" className='px-2'>📋</span></p>
           </Tab>
           <Tab
             key={docType[1].id}
@@ -39,7 +39,7 @@ const TabsDocument = ({type, setType}) => {
               )
             }
           >
-            <p>{docType[1].title}<span role="img" aria-label="rapport" className='px-2'>📋</span></p>
+            <p>{docType[1].title}<span role="img" aria-label="message" className='px-2'>💬</span></p>
           </Tab>
           <Tab
             key={docType[2].id}
@@ -67,21 +67,7 @@ const TabsDocument = ({type, setType}) => {
               )
             }
           >
-            <p>{docType[3].title}<span role="img" aria-label="lettre de motivation" className='px-2'>🎙</span></p>
-          </Tab>
-          <Tab
-            key={docType[4].id}
-            className={({ selected }) =>
-              classNames(
-                'w-full rounded-md py-2.5 font-medium leading-5 text-white',
-                'ring-white ring-opacity-100 focus:outline-none focus:ring-2',
-                selected
-                  ? 'bg-tertiary shadow'
-                  : 'text-white hover:bg-white/[0.12] transition-colors'
-              )
-            }
-          >
-            <p>{docType[4].title}<span role="img" aria-label="fiche dee révision" className='px-2'>📚</span></p>
+            <p>{docType[3].title}<span role="img" aria-label="email" className='px-2'>🎙️</span></p>
           </Tab>
         </Tab.List>
         <Tab.Panels className="mt-10 mx-auto bg-white rounded-md text-sm">

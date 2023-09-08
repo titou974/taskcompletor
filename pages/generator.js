@@ -37,7 +37,7 @@ const Generator = ({onIntersection}) => {
   const [loading, setLoading] = useState(false);
   {/* States for form */}
   const [subject, setSubject] = useState("");
-  const [doc, setDoc] = useState("Exercice");
+  const [doc, setDoc] = useState("Rapport");
   const [lang, setLang] = useState("formel");
   const [dest, setDest] = useState("");
   const [persoType, setPersoType] = useState("élève");
@@ -69,9 +69,10 @@ const Generator = ({onIntersection}) => {
   const [navTwoStep, setNavTwoStep] = useState(false);
   const [generatedMail, setGeneratedMail] = useState("");
   const [generatedObject, setGeneratedObject] = useState("");
-  const [emotion, setEmotion] = useState("");
-  const [mailType, setMailType] = useState("");
-  const [language, setLanguage] = useState("");
+  const [emotion, setEmotion] = useState("joie");
+  const [mailType, setMailType] = useState("école");
+  const [language, setLanguage] = useState("français");
+  const [messageLength, setMessageLength] = useState("moyen");
 
   let [isOpen, setIsOpen] = useState(false);
   const docRef = useRef();
@@ -178,6 +179,15 @@ const Generator = ({onIntersection}) => {
       setPrompt(
         `Cher ChatGPT, je suis à la recherche d'un emploi dans ${job}. Pouvez-vous m'aider à rédiger une lettre de motivation convaincante qui mettra en valeur mes compétences (compétences: ${competences}), mon expérience pertinente (mes expériences: ${experiences}) et ma motivation à travailler pour l'entreprise ${company} ? Mon nom est ${myName}. J'aimerais que ma lettre soit claire, concise et engageante, et qu'elle capture l'attention du recruteur dès le début. Merci d'avance pour votre aide précieuse !`,
       );
+    } else if (doc === "Message") {
+      setPrompt(`Peux-tu créer un message en gardant uniquement le contenu, s'il te plaît ? Voici les détails :
+
+      Expéditeur : ${myName}
+      Destinataire : ${dest}
+      Sujet : ${subject}
+      Langue : ${language}
+      Taille du message (court, moyen, long) : ${messageLength}
+      Émotion : ${emotion}`)
     }
   });
 
@@ -313,7 +323,7 @@ const Generator = ({onIntersection}) => {
       <div className="w-full flex flex-col gap-20 text-white bg-primary pt-10">
         <div className={`flex-col items-center justify-center gap-10 ${navTwoStep ? "hidden" : "flex"}`}>
           {/* Generation Form */}
-          <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} persoType={persoType} setPersoType={(newPersoType) => setPersoType(newPersoType)} domain={domain} setDomain={(newDomain) => setDomain(newDomain)} theme={theme} setTheme={(newTheme) => setTheme(newTheme)} questions={questions} setQuestions={(newQuestions) => setQuestions(newQuestions)} job={job} setJob={(newJob) => setJob(newJob)} compentences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} company={company} setCompany={(newCompany) => setCompany(newCompany)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} />
+          <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} persoType={persoType} setPersoType={(newPersoType) => setPersoType(newPersoType)} domain={domain} setDomain={(newDomain) => setDomain(newDomain)} theme={theme} setTheme={(newTheme) => setTheme(newTheme)} questions={questions} setQuestions={(newQuestions) => setQuestions(newQuestions)} job={job} setJob={(newJob) => setJob(newJob)} compentences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} company={company} setCompany={(newCompany) => setCompany(newCompany)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)}/>
           <div className="w-full md:w-1/2 flex justify-between align-center">
             {!loading && (
               <button

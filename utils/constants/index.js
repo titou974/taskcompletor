@@ -15,22 +15,22 @@ export const navLinks = [
 
 export const docType = [
   {
-    id: "exercice",
-    title: "Exercice",
-    description: "Réponses à des questions/consignes dans n'importe quel domaine",
-    benefits: ["Résoudre n'importe quel exercice basé sur du texte", "Donné une forme de réponse adapté selon un niveau"],
-    generation_time: "30 secs - 1 minute",
+    id: "rapport",
+    title: "Rapport",
+    description: "Rapport d'environ 2 pages sur un sujet quelconque.",
+    benefits: ["Faire un résumé rapide sur un sujet donné", "Obtenir un plan pour un rapport plus détaillé"],
+    generation_time: "1 minute",
     example: {
       title: "",
       sections: ""
     }
   },
   {
-    id: "rapport",
-    title: "Rapport",
-    description: "Rapport d'environ 2 pages sur un sujet quelconque.",
-    benefits: ["Faire un résumé rapide sur un sujet donné", "Obtenir un plan pour un rapport plus détaillé"],
-    generation_time: "1 minute",
+    id: "message",
+    title: "Message",
+    description: "Message bref ou long, basé sur une émotion",
+    benefits: ["Générer un message pertinent rapidement", "Sélectionner la taille qui convient", "Sélectionner la langue"],
+    generation_time: "30 secondes",
     example: {
       title: "",
       sections: ""
@@ -53,17 +53,6 @@ export const docType = [
     description: "Générer une belle lettre de motivation pour décrocher un job rapidement",
     benefits: ["Gain de temps lors de la recherche d'un travail", "Mise en avant du profil basé sur ses compétences et expériences"],
     generation_time: "30 secs",
-    example: {
-      title: "",
-      sections: ""
-    }
-  },
-  {
-    id: "fiche de révision",
-    title: "Fiche de révision",
-    description: "Générer vos fiches de révision pour ses examens en donnant une matière et un/des chapitre(s)",
-    benefits: ["Pratique lorsqu'on a pas la main sur ses cours...", "Avoir un plan détaillé du chapitre"],
-    generation_time: "1 minute",
     example: {
       title: "",
       sections: ""
@@ -105,22 +94,82 @@ export const persoType = [
 export const emotions = [
   {
     id: "joie",
-    title: "Joie",
-  },
-  {
-    id: "tristesse",
-    title: "Tristesse",
-  },
-  {
-    id: "colère",
-    title: "Colère",
+    title: "Joie 😂",
   },
   {
     id: "gratitude",
-    title: "Gratitude",
+    title: "Gratitude 🙏",
+  },
+  {
+    id: "tristesse",
+    title: "Tristesse 😥",
+  },
+  {
+    id: "colère",
+    title: "Colère 😡",
   },
   {
     id: "inquiétude",
-    title: "Inquiétude"
+    title: "Inquiétude 😟"
   }
 ];
+
+export const mailTypeIndex = [
+  {
+    id: "école",
+    title: "École 👩‍🎓",
+    description: "Génère un mail pour une école"
+  },
+  {
+    id: "entreprise",
+    title: "Entreprise 💼",
+    description: "Génère un mail pour une entreprise",
+  },
+  {
+    id: "administratif",
+    title: "Administratif 📝",
+    description: "Génère un mail pour des démarches administratives"
+  },
+  {
+    id: "personnel",
+    title: "Personnel ✌️",
+    description: "Génère un mail pour un(e) proche"
+  }
+];
+
+export const languageIndex = [
+  {
+    id: "français",
+    title: "Français 🇫🇷"
+  },
+  {
+    id: "anglais",
+    title: "Anglais 🇬🇧"
+  },
+  {
+    id: "espagnol",
+    title: "Espagnol 🇪🇸"
+  },
+  {
+    id: "chinois",
+    title: "Chinois 🇨🇳"
+  }
+];
+
+export const messageLengthIndex = [
+  {
+    id: "court",
+    title: "Court 1️⃣",
+    description: "Génère un message bref"
+  },
+  {
+    id: "moyen",
+    title: "Moyen 2️⃣",
+    description: "Génère un message de taille moyenne"
+  },
+  {
+    id: "Long",
+    title: "Long 3️⃣",
+    description: "Genère un message long"
+  }
+]

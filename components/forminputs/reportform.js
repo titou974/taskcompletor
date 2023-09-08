@@ -36,7 +36,7 @@ const ReportForm = ({lang, setLang, subject, setSubject}) => {
                     rows={4}
                     className={`w-full bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black mt-10 px-4 py-2 text-gray-700 caret-gray-700`}
                     placeholder="Les espèces d’insectes qui vivent dans les tropiques, avec des précisions sur le moustique."
-                />
+            />
         </div>
     )
 }

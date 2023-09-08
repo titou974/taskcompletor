@@ -10,9 +10,11 @@ import Cercle2 from "../public/img/icon2white.svg";
 import Cercle3 from "../public/img/icon3white.svg";
 import Cercle4 from "../public/img/icon4white.svg";
 import { motion } from "framer-motion";
-import ReportForm from "./forminputs.js/reportform";
+import ReportForm from "./forminputs/reportform";
+import EmailForm from "./forminputs/emailform";
+import MessageForm from "./forminputs/messageform";
 
-const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, setDest, persoType, setPersoType, domain, setDomain, theme, setTheme, questions, setQuestions, job, setJob, competences, setCompetences, experiences, setExperiences, company, setCompany, myName, setMyName, emotion, setEmotion}) => {
+const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, setDest, persoType, setPersoType, domain, setDomain, theme, setTheme, questions, setQuestions, job, setJob, competences, setCompetences, experiences, setExperiences, company, setCompany, myName, setMyName, emotion, setEmotion, language, setLanguage, mailType, setMailType, messageLength, setMessageLength}) => {
     return (
         <>
             <motion.div
@@ -32,6 +34,12 @@ const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, s
             </div>
             <div className={`w-full ${doc === "Rapport" ? "" : "hidden"}`}>
                 <ReportForm subject={subject} setSubject={(newSubject) => setSubject(newSubject)} lang={lang} setLang={(newLang) => setLang(newLang)}/>
+            </div>
+            <div className={`${doc === "Email" ? "" : "hidden"}`}>
+                <EmailForm myName={myName} setMyName={(newName) => setMyName(newName)} dest={dest} setDest={(newDest) => setDest(newDest)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} subject={subject} setSubject={(newSubject) => setSubject(newSubject)} />
+            </div>
+            <div className={`w-full ${doc === 'Message' ? "" : "hidden"}`}>
+                <MessageForm myName={myName} setMyName={(newName) => setMyName(newName)} dest={dest} setDest={(newDest) => setDest(newDest)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)} subject={subject} setSubject={(newSubject) => setSubject(newSubject)}/>
             </div>
             <motion.div
             className={`w-full md:w-1/2 flex justify-between ${
