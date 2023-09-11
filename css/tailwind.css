@@ -1,7 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
 @font-face {
-  font-family: 'Helvetica Neue'; 
+  font-family: 'Helvetica Neue Condensed'; 
   src: url('../public/assets/Helvetica\ Neue\ 67\ Medium\ Condensed.otf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Helvetica Neue'; 
+  src: url('../public/assets/Helvetica\ Neue\ Regular.otf') format('truetype');
 }
 
 @tailwind base;
@@ -593,6 +598,39 @@
   font-family: "Helvetica Neue";
 }
 
+.imessage-bar {
+  background-color: #1A1A1A;
+  width: 100%;
+  padding: 1em;
+  margin-bottom: 2em;
+}
+
+.imessage-contact {
+  background-color: #A8AEBC;
+  border-radius: 100%;
+  font-family: "Helvetica Neue";
+  font-size: 1.5em;
+  color: white;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imessage-name {
+  display: flex;
+  justify-content: center;
+  margin: 0.5em 0 0 0;
+}
+
+.imessage-name > p {
+  font-family: "Helvetica Neue Condensed";
+  text-align: center;
+  margin: 0 0.2em;
+}
+
 .imessage-bubble {
   max-width: 400px;
   word-wrap: break-word;
@@ -629,6 +667,6 @@
 }
 
 .imessage-text {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue Condensed";
   font-size: 20px;
 }

@@ -420,7 +420,7 @@ const Generator = ({onIntersection}) => {
             <MailTemplate fullmail={finalText} name={myName}/>
           </div>
           <div className={`h-full ${doc === "Message" ? "" : "hidden"}`}>
-            <MessageTemplate messageText={finalText}/>
+            <MessageTemplate messageText={finalText} dest={dest} />
           </div>
         </div>
         {/* Modal Intro */}

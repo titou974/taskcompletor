@@ -45,19 +45,19 @@ const MailTemplate = ({fullmail, name}) => {
 
     return (
         <div className="w-full bg-white text-black rounded-md  text-sm sm:text-base">
-            <div className="flex items-center h-full border-b border-slate-300 py-4 px-10">
+            <div className="flex items-center h-full border-b border-slate-300 py-4 px-5 md:px-10">
                 <p><span className="font-bold">De: </span><span>{name}</span></p>
             </div>
-            <div className="flex items-center justify-between h-full border-b border-slate-300 py-4 px-10">
+            <div className="flex flex-col-reverse md:flex-row items-start md:items-center md:justify-between h-full border-b border-slate-300 py-4 px-5 md:px-10">
                 <p><span className="font-bold">Objet: </span><span>{object}</span></p>
-                <button className={`px-4 py-3 rounded-md ${objectCopied ? "bg-tertiary text-white" : "bg-transparent hover:bg-tertiary text-tertiary hover:text-white"} border-2 border-tertiary font-bold mb-5 transition-colors`} onClick={copyObject}>{objectCopied ? "Copié ✅" : "Copier l'Objet"}</button>
+                <button className={`px-4 py-3 mb-5 md:mb-0 rounded-md ${objectCopied ? "bg-tertiary text-white" : "bg-transparent hover:bg-tertiary text-tertiary hover:text-white"} border-2 border-tertiary font-bold transition-colors`} onClick={copyObject}>{objectCopied ? "Copié ✅" : "Copier l'Objet"}</button>
             </div>
-            <div className="pt-6 pb-14 px-10">
-                <div className="w-full flex justify-end">
-                    <button className={`px-4 py-3 rounded-md ${mailCopied ? "bg-tertiary text-white" : "bg-transparent hover:bg-tertiary text-tertiary hover:text-white"} border-2 border-tertiary font-bold mb-5 transition-colors`} onClick={copyMail}>{mailCopied ? "Copié ✅" : "Copier l'Email"}</button>
+            <div className="pt-6 pb-14 px-5 md:px-10">
+                <div className="w-full flex md:justify-end items-center">
+                    <button className={`px-4 py-3 rounded-md ${mailCopied ? "bg-tertiary text-white" : "bg-transparent hover:bg-tertiary text-tertiary hover:text-white"} border-2 border-tertiary font-bold transition-colors`} onClick={copyMail}>{mailCopied ? "Copié ✅" : "Copier l'Email"}</button>
                 </div>
                 { mailParagraphes.map((paragraph) => (
-                    <p className='my-10 leading-10'>{paragraph}</p>
+                    <p className='my-5 md:my-10 leading-10'>{paragraph}</p>
                 ))}
             </div>
         </div>
