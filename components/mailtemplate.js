@@ -3,9 +3,37 @@
 import { useState, useEffect } from 'react';
 
 
-const MailTemplate = ({object, mail, name}) => {
+const MailTemplate = ({fullmail, name}) => {
+    const [object, setObject] = useState('');
+    const [mail, setMail] = useState('');
+    const [mailParagraphes, setMailParagraphes] = useState([]);
     const [mailCopied, setMailCopied] = useState(false);
     const [objectCopied, setObjectCopied] = useState(false);
+
+    const regexSelector = (fullmail) => {
+        const regexObject = /^Objet\s*:\s*([\s\S]*?)$/gm
+        const regexObjectWithoutWord = /Objet : (.+)/
+        const regexParagraphsSplit = /\n+/;
+
+        const objectWithWord = fullmail.match(regexObject);
+        let object
+        if (objectWithWord) {
+            const matchWithoutWord = objectWithWord[0].match(regexObjectWithoutWord)
+            if (matchWithoutWord) {
+            object = matchWithoutWord[1];
+            }
+        }
+        const mail = fullmail.replace(regexObject, '');
+        const paragraphes = mail.split(regexParagraphsSplit);
+        setObject(object);
+        setMail(mail);
+        setMailParagraphes(paragraphes);
+    }
+
+    useEffect(() => {
+        regexSelector(fullmail)
+    })
+
     const copyMail = () => {
         navigator.clipboard.writeText(mail);
         setMailCopied(true)
@@ -15,15 +43,8 @@ const MailTemplate = ({object, mail, name}) => {
         setObjectCopied(true)
     }
 
-    const wordCurlyRegex = /\[[^\]]+\]/g;
-    const parts = mail.split(wordCurlyRegex);
-
-    useEffect(() => {
-        console.log(parts);
-    })
-
     return (
-        <div className="w-full bg-white text-black rounded-md">
+        <div className="w-full bg-white text-black rounded-md  text-sm sm:text-base">
             <div className="flex items-center h-full border-b border-slate-300 py-4 px-10">
                 <p><span className="font-bold">De: </span><span>{name}</span></p>
             </div>
@@ -35,17 +56,9 @@ const MailTemplate = ({object, mail, name}) => {
                 <div className="w-full flex justify-end">
                     <button className={`px-4 py-3 rounded-md ${mailCopied ? "bg-tertiary text-white" : "bg-transparent hover:bg-tertiary text-tertiary hover:text-white"} border-2 border-tertiary font-bold mb-5 transition-colors`} onClick={copyMail}>{mailCopied ? "Copié ✅" : "Copier l'Email"}</button>
                 </div>
-                <p className="leading-10">
-                          {parts.map((part, index) => (
-        <span key={index}>
-          {index % 2 === 0 ? (
-            part // Non-matching text
-          ) : (
-            <span className="highlighted-text">{part}</span> // Matching text
-          )}
-        </span>
-      ))}
-                </p>
+                { mailParagraphes.map((paragraph) => (
+                    <p className='my-10 leading-10'>{paragraph}</p>
+                ))}
             </div>
         </div>
     )

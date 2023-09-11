@@ -32,7 +32,8 @@ import Navbar from "../components/navbar";
 import { docType } from "../utils/constants";
 import MailTemplate from "../components/mailtemplate";
 import MessageTemplate from "../components/messagetemplate";
-
+import EditTextMessage from "../components/edittextmessage";
+import EditTextMail from "../components/edittextmail";
 
 const Generator = ({onIntersection}) => {
   const [loading, setLoading] = useState(false);
@@ -74,7 +75,7 @@ const Generator = ({onIntersection}) => {
   const [mailType, setMailType] = useState("école");
   const [language, setLanguage] = useState("français");
   const [messageLength, setMessageLength] = useState("moyen");
-  const [generatedParagraphesMessage, setGeneratedParagraphesMessage] = useState([""])
+  const [generatedParagraphesMessage, setGeneratedParagraphesMessage] = useState([])
 
   let [isOpen, setIsOpen] = useState(false);
   const docRef = useRef();
@@ -166,7 +167,7 @@ const Generator = ({onIntersection}) => {
       Nom de l'expéditeur (à mettre en signature du mail) : ${myName}
       Nom du destinataire : ${dest}
       Type de mail et sa forme (pour l'école, une entreprise, administratif ou personnel) :  ${mailType}
-      Langue (français, anglais ou espagnol) : ${language}
+      Langue : ${language}
       Sujet du mail : ${subject}
       Merci beaucoup !`)
     } else if (doc === "Exercice") {
@@ -209,6 +210,7 @@ const Generator = ({onIntersection}) => {
     })
     setGeneratedSectionsTitles(extractedTitles);
     setGeneratedSectionsTexts(extractedContent);
+    console.log(finalText)
   })
   const generateDoc = async (e) => {
     {/* Generate The Document*/}
@@ -253,7 +255,6 @@ const Generator = ({onIntersection}) => {
       {/* Regex for Email */}
       const regexObject = /^Objet\s*:\s*([\s\S]*?)$/gm
       const regexObjectWithoutWord = /Objet : (.+)/
-      const regexParagraphsSplit = /\n+/;
 
       {/* Structuring the Document */}
       if (doc === "Rapport") {
@@ -288,8 +289,6 @@ const Generator = ({onIntersection}) => {
         setGeneratedMail(mail);
         setFinalText(fulltext);
       } else if (doc === "Message") {
-        const paragraphs = fulltext.split(regexParagraphsSplit)
-        setGeneratedParagraphesMessage(paragraphs);
         setFinalText(fulltext);
       }
     }
@@ -368,12 +367,20 @@ const Generator = ({onIntersection}) => {
         </div>
         {/* Step 2 : Modifying Text */}
         <div className={`w-full ${navTwoStep ? "" : "hidden"}`} ref={docRef}>
-            <h2
-              className={`${styles.heroSubText} font-bold mx-auto text-center mt-5 mb-14`}
-            >
-              Modifier votre {doc} 
-            </h2>
-          <EditTextAreaReport title={generatedTitle} setTitle={(newDoc) => setGeneratedTitle(newDoc)} setSections={(newDoc) => setGeneratedSections(newDoc)} sections={generatedSections}/>
+          <h2
+            className={`${styles.heroSubText} font-bold mx-auto text-center mt-5 mb-14`}
+          >
+            Modifier votre {doc} 
+          </h2>
+          <div className={`w-full ${doc === "Rapport" ? "" : "hidden"}`}>
+            <EditTextAreaReport title={generatedTitle} setTitle={(newDoc) => setGeneratedTitle(newDoc)} setSections={(newDoc) => setGeneratedSections(newDoc)} sections={generatedSections}/>
+          </div>
+          <div className={`w-full ${doc === "Message" ? "" : "hidden"}`}>
+            <EditTextMessage message={finalText} setMessage={(newMessage) => setFinalText(newMessage)} />
+          </div>
+          <div className={`w-full ${doc === "Email" ? "" : "hidden"}`}>
+            <EditTextMail mail={finalText} setMail={(newMail) => setFinalText(newMail)} />
+          </div>
           <div className="flex mt-20 justify-between align-center w-full md:w-1/2 mx-auto">
             <button
               className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} w-[80px] h-[80px] bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary lg:w-[100px] lg:h-[100px]`}
@@ -403,17 +410,17 @@ const Generator = ({onIntersection}) => {
         </div>
         <div className="h-full">
           <div className={`h-full mx-auto ${doc === "Rapport" ? "" : "hidden"}`}>
-              <RenderReport
-                generatedTitle={generatedTitle}
-                generatedSections={generatedSections}
-                length={length}
-              />
+            <RenderReport
+              generatedTitle={generatedTitle}
+              generatedSections={generatedSections}
+              length={length}
+            />
           </div>
-          <div className={`h-full mx-auto ${doc === "Email" ? "" : "hidden"}`}>
-            <MailTemplate object={generatedObject} mail={generatedMail} name={myName}/>
+          <div className={`h-full ${doc === "Email" ? "" : "hidden"}`}>
+            <MailTemplate fullmail={finalText} name={myName}/>
           </div>
-          <div className={`h-full mx-auto ${doc === "Message" ? "" : "hidden"}`}>
-            <MessageTemplate paragraphes={generatedParagraphesMessage}/>
+          <div className={`h-full ${doc === "Message" ? "" : "hidden"}`}>
+            <MessageTemplate messageText={finalText}/>
           </div>
         </div>
         {/* Modal Intro */}
