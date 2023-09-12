@@ -38,7 +38,7 @@ import ModalStepTwo from "../components/modalmodifiedstep";
 import ModalStepTwoPdf from "../components/modalmodifiedpdf";
 
 
-const Generator = ({onIntersection}) => {
+const Generator = () => {
   const [loading, setLoading] = useState(false);
   {/* States for form */}
   const [subject, setSubject] = useState("");
@@ -56,9 +56,9 @@ const Generator = ({onIntersection}) => {
   const [myName, setMyName] = useState("");
 
   const [prompt, setPrompt] = useState("");
-
-  const [generatedTitle, setGeneratedTitle] = useState("");
   const [generatedDoc, setGeneratedDoc] = useState("");
+  const [generatedTitle, setGeneratedTitle] = useState("");
+  const [showGeneratedDoc, setShowGeneratedDoc] = useState(false);
   const [generatedSections, setGeneratedSections] = useState(["Salut Lola,", "J'espère que tu vas bien ! Je voulais te partager une nouvelle super excitante : j'ai réussi à prendre de la masse musculaire et je me sens vraiment costaud en ce moment. C'est incroyable à quel point l'entraînement et la nutrition ont fait une différence.", "Je suis tellement heureux de voir les résultats de tous mes efforts et cela me met de bonne humeur tous les jours. J'espère que tu es aussi heureuse pour moi !", "Prends soin de toi, et on se voit bientôt !", "Amicalement,", "Antoine"]);
   const [generatedSectionsTexts,  setGeneratedSectionsTexts] = useState([]);
   const [generatedSectionsTitles, setGeneratedSectionsTitles]  = useState([]);
@@ -78,14 +78,10 @@ const Generator = ({onIntersection}) => {
   const [messageLength, setMessageLength] = useState("moyen");
   const [modalModifiedStepOpen, setModalModifiedStepOpen] = useState(false);
   const [modalModifiedPdfOpen, setModalModifiedPdfOpen] = useState(false);
+  const [developSubject, setDevelopSubject] = useState(false);
 
   let [isOpen, setIsOpen] = useState(false);
   const docRef = useRef();
-  const modalIntroRef = useRef();
-
-  const closeModalIntro = () => {
-    setModalIntroDesactivate(true);
-  }
   
   const backToGeneration = () => {
     setNavTwoStep(false);
@@ -105,8 +101,16 @@ const Generator = ({onIntersection}) => {
     scrollToDoc();
   }
 
-  {/* Navbar Stepper Apparition on Intersection with Generator*/}
-
+  {/* Modal open for more detailed on subject */}
+  useEffect(() => {
+    const words = subject.split(/\s+/)
+    const wordsCount = words.length
+    if (wordsCount < 5) {
+      setDevelopSubject(true)
+    } else {
+      setDevelopSubject(false)
+    }
+  })
 
   {/* ClassList adding for navbar display*/}
 
@@ -228,6 +232,7 @@ const Generator = ({onIntersection}) => {
   const generateDoc = async (e) => {
     {/* Generate The Document*/}
     e.preventDefault();
+    setModalIntroVisible(false)
     setSaved(false);
     setGeneratedDoc("");
     setGeneratedTitle("");
@@ -238,6 +243,7 @@ const Generator = ({onIntersection}) => {
     setFinalText("");
     setModifyingStep(false);
     setGenerationError(false);
+    setShowGeneratedDoc(true);
     const response = await fetch("/api/generate", {
       method: "POST",
       headers: {
@@ -342,7 +348,7 @@ const Generator = ({onIntersection}) => {
             {!loading && (
               <button
                 className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta6 w-2/3" : "cta2 w-full"} flex`}
-                onClick={(e) => generateDoc(e)}
+                onClick={(e) => developSubject ? setModalIntroVisible(true) : generateDoc(e)}
               >
                 {`Générer`}
                 <PencilSquareIcon className={`ms-3 lg:ms-5 ${modifyingStep ? "cta6-icon" : "cta2-icon"}`} src={feather}></PencilSquareIcon>
@@ -410,22 +416,22 @@ const Generator = ({onIntersection}) => {
           </div> 
         </div>
         <div className="h-full">
-          <div className={`h-full mx-auto ${doc === "Rapport" ? "" : "hidden"}`}>
+          <div className={`h-full mx-auto ${doc === "Rapport" && showGeneratedDoc ? "" : "hidden"}`}>
             <RenderReport
               generatedTitle={generatedTitle}
               generatedSections={generatedSections}
               length={length}
             />
           </div>
-          <div className={`h-full ${doc === "Email" ? "" : "hidden"}`}>
+          <div className={`h-full ${doc === "Email" && showGeneratedDoc ? "" : "hidden"}`}>
             <MailTemplate fullmail={finalText} name={myName}/>
           </div>
-          <div className={`h-full ${doc === "Message" ? "" : "hidden"}`}>
+          <div className={`h-full ${doc === "Message" && showGeneratedDoc ? "" : "hidden"}`}>
             <MessageTemplate messageText={finalText} dest={dest} />
           </div>
         </div>
         {/* Modal Intro */}
-        <ModalIntro isOpen={modalIntroVisible} closeModal={closeModalIntro}/>
+        <ModalIntro isOpen={modalIntroVisible} closeModal={() => setModalIntroVisible(false)} generateDoc={(e) => generateDoc(e)} />
         {/* Modal Saved */}
         <ModalSaved isOpen={isOpen} closeModal={closeModal} generatedTitle={generatedTitle} doc={doc} />
         {/* Modal Step Two */}
