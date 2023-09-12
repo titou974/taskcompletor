@@ -1,6 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import "../css/tailwind.css";
 import { extendTheme } from '@chakra-ui/react';
+import Navbar from "../components/navbar";
 
 const colors = {
   tertiary: "#00003f",
@@ -17,6 +18,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider theme={theme}>
       <div className='bg-primary'>
+        <Navbar />
         <Component {...pageProps} />
       </div>
     </ChakraProvider>

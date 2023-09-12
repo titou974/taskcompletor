@@ -671,3 +671,10 @@
   font-family: "Helvetica Neue Condensed";
   font-size: 20px;
 }
+
+.navbar-bg {
+  background: rgba(104, 104, 104, 0.418);
+  mix-blend-mode: luminosity;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(100.95704650878906px);
+}

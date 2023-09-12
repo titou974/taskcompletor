@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Navbar from "../components/navbar";
 import Hero from "../components/hero";
 import { useState, useEffect, useRef } from "react";
 
@@ -41,7 +40,6 @@ const Home = () => {
         />
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
-      <Navbar />
       <div className="w-full bg-primary">
         <Hero />
       </div>
