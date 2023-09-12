@@ -34,6 +34,9 @@ import MailTemplate from "../components/mailtemplate";
 import MessageTemplate from "../components/messagetemplate";
 import EditTextMessage from "../components/edittextmessage";
 import EditTextMail from "../components/edittextmail";
+import ModalStepTwo from "../components/modalmodifiedstep";
+import ModalStepTwoPdf from "../components/modalmodifiedpdf";
+
 
 const Generator = ({onIntersection}) => {
   const [loading, setLoading] = useState(false);
@@ -69,13 +72,12 @@ const Generator = ({onIntersection}) => {
   const [generationError, setGenerationError] = useState(false);
   const [doneGeneration, setDoneGeneration] = useState(false);
   const [navTwoStep, setNavTwoStep] = useState(false);
-  const [generatedMail, setGeneratedMail] = useState("");
-  const [generatedObject, setGeneratedObject] = useState("");
   const [emotion, setEmotion] = useState("joie");
   const [mailType, setMailType] = useState("école");
   const [language, setLanguage] = useState("français");
   const [messageLength, setMessageLength] = useState("moyen");
-  const [generatedParagraphesMessage, setGeneratedParagraphesMessage] = useState([])
+  const [modalModifiedStepOpen, setModalModifiedStepOpen] = useState(false);
+  const [modalModifiedPdfOpen, setModalModifiedPdfOpen] = useState(false);
 
   let [isOpen, setIsOpen] = useState(false);
   const docRef = useRef();
@@ -91,6 +93,16 @@ const Generator = ({onIntersection}) => {
 
   const goToModifying = () => {
     setNavTwoStep(true);
+  }
+
+  const closeModifiedIntro = () => {
+    setModalModifiedStepOpen(false);
+    scrollToDoc();
+  }
+
+  const closeModalModifiedPdf = () => {
+    setModalModifiedPdfOpen(false);
+    scrollToDoc();
   }
 
   {/* Navbar Stepper Apparition on Intersection with Generator*/}
@@ -126,6 +138,8 @@ const Generator = ({onIntersection}) => {
   const scrollToDoc = () => {
     if (docRef.current !== null) {
       docRef.current.scrollIntoView({ behavior: "smooth" });
+    } else {
+      console.log("error scrolling after generation")
     }
   };
 
@@ -210,7 +224,6 @@ const Generator = ({onIntersection}) => {
     })
     setGeneratedSectionsTitles(extractedTitles);
     setGeneratedSectionsTexts(extractedContent);
-    console.log(finalText)
   })
   const generateDoc = async (e) => {
     {/* Generate The Document*/}
@@ -275,22 +288,9 @@ const Generator = ({onIntersection}) => {
           setLength(sections.length);
           setFinalText(fulltext);
         }
-      } else if (doc === "Email") {
-        const objectWithWord = fulltext.match(regexObject);
-        let object
-        if (objectWithWord) {
-          const matchWithoutWord = objectWithWord[0].match(regexObjectWithoutWord)
-          if (matchWithoutWord) {
-            object = matchWithoutWord[1];
-          }
-        }
-        const mail = fulltext.replace(regexObject, '');
-        setGeneratedObject(object);
-        setGeneratedMail(mail);
+      } else if (doc === "Email" || doc === "Message") {
         setFinalText(fulltext);
-      } else if (doc === "Message") {
-        setFinalText(fulltext);
-      }
+      } 
     }
 
     const onParse = (event) => {
@@ -323,17 +323,18 @@ const Generator = ({onIntersection}) => {
       parser.feed(chunkValue);
     }
     if (!generationError) {
-      scrollToDoc();
+      { doc === "Message" || doc === "Email" ? setModalModifiedStepOpen(true) : setModalModifiedPdfOpen(true)};
       setLoading(false);
       setDoneGeneration(true);
       goToModifying();
+      scrollToDoc();
     } else if (generationError || finalText === "") {
       setGenerationError(true);
     }
   };
 
   return (
-      <div className="w-full flex flex-col gap-20 text-white bg-primary pt-10">
+      <div className="w-full flex flex-col gap-20 text-white bg-primary pt-10" ref={docRef}>
         <div className={`flex-col items-center justify-center gap-10 ${navTwoStep ? "hidden" : "flex"}`}>
           {/* Generation Form */}
           <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} persoType={persoType} setPersoType={(newPersoType) => setPersoType(newPersoType)} domain={domain} setDomain={(newDomain) => setDomain(newDomain)} theme={theme} setTheme={(newTheme) => setTheme(newTheme)} questions={questions} setQuestions={(newQuestions) => setQuestions(newQuestions)} job={job} setJob={(newJob) => setJob(newJob)} compentences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)}/>
@@ -366,7 +367,7 @@ const Generator = ({onIntersection}) => {
           </div>
         </div>
         {/* Step 2 : Modifying Text */}
-        <div className={`w-full ${navTwoStep ? "" : "hidden"}`} ref={docRef}>
+        <div className={`w-full ${navTwoStep ? "" : "hidden"}`}>
           <h2
             className={`${styles.heroSubText} font-bold mx-auto text-center mt-5 mb-14`}
           >
@@ -381,14 +382,14 @@ const Generator = ({onIntersection}) => {
           <div className={`w-full ${doc === "Email" ? "" : "hidden"}`}>
             <EditTextMail mail={finalText} setMail={(newMail) => setFinalText(newMail)} />
           </div>
-          <div className="flex mt-20 justify-between align-center w-full md:w-1/2 mx-auto">
+          <div className={`flex mt-20 ${doc === "Message" || doc === "Email" ? "justify-center" : "justify-between" } align-center w-full md:w-1/2 mx-auto`}>
             <button
               className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} w-[80px] h-[80px] bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary lg:w-[100px] lg:h-[100px]`}
               onClick={() => backToGeneration()}
             >
               <ArrowLeftCircleIcon className="h-[35px] w-[35px] mx-auto lg:w-[50px] lg:h-[50px]" />
             </button>
-            <button className={`cta6 ${ loading || saved ? "hidden" : "flex"} w-2/3 lg:h-[100px] mx-10`} onClick={saveDocument}>
+            <button className={`cta6 ${ loading || saved || doc === "Email" || doc === "Message" ? "hidden" : "flex"} w-2/3 lg:h-[100px] mx-10`} onClick={saveDocument}>
               <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Enregistrer</p>
               <ArrowDownTrayIcon className="cta6-icon ms-3"/>
             </button>
@@ -427,6 +428,9 @@ const Generator = ({onIntersection}) => {
         <ModalIntro isOpen={modalIntroVisible} closeModal={closeModalIntro}/>
         {/* Modal Saved */}
         <ModalSaved isOpen={isOpen} closeModal={closeModal} generatedTitle={generatedTitle} doc={doc} />
+        {/* Modal Step Two */}
+        <ModalStepTwo doc={doc} isOpen={modalModifiedStepOpen} closeModal={closeModifiedIntro} dest={dest} />
+        <ModalStepTwoPdf doc={doc} isOpen={modalModifiedPdfOpen} closeModal={closeModalModifiedPdf} />
         {/* Loader */}
         <div
           className={`${styles.paddingX} m-0 fixed bottom-0 right-0 left-0 ${
