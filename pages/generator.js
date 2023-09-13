@@ -54,7 +54,6 @@ const Generator = () => {
   const [experiences, setExperiences] = useState("");
   const [company, setCompany] = useState("");
   const [myName, setMyName] = useState("");
-
   const [prompt, setPrompt] = useState("");
   const [generatedDoc, setGeneratedDoc] = useState("");
   const [generatedTitle, setGeneratedTitle] = useState("");
@@ -340,123 +339,126 @@ const Generator = () => {
   };
 
   return (
-      <div className="w-full flex flex-col gap-20 text-white bg-primary pt-20" ref={docRef}>
-        <div className={`flex-col items-center justify-center gap-10 ${navTwoStep ? "hidden" : "flex"}`}>
-          {/* Generation Form */}
-          <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} persoType={persoType} setPersoType={(newPersoType) => setPersoType(newPersoType)} domain={domain} setDomain={(newDomain) => setDomain(newDomain)} theme={theme} setTheme={(newTheme) => setTheme(newTheme)} questions={questions} setQuestions={(newQuestions) => setQuestions(newQuestions)} job={job} setJob={(newJob) => setJob(newJob)} compentences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)}/>
-          <div className="w-full md:w-1/2 flex justify-between align-center pt-10">
-            {!loading && (
-              <button
-                className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta6 w-2/3" : "cta2 w-full"} flex`}
-                onClick={(e) => developSubject ? setModalIntroVisible(true) : generateDoc(e)}
-              >
-                {`Générer`}
-                <PencilSquareIcon className={`ms-3 lg:ms-5 ${modifyingStep ? "cta6-icon" : "cta2-icon"}`} src={feather}></PencilSquareIcon>
-              </button>
-            )}
-            {loading && (
-              <button
-                disabled
-                className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 ${modifyingStep ? "w-2/3" : "w-full"} disabled cursor-wait`}
-              >
-                <Loader />
-              </button>
-            )}
-            {modifyingStep && (
-              <button
-                className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} w-[80px] h-[80px] bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary shadow-button lg:w-[100px] lg:h-[100px]`}
-                onClick={() => goToModifying()}
-              >
-                <ArrowRightCircleIcon className="h-[35px] w-[35px] lg:w-[50px] lg:h-[50px] mx-auto" />
-              </button>
-            )}
+      <div className="w-full">
+        <Navbar />
+        <div className={`${styles.paddingX} pt-40 max-w-7xl mx-auto relative w-full flex flex-col gap-20 text-white bg-primary`} ref={docRef}>
+          <div className={`flex-col items-center justify-center gap-10 ${navTwoStep ? "hidden" : "flex"}`}>
+            {/* Generation Form */}
+            <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} persoType={persoType} setPersoType={(newPersoType) => setPersoType(newPersoType)} domain={domain} setDomain={(newDomain) => setDomain(newDomain)} theme={theme} setTheme={(newTheme) => setTheme(newTheme)} questions={questions} setQuestions={(newQuestions) => setQuestions(newQuestions)} job={job} setJob={(newJob) => setJob(newJob)} compentences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)}/>
+            <div className="w-full md:w-1/2 flex justify-between align-center pt-10">
+              {!loading && (
+                <button
+                  className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta6 w-2/3" : "cta2 w-full"} flex`}
+                  onClick={(e) => developSubject ? setModalIntroVisible(true) : generateDoc(e)}
+                >
+                  {`Générer`}
+                  <PencilSquareIcon className={`ms-3 lg:ms-5 ${modifyingStep ? "cta6-icon" : "cta2-icon"}`} src={feather}></PencilSquareIcon>
+                </button>
+              )}
+              {loading && (
+                <button
+                  disabled
+                  className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 ${modifyingStep ? "w-2/3" : "w-full"} disabled cursor-wait`}
+                >
+                  <Loader />
+                </button>
+              )}
+              {modifyingStep && (
+                <button
+                  className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} w-[80px] h-[80px] bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary shadow-button lg:w-[100px] lg:h-[100px]`}
+                  onClick={() => goToModifying()}
+                >
+                  <ArrowRightCircleIcon className="h-[35px] w-[35px] lg:w-[50px] lg:h-[50px] mx-auto" />
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-        {/* Step 2 : Modifying Text */}
-        <div className={`w-full ${navTwoStep ? "" : "hidden"}`}>
-          <h2
-            className={`${styles.heroSubText} font-bold mx-auto text-center mt-5 mb-14`}
-          >
-            Modifier votre {doc} 
-          </h2>
-          <div className={`w-full ${doc === "Rapport" ? "" : "hidden"}`}>
-            <EditTextAreaReport title={generatedTitle} setTitle={(newDoc) => setGeneratedTitle(newDoc)} setSections={(newDoc) => setGeneratedSections(newDoc)} sections={generatedSections}/>
-          </div>
-          <div className={`w-full ${doc === "Message" ? "" : "hidden"}`}>
-            <EditTextMessage message={finalText} setMessage={(newMessage) => setFinalText(newMessage)} />
-          </div>
-          <div className={`w-full ${doc === "Email" ? "" : "hidden"}`}>
-            <EditTextMail mail={finalText} setMail={(newMail) => setFinalText(newMail)} />
-          </div>
-          <div className={`flex mt-20 ${doc === "Message" || doc === "Email" ? "justify-center" : "justify-between" } align-center w-full md:w-1/2 mx-auto`}>
-            <button
-              className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} w-[80px] h-[80px] bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary lg:w-[100px] lg:h-[100px]`}
-              onClick={() => backToGeneration()}
+          {/* Step 2 : Modifying Text */}
+          <div className={`w-full ${navTwoStep ? "" : "hidden"}`}>
+            <h2
+              className={`${styles.heroSubText} font-bold mx-auto text-center mt-5 mb-14`}
             >
-              <ArrowLeftCircleIcon className="h-[35px] w-[35px] mx-auto lg:w-[50px] lg:h-[50px]" />
-            </button>
-            <button className={`cta6 ${ loading || saved || doc === "Email" || doc === "Message" ? "hidden" : "flex"} w-2/3 lg:h-[100px] mx-10`} onClick={saveDocument}>
-              <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Enregistrer</p>
-              <ArrowDownTrayIcon className="cta6-icon ms-3"/>
-            </button>
-            {loading && (
+              Modifier votre {doc} 
+            </h2>
+            <div className={`w-full ${doc === "Rapport" ? "" : "hidden"}`}>
+              <EditTextAreaReport title={generatedTitle} setTitle={(newDoc) => setGeneratedTitle(newDoc)} setSections={(newDoc) => setGeneratedSections(newDoc)} sections={generatedSections}/>
+            </div>
+            <div className={`w-full ${doc === "Message" ? "" : "hidden"}`}>
+              <EditTextMessage message={finalText} setMessage={(newMessage) => setFinalText(newMessage)} />
+            </div>
+            <div className={`w-full ${doc === "Email" ? "" : "hidden"}`}>
+              <EditTextMail mail={finalText} setMail={(newMail) => setFinalText(newMail)} />
+            </div>
+            <div className={`flex mt-20 ${doc === "Message" || doc === "Email" ? "justify-center" : "justify-between" } align-center w-full md:w-1/2 mx-auto`}>
               <button
-                disabled
-                className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta6 w-2/3 mx-10 disabled cursor-wait`}
+                className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} w-[80px] h-[80px] bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary lg:w-[100px] lg:h-[100px]`}
+                onClick={() => backToGeneration()}
               >
-                <Loader />
+                <ArrowLeftCircleIcon className="h-[35px] w-[35px] mx-auto lg:w-[50px] lg:h-[50px]" />
               </button>
-            )}
-            <Link href="/mypdf" legacyBehavior className={`w-full flex justify-end ${saved ? "" : "hidden"}`}>
-              <a target="_blank" className={`cta6 flex w-2/3 ${saved && (doc === "Rapport" || doc === "Lettre de motivation") ? "" : "hidden"}`}>
-                <p className={`${styles.sectionSubText}`}>Voir le PDF</p>
-                <DocumentIcon className="ms-3 cta6-icon h-[35px] w-[35px] "/>
-              </a>
-            </Link>
-          </div> 
-        </div>
-        <div className="h-full">
-          <div className={`h-full mx-auto ${doc === "Rapport" && showGeneratedDoc ? "" : "hidden"}`}>
-            <RenderReport
-              generatedTitle={generatedTitle}
-              generatedSections={generatedSections}
-              length={length}
-            />
+              <button className={`cta6 ${ loading || saved || doc === "Email" || doc === "Message" ? "hidden" : "flex"} w-2/3 lg:h-[100px] mx-10`} onClick={saveDocument}>
+                <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Enregistrer</p>
+                <ArrowDownTrayIcon className="cta6-icon ms-3"/>
+              </button>
+              {loading && (
+                <button
+                  disabled
+                  className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta6 w-2/3 mx-10 disabled cursor-wait`}
+                >
+                  <Loader />
+                </button>
+              )}
+              <Link href="/mypdf" legacyBehavior className={`w-full flex justify-end ${saved ? "" : "hidden"}`}>
+                <a target="_blank" className={`cta6 flex w-2/3 ${saved && (doc === "Rapport" || doc === "Lettre de motivation") ? "" : "hidden"}`}>
+                  <p className={`${styles.sectionSubText}`}>Voir le PDF</p>
+                  <DocumentIcon className="ms-3 cta6-icon h-[35px] w-[35px] "/>
+                </a>
+              </Link>
+            </div> 
           </div>
-          <div className={`h-full ${doc === "Email" && showGeneratedDoc ? "" : "hidden"}`}>
-            <MailTemplate fullmail={finalText} name={myName}/>
+          <div className="h-full">
+            <div className={`h-full mx-auto ${doc === "Rapport" && showGeneratedDoc ? "" : "hidden"}`}>
+              <RenderReport
+                generatedTitle={generatedTitle}
+                generatedSections={generatedSections}
+                length={length}
+              />
+            </div>
+            <div className={`h-full ${doc === "Email" && showGeneratedDoc ? "" : "hidden"}`}>
+              <MailTemplate fullmail={finalText} name={myName}/>
+            </div>
+            <div className={`h-full ${doc === "Message" && showGeneratedDoc ? "" : "hidden"}`}>
+              <MessageTemplate messageText={finalText} dest={dest} />
+            </div>
           </div>
-          <div className={`h-full ${doc === "Message" && showGeneratedDoc ? "" : "hidden"}`}>
-            <MessageTemplate messageText={finalText} dest={dest} />
+          {/* Modal Intro */}
+          <ModalIntro isOpen={modalIntroVisible} closeModal={() => setModalIntroVisible(false)} generateDoc={(e) => generateDoc(e)} />
+          {/* Modal Saved */}
+          <ModalSaved isOpen={isOpen} closeModal={closeModal} generatedTitle={generatedTitle} doc={doc} />
+          {/* Modal Step Two */}
+          <ModalStepTwo doc={doc} isOpen={modalModifiedStepOpen} closeModal={closeModifiedIntro} dest={dest} />
+          <ModalStepTwoPdf doc={doc} isOpen={modalModifiedPdfOpen} closeModal={closeModalModifiedPdf} />
+          {/* Loader */}
+          <div
+            className={`${styles.paddingX} m-0 fixed bottom-0 right-0 left-0 ${
+              loading ? "" : "hidden"
+            }`}
+          >
+            <PenLoader />
           </div>
-        </div>
-        {/* Modal Intro */}
-        <ModalIntro isOpen={modalIntroVisible} closeModal={() => setModalIntroVisible(false)} generateDoc={(e) => generateDoc(e)} />
-        {/* Modal Saved */}
-        <ModalSaved isOpen={isOpen} closeModal={closeModal} generatedTitle={generatedTitle} doc={doc} />
-        {/* Modal Step Two */}
-        <ModalStepTwo doc={doc} isOpen={modalModifiedStepOpen} closeModal={closeModifiedIntro} dest={dest} />
-        <ModalStepTwoPdf doc={doc} isOpen={modalModifiedPdfOpen} closeModal={closeModalModifiedPdf} />
-        {/* Loader */}
-        <div
-          className={`${styles.paddingX} m-0 fixed bottom-0 right-0 left-0 ${
-            loading ? "" : "hidden"
-          }`}
-        >
-          <PenLoader />
-        </div>
-        <div className={`${styles.paddingX} w-full md:w-1/2 mx-auto fixed bottom-10 right-0 left-0 z-50 ${generationError ? "" : "hidden"}`}>
-          {/* Alert for Generation Problem */}
-          <Alert status='error' variant='solid' flexDirection='row'
-            alignItems='center'
-            justifyContent='center' className="rounded-md">
-            <AlertIcon />
-            Badaboum. Petit bug, c'est en développement les gars...
-            <CloseButton onClick={() => setGenerationError(false)}/>
-          </Alert>
+          <div className={`${styles.paddingX} w-full md:w-1/2 mx-auto fixed bottom-10 right-0 left-0 z-50 ${generationError ? "" : "hidden"}`}>
+            {/* Alert for Generation Problem */}
+            <Alert status='error' variant='solid' flexDirection='row'
+              alignItems='center'
+              justifyContent='center' className="rounded-md">
+              <AlertIcon />
+              Badaboum. Petit bug, c'est en développement les gars...
+              <CloseButton onClick={() => setGenerationError(false)}/>
+            </Alert>
+          </div>
         </div>
       </div>
   );
 };
 
-export default SectionWrapper(Generator, "/generator");
+export default Generator;

@@ -16,7 +16,7 @@ const Hero = () => {
   return (
     <div className="relative w-full h-screen flex justify-center bg-primary text-white">
       <div
-        className={`${styles.paddingX} flex flex-col md:flex-row items-center justify-center mx-auto w-full max-w-7xl pt-30`}
+        className={`${styles.paddingX} flex flex-col md:flex-row items-center justify-center mx-auto w-full max-w-7xl`}
       >
         <div className="flex flex-col items-center md:items-start w-full">
           <h1 className={`${styles.heroHeadText} mb-3 lg:mb-0 md:mb-3`}>

@@ -14,7 +14,7 @@ const TabsDocument = ({type, setType}) => {
       }}>
         <Tab.List className="flex space-x-1 rounded-md bg-[#0256c2] p-1">
           <Tab
-            key={docType[0].id}
+            key={`${docType[0].id}tab`}
             className={({ selected }) =>
               classNames(
                 'w-full rounded-md py-2.5 font-medium leading-5 text-white',
@@ -28,7 +28,7 @@ const TabsDocument = ({type, setType}) => {
             <p>{docType[0].title}<span role="img" aria-label="rapport" className='px-2'>📋</span></p>
           </Tab>
           <Tab
-            key={docType[1].id}
+            key={`${docType[1].id}tab`}
             className={({ selected }) =>
               classNames(
                 'w-full rounded-md py-2.5 font-medium leading-5 text-white',
@@ -42,7 +42,7 @@ const TabsDocument = ({type, setType}) => {
             <p>{docType[1].title}<span role="img" aria-label="message" className='px-2'>💬</span></p>
           </Tab>
           <Tab
-            key={docType[2].id}
+            key={`${docType[2].id}tab`}
             className={({ selected }) =>
               classNames(
                 'w-full rounded-md py-2.5 font-medium leading-5 text-white',
@@ -56,7 +56,7 @@ const TabsDocument = ({type, setType}) => {
             <p>{docType[2].title}<span role="img" aria-label="email" className='px-2'>📧</span></p>
           </Tab>
           <Tab
-            key={docType[3].id}
+            key={`${docType[3].id}tab`}
             className={({ selected }) =>
               classNames(
                 'w-full rounded-md py-2.5 font-medium leading-5 text-white',
@@ -73,7 +73,7 @@ const TabsDocument = ({type, setType}) => {
         <Tab.Panels className="mt-10 mx-auto bg-white rounded-md text-sm">
           {docType.map((type) => (
             <Tab.Panel
-              key={type.id}
+              key={`${type.id}tabpanel`}
               className={classNames(
                 'rounded-md w-full md:w-1/2 py-5 text-center mx-auto',
               )}
@@ -83,7 +83,7 @@ const TabsDocument = ({type, setType}) => {
                 </h2>
                 <ul className='text-black py-5'>
                     {type.benefits.map((benefit) => (
-                        <li className='py-2'><span role="img" aria-label="validate" className='px-2'>✅</span>{benefit}</li>
+                        <li className='py-2' key={`${type.id}li`}><span role="img" aria-label="validate" className='px-2'>✅</span>{benefit}</li>
                     ))}
                 </ul>
                 <p className='py-5 text-black'><span role="img" aria-label="validate" className='px-2'>⏲️</span>Temps de génération ≈ {type.generation_time}</p>

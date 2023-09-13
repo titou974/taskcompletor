@@ -18,7 +18,6 @@ function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider theme={theme}>
       <div className='bg-primary'>
-        <Navbar />
         <Component {...pageProps} />
       </div>
     </ChakraProvider>

@@ -20,7 +20,7 @@ const EditTextAreaReport = ({title, setTitle, sections, setSections}) => {
             />
             <div>
             { sections.map((section, index) => (
-                <div>
+                <div key={`section${index}`}>
                 <textarea
                 value={section[1]}
                 onChange={(e) => handleInputChangeSub(index, e.target.value)}

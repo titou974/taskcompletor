@@ -91,7 +91,7 @@ const DropDownDoc = ({ type, setType }) => {
                 </h2>
                 <ul className='text-black py-5'>
                     {selectedDoc.benefits.map((benefit) => (
-                        <li className='py-2'><span role="img" aria-label="validate" className='px-2'>✅</span>{benefit}</li>
+                        <li className='py-2' key={`${selectedDoc.id}`}><span role="img" aria-label="validate" className='px-2'>✅</span>{benefit}</li>
                     ))}
                 </ul>
                 <p className='py-5 text-black'><span role="img" aria-label="validate" className='px-2'>⏲️</span>Temps de génération ≈ {selectedDoc.generation_time}</p>

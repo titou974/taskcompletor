@@ -55,7 +55,7 @@ const Navbar = () => {
 const NavbarFixed = () => {
 
   return (
-    <nav className={`w-full fixed py-4 my-0 flex items-center justify-center z-20 text-white top-4`}>
+    <nav className={`py-4 w-full fixed flex items-center justify-center z-20 text-white top-4`}>
       {/* General Navbar  */}
       <div className={`hidden sm:block cursor-pointer absolute left-5 sm:left-10 lg:left-24`}>
           <Image src={feather} alt="A writer feather" className= {`w-[30px] sm:w-[38px] lg:w-[45px] z-50`}/>
@@ -68,20 +68,20 @@ const NavbarFixed = () => {
             </li>
           ))}
         </ul>
-        <ul className="flex lg:hidden list-none gap-10 md:gap-16">
-          <li>
-            <Link href={`/`} className={`p-4 hover:bg-tertiary rounded-full text-white transition-colors cursor-pointer`}>
-              <FontAwesomeIcon icon={faHouse} className='text-2xl w-[30px]'/>
+        <ul className="flex lg:hidden list-none gap-16 md:gap-16">
+          <li key="homefixed">
+            <Link href={`/`} className={`hover:bg-tertiary rounded-full text-white transition-colors cursor-pointer`}>
+              <FontAwesomeIcon icon={faHouse} className='w-[30px]' size="xl" />
             </Link>
           </li>
-          <li>
-            <Link href={`/${navLinks[0].id}`} className={`p-4 hover:bg-tertiary rounded-full text-white transition-colors cursor-pointer`}>
-              <FontAwesomeIcon icon={faFileCirclePlus} className='text-2xl w-[30px]'/>
+          <li key="generatorfixed">
+            <Link href={`/${navLinks[0].id}`} className={`hover:bg-tertiary rounded-full text-white transition-colors cursor-pointer`}>
+              <FontAwesomeIcon icon={faFileCirclePlus} className='w-[30px]' size="xl" />
             </Link>
           </li>
-          <li>
-            <Link href="/" className={`p-4 hover:bg-tertiary rounded-full text-white transition-colors`}>
-              <FontAwesomeIcon icon={faQuestion} className='text-2xl w-[18px]'/>
+          <li key="questionfixed">
+            <Link href="/" className={`hover:bg-tertiary rounded-full text-white transition-colors`}>
+              <FontAwesomeIcon icon={faQuestion} className='w-[18px]'  size="xl" />
             </Link>
           </li>
         </ul>
@@ -115,20 +115,20 @@ const NavbarScrolling = ({isScrolling}) => {
             </li>
           ))}
         </ul>
-        <ul className="flex lg:hidden list-none gap-10 md:gap-16">
-          <li>
-            <Link href={`/`} className="p-4 hover:bg-tertiary rounded-full text-white transition-colors cursor-pointer">
-              <FontAwesomeIcon icon={faHouse} className='text-2xl w-[30px]'/>
+        <ul className="flex lg:hidden list-none gap-16 md:gap-16">
+          <li className="w-full" key="homescrolling">
+            <Link href={`/`} className="hover:bg-tertiary rounded-full text-white transition-colors cursor-pointer">
+              <FontAwesomeIcon icon={faHouse}  size="xl" className='w-[30px]'/>
             </Link>
           </li>
-          <li>
-            <Link href={`/${navLinks[0].id}`} className="p-4 hover:bg-tertiary rounded-full text-white transition-colors cursor-pointer">
-              <FontAwesomeIcon icon={faFileCirclePlus} className='text-2xl w-[30px]'/>
+          <li key="generatorscrolling">
+            <Link href={`/${navLinks[0].id}`} className="hover:bg-tertiary rounded-full text-white transition-colors cursor-pointer">
+              <FontAwesomeIcon icon={faFileCirclePlus}  size="xl" className='w-[30px]'/>
             </Link>
           </li>
-          <li>
-            <Link href="/" className="p-4 hover:bg-tertiary rounded-full text-white transition-colors cursor-pointer">
-              <FontAwesomeIcon icon={faQuestion} className='text-2xl w-[18px]'/>
+          <li key="faqscrolling">
+            <Link href="/" className="hover:bg-tertiary rounded-full text-white transition-colors cursor-pointer">
+              <FontAwesomeIcon icon={faQuestion}  size="xl" className='w-[18px]'/>
             </Link>
           </li>
         </ul>

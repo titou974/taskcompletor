@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Hero from "../components/hero";
+import Navbar from "../components/navbar";
 import { useState, useEffect, useRef } from "react";
 
 const Home = () => {
