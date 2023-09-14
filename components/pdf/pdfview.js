@@ -13,8 +13,6 @@ const PDFView = () => {
   const [fetchedSections, setFetchedSections] = useState([]);
 
   useEffect(() => {
-<<<<<<< HEAD
-=======
     const getServersSideProps = async() => {
       try {
         const res = await axios.get('/api/documents');
@@ -29,7 +27,6 @@ const PDFView = () => {
       }
     };
     getServersSideProps();
->>>>>>> 6053f6217a7cace90c3f3e8522d64681ec2457f5
     setClient(true);
   }, []);
 
