@@ -2,6 +2,9 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 
 const ModalIntro = ({isOpen, closeModal, generateDoc}) => {
+
+
+
   return(
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-20 hidden md:block" onClose={closeModal}>

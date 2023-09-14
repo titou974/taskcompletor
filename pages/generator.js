@@ -36,6 +36,7 @@ import EditTextMessage from "../components/edittextmessage";
 import EditTextMail from "../components/edittextmail";
 import ModalStepTwo from "../components/modalmodifiedstep";
 import ModalStepTwoPdf from "../components/modalmodifiedpdf";
+import { isMobile } from "react-device-detect";
 
 
 const Generator = () => {
@@ -43,7 +44,7 @@ const Generator = () => {
   {/* States for form */}
   const [subject, setSubject] = useState("");
   const [doc, setDoc] = useState("Rapport");
-  const [lang, setLang] = useState("");
+  const [lang, setLang] = useState("formel");
   const [dest, setDest] = useState("");
   const [persoType, setPersoType] = useState("élève");
   const [domain, setDomain] = useState("");
@@ -329,7 +330,9 @@ const Generator = () => {
       parser.feed(chunkValue);
     }
     if (!generationError) {
-      { doc === "Message" || doc === "Email" ? setModalModifiedStepOpen(true) : setModalModifiedPdfOpen(true)};
+      if (!isMobile) {
+        { doc === "Message" || doc === "Email" ? setModalModifiedStepOpen(true) : setModalModifiedPdfOpen(true)};
+      }
       setLoading(false);
       setDoneGeneration(true);
       goToModifying();
@@ -341,7 +344,7 @@ const Generator = () => {
 
   return (
       <div className="w-full">
-        <Navbar hover={hoverNavbar} doc={doc} subject={subject} lang={lang} myName={myName} dest={dest} emotion={emotion} messageLength={messageLength} language={language} />
+        <Navbar modifyingStep={modifyingStep} hover={hoverNavbar} doc={doc} subject={subject} lang={lang} myName={myName} dest={dest} emotion={emotion} messageLength={messageLength} language={language} mailType={mailType} />
         <div className={`${styles.paddingX} pt-40 max-w-7xl mx-auto relative w-full flex flex-col gap-20 text-white bg-primary`} ref={docRef}>
           <div className={`flex-col items-center justify-center gap-10 ${navTwoStep ? "hidden" : "flex"}`}>
             {/* Generation Form */}
@@ -350,7 +353,7 @@ const Generator = () => {
               {!loading && (
                 <button
                   className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta6 w-2/3" : "cta2 w-full"} flex`}
-                  onClick={(e) => developSubject ? setModalIntroVisible(true) : generateDoc(e)}
+                  onClick={(e) => developSubject && !isMobile ? setModalIntroVisible(true) : generateDoc(e)}
                   onMouseEnter={() => setHoverNavbar(true)}
                   onMouseLeave={() => setHoverNavbar(false)}
                 >

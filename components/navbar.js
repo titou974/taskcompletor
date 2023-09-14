@@ -23,9 +23,8 @@ const steps = [
 ]
 
 
-const Navbar = ({hover, doc, lang, myName, dest, emotion, messageLength, language, subject}) => {
+const Navbar = ({hover, modifyingStep, doc, lang, myName, dest, emotion, messageLength, language, subject, mailType}) => {
   const [isScrolling, setIsScrolling] = useState(false);
-  const [typewriterNavbar, setTypewriterNavbar] = useState(true);
   const [typewriterText, setTypewriterText] = useState("");
 
   const changeNavbar = () => {
@@ -82,6 +81,25 @@ const Navbar = ({hover, doc, lang, myName, dest, emotion, messageLength, languag
           }
         }
       } 
+    } else if (doc === "Email") {
+      setTypewriterText("Générer un Email")
+      if (myName) {
+        setTypewriterText(`Générer un Email de "${truncateText(myName, 15)}"`)
+        if (dest) {
+          setTypewriterText(`Générer un Email de "${truncateText(myName, 15)}" à "${truncateText(dest, 15)}"`)
+          if (mailType === "école" && language) {
+            setTypewriterText(`Générer un Email pour une école de "${truncateText(myName, 15)}" à "${truncateText(dest, 15)}" en ${language} 👩‍🎓`)
+          } else if (mailType === "entreprise" && language) {
+            setTypewriterText(`Générer un Email pour une entreprise de "${truncateText(myName, 15)}" à "${truncateText(dest, 15)}" en ${language} 💼`)
+          } else if (mailType === "personnel" && language) {
+            setTypewriterText(`Générer un Email personnel de "${truncateText(myName, 15)}" à "${truncateText(dest, 15)}" en ${language} ✌️`)
+          } else if (mailType === "administratif" && language) {
+            setTypewriterText(`Générer un Email administratif de "${truncateText(myName, 15)}" à "${truncateText(dest, 15)}" en ${language} 📝`)
+          }
+        }
+      }
+    } else {
+      setTypewriterText(`Task completor ne permet pas encore de générer ce document`)
     }
     console.log(typewriterText);
   })
@@ -89,19 +107,19 @@ const Navbar = ({hover, doc, lang, myName, dest, emotion, messageLength, languag
   return (
     <>
       <AnimatePresence>
-        {isScrolling && !typewriterNavbar ? (
+        {isScrolling && modifyingStep ? (
           <NavbarScrolling isScrolling={isScrolling} />
         ) : (
           ""
         )}
-        {!isScrolling && !typewriterNavbar ? (
+        {!isScrolling ? (
           <NavbarFixed />
         ) : (
           ""
         )}
         {
-          typewriterNavbar ? (
-            <NavbarTypewriter hover={hover} text={typewriterText} />
+          isScrolling && !modifyingStep ? (
+            <NavbarTypewriter hover={hover} text={typewriterText} isScrolling={isScrolling} />
           ) : (
             ""
           )
@@ -164,7 +182,7 @@ const NavbarScrolling = ({isScrolling}) => {
       animate={isScrolling ? "animate" : "initial"}
       exit="exit"
       variants={NavAnimations}
-      className={`navbar-bg w-9/12 md:w-7/12 fixed py-4 my-0 flex items-center justify-center z-20 text-white top-4 rounded-full left-1/2`}
+      className={`navbar-bg w-9/12 md:w-7/12 fixed py-4 my-0 flex items-center justify-center z-20 text-white top-4 rounded-full left-1/2 w-9/12 h-[60px] md:h-[80px]`}
     >
       <div className="w-full flex justify-center max-w-7xl">
         <ul className="hidden lg:flex list-none gap-5">
@@ -202,11 +220,16 @@ const NavbarScrolling = ({isScrolling}) => {
   )
 }
 
-const NavbarTypewriter = ({text, hover}) => {
+const NavbarTypewriter = ({isScrolling, text, hover}) => {
 
   return (
-    <div
-      className={`${hover ? "bg-green-400" : "navbar-bg"} transition-colors w-9/12 h-[60px] md:h-[80px] md:w-7/12 fixed py-4 my-0 flex items-center justify-center z-20 text-white top-4 rounded-full right-1 left-1 mx-auto overflow-hidden`}
+    <motion.nav
+      key={1}
+      initial="initial"
+      animate={isScrolling ? "animate" : "initial"}
+      exit="exit"
+      variants={NavAnimations}
+      className={`${hover ? "bg-green-400" : "navbar-bg"} transition-colors w-9/12 h-[60px] md:h-[80px] md:w-7/12 fixed py-4 my-0 flex items-center justify-center z-20 text-white top-4 rounded-full left-1/2 right-1/2 mx-auto overflow-hidden`}
     >
       <div className="w-full flex justify-center max-w-7xl">
         <div className="hidden lg:block text-sm mx-auto text-center w-9/12">
@@ -236,7 +259,7 @@ const NavbarTypewriter = ({text, hover}) => {
           </a>
         </div>
       </div>
-    </div>
+    </motion.nav>
   )
 }
 
