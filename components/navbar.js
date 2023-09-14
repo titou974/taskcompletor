@@ -14,6 +14,7 @@ import {
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import TypewriterComponent from "typewriter-effect";
 
 const steps = [
   { title: 'Générer', description: 'Rentrez vos informations' },
@@ -22,8 +23,11 @@ const steps = [
 ]
 
 
-const Navbar = () => {
+const Navbar = ({hover, doc, lang, myName, dest, emotion, messageLength, language, subject}) => {
   const [isScrolling, setIsScrolling] = useState(false);
+  const [typewriterNavbar, setTypewriterNavbar] = useState(true);
+  const [typewriterText, setTypewriterText] = useState("");
+
   const changeNavbar = () => {
     if (window.scrollY >= 30) {
       setIsScrolling(true)
@@ -39,14 +43,69 @@ const Navbar = () => {
     };
   }, [])
 
+  const truncateText = (text, maxLength) => {
+    if (text.length > maxLength) {
+        return text.substring(0, maxLength) + '...';
+    } else {
+        return text;
+    }
+  }
+
+  useEffect(() => {
+    if (doc === "Rapport") {
+      setTypewriterText("Générer un Rapport")
+      if (lang === "formel") {
+        setTypewriterText("Générer un Rapport formel 📝")
+        if (subject !== "") {
+          setTypewriterText(`Générer un Rapport formel sur "${truncateText(subject, 50)}" 📝`)
+        }
+      } else if (lang === "informel") {
+        setTypewriterText("Générer un Rapport informel 📢")
+        if (subject !== "") {
+          setTypewriterText(`Générer un Rapport informel sur "${truncateText(subject, 50)}" 📢`)
+        }
+      } 
+    } else if (doc === "Message") {
+      setTypewriterText("Générer un Message")
+      if (myName) {
+        setTypewriterText(`Générer un Message de "${truncateText(myName, 15)}"`)
+        if (dest) {
+          setTypewriterText(`Générer un Message de "${truncateText(myName, 15)}" à "${truncateText(dest, 15)}"`)
+          if (emotion === "joie" && messageLength && language) {
+            setTypewriterText(`Générer un Message ${messageLength} en ${language} de "${truncateText(myName, 15)}" à "${truncateText(dest, 15)}" avec joie 😂`)
+          } else if (emotion === "gratitude" && messageLength && language) {
+            setTypewriterText(`Générer un Message ${messageLength} en ${language} de "${truncateText(myName, 15)}" à "${truncateText(dest, 15)}" avec gratitude 🙏`)
+          } else if (emotion === "tristesse" && messageLength && language) {
+            setTypewriterText(`Générer un Message ${messageLength} en ${language} de "${truncateText(myName, 15)}" à "${truncateText(dest, 15)}" avec tristesse 😥`)
+          } else if (emotion === "colère" && messageLength && language) {
+            setTypewriterText(`Générer un Message ${messageLength} en ${language} de "${truncateText(myName, 15)}" à "${truncateText(dest, 15)}" avec colère 😡`)
+          }
+        }
+      } 
+    }
+    console.log(typewriterText);
+  })
+
   return (
     <>
       <AnimatePresence>
-        {isScrolling ? (
+        {isScrolling && !typewriterNavbar ? (
           <NavbarScrolling isScrolling={isScrolling} />
         ) : (
-          <NavbarFixed />
+          ""
         )}
+        {!isScrolling && !typewriterNavbar ? (
+          <NavbarFixed />
+        ) : (
+          ""
+        )}
+        {
+          typewriterNavbar ? (
+            <NavbarTypewriter hover={hover} text={typewriterText} />
+          ) : (
+            ""
+          )
+        }
       </AnimatePresence>
     </>
   )
@@ -140,6 +199,44 @@ const NavbarScrolling = ({isScrolling}) => {
         </div>
       </div>
     </motion.nav>
+  )
+}
+
+const NavbarTypewriter = ({text, hover}) => {
+
+  return (
+    <div
+      className={`${hover ? "bg-green-400" : "navbar-bg"} transition-colors w-9/12 h-[60px] md:h-[80px] md:w-7/12 fixed py-4 my-0 flex items-center justify-center z-20 text-white top-4 rounded-full right-1 left-1 mx-auto overflow-hidden`}
+    >
+      <div className="w-full flex justify-center max-w-7xl">
+        <div className="hidden lg:block text-sm mx-auto text-center w-9/12">
+          <TypewriterComponent
+                options={{
+                  strings: text,
+                  autoStart: true,
+                  cursorClassName: "hidden",
+                  typeSpeed: 10,
+                }}
+            />
+        </div>
+        <div className="lg:hidden text-[10px] w-9/12 mx-auto text-center">
+          <TypewriterComponent
+              options={{
+                strings: text,
+                autoStart: true,
+                cursorClassName: "hidden",
+                typeSpeed: 10,
+              }}
+          />
+        </div>
+        <div className="hidden items-center">
+          <a className="hover:text-secondary cursor-pointer transition-colors">Se connecter</a>
+          <a className="cta3 cursor-pointer ms-4">
+            <p>S'enregistrer</p>
+          </a>
+        </div>
+      </div>
+    </div>
   )
 }
 

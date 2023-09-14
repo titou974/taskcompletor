@@ -43,7 +43,7 @@ const Generator = () => {
   {/* States for form */}
   const [subject, setSubject] = useState("");
   const [doc, setDoc] = useState("Rapport");
-  const [lang, setLang] = useState("formel");
+  const [lang, setLang] = useState("");
   const [dest, setDest] = useState("");
   const [persoType, setPersoType] = useState("élève");
   const [domain, setDomain] = useState("");
@@ -78,6 +78,7 @@ const Generator = () => {
   const [modalModifiedStepOpen, setModalModifiedStepOpen] = useState(false);
   const [modalModifiedPdfOpen, setModalModifiedPdfOpen] = useState(false);
   const [developSubject, setDevelopSubject] = useState(false);
+  const [hoverNavbar, setHoverNavbar] = useState(false);
 
   let [isOpen, setIsOpen] = useState(false);
   const docRef = useRef();
@@ -340,7 +341,7 @@ const Generator = () => {
 
   return (
       <div className="w-full">
-        <Navbar />
+        <Navbar hover={hoverNavbar} doc={doc} subject={subject} lang={lang} myName={myName} dest={dest} emotion={emotion} messageLength={messageLength} language={language} />
         <div className={`${styles.paddingX} pt-40 max-w-7xl mx-auto relative w-full flex flex-col gap-20 text-white bg-primary`} ref={docRef}>
           <div className={`flex-col items-center justify-center gap-10 ${navTwoStep ? "hidden" : "flex"}`}>
             {/* Generation Form */}
@@ -350,6 +351,8 @@ const Generator = () => {
                 <button
                   className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta6 w-2/3" : "cta2 w-full"} flex`}
                   onClick={(e) => developSubject ? setModalIntroVisible(true) : generateDoc(e)}
+                  onMouseEnter={() => setHoverNavbar(true)}
+                  onMouseLeave={() => setHoverNavbar(false)}
                 >
                   {`Générer`}
                   <PencilSquareIcon className={`ms-3 lg:ms-5 ${modifyingStep ? "cta6-icon" : "cta2-icon"}`} src={feather}></PencilSquareIcon>

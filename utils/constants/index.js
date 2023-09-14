@@ -168,7 +168,7 @@ export const messageLengthIndex = [
     description: "Génère un message de taille moyenne"
   },
   {
-    id: "Long",
+    id: "long",
     title: "Long 3️⃣",
     description: "Genère un message long"
   }
