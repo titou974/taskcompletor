@@ -1,19 +1,19 @@
-import { RadioGroup } from '@headlessui/react'
-import { langType } from '../utils/constants/index';
+import { RadioGroup } from '@headlessui/react';
+import { languageIndex } from '../utils/constants/index';
 
 
-const RadioGroupLangType = ({lang, setLang}) => {
+const RadioGroupLanguage = ({language, setLanguage}) => {
 
   return (
     <div className="w-full pt-10">
       <div className="mx-auto w-full">
-        <RadioGroup value={lang} onChange={setLang}>
-          <RadioGroup.Label className="sr-only">Type de Language</RadioGroup.Label>
+        <RadioGroup value={language} onChange={setLanguage}>
+          <RadioGroup.Label className="sr-only">Langue</RadioGroup.Label>
           <div className="space-y-2">
-            {langType.map((type) => (
+            {languageIndex.map((language) => (
               <RadioGroup.Option
-                key={type.id}
-                value={type.id}
+                key={language.id}
+                value={language.id}
                 className={({ active, checked }) =>
                   `${
                     active
@@ -37,7 +37,7 @@ const RadioGroupLangType = ({lang, setLang}) => {
                               checked ? 'text-white' : 'text-slate-300'
                             }`}
                           >
-                            {type.title}
+                            {language.title}
                           </RadioGroup.Label>
                           <RadioGroup.Description
                             as="span"
@@ -46,7 +46,7 @@ const RadioGroupLangType = ({lang, setLang}) => {
                             }`}
                           >
                             <span>
-                              {type.description}
+                              {language.description}
                             </span>
                           </RadioGroup.Description>
                         </div>
@@ -81,6 +81,6 @@ const CheckIcon = (props) => {
       />
     </svg>
   )
-}
+};
 
-export default RadioGroupLangType
+export default RadioGroupLanguage;

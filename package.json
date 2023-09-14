@@ -11,6 +11,7 @@
   "author": "Titouan Hirsch",
   "license": "ISC",
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.0",
     "@chakra-ui/next-js": "^2.1.5",
     "@chakra-ui/react": "^2.8.0",
     "@emotion/css": "^11.10.6",
@@ -35,11 +36,12 @@
     "gsap": "^3.12.2",
     "next": "^13.4.12",
     "next-themes": "^0.2.1",
-    "nextjs-simple-typewriter": "^5.2.2",
     "react": "^18.2.0",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
-    "react-string-replace": "^1.1.1"
+    "react-string-replace": "^1.1.1",
+    "typewriter-effect": "^2.20.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",

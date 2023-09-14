@@ -1,9 +1,19 @@
 import Head from "next/head";
-import Navbar from "../components/navbar";
 import Hero from "../components/hero";
-import Generator from "../components/generator";
+import Navbar from "../components/navbar";
+import { useState, useEffect, useRef } from "react";
 
 const Home = () => {
+  const [navbarStepper, setNavbarStepper] = useState(false);
+  const handleNavbarChange = (isVisible) => {
+    setNavbarStepper(isVisible);
+  }
+
+  useEffect(() => {
+    console.log('test', navbarStepper)
+  })
+
+
   return (
     <>
       <Head>
@@ -31,10 +41,8 @@ const Home = () => {
         />
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
-      <Navbar />
       <div className="w-full bg-primary">
         <Hero />
-        <Generator />
       </div>
     </>
   );

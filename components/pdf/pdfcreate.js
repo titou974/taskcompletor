@@ -8,8 +8,7 @@ import {
   StyleSheet,
   Font,
 } from "@react-pdf/renderer";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import innovation from "../../public/img/icon1black.svg";
 
 
 Font.register({ family: "OpenSansLight", src: "/assets/OpenSans-Light.ttf" });
@@ -17,33 +16,32 @@ Font.register({ family: "OpenSansLight", src: "/assets/OpenSans-Light.ttf" });
 const styles = StyleSheet.create({
   body: {
     fontFamily: "OpenSansLight",
-    paddingTop: 20,
+    paddingVertical: 20,
     paddingHorizontal: 100,
   },
+  title: {
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 800,
+
+  }
 });
 
-const PDF = () => {
-  const [fetchedText, setFetchedText] = useState("");
-  const [client, setClient] = useState(false);
-  useEffect(() => {
-    const getServersSideProps = async() => {
-      try {
-        const res = await axios.get('/api/documents');
-        const props  = res.data[0].content;
-        setFetchedText(props)
-      } catch (error) {
-        console.log('Error fetching props:', error)
-      }
-    };
-    getServersSideProps()
-    setClient(true);
-    ;})
+const generatedSections = [['1. Introduction', 'Les poissons sont des créatures fascinantes qui vivent dans les océans, les rivières et les lacs du monde entier. Dans ce rapport, nous allons explorer certains faits intéressants sur les poissons et apprendre pourquoi ils sont si importants pour notre écosystème.'], ['1. Introduction', 'Les poissons sont des créatures fascinantes qui vivent dans les océans, les rivières et les lacs du monde entier. Dans ce rapport, nous allons explorer certains faits intéressants sur les poissons et apprendre pourquoi ils sont si importants pour notre écosystème.'], ['1. Introduction', 'Les poissons sont des créatures fascinantes qui vivent dans les océans, les rivières et les lacs du monde entier. Dans ce rapport, nous allons explorer certains faits intéressants sur les poissons et apprendre pourquoi ils sont si importants pour notre écosystème.'], ['1. Introduction', 'Les poissons sont des créatures fascinantes qui vivent dans les océans, les rivières et les lacs du monde entier. Dans ce rapport, nous allons explorer certains faits intéressants sur les poissons et apprendre pourquoi ils sont si importants pour notre écosystème.'], ['1. Introduction', 'Les poissons sont des créatures fascinantes qui vivent dans les océans, les rivières et les lacs du monde entier. Dans ce rapport, nous allons explorer certains faits intéressants sur les poissons et apprendre pourquoi ils sont si importants pour notre écosystème.']]
+
+const PDF = ({ title, subtitles, sections }) => {
   return (
     <Document>
-      <Page size="A4" style={styles.body} wrap={true}>
-        <View style={{ display: "flex", justifyContent: "center" }}>
-          <Text wrap={true}>{fetchedText}</Text>
+      <Page size="A4" style={styles.body}>
+        <View style={{ display: "flex", justifyContent: "center", paddingBottom: 30 }}>
+          <Text style={styles.title}>{title}</Text>
         </View>
+          {subtitles.map((subtitle, index) => (
+            <View key={index} style={{ display: "flex", justifyContent: "center", paddingVertical: 25}}>
+              <Text style={{paddingBottom: 10, fontSize: 14}} wrap={true}>{subtitle}</Text>
+              <Text style={{fontSize: 10}} wrap={true}>{sections[index]}</Text>
+            </View>
+          ))}
       </Page>
     </Document>
   );

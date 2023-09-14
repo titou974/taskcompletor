@@ -1,10 +1,10 @@
 -- CreateTable
 CREATE TABLE "Document" (
-    "id" TEXT NOT NULL,
-    "title" TEXT NOT NULL,
-    "content" TEXT,
-    "type" TEXT NOT NULL,
-    "downloaded" BOOLEAN NOT NULL,
+    "id" SERIAL NOT NULL,
+    "title" TEXT,
+    "subtitles" TEXT[],
+    "sections" TEXT[],
+    "type" TEXT,
     "authorId" TEXT,
 
     CONSTRAINT "Document_pkey" PRIMARY KEY ("id")

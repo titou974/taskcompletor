@@ -1,10 +1,13 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 
-const ModalIntro = ({isOpen, closeModal}) => {
+const ModalIntro = ({isOpen, closeModal, generateDoc}) => {
+
+
+
   return(
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-20" onClose={closeModal}>
+      <Dialog as="div" className="relative z-20 hidden md:block" onClose={closeModal}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -40,13 +43,20 @@ const ModalIntro = ({isOpen, closeModal}) => {
                   </p>
                 </div>
 
-                <div className="mt-4">
+                <div className="mt-5">
                   <button
                     type="button"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    className="mr-5 inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     onClick={closeModal}
                   >
                     Compris 😊
+                  </button>
+                  <button
+                    type="button"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-orange-200 hover:bg-orange-400 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    onClick={generateDoc}
+                  >
+                    Générer quand même 🤭
                   </button>
                 </div>
               </Dialog.Panel>

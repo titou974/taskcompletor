@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import styles  from "./style";
 import { staggerContainer } from "../utils/motion";
+import Link from "next/link";
 
 const SectionWrapper = (Component, idName) =>
   function HOC() {
@@ -12,9 +13,9 @@ const SectionWrapper = (Component, idName) =>
         viewport={{ once: true, amount: 0.25 }}
         className={`${styles.padding} max-w-7xl mx-auto relative z-0`}
       >
-        <span className="hash-span" id={idName}>
+        <Link className="hash-span" href={idName}>
           &nbsp;
-        </span>
+        </Link>
         <Component />
       </motion.section>
     );

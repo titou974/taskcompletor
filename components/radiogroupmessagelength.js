@@ -1,19 +1,19 @@
-import { RadioGroup } from '@headlessui/react'
-import { langType } from '../utils/constants/index';
+import { RadioGroup } from '@headlessui/react';
+import { messageLengthIndex } from '../utils/constants/index';
 
 
-const RadioGroupLangType = ({lang, setLang}) => {
+const RadioGroupMessageLength = ({messageLength, setMessageLength}) => {
 
   return (
     <div className="w-full pt-10">
       <div className="mx-auto w-full">
-        <RadioGroup value={lang} onChange={setLang}>
-          <RadioGroup.Label className="sr-only">Type de Language</RadioGroup.Label>
+        <RadioGroup value={messageLength} onChange={setMessageLength}>
+          <RadioGroup.Label className="sr-only">Langue</RadioGroup.Label>
           <div className="space-y-2">
-            {langType.map((type) => (
+            {messageLengthIndex.map((length) => (
               <RadioGroup.Option
-                key={type.id}
-                value={type.id}
+                key={length.id}
+                value={length.id}
                 className={({ active, checked }) =>
                   `${
                     active
@@ -37,7 +37,7 @@ const RadioGroupLangType = ({lang, setLang}) => {
                               checked ? 'text-white' : 'text-slate-300'
                             }`}
                           >
-                            {type.title}
+                            {length.title}
                           </RadioGroup.Label>
                           <RadioGroup.Description
                             as="span"
@@ -46,7 +46,7 @@ const RadioGroupLangType = ({lang, setLang}) => {
                             }`}
                           >
                             <span>
-                              {type.description}
+                              {length.description}
                             </span>
                           </RadioGroup.Description>
                         </div>
@@ -81,6 +81,6 @@ const CheckIcon = (props) => {
       />
     </svg>
   )
-}
+};
 
-export default RadioGroupLangType
+export default RadioGroupMessageLength;
