@@ -31,7 +31,7 @@ const MessageTemplate = ({messageText, dest}) => {
 
         if (names.length === 1) {
             const firstInitial = names[0].charAt(0).toUpperCase();
-            setDestInitial(firstInitial);            
+            setDestInitial(firstInitial);
         } else {
             const firstInitial = names[0].charAt(0).toUpperCase();
             const lastInitial = names[1].charAt(0).toUpperCase();
@@ -57,8 +57,8 @@ const MessageTemplate = ({messageText, dest}) => {
                         {messageCopied ? "Copié ✅" : "Copier le Message"}
                     </button>
                 {
-                    paragraphes.map((paragraph) => (
-                        <p className="my-5 imessage-text">{paragraph}</p>
+                    paragraphes.map((paragraph, index) => (
+                        <p className="my-5 imessage-text" key={`paragraph${index}`} >{paragraph}</p>
                     ))
                 }
                 </div>

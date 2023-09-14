@@ -4,11 +4,11 @@ export const navLinks = [
     title: "Générer un document",
   },
   {
-    id: "",
+    id: "about",
     title: "À Propos",
   },
   {
-    id: "",
+    id: "faq",
     title: "FAQ",
   },
 ];
@@ -18,7 +18,17 @@ export const docType = [
     id: "rapport",
     title: "Rapport",
     description: "Rapport d'environ 2 pages sur un sujet quelconque.",
-    benefits: ["Faire un résumé rapide sur un sujet donné", "Obtenir un plan pour un rapport plus détaillé"],
+    benefits: [
+      [
+        "Faire un résumé rapide sur un sujet donné",
+        "recap fast",
+
+      ],
+      [
+        "Obtenir un plan pour un rapport plus détaillé",
+        "detailed report",
+      ],
+    ],
     generation_time: "1 minute",
     example: {
       title: "",
@@ -29,7 +39,19 @@ export const docType = [
     id: "message",
     title: "Message",
     description: "Message bref ou long, basé sur une émotion",
-    benefits: ["Générer un message pertinent rapidement", "Sélectionner la taille qui convient", "Sélectionner la langue"],
+    benefits: [
+      [
+        "Générer un message pertinent rapidement",
+        "accurate",
+      ],
+      [
+        "Sélectionner la taille qui convient",
+        "covenance",
+      ],
+      [
+        "Sélectionner la langue",
+        "selectlanguage",
+      ]],
     generation_time: "30 secondes",
     example: {
       title: "",
@@ -40,7 +62,16 @@ export const docType = [
     id: "email",
     title: "Email",
     description: "Générer un email professionel ou personnel en quelques secondes",
-    benefits: ["Pratique pour les mails administratifs (entreprise, école, paperasse)", "Mail clair, concis et sans faute"],
+    benefits: [
+      [
+        "Pratique pour les mails administratifs (entreprise, école, paperasse)",
+        "mailtype",
+      ],
+      [
+        "Mail clair, concis et sans faute",
+        "correction",
+      ]
+    ],
     generation_time: "30 secs",
     example: {
       title: "",
@@ -51,7 +82,16 @@ export const docType = [
     id: "lettre de motivation",
     title: "Lettre de motivation",
     description: "Générer une belle lettre de motivation pour décrocher un job rapidement",
-    benefits: ["Gain de temps lors de la recherche d'un travail", "Mise en avant du profil basé sur ses compétences et expériences"],
+    benefits: [
+      [
+        "Gain de temps lors de la recherche d'un travail",
+        "time efficiency",
+      ],
+      [
+        "Mise en avant du profil basé sur ses compétences et expériences",
+        "competences & experiences",
+      ]
+    ],
     generation_time: "30 secs",
     example: {
       title: "",

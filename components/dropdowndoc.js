@@ -81,7 +81,7 @@ const DropDownDoc = ({ type, setType }) => {
       }}>
         <Tab.Panels className="mt-10 mx-auto bg-white rounded-md px-5">
             <Tab.Panel
-              key={selectedDoc.id}
+              key={`${selectedDoc.id}panel`}
               className={classNames(
                 'rounded-md w-full md:w-1/2 py-5 text-center mx-auto',
               )}
@@ -91,7 +91,7 @@ const DropDownDoc = ({ type, setType }) => {
                 </h2>
                 <ul className='text-black py-5'>
                     {selectedDoc.benefits.map((benefit) => (
-                        <li className='py-2' key={`${selectedDoc.id}`}><span role="img" aria-label="validate" className='px-2'>✅</span>{benefit}</li>
+                        <li className='py-2' key={benefit[0]}><span role="img" aria-label="validate" className='px-2'>✅</span>{benefit[1]}</li>
                     ))}
                 </ul>
                 <p className='py-5 text-black'><span role="img" aria-label="validate" className='px-2'>⏲️</span>Temps de génération ≈ {selectedDoc.generation_time}</p>

@@ -100,8 +100,7 @@ const Navbar = ({hover, modifyingStep, doc, lang, myName, dest, emotion, message
       }
     } else {
       setTypewriterText(`Task completor ne permet pas encore de générer ce document`)
-    }
-    console.log(typewriterText);
+    };
   })
 
   return (

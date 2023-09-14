@@ -67,7 +67,7 @@ const TabsDocument = ({type, setType}) => {
               )
             }
           >
-            <p>{docType[3].title}<span role="img" aria-label="email" className='px-2'>🎙️</span></p>
+            <p>{docType[3].title}<span role="img" aria-label="lettre de motivation" className='px-2'>🎙️</span></p>
           </Tab>
         </Tab.List>
         <Tab.Panels className="mt-10 mx-auto bg-white rounded-md text-sm">
@@ -83,7 +83,10 @@ const TabsDocument = ({type, setType}) => {
                 </h2>
                 <ul className='text-black py-5'>
                     {type.benefits.map((benefit) => (
-                        <li className='py-2' key={`${type.id}li`}><span role="img" aria-label="validate" className='pe-2'>✅</span>{benefit}</li>
+                        <li className='py-2' key={benefit[1]}>
+                          <span role="img" aria-label="validate" className='pe-2'>✅</span>
+                          {benefit[0]}
+                        </li>
                     ))}
                 </ul>
                 <p className='py-5 text-black'><span role="img" aria-label="validate" className='pe-2'>⏲️</span>Temps de génération ≈ {type.generation_time}</p>

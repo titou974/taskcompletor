@@ -56,8 +56,8 @@ const MailTemplate = ({fullmail, name}) => {
                 <div className="w-full flex md:justify-end items-center">
                     <button className={`px-4 py-3 rounded-md ${mailCopied ? "bg-tertiary text-white" : "bg-transparent hover:bg-tertiary text-tertiary hover:text-white"} border-2 border-tertiary font-bold transition-colors`} onClick={copyMail}>{mailCopied ? "Copié ✅" : "Copier l'Email"}</button>
                 </div>
-                { mailParagraphes.map((paragraph) => (
-                    <p className='my-5 md:my-10 leading-10'>{paragraph}</p>
+                { mailParagraphes.map((paragraph, index) => (
+                    <p key={`paragraph${index}`} className='my-5 md:my-10 leading-10'>{paragraph}</p>
                 ))}
             </div>
         </div>
