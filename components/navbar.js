@@ -139,8 +139,8 @@ const NavbarFixed = () => {
       <div className="w-full flex justify-center max-w-7xl">
         <ul className="hidden lg:flex list-none gap-5">
           {navLinks.map((link) => (
-            <li key={link.id} className="px-8 xl:px-10 py-2 transition-colors hover:bg-tertiary rounded-full">
-              <Link href={`/${link.id}`}>{link.title}</Link>
+            <li key={link.id}>
+              <Link href={`/${link.id}`} className="px-8 xl:px-10 py-2 transition-colors hover:bg-tertiary rounded-full cursor-pointer">{link.title}</Link>
             </li>
           ))}
         </ul>

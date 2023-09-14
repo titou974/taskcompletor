@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/20/solid";
 import { docType } from "../utils/constants";
 import { Tab } from '@headlessui/react';
+import { ClockIcon } from "@heroicons/react/20/solid";
 
 
 function classNames(...classes) {
@@ -27,9 +28,9 @@ const DropDownDoc = ({ type, setType }) => {
 
   return (
     <>
-      <Menu as="div" className="relative block text-left w-full text-[16px]">
+      <Menu as="div" className="relative block text-left w-full text-md">
         <div>
-          <Menu.Button className="inline-flex w-full justify-between items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black">
+          <Menu.Button className="inline-flex w-full justify-between items-center rounded-md border-2 border-white bg-tertiary px-4 py-2 text-white shadow-sm hover:bg-white hover:text-tertiary focus:outline-none focus:ring-2 focus:ring-white transition-all">
             {type}
             <ChevronUpIcon
               className="-mr-1 ml-2 h-5 w-5 ui-open:hidden"
@@ -51,7 +52,7 @@ const DropDownDoc = ({ type, setType }) => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute left-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute left-0 z-10 mt-2 w-full origin-top-right rounded-md bg-secondary shadow-lg ring-1 ring-white ring-opacity-5 focus:outline-none">
             <div className="w-full">
               {docType.map((typeItem) => (
                 <Menu.Item key={typeItem.id}>
@@ -59,9 +60,9 @@ const DropDownDoc = ({ type, setType }) => {
                     <button
                       onClick={() => setType(typeItem.title)}
                       className={`${
-                        active ? "bg-gray-100 text-gray-900" : "text-gray-700"
+                        active ? "text-white bg-white/[0.12] shadow-sm" : "text-slate-300"
                       } ${
-                        type === typeItem.title ? "bg-gray-200" : ""
+                        type === typeItem.title ? "bg-tertiary" : ""
                       } " ps-3 py-2 w-full text-left flex items-center space-x-2 justify-between"`}
                     >
                       <span>{typeItem.title}</span>
@@ -79,22 +80,20 @@ const DropDownDoc = ({ type, setType }) => {
       <Tab.Group vertical onChange={(index) => {
         setType(docType[index].title)
       }}>
-        <Tab.Panels className="mt-10 mx-auto bg-white rounded-md px-5">
+        <Tab.Panels className="mt-10 mx-auto bg-secondary rounded-md px-2 shadow-xl text-white text-sm">
             <Tab.Panel
               key={`${selectedDoc.id}panel`}
               className={classNames(
-                'rounded-md w-full md:w-1/2 py-5 text-center mx-auto',
+                'rounded-md w-full py-5 text-center mx-auto',
               )}
             >
-                <h2 className="px-2 text-black font-bold leading-5">
+                <h2 className="italic leading-5">
                     {selectedDoc.description}
                 </h2>
-                <ul className='text-black py-5'>
-                    {selectedDoc.benefits.map((benefit) => (
-                        <li className='py-2' key={benefit[0]}><span role="img" aria-label="validate" className='px-2'>✅</span>{benefit[1]}</li>
-                    ))}
-                </ul>
-                <p className='py-5 text-black'><span role="img" aria-label="validate" className='px-2'>⏲️</span>Temps de génération ≈ {selectedDoc.generation_time}</p>
+                <div className='flex py-5 text-center justify-center'>
+                  <ClockIcon className='w-6 h-6 text-white me-2' />
+                  <p className='italic'>≈ {selectedDoc.generation_time}</p>
+                </div>
             </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>

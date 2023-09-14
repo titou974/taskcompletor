@@ -673,7 +673,7 @@
 }
 
 .navbar-bg {
-  background: rgba(0, 72, 131, 0.795);
+  background: rgba(2, 86, 194, 1);
   mix-blend-mode: luminosity;
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(20.95704650878906px);

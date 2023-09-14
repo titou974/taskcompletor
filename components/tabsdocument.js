@@ -1,5 +1,6 @@
 import { Tab } from '@headlessui/react'
 import { docType } from "../utils/constants";
+import { ClockIcon } from '@heroicons/react/20/solid';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -8,11 +9,11 @@ function classNames(...classes) {
 const TabsDocument = ({type, setType}) => {
 
   return (
-    <div className="w-full sm:px-0 mx-auto">
+    <div className="w-full mx-auto">
       <Tab.Group vertical onChange={(index) => {
         setType(docType[index].title)
       }}>
-        <Tab.List className="flex space-x-1 rounded-md bg-[#0256c2] p-1">
+        <Tab.List className="flex space-x-1 rounded-md bg-secondary p-1 shadow-md">
           <Tab
             key={`${docType[0].id}tab`}
             className={({ selected }) =>
@@ -70,26 +71,21 @@ const TabsDocument = ({type, setType}) => {
             <p>{docType[3].title}<span role="img" aria-label="lettre de motivation" className='px-2'>🎙️</span></p>
           </Tab>
         </Tab.List>
-        <Tab.Panels className="mt-10 mx-auto bg-white rounded-md text-sm">
+        <Tab.Panels className="mt-10 mx-auto bg-secondary rounded-md shadow-xl text-white">
           {docType.map((type) => (
             <Tab.Panel
               key={`${type.id}tabpanel`}
               className={classNames(
-                'rounded-md w-full md:w-1/2 py-5 mx-auto',
+                'rounded-md w-full w-10/12 px-5 md:px-0 md:w-8/12 py-5 mx-auto text-center',
               )}
             >
-                <h2 className="text-black font-bold leading-5">
+                <h2 className="italic leading-5">
                     {type.description}
                 </h2>
-                <ul className='text-black py-5'>
-                    {type.benefits.map((benefit) => (
-                        <li className='py-2' key={benefit[1]}>
-                          <span role="img" aria-label="validate" className='pe-2'>✅</span>
-                          {benefit[0]}
-                        </li>
-                    ))}
-                </ul>
-                <p className='py-5 text-black'><span role="img" aria-label="validate" className='pe-2'>⏲️</span>Temps de génération ≈ {type.generation_time}</p>
+                <div className='flex py-5 text-center justify-center'>
+                  <ClockIcon className='w-6 h-6 text-white me-2' />
+                  <p className='italic'>≈ {type.generation_time}</p>
+                </div>
             </Tab.Panel>
           ))}
         </Tab.Panels>
