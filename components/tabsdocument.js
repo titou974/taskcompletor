@@ -75,18 +75,18 @@ const TabsDocument = ({type, setType}) => {
             <Tab.Panel
               key={`${type.id}tabpanel`}
               className={classNames(
-                'rounded-md w-full md:w-1/2 py-5 text-center mx-auto',
+                'rounded-md w-full md:w-1/2 py-5 mx-auto',
               )}
             >
-                <h2 className="px-2 text-black font-bold leading-5">
+                <h2 className="text-black font-bold leading-5">
                     {type.description}
                 </h2>
                 <ul className='text-black py-5'>
                     {type.benefits.map((benefit) => (
-                        <li className='py-2' key={`${type.id}li`}><span role="img" aria-label="validate" className='px-2'>✅</span>{benefit}</li>
+                        <li className='py-2' key={`${type.id}li`}><span role="img" aria-label="validate" className='pe-2'>✅</span>{benefit}</li>
                     ))}
                 </ul>
-                <p className='py-5 text-black'><span role="img" aria-label="validate" className='px-2'>⏲️</span>Temps de génération ≈ {type.generation_time}</p>
+                <p className='py-5 text-black'><span role="img" aria-label="validate" className='pe-2'>⏲️</span>Temps de génération ≈ {type.generation_time}</p>
             </Tab.Panel>
           ))}
         </Tab.Panels>

@@ -63,7 +63,7 @@ const Navbar = ({hover, modifyingStep, doc, lang, myName, dest, emotion, message
         if (subject !== "") {
           setTypewriterText(`Générer un Rapport informel sur "${truncateText(subject, 50)}" 📢`)
         }
-      } 
+      }
     } else if (doc === "Message") {
       setTypewriterText("Générer un Message")
       if (myName) {
@@ -80,7 +80,7 @@ const Navbar = ({hover, modifyingStep, doc, lang, myName, dest, emotion, message
             setTypewriterText(`Générer un Message ${messageLength} en ${language} de "${truncateText(myName, 15)}" à "${truncateText(dest, 15)}" avec colère 😡`)
           }
         }
-      } 
+      }
     } else if (doc === "Email") {
       setTypewriterText("Générer un Email")
       if (myName) {
@@ -232,7 +232,7 @@ const NavbarTypewriter = ({isScrolling, text, hover}) => {
       className={`${hover ? "bg-green-400" : "navbar-bg"} transition-colors w-9/12 h-[60px] md:h-[80px] md:w-7/12 fixed py-4 my-0 flex items-center justify-center z-20 text-white top-4 rounded-full left-1/2 right-1/2 mx-auto overflow-hidden`}
     >
       <div className="w-full flex justify-center max-w-7xl">
-        <div className="hidden lg:block text-sm mx-auto text-center w-9/12">
+        <div className="hidden lg:block text-sm mx-auto text-center w-9/12 font-bold">
           <TypewriterComponent
                 options={{
                   strings: text,
@@ -242,7 +242,7 @@ const NavbarTypewriter = ({isScrolling, text, hover}) => {
                 }}
             />
         </div>
-        <div className="lg:hidden text-[10px] w-9/12 mx-auto text-center">
+        <div className="lg:hidden text-[12px] w-9/12 mx-auto text-center font-bold">
           <TypewriterComponent
               options={{
                 strings: text,
