@@ -673,7 +673,7 @@
 }
 
 .navbar-bg {
-  background: rgba(255, 255, 255, 0.829);
+  background: #FAFAFA;
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(15.95704650878906px);
 }
@@ -693,6 +693,11 @@
   padding: 16px;
   outline: none;
   border-radius: 6px;
+}
+
+
+.input-classic input:valid:hover {
+  background-color: rgb(255 255 255 / 0.12);
 }
 
 .placeholder-input-classic {
