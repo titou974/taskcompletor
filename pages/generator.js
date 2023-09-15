@@ -22,11 +22,6 @@ import ModalIntro from "../components/modalintro";
 import ModalSaved from "../components/modalsaved";
 import { ShareIcon, BackspaceIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import EditTextAreaReport from "../components/editableinputs";
-import {
-  Alert,
-  AlertIcon,
-  CloseButton
-} from '@chakra-ui/react';
 import FormGenerator from "../components/formgenerator";
 import Navbar from "../components/navbar";
 import { docType } from "../utils/constants";
@@ -453,14 +448,6 @@ const Generator = () => {
             <PenLoader />
           </div>
           <div className={`${styles.paddingX} w-full md:w-1/2 mx-auto fixed bottom-10 right-0 left-0 z-50 ${generationError ? "" : "hidden"}`}>
-            {/* Alert for Generation Problem */}
-            <Alert status='error' variant='solid' flexDirection='row'
-              alignItems='center'
-              justifyContent='center' className="rounded-md">
-              <AlertIcon />
-              Badaboum. Petit bug, c'est en développement les gars...
-              <CloseButton onClick={() => setGenerationError(false)}/>
-            </Alert>
           </div>
         </div>
       </div>
