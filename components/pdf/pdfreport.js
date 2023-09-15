@@ -3,7 +3,7 @@ let replacedLogo;
 
 const regexTitle = /^\d+\.\s(.+)/;
 
-const RenderReport = ({ generatedTitle, generatedSections, length }) => {
+const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
   return (
     <div className="w-full mx-auto">
       <div className="a4-container align-center flex gap-x-4 mb-2" id="page1">
@@ -506,4 +506,4 @@ const RenderReport = ({ generatedTitle, generatedSections, length }) => {
   );
 };
 
-export default RenderReport;
+export default ReportTemplate;

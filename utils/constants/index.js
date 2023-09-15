@@ -31,8 +31,8 @@ export const docType = [
     ],
     generation_time: "1 minute",
     example: {
-      title: "",
-      sections: ""
+      title: "Rapport sur le musée de l'art et de l'espace en 1970",
+      sections: [["", ""], ["", ""], ["", ""]]
     }
   },
   {
@@ -54,8 +54,8 @@ export const docType = [
       ]],
     generation_time: "30 secondes",
     example: {
-      title: "",
-      sections: ""
+      title: "Rapport sur le musée de l'art et de l'espace en 1970",
+      sections: [["", ""], ["", ""], ["", ""]]
     }
   },
   {
@@ -74,8 +74,8 @@ export const docType = [
     ],
     generation_time: "30 secs",
     example: {
-      title: "",
-      sections: ""
+      title: "Rapport sur le musée de l'art et de l'espace en 1970",
+      sections: [["", ""], ["", ""], ["", ""]]
     }
   },
   {
@@ -94,8 +94,8 @@ export const docType = [
     ],
     generation_time: "30 secs",
     example: {
-      title: "",
-      sections: ""
+      title: "Rapport sur le musée de l'art et de l'espace en 1970",
+      sections: [["", ""], ["", ""], ["", ""]]
     }
   },
 ];

@@ -11,33 +11,17 @@ import RadioGroupMailType from "../radiogroupmailtype";
 const EmailForm = ({myName, setMyName, dest, setDest, mailType, setMailType, language, setLanguage, subject, setSubject}) => {
     return (
         <div className="w-full md:w-1/2 mx-auto">
-            <div className={`w-full flex justify-between pt-10`}>
-                <h2 className={`${styles.sectionSubText} font-bold w-5/12`}>
-                    Expéditeur
-                </h2>
-                <h2
-                    className={`${styles.sectionSubText} font-bold w-5/12`}
-                >
-                    Destinataire
-                </h2>
+            <div className="w-full flex justify-between gap-5 my-10">
+              <label className="input-classic">
+                <input required type="text" onChange={(e) => setMyName(e.target.value)} className="input-classic w-5/12 rounded-md transition-all"/>
+                <span className="placeholder-input-classic ">Votre nom</span>
+              </label>
+              <label className="input-classic">
+                <input required type="text" onChange={(e) => setDest(e.target.value)} className="input-classic w-5/12 rounded-md transition-all"/>
+                <span className="placeholder-input-classic">Destinataire</span>
+              </label>
             </div>
-            <div className={`w-full flex justify-between pt-5`}>
-                <textarea
-                    value={myName}
-                    onChange={(e) => setMyName(e.target.value)}
-                    rows={2}
-                    className="w-5/12 bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black px-4 py-1 text-gray-700 caret-gray-700"
-                    placeholder="Votre nom"
-                />
-                <textarea
-                    value={dest}
-                    onChange={(e) => setDest(e.target.value)}
-                    rows={2}
-                    className="w-5/12 bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black px-4 py-1 text-gray-700 caret-gray-700"
-                    placeholder={`Nom du destinataire`}
-                />
-            </div>
-            <div className={`flex items-center gap-4 w-full pt-20`}>
+            <div className={`flex items-center gap-4 w-full pt-5`}>
                 <Image src={Cercle1} width={50} height={50} alt="step 1"/>
                 <h2
                 className={`${styles.sectionSubText} font-bold`}
@@ -60,7 +44,7 @@ const EmailForm = ({myName, setMyName, dest, setDest, mailType, setMailType, lan
                 <h2
                 className={`${styles.sectionSubText} font-bold`}
                 >
-                    Décrivez le(s) sujet(s) 
+                    Décrivez le(s) sujet(s)
                 </h2>
             </div>
             <textarea

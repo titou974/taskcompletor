@@ -228,7 +228,7 @@ const NavbarTypewriter = ({isScrolling, text, hover}) => {
       animate={isScrolling ? "animate" : "initial"}
       exit="exit"
       variants={NavAnimations}
-      className={`${hover ? "bg-green-400" : "navbar-bg"} transition-colors w-9/12 h-[60px] md:h-[80px] md:w-7/12 fixed py-4 my-0 flex items-center justify-center z-20 text-white top-4 rounded-full left-1/2 right-1/2 mx-auto overflow-hidden`}
+      className={`${hover ? "bg-green-400 text-white" : "navbar-bg"} transition-colors w-9/12 max-w-7xl h-[60px] md:h-[80px] md:w-7/12 fixed py-4 my-0 flex items-center justify-center z-20 top-4 rounded-full left-1/2 right-1/2 mx-auto overflow-hidden`}
     >
       <div className="w-full flex justify-center max-w-7xl">
         <div className="hidden lg:block text-sm mx-auto text-center w-9/12 font-bold">

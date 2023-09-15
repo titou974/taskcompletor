@@ -1,6 +1,9 @@
 import { Tab } from '@headlessui/react'
 import { docType } from "../utils/constants";
 import { ClockIcon } from '@heroicons/react/20/solid';
+import MessageTemplate from './messagetemplate';
+import MailTemplate from './mailtemplate';
+import ReportTemplate from './pdf/pdfreport';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -21,7 +24,7 @@ const TabsDocument = ({type, setType}) => {
                 'w-full rounded-md py-2.5 font-medium leading-5 text-white',
                 'ring-white ring-opacity-100 focus:outline-none focus:ring-2',
                 selected
-                  ? 'bg-tertiary shadow'
+                  ? 'bg-[#011B6B] shadow'
                   : 'text-white hover:bg-white/[0.12] transition-colors'
               )
             }
@@ -35,7 +38,7 @@ const TabsDocument = ({type, setType}) => {
                 'w-full rounded-md py-2.5 font-medium leading-5 text-white',
                 'ring-white ring-opacity-100 focus:outline-none focus:ring-2',
                 selected
-                  ? 'bg-tertiary shadow'
+                  ? 'bg-[#011B6B] shadow'
                   : 'text-white hover:bg-white/[0.12] transition-colors'
               )
             }
@@ -49,7 +52,7 @@ const TabsDocument = ({type, setType}) => {
                 'w-full rounded-md py-2.5 font-medium leading-5 text-white',
                 'ring-white ring-opacity-100 focus:outline-none focus:ring-2',
                 selected
-                  ? 'bg-tertiary shadow'
+                  ? 'bg-[#011B6B] shadow'
                   : 'text-white hover:bg-white/[0.12] transition-colors'
               )
             }
@@ -63,7 +66,7 @@ const TabsDocument = ({type, setType}) => {
                 'w-full rounded-md py-2.5 font-medium leading-5 text-white',
                 'ring-white ring-opacity-100 focus:outline-none focus:ring-2',
                 selected
-                  ? 'bg-tertiary shadow'
+                  ? 'bg-[#011B6B] shadow'
                   : 'text-white hover:bg-white/[0.12] transition-colors'
               )
             }
@@ -85,6 +88,16 @@ const TabsDocument = ({type, setType}) => {
                 <div className='flex py-5 text-center justify-center'>
                   <ClockIcon className='w-6 h-6 text-white me-2' />
                   <p className='italic'>≈ {type.generation_time}</p>
+                </div>
+                <div className={`${type.title === "Rapport" ? "" : "hidden" } py-10`}>
+                  <p className='font-bold'>Exemple de Rapport généré en PDF</p>
+                  <div className='flex flex-col items-center'>
+                    <ul className='py-5 italic text-sm'>
+                      <li className='py-2 px-4 my-2 bg-[#011B6B] rounded-full'>Language: formel</li>
+                      <li className='py-2 px-4 my-2 bg-[#011B6B] rounded-full'>Sujet: "le musée de l'art et de l'espace en 1970"</li>
+                    </ul>
+                  </div>
+                  <ReportTemplate  generatedTitle={type.example.title} generatedSections={type.example.sections}/>
                 </div>
             </Tab.Panel>
           ))}

@@ -673,8 +673,47 @@
 }
 
 .navbar-bg {
-  background: rgba(2, 86, 194, 1);
-  mix-blend-mode: luminosity;
+  background: rgba(255, 255, 255, 0.829);
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(20.95704650878906px);
+  backdrop-filter: blur(15.95704650878906px);
+}
+
+.input-classic {
+  position: relative;
+}
+
+.input-classic input {
+  border: none;
+  -webkit-appearance: none;
+  -ms-progress-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #0256c2;
+  width: 100%;
+  padding: 16px;
+  outline: none;
+  border-radius: 6px;
+}
+
+.placeholder-input-classic {
+  position: absolute;
+  left: 12px;
+  top: calc(50%);
+  transform: translateY(-50%);
+  color: rgb(203 213 225);
+  transition:
+    top 0.3s ease,
+    font-size 0.3s ease,
+    color 0.3s ease;
+}
+
+.input-classic input:focus + .placeholder-input-classic,
+.input-classic input:valid + .placeholder-input-classic {
+  top: -18px;
+  font-size: 14px;
+  color: white;
+}
+
+.input-classic input:valid  {
+  background-color: #011B6B;
 }

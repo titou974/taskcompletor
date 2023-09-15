@@ -14,7 +14,7 @@ import {
   ParsedEvent,
   ReconnectInterval,
 } from "eventsource-parser";
-import RenderReport from "../components/pdf/pdfreport";
+import ReportTemplate from "../components/pdf/pdfreport";
 import axios from "axios";
 import Link from 'next/link';
 import { Dialog, Transition } from '@headlessui/react';
@@ -83,7 +83,7 @@ const Generator = () => {
 
   let [isOpen, setIsOpen] = useState(false);
   const docRef = useRef();
-  
+
   const backToGeneration = () => {
     setNavTwoStep(false);
   }
@@ -121,7 +121,7 @@ const Generator = () => {
     } else {
       document.documentElement.classList.remove("stepper")
     }
-    
+
   })
 
   {/* Generation Bug Alert  && nav between steps*/}
@@ -161,7 +161,7 @@ const Generator = () => {
     setLoading(true);
     try {
       await axios.post("/api/documents", {
-        type: doc, 
+        type: doc,
         title: generatedTitle,
         subtitles: generatedSectionsTitles,
         sections: generatedSectionsTexts,
@@ -297,7 +297,7 @@ const Generator = () => {
         }
       } else if (doc === "Email" || doc === "Message") {
         setFinalText(fulltext);
-      } 
+      }
     }
 
     const onParse = (event) => {
@@ -384,7 +384,7 @@ const Generator = () => {
             <h2
               className={`${styles.heroSubText} font-bold mx-auto text-center mt-5 mb-14`}
             >
-              Modifier votre {doc} 
+              Modifier votre {doc}
             </h2>
             <div className={`w-full ${doc === "Rapport" ? "" : "hidden"}`}>
               <EditTextAreaReport title={generatedTitle} setTitle={(newDoc) => setGeneratedTitle(newDoc)} setSections={(newDoc) => setGeneratedSections(newDoc)} sections={generatedSections}/>
@@ -420,11 +420,11 @@ const Generator = () => {
                   <DocumentIcon className="ms-3 cta6-icon h-[35px] w-[35px] "/>
                 </a>
               </Link>
-            </div> 
+            </div>
           </div>
           <div className="h-full">
             <div className={`h-full mx-auto ${doc === "Rapport" && showGeneratedDoc ? "" : "hidden"}`}>
-              <RenderReport
+              <ReportTemplate
                 generatedTitle={generatedTitle}
                 generatedSections={generatedSections}
                 length={length}
