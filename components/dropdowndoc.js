@@ -9,6 +9,8 @@ import {
 import { docType } from "../utils/constants";
 import { Tab } from '@headlessui/react';
 import { ClockIcon } from "@heroicons/react/20/solid";
+import ReportExample from "./reportexample";
+
 
 
 function classNames(...classes) {
@@ -84,15 +86,18 @@ const DropDownDoc = ({ type, setType }) => {
             <Tab.Panel
               key={`${selectedDoc.id}panel`}
               className={classNames(
-                'rounded-md w-full py-5 text-center mx-auto',
+                'rounded-md py-5 text-center mx-auto w-[90%]',
               )}
             >
-                <h2 className="italic leading-5">
+                <h2 className="italic leading-5 mx-auto">
                     {selectedDoc.description}
                 </h2>
                 <div className='flex py-5 text-center justify-center'>
                   <ClockIcon className='w-6 h-6 text-white me-2' />
                   <p className='italic'>≈ {selectedDoc.generation_time}</p>
+                </div>
+                <div className="w-full">
+                  <ReportExample  generatedTitle={selectedDoc.example.title} generatedSections={selectedDoc.example.sections} length={6} />
                 </div>
             </Tab.Panel>
         </Tab.Panels>

@@ -3,7 +3,7 @@ import { docType } from "../utils/constants";
 import { ClockIcon } from '@heroicons/react/20/solid';
 import MessageTemplate from './messagetemplate';
 import MailTemplate from './mailtemplate';
-import ReportTemplate from './pdf/pdfreport';
+import ReportExample from './reportexample';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -79,7 +79,7 @@ const TabsDocument = ({type, setType}) => {
             <Tab.Panel
               key={`${type.id}tabpanel`}
               className={classNames(
-                'rounded-md w-full w-10/12 px-5 md:px-0 md:w-8/12 py-5 mx-auto text-center',
+                'rounded-md w-[90%] md:w-8/12 py-5 mx-auto text-center',
               )}
             >
                 <h2 className="italic leading-5">
@@ -93,11 +93,13 @@ const TabsDocument = ({type, setType}) => {
                   <p className='font-bold'>Exemple de Rapport généré en PDF</p>
                   <div className='flex flex-col items-center'>
                     <ul className='py-5 italic text-sm'>
-                      <li className='py-2 px-4 my-2 bg-[#011B6B] rounded-full'>Language: formel</li>
-                      <li className='py-2 px-4 my-2 bg-[#011B6B] rounded-full'>Sujet: "le musée de l'art et de l'espace en 1970"</li>
+                      <li className='py-2 px-10 my-2 bg-[#011B6B] rounded-full'>Language: formel</li>
+                      <li className='py-2 px-4 my-2 bg-[#011B6B] rounded-full'>Sujet: "le musée de l'art et de l'espace"</li>
                     </ul>
                   </div>
-                  <ReportTemplate  generatedTitle={type.example.title} generatedSections={type.example.sections}/>
+                  <div className='w-full'>
+                    <ReportExample  generatedTitle={type.example.title} generatedSections={type.example.sections} length={6} />
+                  </div>
                 </div>
             </Tab.Panel>
           ))}
