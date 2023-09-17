@@ -181,7 +181,7 @@ const NavbarScrolling = ({isScrolling}) => {
       animate={isScrolling ? "animate" : "initial"}
       exit="exit"
       variants={NavAnimations}
-      className={`navbar-bg w-9/12 md:w-7/12 fixed py-4 my-0 flex items-center justify-center z-20 text-white top-4 rounded-full left-1/2 w-9/12 h-[60px] md:h-[80px]`}
+      className={`navbar-bg w-9/12 md:w-7/12 fixed py-4 my-0 flex items-center justify-center z-20 text-white top-4 rounded-full left-1/2 w-9/12 h-[60px] md:h-[80px] shadow-navbar`}
     >
       <div className="w-full flex justify-center max-w-7xl">
         <ul className="hidden lg:flex list-none gap-5">
@@ -228,7 +228,7 @@ const NavbarTypewriter = ({isScrolling, text, hover}) => {
       animate={isScrolling ? "animate" : "initial"}
       exit="exit"
       variants={NavAnimations}
-      className={`${hover ? "bg-green-400 text-white" : "navbar-bg"} transition-colors w-9/12 max-w-xl h-[60px] md:h-[80px] md:w-7/12 fixed py-4 my-0 flex items-center justify-center z-20 top-4 rounded-full left-1/2 right-1/2 mx-auto overflow-hidden`}
+      className={`${hover ? "bg-green-400 text-white" : "navbar-bg"} transition-colors w-9/12 max-w-xl h-[60px] md:h-[80px] md:w-7/12 fixed py-4 my-0 flex items-center justify-center z-20 top-4 rounded-full left-1/2 right-1/2 mx-auto overflow-hidden shadow-navbar`}
     >
       <div className="w-full flex justify-center">
         <div className="hidden lg:block text-sm mx-auto text-center w-9/12 font-bold">

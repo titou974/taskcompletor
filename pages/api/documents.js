@@ -15,7 +15,6 @@ export default async function handler(req, res) {
             title: title,
             subtitles: sectionsTitles,
             sections: sectionsTexts
-  
           },
         })
         console.log(post)

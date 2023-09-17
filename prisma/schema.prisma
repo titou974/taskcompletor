@@ -2,7 +2,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["jsonProtocol"]
 }
 
 datasource db {
@@ -16,7 +15,7 @@ model Document {
   title   String? @db.Text
   subtitles String[]
   sections String[]
-  type  String? 
+  type  String?
   author    User?   @relation(fields: [authorId], references: [id])
   authorId  String?
 }
