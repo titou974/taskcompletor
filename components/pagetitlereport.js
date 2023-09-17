@@ -5,8 +5,8 @@ const regexTitle = /^\d+\.\s(.+)/;
 const PageTitleReport = ({generatedTitle, generatedSections}) => {
   return (
     <div className="a4-container-example align-center flex gap-x-4 mb-2" id="page1">
-      <div className="a4-example py-[20px] xs:py-[40px] sm:py-[35px] md:py-[40px] lg:py-[50px] xl:py-[75px] px-5 xs:px-[30px] sm:px-10 lg:px-16">
-        <h2 className="font-bold text-center pb-3">{generatedTitle}</h2>
+      <div className="a4-example py-[20px] xs:py-[40px] sm:py-[35px] md:py-[40px] lg:py-[50px] xl:py-[55px] px-5 xs:px-[30px] sm:px-10 lg:px-10">
+        <h2 className="font-bold text-center pb-2">{generatedTitle}</h2>
         <div className={`sm:hidden`}>
           {generatedSections.slice(0, 2).map((section, index) => (
             <div key={index} className="py-2">
@@ -65,7 +65,7 @@ const PageTitleReport = ({generatedTitle, generatedSections}) => {
             </div>
           ))}
         </div>
-        <div className={` hidden md:block lg:hidden`}>
+        <div className={`hidden md:block lg:hidden`}>
           {generatedSections.slice(0, 3).map((section, index) => (
             <div key={index} className="py-2">
               <div className="flex items-center py-2">
@@ -96,7 +96,7 @@ const PageTitleReport = ({generatedTitle, generatedSections}) => {
         </div>
         <div className={`py-4 hidden lg:block xl:hidden`}>
           {generatedSections.slice(0, 3).map((section, index) => (
-            <div key={index} className="py-2">
+            <div key={index} className="py-1">
               <div className="flex items-center py-3">
                 {
                   (replacedLogo = reactStringReplace(
@@ -106,8 +106,8 @@ const PageTitleReport = ({generatedTitle, generatedSections}) => {
                       <img
                         key={`number ${index + 1}`}
                         src={`/img/icon${index + 1}black.svg`}
-                        width={30}
-                        height={30}
+                        width={20}
+                        height={20}
                       />
                     ),
                   ))
@@ -126,7 +126,7 @@ const PageTitleReport = ({generatedTitle, generatedSections}) => {
         <div className={`py-3 hidden xl:block`}>
           {generatedSections.slice(0, 3).map((section, index) => (
             <div key={index} className="py-2">
-              <div className="flex items-center py-5">
+              <div className="flex items-center py-3">
                 {
                   (replacedLogo = reactStringReplace(
                     section[1],
@@ -135,8 +135,8 @@ const PageTitleReport = ({generatedTitle, generatedSections}) => {
                       <img
                         key={`number ${index + 1}`}
                         src={`/img/icon${index + 1}black.svg`}
-                        width={35}
-                        height={35}
+                        width={30}
+                        height={30}
                       />
                     ),
                   ))

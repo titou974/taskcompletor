@@ -762,7 +762,6 @@
 
 .a4-example h3 {
   text-align: left;
-  margin-top: 2.3px;
 }
 
 @media (min-width: 450px)  {
@@ -813,31 +812,32 @@
 
 @media (min-width: 1024px)  {
   .a4-container-example {
-    height: 800px;
+    height: 580px;
   }
 
 .a4-example p {
-    font-size: 13px;
+    font-size: 9px;
     line-height: 2em;
   }
 
 .a4-example h2,
 .a4-example h3 {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 
 @media (min-width: 1280px)  {
   .a4-container-example {
-    height: 950px;
+    height: 750px;
   }
 
-.a4-example p {
-    font-size: 16px;
-  }
+  .a4-example p {
+      font-size: 12px;
+    }
 
-.a4-example h2,
-.a4-example h3 {
-    font-size: 20px;
-  }
+  .a4-example h2,
+  .a4-example h3 {
+      font-size: 16px;
+    }
+
 }

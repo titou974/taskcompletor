@@ -79,7 +79,7 @@ const TabsDocument = ({type, setType}) => {
             <Tab.Panel
               key={`${type.id}tabpanel`}
               className={classNames(
-                'rounded-md w-[90%] md:w-8/12 py-5 mx-auto text-center',
+                'rounded-md w-[90%] lg:w-1/2 py-5 mx-auto text-center',
               )}
             >
                 <h2 className="italic leading-5">
