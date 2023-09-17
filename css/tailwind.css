@@ -766,21 +766,22 @@
 
 @media (min-width: 450px)  {
   .a4-container-example {
-    height: 500px;
+    height: 550px;
   }
   .a4-example p {
-    font-size: 10px;
+    font-size: 13px;
   }
 
   .a4-example h2,
   .a4-example h3 {
-    font-size: 14px;
+    font-size: 17px;
   }
 }
 
 @media (min-width: 640px)  {
   .a4-container-example {
     height: 600px;
+    width: 100%;
   }
  .a4-example p {
     font-size: 10px;
@@ -794,15 +795,16 @@
 
 @media (min-width: 768px)  {
   .a4-container-example {
-    height: 550px;
+    height: 450px;
+    width: 50%;
   }
 .a4-example p {
-    font-size: 8px;
+    font-size: 6px;
   }
 
 .a4-example h2,
 .a4-example h3 {
-    font-size: 12px;
+    font-size: 10px;
   }
 
   .a4-example h3 {
@@ -813,6 +815,7 @@
 @media (min-width: 1024px)  {
   .a4-container-example {
     height: 580px;
+    width: 100%;
   }
 
 .a4-example p {
