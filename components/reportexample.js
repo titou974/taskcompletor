@@ -42,8 +42,8 @@ const ReportExample = ({ generatedTitle, generatedSections, length }) => {
     <div className="w-full mx-auto">
       {/* Caroussel */}
 
-      <div className="sm:hidden relative">
-        <Carousel infiniteLoop autoPlay interval={5000} showArrows={false} showStatus={false}>
+      <div className="sm:hidden relative" >
+        <Carousel infiniteLoop autoPlay interval={5000} showArrows={false} showStatus={false} showThumbs={false}>
           <div>
           {
             length >= 1 && (
@@ -68,7 +68,7 @@ const ReportExample = ({ generatedTitle, generatedSections, length }) => {
         </div>
       </div>
       <div className="hidden sm:block">
-        <Carousel infiniteLoop autoPlay showStatus={false}>
+        <Carousel infiniteLoop autoPlay showStatus={false} showThumbs={false}>
           <div>
             {
               length >= 1 && (
