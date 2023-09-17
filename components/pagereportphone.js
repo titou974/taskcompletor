@@ -18,7 +18,8 @@ const PageReportPhone = ({generatedSections, indexSection}) => {
                         key={`number ${index + indexSection}`}
                         src={`/img/icon${index + indexSection}black.svg`}
                         width={20}
-                        height={25}
+                        height={20}
+                        className="max-w-[20px]"
                       />
                     ),
                   ))

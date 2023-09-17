@@ -21,6 +21,7 @@ const PageTitleReport = ({generatedTitle, generatedSections}) => {
                         src={`/img/icon${index + 1}black.svg`}
                         width={25}
                         height={25}
+                        className="max-w-[25px]"
                       />
                     ),
                   ))
@@ -50,6 +51,7 @@ const PageTitleReport = ({generatedTitle, generatedSections}) => {
                         src={`/img/icon${index + 1}black.svg`}
                         width={20}
                         height={20}
+                        className="max-w-[20px]"
                       />
                     ),
                   ))
@@ -79,6 +81,7 @@ const PageTitleReport = ({generatedTitle, generatedSections}) => {
                         src={`/img/icon${index + 1}black.svg`}
                         width={20}
                         height={20}
+                        className="max-w-[20px]"
                       />
                     ),
                   ))
@@ -108,6 +111,7 @@ const PageTitleReport = ({generatedTitle, generatedSections}) => {
                         src={`/img/icon${index + 1}black.svg`}
                         width={30}
                         height={30}
+                        className="max-w-[30px]"
                       />
                     ),
                   ))

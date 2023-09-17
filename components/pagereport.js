@@ -20,6 +20,7 @@ const PageReport = ({generatedSections, indexSection}) => {
                         src={`/img/icon${index + indexSection}black.svg`}
                         width={25}
                         height={25}
+                        className="max-w-[25px]"
                       />
                     ),
                   ))
@@ -49,6 +50,7 @@ const PageReport = ({generatedSections, indexSection}) => {
                         src={`/img/icon${index + indexSection}black.svg`}
                         width={20}
                         height={20}
+                        className="max-w-[20px]"
                       />
                     ),
                   ))
@@ -78,6 +80,7 @@ const PageReport = ({generatedSections, indexSection}) => {
                         src={`/img/icon${index + indexSection}black.svg`}
                         width={20}
                         height={20}
+                        className="max-w-[20px]"
                       />
                     ),
                   ))
@@ -107,6 +110,7 @@ const PageReport = ({generatedSections, indexSection}) => {
                         src={`/img/icon${index + indexSection}black.svg`}
                         width={30}
                         height={30}
+                        className="max-w-[30px]"
                       />
                     ),
                   ))
