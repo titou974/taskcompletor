@@ -108,9 +108,6 @@ const DropDownDoc = ({ type, setType }) => {
                     <ReportExample  generatedTitle={selectedDoc.example.title} generatedSections={selectedDoc.example.sections} length={6} />
                   </div>
                 </div>
-                <div className="w-full">
-                  <ReportExample  generatedTitle={selectedDoc.example.title} generatedSections={selectedDoc.example.sections} length={6} />
-                </div>
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
