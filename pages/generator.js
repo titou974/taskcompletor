@@ -39,7 +39,7 @@ const Generator = () => {
   {/* States for form */}
   const [subject, setSubject] = useState("");
   const [doc, setDoc] = useState("Rapport");
-  const [lang, setLang] = useState("formel");
+  const [lang, setLang] = useState("");
   const [dest, setDest] = useState("");
   const [persoType, setPersoType] = useState("élève");
   const [domain, setDomain] = useState("");
@@ -54,7 +54,7 @@ const Generator = () => {
   const [generatedDoc, setGeneratedDoc] = useState("");
   const [generatedTitle, setGeneratedTitle] = useState("");
   const [showGeneratedDoc, setShowGeneratedDoc] = useState(false);
-  const [generatedSections, setGeneratedSections] = useState(["Salut Lola,", "J'espère que tu vas bien ! Je voulais te partager une nouvelle super excitante : j'ai réussi à prendre de la masse musculaire et je me sens vraiment costaud en ce moment. C'est incroyable à quel point l'entraînement et la nutrition ont fait une différence.", "Je suis tellement heureux de voir les résultats de tous mes efforts et cela me met de bonne humeur tous les jours. J'espère que tu es aussi heureuse pour moi !", "Prends soin de toi, et on se voit bientôt !", "Amicalement,", "Antoine"]);
+  const [generatedSections, setGeneratedSections] = useState([]);
   const [generatedSectionsTexts,  setGeneratedSectionsTexts] = useState([]);
   const [generatedSectionsTitles, setGeneratedSectionsTitles]  = useState([]);
   const [length, setLength] = useState(0);
@@ -67,10 +67,10 @@ const Generator = () => {
   const [generationError, setGenerationError] = useState(false);
   const [doneGeneration, setDoneGeneration] = useState(false);
   const [navTwoStep, setNavTwoStep] = useState(false);
-  const [emotion, setEmotion] = useState("joie");
-  const [mailType, setMailType] = useState("école");
-  const [language, setLanguage] = useState("français");
-  const [messageLength, setMessageLength] = useState("moyen");
+  const [emotion, setEmotion] = useState("");
+  const [mailType, setMailType] = useState("");
+  const [language, setLanguage] = useState("");
+  const [messageLength, setMessageLength] = useState("");
   const [modalModifiedStepOpen, setModalModifiedStepOpen] = useState(false);
   const [modalModifiedPdfOpen, setModalModifiedPdfOpen] = useState(false);
   const [developSubject, setDevelopSubject] = useState(false);
@@ -344,7 +344,7 @@ const Generator = () => {
           <div className={`flex-col items-center justify-center gap-10 ${navTwoStep ? "hidden" : "flex"}`}>
             {/* Generation Form */}
             <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} persoType={persoType} setPersoType={(newPersoType) => setPersoType(newPersoType)} domain={domain} setDomain={(newDomain) => setDomain(newDomain)} theme={theme} setTheme={(newTheme) => setTheme(newTheme)} questions={questions} setQuestions={(newQuestions) => setQuestions(newQuestions)} job={job} setJob={(newJob) => setJob(newJob)} compentences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)}/>
-            <div className="w-full md:w-1/2 flex justify-between align-center pt-10">
+            <div className="w-full md:w-1/2 flex justify-between align-center pt-16">
               {!loading && (
                 <button
                   className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta6 w-2/3" : "cta2 w-full"} flex`}

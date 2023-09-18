@@ -8,7 +8,7 @@ const PageTitleReportPhone = ({generatedTitle, generatedSections}) => {
       <div className="a4-example py-[20px] xs:py-[40px] px-5 xs:px-[34px]">
         <h2 className="font-bold text-center pb-2 xs:pb-4">{generatedTitle}</h2>
           {generatedSections.map((section, index) => (
-            <div key={index} className="py-2 xs:py-">
+            <div key={index} className="py-2">
               <div className="flex items-center py-1 xs:py-4">
                 {
                   (replacedLogo = reactStringReplace(
