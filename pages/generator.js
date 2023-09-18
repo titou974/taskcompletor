@@ -32,6 +32,8 @@ import EditTextMail from "../components/edittextmail";
 import ModalStepTwo from "../components/modalmodifiedstep";
 import ModalStepTwoPdf from "../components/modalmodifiedpdf";
 import { isMobile } from "react-device-detect";
+import { staggerContainer } from "../utils/motion";
+import { zoomIn } from "../utils/motion";
 
 
 const Generator = () => {
@@ -344,9 +346,10 @@ const Generator = () => {
           <div className={`flex-col items-center justify-center gap-10 ${navTwoStep ? "hidden" : "flex"}`}>
             {/* Generation Form */}
             <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} persoType={persoType} setPersoType={(newPersoType) => setPersoType(newPersoType)} domain={domain} setDomain={(newDomain) => setDomain(newDomain)} theme={theme} setTheme={(newTheme) => setTheme(newTheme)} questions={questions} setQuestions={(newQuestions) => setQuestions(newQuestions)} job={job} setJob={(newJob) => setJob(newJob)} compentences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)}/>
-            <div className="w-full md:w-1/2 flex justify-between align-center pt-16">
+            <motion.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className="w-full md:w-1/2 flex justify-between align-center pt-16">
               {!loading && (
-                <button
+                <motion.button
+                  variants={zoomIn(0.5, 0.5)}
                   className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta6 w-2/3" : "cta2 w-full"} flex`}
                   onClick={(e) => developSubject && !isMobile ? setModalIntroVisible(true) : generateDoc(e)}
                   onMouseEnter={() => setHoverNavbar(true)}
@@ -354,7 +357,7 @@ const Generator = () => {
                 >
                   {`Générer`}
                   <PencilSquareIcon className={`ms-3 lg:ms-5 ${modifyingStep ? "cta6-icon" : "cta2-icon"}`} src={feather}></PencilSquareIcon>
-                </button>
+                </motion.button>
               )}
               {loading && (
                 <button
@@ -372,7 +375,7 @@ const Generator = () => {
                   <ArrowRightCircleIcon className="h-[35px] w-[35px] lg:w-[50px] lg:h-[50px] mx-auto" />
                 </button>
               )}
-            </div>
+            </motion.div>
           </div>
           {/* Step 2 : Modifying Text */}
           <div className={`w-full ${navTwoStep ? "" : "hidden"}`}>

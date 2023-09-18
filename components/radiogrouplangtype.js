@@ -1,12 +1,14 @@
 import { RadioGroup } from '@headlessui/react'
 import { langType } from '../utils/constants/index';
+import { motion } from 'framer-motion';
+import { fadeIn } from '../utils/motion';
 
 
 const RadioGroupLangType = ({lang, setLang}) => {
 
   return (
     <div className="w-full pt-10">
-      <div className="mx-auto w-full">
+      <motion.div variants={fadeIn("right", "spring", 0.5, 0.75)}>
         <RadioGroup value={lang} onChange={setLang}>
           <RadioGroup.Label className="sr-only">Type de Language</RadioGroup.Label>
           <div className="space-y-2">
@@ -63,7 +65,7 @@ const RadioGroupLangType = ({lang, setLang}) => {
             ))}
           </div>
         </RadioGroup>
-      </div>
+      </motion.div>
     </div>
   )
 }

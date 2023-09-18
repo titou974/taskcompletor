@@ -14,10 +14,11 @@ import ReportForm from "./forminputs/reportform";
 import EmailForm from "./forminputs/emailform";
 import MessageForm from "./forminputs/messageform";
 import CoverLetterForm from "./forminputs/coverletterform";
+import { staggerContainer, fadeIn } from '../utils/motion';
 
 const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, setDest, persoType, setPersoType, domain, setDomain, theme, setTheme, questions, setQuestions, job, setJob, competences, setCompetences, experiences, setExperiences, company, setCompany, myName, setMyName, emotion, setEmotion, language, setLanguage, mailType, setMailType, messageLength, setMessageLength}) => {
     return (
-        <>
+        <div className="w-full">
             <motion.div
             className="flex items-center gap-4 w-full text-center"
             >
@@ -33,9 +34,9 @@ const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, s
             <div className="hidden sm:block w-full">
                 <TabsDocument type={doc} setType={(newDoc) => setDoc(newDoc)}/>
             </div>
-            <div className={`w-full ${doc === "Rapport" ? "" : "hidden"}`}>
+            <motion.section variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Rapport", amount: 0.25 }}  className={`w-full ${doc === "Rapport" ? "" : "hidden"}`}>
                 <ReportForm subject={subject} setSubject={(newSubject) => setSubject(newSubject)} lang={lang} setLang={(newLang) => setLang(newLang)}/>
-            </div>
+            </motion.section>
             <div className={`w-full ${doc === "Email" ? "" : "hidden"}`}>
                 <EmailForm myName={myName} setMyName={(newName) => setMyName(newName)} dest={dest} setDest={(newDest) => setDest(newDest)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} subject={subject} setSubject={(newSubject) => setSubject(newSubject)} />
             </div>
@@ -45,7 +46,7 @@ const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, s
             <div className={`w-full ${doc === 'Lettre de motivation' ? "" : "hidden"}`}>
                 <CoverLetterForm myName={myName} setMyName={(newName) => setMyName(newName)} dest={dest} setDest={(newDest) => setDest(newDest)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} job={job} setJob={(newJob) => setJob(newJob)} competences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={((newExperiences) => setExperiences(newExperiences))} />
             </div>
-        </>
+        </div>
     )
 }
 

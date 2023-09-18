@@ -5,7 +5,9 @@ import Cercle1 from "../../public/img/icon1white.svg";
 import Cercle2 from "../../public/img/icon2white.svg";
 import styles from "../style";
 import IconNumber from "../iconnumber";
-import {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react';
+import { motion } from 'framer-motion';
+import { fadeIn, textVariant } from '../../utils/motion';
 
 const ReportForm = ({lang, setLang, subject, setSubject}) => {
 
@@ -30,7 +32,7 @@ const ReportForm = ({lang, setLang, subject, setSubject}) => {
 
     return (
         <div className="w-full md:w-1/2 mx-auto">
-            <div className={`flex items-center gap-4 pt-10`}>
+            <motion.div variants={textVariant(0.5)} className={`flex items-center gap-4 pt-10`}>
                 <IconNumber number={1} color={lang === "" ? "white" : "green"} />
                 <h2
                     className={`${styles.sectionSubText} lg:block hidden font-bold`}
@@ -42,17 +44,17 @@ const ReportForm = ({lang, setLang, subject, setSubject}) => {
                 >
                     Language
                 </h2>
-            </div>
+            </motion.div>
             <RadioGroupLangType lang={lang} setLang={(newLang) => setLang(newLang)} />
-            <div className={`flex items-center gap-4 pt-20`}>
+            <motion.div variants={textVariant(0.75)} className={`flex items-center gap-4 pt-20`}>
             <IconNumber number={2} color={colorIcon}/>
                 <h2
                     className={`${styles.sectionSubText} font-bold`}
                 >
                     Décrivez le(s) sujet(s)
                 </h2>
-            </div>
-            <div className="relative">
+            </motion.div>
+            <motion.div variants={fadeIn("right", "spring", 0.75, 0.75)} className="relative">
               <textarea
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
@@ -63,7 +65,7 @@ const ReportForm = ({lang, setLang, subject, setSubject}) => {
               <div className={`${textLengthAlert ? "" : "hidden"} absolute px-4 py-2 mt-2 bg-orange-400 rounded-md w-full font-bold flex align-center justify-center`} >
                 <span role="img" aria-label="rapport" className='pe-5'>📢</span><p>Détaillez votre sujet pour un résultat pertinent</p>
               </div>
-            </div>
+            </motion.div>
         </div>
     )
 }
