@@ -1,3 +1,5 @@
+"use client"
+
 import Cercle1 from "../../public/img/icon1white.svg";
 import Cercle2 from "../../public/img/icon2white.svg";
 import Cercle3 from "../../public/img/icon3white.svg";
@@ -9,11 +11,31 @@ import RadioGroupMailType from "../radiogroupmailtype";
 import RadioGroupEmotion from "../radiogroupemotion";
 import RadioGroupMessageLength from "../radiogroupmessagelength";
 import IconNumber from "../iconnumber";
+import {useEffect, useState} from 'react'
 
 
 
 
 const MessageForm = ({myName, setMyName, dest, setDest, emotion, setEmotion, language, setLanguage, subject, setSubject, messageLength, setMessageLength}) => {
+  const [colorIcon, setColorIcon] = useState('white');
+  const [textLengthAlert, setTextLengthAlert] = useState(false);
+    const HandleColorChangeTextInput = () => {
+      if (1 < subject.split(/\s+/).length && subject.split(/\s+/).length < 4) {
+        setColorIcon('orange');
+        setTextLengthAlert(true)
+      } else if (subject.split(/\s+/).length > 3) {
+        setColorIcon('green');
+        setTextLengthAlert(false)
+      } else if (subject === "")  {
+        setColorIcon('white')
+        setTextLengthAlert(false)
+      }
+    }
+
+    useEffect(() => {
+      HandleColorChangeTextInput();
+    })
+
     return (
         <div className="w-full md:w-1/2 mx-auto">
             <div className="w-full flex justify-between gap-5 my-10">
@@ -27,7 +49,7 @@ const MessageForm = ({myName, setMyName, dest, setDest, emotion, setEmotion, lan
               </label>
             </div>
             <div className={`flex items-center gap-4 w-full pt-5`}>
-                <Image src={Cercle1} width={50} height={50} alt="step 1"/>
+                <IconNumber number={1} color={emotion === "" ? "white" : "green"} />
                 <h2
                 className={`${styles.sectionSubText} font-bold`}
                 >
@@ -36,7 +58,7 @@ const MessageForm = ({myName, setMyName, dest, setDest, emotion, setEmotion, lan
             </div>
             <RadioGroupEmotion emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} />
             <div className={`flex items-center gap-4 w-full pt-20`}>
-                <Image src={Cercle2} width={50} height={50} alt="step 2"/>
+                <IconNumber number={2} color={language === "" ? "white" : "green"} />
                 <h2
                 className={`${styles.sectionSubText} font-bold`}
                 >
@@ -45,7 +67,7 @@ const MessageForm = ({myName, setMyName, dest, setDest, emotion, setEmotion, lan
             </div>
             <RadioGroupLanguage language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} />
             <div className={`flex items-center gap-4 w-full pt-20`}>
-                <Image src={Cercle3} width={50} height={50} alt="step 3"/>
+                <IconNumber number={3} color={messageLength === "" ? "white" : "green"} />
                 <h2
                 className={`${styles.sectionSubText} font-bold`}
                 >
@@ -54,20 +76,25 @@ const MessageForm = ({myName, setMyName, dest, setDest, emotion, setEmotion, lan
             </div>
             <RadioGroupMessageLength messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)}/>
             <div className={`flex items-center gap-4 w-full pt-20`}>
-                <Image src={Cercle4} width={50} height={50} alt="step 4"/>
+                <IconNumber color={colorIcon} number={4} />
                 <h2
                 className={`${styles.sectionSubText} font-bold`}
                 >
                     Décrivez le(s) sujet(s)
                 </h2>
             </div>
-            <textarea
-                    value={subject}
-                    onChange={(e) => setSubject(e.target.value)}
-                    rows={4}
-                    className={`w-full bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black mt-10 px-4 py-2 text-gray-700 caret-gray-700`}
-                    placeholder="Arthur a pas très bien terminé la soirée hier soir, il avait un peu trop bu. Il est bien rentré"
-            />
+            <div className="relative">
+              <textarea
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                rows={4}
+                className={`w-full bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black mt-10 px-4 py-2 text-gray-700 caret-gray-700`}
+                placeholder="Arthur a pas très bien terminé la soirée hier soir, il avait un peu trop bu. Il est bien rentré"
+              />
+              <div className={`${textLengthAlert ? "" : "hidden"} absolute px-4 py-2 mt-2 bg-orange-400 rounded-md w-full font-bold flex align-center justify-center`} >
+                <span role="img" aria-label="rapport" className='pe-5'>📢</span><p>Détaillez votre sujet pour un résultat pertinent</p>
+              </div>
+            </div>
         </div>
     )
 }

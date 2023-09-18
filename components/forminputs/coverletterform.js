@@ -5,7 +5,7 @@ import Cercle4 from "../../public/img/icon4white.svg";
 import styles from "../style";
 import Image from "next/image";
 import RadioGroupLanguage from "../radiogrouplanguage";
-
+import IconNumber from "../iconnumber";
 
 const CoverLetterForm = ({myName, setMyName, dest, setDest, language, setLanguage, job, setJob, competences, setCompetences, experiences, setExperiences}) => {
     return (
@@ -21,7 +21,7 @@ const CoverLetterForm = ({myName, setMyName, dest, setDest, language, setLanguag
               </label>
             </div>
             <div className={`flex items-center gap-4 w-full pt-20`}>
-                <Image src={Cercle1} width={50} height={50} alt="step 1"/>
+              <IconNumber color={language ? "green" : "white"} number={1} />
                 <h2
                 className={`${styles.sectionSubText} font-bold`}
                 >
@@ -30,7 +30,7 @@ const CoverLetterForm = ({myName, setMyName, dest, setDest, language, setLanguag
             </div>
             <RadioGroupLanguage language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} />
             <div className={`flex items-center gap-4 w-full pt-20`}>
-                <Image src={Cercle2} width={50} height={50} alt="step 2"/>
+                <IconNumber color={job ? "green" : "white"} number={2} />
                 <h2
                 className={`${styles.sectionSubText} font-bold`}
                 >
@@ -45,7 +45,7 @@ const CoverLetterForm = ({myName, setMyName, dest, setDest, language, setLanguag
                     placeholder="M&A Analyst"
             />
             <div className={`flex items-center gap-4 w-full pt-20`}>
-                <Image src={Cercle3} width={50} height={50} alt="step 3"/>
+              <IconNumber color={competences ? "green" : "white"} number={3} />
                 <h2
                 className={`${styles.sectionSubText} font-bold`}
                 >
@@ -60,7 +60,7 @@ const CoverLetterForm = ({myName, setMyName, dest, setDest, language, setLanguag
                     placeholder="Analyse financière, Évaluation d'entreprise, Négociation, Connaissances en finance d'entreprise"
             />
             <div className={`flex items-center gap-4 w-full pt-20`}>
-                <Image src={Cercle4} width={50} height={50} alt="step 4"/>
+              <IconNumber color={experiences ? "green" : "white"} number={4} />
                 <h2
                 className={`${styles.sectionSubText} font-bold`}
                 >
