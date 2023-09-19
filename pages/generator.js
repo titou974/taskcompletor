@@ -32,8 +32,7 @@ import EditTextMail from "../components/edittextmail";
 import ModalStepTwo from "../components/modalmodifiedstep";
 import ModalStepTwoPdf from "../components/modalmodifiedpdf";
 import { isMobile } from "react-device-detect";
-import { staggerContainer } from "../utils/motion";
-import { zoomIn } from "../utils/motion";
+import { staggerContainer, slideIn } from "../utils/motion";
 
 
 const Generator = () => {
@@ -77,9 +76,12 @@ const Generator = () => {
   const [modalModifiedPdfOpen, setModalModifiedPdfOpen] = useState(false);
   const [developSubject, setDevelopSubject] = useState(false);
   const [hoverNavbar, setHoverNavbar] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
+  const [showEmail, setShowEmail] = useState(false);
 
   let [isOpen, setIsOpen] = useState(false);
   const docRef = useRef();
+  const generateDocRef = useRef();
 
   const backToGeneration = () => {
     setNavTwoStep(false);
@@ -103,7 +105,7 @@ const Generator = () => {
   useEffect(() => {
     const words = subject.split(/\s+/)
     const wordsCount = words.length
-    if (wordsCount < 5) {
+    if (wordsCount < 4) {
       setDevelopSubject(true)
     } else {
       setDevelopSubject(false)
@@ -139,11 +141,17 @@ const Generator = () => {
 
   const scrollToDoc = () => {
     if (docRef.current !== null) {
-      docRef.current.scrollIntoView({ behavior: "smooth" });
+      docRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
     } else {
       console.log("error scrolling after generation")
     }
   };
+
+  const scrollToGenerate = () => {
+    if (generateDocRef.current !== null) {
+      generateDocRef.current.scrollIntoView({ behavior: "smooth" })
+    }
+  }
 
   function closeModal() {
     setIsOpen(false)
@@ -241,7 +249,14 @@ const Generator = () => {
     setFinalText("");
     setModifyingStep(false);
     setGenerationError(false);
-    setShowGeneratedDoc(true);
+    if (doc === "Rapport") {
+      setShowGeneratedDoc(true)
+    } else if (doc === "Message") {
+      setShowMessage(true)
+    } else if (doc === "Email") {
+      setShowEmail(true)
+    }
+    scrollToGenerate();
     const response = await fetch("/api/generate", {
       method: "POST",
       headers: {
@@ -348,8 +363,7 @@ const Generator = () => {
             <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} persoType={persoType} setPersoType={(newPersoType) => setPersoType(newPersoType)} domain={domain} setDomain={(newDomain) => setDomain(newDomain)} theme={theme} setTheme={(newTheme) => setTheme(newTheme)} questions={questions} setQuestions={(newQuestions) => setQuestions(newQuestions)} job={job} setJob={(newJob) => setJob(newJob)} compentences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)}/>
             <motion.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className="w-full md:w-1/2 flex justify-between align-center pt-16">
               {!loading && (
-                <motion.button
-                  variants={zoomIn(0.5, 0.5)}
+                <button
                   className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta6 w-2/3" : "cta2 w-full"} flex`}
                   onClick={(e) => developSubject && !isMobile ? setModalIntroVisible(true) : generateDoc(e)}
                   onMouseEnter={() => setHoverNavbar(true)}
@@ -357,7 +371,7 @@ const Generator = () => {
                 >
                   {`Générer`}
                   <PencilSquareIcon className={`ms-3 lg:ms-5 ${modifyingStep ? "cta6-icon" : "cta2-icon"}`} src={feather}></PencilSquareIcon>
-                </motion.button>
+                </button>
               )}
               {loading && (
                 <button
@@ -384,15 +398,15 @@ const Generator = () => {
             >
               Modifier votre {doc}
             </h2>
-            <div className={`w-full ${doc === "Rapport" ? "" : "hidden"}`}>
+            <motion.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Rapport", amount: 0.25 }} className={`w-full ${doc === "Rapport" ? "" : "hidden"}`}>
               <EditTextAreaReport title={generatedTitle} setTitle={(newDoc) => setGeneratedTitle(newDoc)} setSections={(newDoc) => setGeneratedSections(newDoc)} sections={generatedSections}/>
-            </div>
-            <div className={`w-full ${doc === "Message" ? "" : "hidden"}`}>
+            </motion.div>
+            <motion.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Message", amount: 0.25 }} className={`w-full ${doc === "Message" ? "" : "hidden"}`}>
               <EditTextMessage message={finalText} setMessage={(newMessage) => setFinalText(newMessage)} />
-            </div>
-            <div className={`w-full ${doc === "Email" ? "" : "hidden"}`}>
+            </motion.div>
+            <motion.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Email", amount: 0.25 }} className={`w-full ${doc === "Email" ? "" : "hidden"}`}>
               <EditTextMail mail={finalText} setMail={(newMail) => setFinalText(newMail)} />
-            </div>
+            </motion.div>
             <div className={`flex mt-20 ${doc === "Message" || doc === "Email" ? "justify-center" : "justify-between" } align-center w-full md:w-1/2 mx-auto`}>
               <button
                 className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} w-[80px] h-[80px] bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary lg:w-[100px] lg:h-[100px]`}
@@ -420,20 +434,20 @@ const Generator = () => {
               </Link>
             </div>
           </div>
-          <div className="h-full">
-            <div className={`h-full mx-auto ${doc === "Rapport" && showGeneratedDoc ? "" : "hidden"}`}>
+          <div className="h-full pb-40" ref={generateDocRef}>
+            <motion.div initial="hidden" whileInView="show" viewport={{ once: true && doc === "Rapport", amount: 0.25 }} className={`h-full mx-auto ${doc === "Rapport" && showGeneratedDoc ? "" : "hidden"}`}>
               <ReportTemplate
                 generatedTitle={generatedTitle}
                 generatedSections={generatedSections}
                 length={length}
               />
-            </div>
-            <div className={`h-full ${doc === "Email" && showGeneratedDoc ? "" : "hidden"}`}>
+            </motion.div>
+            <motion.div initial="hidden" whileInView="show" viewport={{ once: true && doc === "Email", amount: 0.25 }} className={`h-full ${doc === "Email" && showEmail ? "" : "hidden"}`}>
               <MailTemplate fullmail={finalText} name={myName}/>
-            </div>
-            <div className={`h-full ${doc === "Message" && showGeneratedDoc ? "" : "hidden"}`}>
+            </motion.div>
+            <motion.div initial="hidden" whileInView="show" viewport={{ once: true && doc === "Message", amount: 0.25 }} className={`h-full ${doc === "Message" && showMessage ? "" : "hidden"}`}>
               <MessageTemplate messageText={finalText} dest={dest} />
-            </div>
+            </motion.div>
           </div>
           {/* Modal Intro */}
           <ModalIntro isOpen={modalIntroVisible} closeModal={() => setModalIntroVisible(false)} generateDoc={(e) => generateDoc(e)} />

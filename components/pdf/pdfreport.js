@@ -1,12 +1,14 @@
 import reactStringReplace from "react-string-replace";
 let replacedLogo;
+import { motion } from "framer-motion";
+import { fadeIn, slideIn } from "../../utils/motion";
 
 const regexTitle = /^\d+\.\s(.+)/;
 
 const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
   return (
     <div className="w-full mx-auto">
-      <div className="a4-container align-center flex gap-x-4 mb-2" id="page1">
+      <motion.div variants={slideIn('left', 'tween', 0, 0.5)} animate={generatedTitle === "" ? "hidden" : "show"} className="a4-container align-center flex gap-x-4 mb-2" id="page1">
         <div className="a4 py-[40px] lg:py-[100px] px-5 sm:px-10 lg:px-20">
           <h2 className="font-bold text-center">{generatedTitle}</h2>
           <div className={`py-3 sm:hidden`}>
@@ -155,9 +157,9 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
       {/* < 450 px format */}
-      <div
+      <motion.div variants={slideIn('left', 'tween', 0.2, 1)}
         className={`a4-container ${
           length > 2 ? "xs:hidden" : "hidden"
         } align-center flex`}
@@ -194,8 +196,8 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
             ))}
           </div>
         </div>
-      </div>
-      <div
+      </motion.div>
+      <motion.div variants={slideIn('left', 'tween', 0.2, 1)}
         className={`a4-container ${
           length > 4 ? "xs:hidden" : "hidden"
         } align-center flex`}
@@ -231,8 +233,8 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
             ))}
           </div>
         </div>
-      </div>
-      <div
+      </motion.div>
+      <motion.div variants={slideIn('left', 'tween', 0.2, 1)}
         className={`a4-container ${
           length > 6 ? "xs:hidden" : "hidden"
         } align-center flex`}
@@ -268,9 +270,9 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
       {/* < 450 px format */}
-      <div
+      <motion.div variants={slideIn('left', 'tween', 0.2, 1)}
         className={`a4-container ${
           length > 3 ? "hidden xs:flex sm:hidden" : "hidden"
         } align-center`}
@@ -307,8 +309,8 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
             ))}
           </div>
         </div>
-      </div>
-      <div
+      </motion.div>
+      <motion.div variants={slideIn('left', 'tween', 0.2, 1)}
         className={`a4-container ${
           length > 6 ? "hidden xs:flex sm:hidden" : "hidden"
         } align-center`}
@@ -345,9 +347,9 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
       {/* < 640 px format */}
-      <div
+      <motion.div variants={slideIn('left', 'tween', 0.2, 1)}
         className={`a4-container ${
           length > 4 ? "hidden sm:flex md:hidden" : "hidden"
         } align-center`}
@@ -384,9 +386,9 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
       {/* < 768 px format */}
-      <div
+      <motion.div variants={slideIn('left', 'tween', 0.2, 1)}
         className={`a4-container ${
           length > 4 ? "hidden md:flex lg:hidden" : "hidden"
         } align-center`}
@@ -423,9 +425,9 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
       {/* < 1024 px format */}
-      <div
+      <motion.div variants={slideIn('left', 'tween', 0.2, 1)}
         className={`a4-container ${
           length > 4 ? "hidden lg:flex xl:hidden" : "hidden"
         } align-center`}
@@ -462,9 +464,9 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
       {/* < 1280 px format */}
-      <div
+      <motion.div initial="hidden" animate={length > 4 ? "show" : "hidden"} whileInView="show" viewport={{once: true && length > 4}} variants={slideIn('left', 'tween', 0.2, 1)}
         className={`a4-container ${
           length > 4 ? "hidden xl:flex" : "hidden"
         } align-center`}
@@ -501,7 +503,7 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

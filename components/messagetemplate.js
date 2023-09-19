@@ -5,6 +5,8 @@ import {
     faChevronRight,
   } from "@fortawesome/free-solid-svg-icons";
 import {useState, useEffect} from 'react'
+import { motion } from 'framer-motion';
+import { fadeIn, slideIn } from "../utils/motion";
 
 const MessageTemplate = ({messageText, dest}) => {
     const [paragraphes, setParagraphes] = useState([]);
@@ -41,7 +43,7 @@ const MessageTemplate = ({messageText, dest}) => {
     }
 
     return (
-        <div className="imessage-container w-full rounded-md">
+        <motion.div variants={slideIn('left', 'tween', 0, 0.5)} animate={messageText === "" ? "hidden" : "show" } className="imessage-container w-full rounded-md">
             <div className='imessage-bar rounded-md'>
                 <div className='imessage-contact'>
                     <p>{destInitial}</p>
@@ -52,7 +54,7 @@ const MessageTemplate = ({messageText, dest}) => {
                 </div>
             </div>
             <div className='px-5 py-10 md:p-10'>
-                <div className="imessage-bubble relative">
+                <motion.div variants={fadeIn("right", "spring", 0.75, 1)} className="imessage-bubble relative">
                     <button className={`absolute top-[-30px] right-0 bg-tertiary px-4 py-3 rounded-md font-bold hover:bg-white hover:text-black transition-colors w-9/12 md:w-1/2`} onClick={copyMessage}>
                         {messageCopied ? "Copié ✅" : "Copier le Message"}
                     </button>
@@ -61,9 +63,9 @@ const MessageTemplate = ({messageText, dest}) => {
                         <p className="my-5 imessage-text" key={`paragraph${index}`} >{paragraph}</p>
                     ))
                 }
-                </div>
+                </motion.div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 

@@ -20,7 +20,7 @@ const ReportForm = ({lang, setLang, subject, setSubject}) => {
       } else if (subject.split(/\s+/).length > 3) {
         setColorIcon('green');
         setTextLengthAlert(false)
-      } else if (subject === "")  {
+      } else {
         setColorIcon('white')
         setTextLengthAlert(false)
       }
