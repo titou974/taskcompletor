@@ -24,9 +24,9 @@ const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, s
             >
                 <DropDownDoc className="sm:hidden" type={doc} setType={(newDoc) => setDoc(newDoc)} />
             </div>
-            <div className="hidden sm:block w-full pb-10">
+            <motion.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Rapport", amount: 0.25 }} className="hidden sm:block w-full pb-10">
                 <TabsDocument type={doc} setType={(newDoc) => setDoc(newDoc)}/>
-            </div>
+            </motion.div>
             <motion.section variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Rapport", amount: 0.25 }}  className={`w-full ${doc === "Rapport" ? "" : "hidden"}`}>
                 <ReportForm subject={subject} setSubject={(newSubject) => setSubject(newSubject)} lang={lang} setLang={(newLang) => setLang(newLang)}/>
             </motion.section>

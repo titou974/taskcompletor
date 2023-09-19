@@ -4,6 +4,8 @@ import { ClockIcon } from '@heroicons/react/20/solid';
 import MessageTemplate from './messagetemplate';
 import MailTemplate from './mailtemplate';
 import ReportExample from './reportexample';
+import { motion } from 'framer-motion';
+import { fadeIn, textVariant } from '../utils/motion';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -82,6 +84,7 @@ const TabsDocument = ({type, setType}) => {
                 'rounded-md w-[90%] lg:w-1/2 py-5 mx-auto text-center',
               )}
             >
+              <motion.div variants={textVariant(0.25)} initial="hidden" whileInView="show" viewport={{ once: true }} >
                 <h2 className="italic leading-5">
                     {type.description}
                 </h2>
@@ -89,7 +92,8 @@ const TabsDocument = ({type, setType}) => {
                   <ClockIcon className='w-6 h-6 text-white me-2' />
                   <p className='italic'>≈ {type.generation_time}</p>
                 </div>
-                <div className={`${type.title === "Rapport" ? "" : "hidden" } py-10`}>
+              </motion.div>
+                <motion.div variants={fadeIn("top", "spring", 0.5, 0.75)} initial="hidden" whileInView="show" viewport={{ once: true }} className={`${type.title === "Rapport" ? "" : "hidden" } py-10`}>
                   <p className='font-bold'>Exemple de Rapport généré en PDF</p>
                   <div className='flex flex-col items-center'>
                     <ul className='py-5 italic text-sm'>
@@ -98,9 +102,9 @@ const TabsDocument = ({type, setType}) => {
                     </ul>
                   </div>
                   <div className='w-full'>
-                    <ReportExample  generatedTitle={type.example.title} generatedSections={type.example.sections} length={6} />
+                    <ReportExample generatedTitle={type.example.title} generatedSections={type.example.sections} length={6} />
                   </div>
-                </div>
+                </motion.div>
             </Tab.Panel>
           ))}
         </Tab.Panels>
