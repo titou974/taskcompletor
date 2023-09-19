@@ -6,38 +6,43 @@ import styles from "../style";
 import Image from "next/image";
 import RadioGroupLanguage from "../radiogrouplanguage";
 import IconNumber from "../iconnumber";
+import { motion } from "framer-motion";
+import { fadeIn, textVariant } from "../../utils/motion";
 
 const CoverLetterForm = ({myName, setMyName, dest, setDest, language, setLanguage, job, setJob, competences, setCompetences, experiences, setExperiences}) => {
     return (
         <div className="w-full md:w-1/2 mx-auto">
             <div className="w-full flex justify-between gap-5 my-10">
-              <label className="input-classic">
+              <motion.label variants={fadeIn("right", "spring", 0.5, 0.75)} className="input-classic">
                 <input required type="text" onChange={(e) => setMyName(e.target.value)} className="input-classic w-5/12 rounded-md transition-all"/>
                 <span className="placeholder-input-classic ">Votre nom</span>
-              </label>
-              <label className="input-classic">
+              </motion.label>
+              <motion.label className="input-classic" variants={fadeIn("right", "spring", 0.75, 0.75)}>
                 <input required type="text" onChange={(e) => setDest(e.target.value)} className="input-classic w-5/12 rounded-md transition-all"/>
                 <span className="placeholder-input-classic">Destinataire</span>
-              </label>
+              </motion.label>
             </div>
-            <div className={`flex items-center gap-4 w-full pt-20`}>
+            <motion.div variants={textVariant(1)} className={`flex items-center gap-4 w-full pt-20`}>
               <IconNumber color={language ? "green" : "white"} number={1} />
                 <h2
                 className={`${styles.sectionSubText} font-bold`}
                 >
                     Choisir une langue
                 </h2>
-            </div>
-            <RadioGroupLanguage language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} />
-            <div className={`flex items-center gap-4 w-full pt-20`}>
+            </motion.div>
+            <motion.div variants={fadeIn("top", "spring", 1, 0.75)}>
+              <RadioGroupLanguage language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} />
+            </motion.div>
+            <motion.div variants={textVariant(1.25)}  className={`flex items-center gap-4 w-full pt-20`}>
                 <IconNumber color={job ? "green" : "white"} number={2} />
                 <h2
                 className={`${styles.sectionSubText} font-bold`}
                 >
                     Job visé
                 </h2>
-            </div>
-            <textarea
+            </motion.div>
+            <motion.textarea
+                    variants={fadeIn("top", "spring", 1.25, 0.75)}
                     value={job}
                     onChange={(e) => setJob(e.target.value)}
                     rows={1}
@@ -45,7 +50,7 @@ const CoverLetterForm = ({myName, setMyName, dest, setDest, language, setLanguag
                     placeholder="M&A Analyst"
             />
             <div className={`flex items-center gap-4 w-full pt-20`}>
-              <IconNumber color={competences ? "green" : "white"} number={3} />
+                <IconNumber color={competences ? "green" : "white"} number={3} />
                 <h2
                 className={`${styles.sectionSubText} font-bold`}
                 >
