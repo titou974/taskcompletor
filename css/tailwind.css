@@ -21,6 +21,10 @@
   font-family: "Roboto Mono", monospace;
 }
 
+body {
+  background-color: #046CF1;
+}
+
 /* Loader */
 
 .typing-indicator {
