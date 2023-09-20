@@ -356,7 +356,6 @@ const Generator = () => {
 
   return (
       <div className="w-full">
-        <Navbar modifyingStep={modifyingStep} hover={hoverNavbar} doc={doc} subject={subject} lang={lang} myName={myName} dest={dest} emotion={emotion} messageLength={messageLength} language={language} mailType={mailType} />
         <div className={`${styles.paddingX} pt-40 max-w-7xl mx-auto relative w-full flex flex-col gap-20 text-white bg-primary`} ref={docRef}>
           <div className={`flex-col items-center justify-center gap-10 ${navTwoStep ? "hidden" : "flex"}`}>
             {/* Generation Form */}
