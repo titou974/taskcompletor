@@ -1,7 +1,6 @@
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect, useState, isPresent } from "react";
 import Preloader from "../components/preloaderpdf";
-import { isMobile } from "react-device-detect";
 
 const Pdf = dynamic(() => import("../components/pdf/pdfview"), {
   ssr: false,
@@ -12,14 +11,28 @@ const PdfDownload = dynamic(() => import("../components/pdf/pdfdownload"), {
 });
 
 const View = () => {
-  const [client, setClient] = useState(false)
+  const [client, setClient] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setClient(true)
   }, [])
 
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setLoading(false)
+    }, 5000);
+
+    return () => {
+      clearTimeout(timeoutId)
+    }
+  }, [])
+
+
   return(
     <div className="w-full">
+      <Preloader isVisible={loading} />
       <Pdf />
     </div>
   )
