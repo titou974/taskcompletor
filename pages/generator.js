@@ -251,10 +251,16 @@ const Generator = () => {
     setGenerationError(false);
     if (doc === "Rapport") {
       setShowGeneratedDoc(true)
+      setShowMessage(false)
+      setShowEmail(false)
     } else if (doc === "Message") {
       setShowMessage(true)
+      setShowGeneratedDoc(false)
+      setShowEmail(false)
     } else if (doc === "Email") {
       setShowEmail(true)
+      setShowMessage(false)
+      setShowGeneratedDoc(false)
     }
     scrollToGenerate();
     const response = await fetch("/api/generate", {
@@ -356,6 +362,7 @@ const Generator = () => {
 
   return (
       <div className="w-full">
+        <Navbar />
         <div className={`${styles.paddingX} pt-40 max-w-7xl mx-auto relative w-full flex flex-col gap-20 text-white bg-primary`} ref={docRef}>
           {
             !navTwoStep && (
@@ -432,7 +439,7 @@ const Generator = () => {
                     <ArrowLeftCircleIcon className="h-[35px] w-[35px] mx-auto lg:w-[50px] lg:h-[50px]" />
                   </button>
                   {
-                    ((!loading || !saved) && (doc === "Email" || doc === "Message")) && (
+                    ((!loading && !saved) && (doc === "Rapport" || doc === "Lettre de motivation")) && (
                       <button className={`cta6 flex w-2/3 lg:h-[100px] mx-10`} onClick={saveDocument}>
                         <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Enregistrer</p>
                         <ArrowDownTrayIcon className="cta6-icon ms-3"/>
@@ -463,7 +470,7 @@ const Generator = () => {
           }
           <div className="h-full pb-40" ref={generateDocRef}>
             {
-              showGeneratedDoc && (
+              (showGeneratedDoc && doc === "Rapport") && (
                 <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full mx-auto`}>
                   <ReportTemplate
                     generatedTitle={generatedTitle}
@@ -474,14 +481,14 @@ const Generator = () => {
               )
             }
             {
-              showEmail && (
+              (showEmail && doc === "Email") && (
                 <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full`}>
                   <MailTemplate fullmail={finalText} name={myName}/>
                 </motion.div>
               )
             }
             {
-              showMessage && (
+              (showMessage && (doc === "Message")) && (
                 <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full`}>
                   <MessageTemplate messageText={finalText} dest={dest} />
                 </motion.div>

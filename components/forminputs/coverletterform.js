@@ -1,9 +1,4 @@
-import Cercle1 from "../../public/img/icon1white.svg";
-import Cercle2 from "../../public/img/icon2white.svg";
-import Cercle3 from "../../public/img/icon3white.svg";
-import Cercle4 from "../../public/img/icon4white.svg";
 import styles from "../style";
-import Image from "next/image";
 import RadioGroupLanguage from "../radiogrouplanguage";
 import IconNumber from "../iconnumber";
 import { motion } from "framer-motion";

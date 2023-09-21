@@ -42,6 +42,7 @@ const Hero = () => {
             src={innovation}
             alt="Picture of a woman and IA"
             className="my-0 mx-auto"
+            sizes="(min-width: 300px) 100vw"
           />
         </div>
       </div>
