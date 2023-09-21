@@ -107,13 +107,11 @@ const Navbar = ({hover, modifyingStep, doc, lang, myName, dest, emotion, message
 
   return (
     <>
-        {isMobile && (
-          <NavbarScrolling isScrolling={isScrolling} />
-        )
-        }
-        {!isMobile && (
+        {isMobile ? (
+          <NavbarScrolling />
+        ) : (
           <NavbarFixed />
-          )
+        )
         }
     </>
   )
@@ -154,7 +152,7 @@ const NavbarScrolling = () => {
             </Link>
           </li>
           <li key="generatorfixed">
-            <Link href={`/${navLinks[0].id}`} className={`hover:bg-tertiary rounded-full text-tertiary hover:text-white transition-colors cursor-pointer block p-3`}>
+            <Link href={`/generator`} className={`hover:bg-tertiary rounded-full text-tertiary hover:text-white transition-colors cursor-pointer block p-3`}>
               <FontAwesomeIcon icon={faFileCirclePlus} className='h-7 w-7' size="xl" />
             </Link>
           </li>
@@ -168,48 +166,7 @@ const NavbarScrolling = () => {
   )
 }
 
-const NavbarTypewriter = ({isScrolling, text, hover}) => {
 
-  return (
-    <motion.nav
-      key={1}
-      initial="initial"
-      animate={isScrolling ? "animate" : "initial"}
-      exit="exit"
-      variants={NavAnimations}
-      className={`${hover ? "bg-green-400 text-white" : "navbar-bg"} transition-colors w-9/12 max-w-xl h-[60px] md:h-[80px] md:w-7/12 fixed py-4 my-0 flex items-center justify-center z-20 top-4 rounded-full left-1/2 right-1/2 mx-auto overflow-hidden shadow-navbar`}
-    >
-      <div className="w-full flex justify-center">
-        <div className="hidden lg:block text-sm mx-auto text-center w-9/12 font-bold">
-          <TypewriterComponent
-                options={{
-                  strings: text,
-                  autoStart: true,
-                  cursorClassName: "hidden",
-                  typeSpeed: 10,
-                }}
-            />
-        </div>
-        <div className="lg:hidden text-[12px] w-9/12 mx-auto text-center font-bold">
-          <TypewriterComponent
-              options={{
-                strings: text,
-                autoStart: true,
-                cursorClassName: "hidden",
-                typeSpeed: 10,
-              }}
-          />
-        </div>
-        <div className="hidden items-center">
-          <a className="hover:text-secondary cursor-pointer transition-colors">Se connecter</a>
-          <a className="cta3 cursor-pointer ms-4">
-            <p>S'enregistrer</p>
-          </a>
-        </div>
-      </div>
-    </motion.nav>
-  )
-}
 
 const NavAnimations = {
   initial: {

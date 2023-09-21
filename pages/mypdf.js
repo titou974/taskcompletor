@@ -1,7 +1,13 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import Preloader from "../components/preloaderpdf";
+import { isMobile } from "react-device-detect";
 
 const Pdf = dynamic(() => import("../components/pdf/pdfview"), {
+  ssr: false,
+});
+
+const PdfDownload = dynamic(() => import("../components/pdf/pdfdownload"), {
   ssr: false,
 });
 
@@ -13,7 +19,9 @@ const View = () => {
   }, [])
 
   return(
-    <Pdf />
+    <div className="w-full">
+      <Pdf />
+    </div>
   )
 };
 

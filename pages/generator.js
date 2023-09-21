@@ -23,7 +23,6 @@ import ModalSaved from "../components/modalsaved";
 import { ShareIcon, BackspaceIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import EditTextAreaReport from "../components/editableinputs";
 import FormGenerator from "../components/formgenerator";
-import Navbar from "../components/navbar";
 import { docType } from "../utils/constants";
 import MailTemplate from "../components/mailtemplate";
 import MessageTemplate from "../components/messagetemplate";
@@ -33,6 +32,9 @@ import ModalStepTwo from "../components/modalmodifiedstep";
 import ModalStepTwoPdf from "../components/modalmodifiedpdf";
 import { isMobile } from "react-device-detect";
 import { staggerContainer, slideIn } from "../utils/motion";
+import dynamic from "next/dynamic";
+
+const Navbar = dynamic(() => import("../components/navbar"));
 
 
 const Generator = () => {
