@@ -1,25 +1,24 @@
 "use client";
 import dynamic from "next/dynamic";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import styles from "../components/style";
 import { PencilSquareIcon, DocumentIcon, ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid";
-import feather from "../public/img/feather.png"
 import {
   createParser,
 } from "eventsource-parser";
 import axios from "axios";
 import Link from 'next/link';
-import ModalIntro from "../components/modals/modalintro";
-import ModalSaved from "../components/modals/modalsaved";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
-import EditTextAreaReport from "../components/forms/editableinputs";
-import EditTextMessage from "../components/forms/edittextmessage";
-import EditTextMail from "../components/forms/edittextmail";
-import ModalStepTwo from "../components/modals/modalmodifiedstep";
-import ModalStepTwoPdf from "../components/modals/modalmodifiedpdf";
 import { isMobile } from "react-device-detect";
 import { staggerContainer } from "../utils/motion";
+const ModalStepTwoPdf = dynamic(() => import("../components/modals/modalmodifiedpdf"));
+const ModalStepTwo = dynamic(() => import("../components/modals/modalmodifiedstep"));
+const EditTextMail = dynamic(() => import("../components/forms/edittextmail"));
+const EditTextMessage = dynamic(() => import("../components/forms/edittextmessage"));
+const EditTextAreaReport = dynamic(() => import("../components/forms/editableinputs"));
+const ModalSaved = dynamic(() => import("../components/modals/modalsaved"));
+const ModalIntro = dynamic(() => import("../components/modals/modalintro"));
 const MailTemplate = dynamic(() => import("../components/doctemplates/generationtemplates/mailtemplate"));
 const MessageTemplate = dynamic(() => import("../components/doctemplates/generationtemplates/messagetemplate"));
 const Loader = dynamic(() => import("../components/loaders/loader"));
@@ -363,7 +362,7 @@ const Generator = () => {
               <div className={`flex-col items-center justify-center gap-10 flex`}>
               {/* Generation Form */}
               <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} persoType={persoType} setPersoType={(newPersoType) => setPersoType(newPersoType)} domain={domain} setDomain={(newDomain) => setDomain(newDomain)} theme={theme} setTheme={(newTheme) => setTheme(newTheme)} questions={questions} setQuestions={(newQuestions) => setQuestions(newQuestions)} job={job} setJob={(newJob) => setJob(newJob)} competences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)}/>
-              <motion.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className="w-full md:w-1/2 flex justify-between align-center pt-16">
+              <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className="w-full md:w-1/2 flex justify-between align-center pt-16">
                 {!loading && (
                   <button
                     className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta6 w-2/3" : "cta2 w-full"} flex`}
@@ -372,7 +371,7 @@ const Generator = () => {
                     onMouseLeave={() => setHoverNavbar(false)}
                   >
                     {`Générer`}
-                    <PencilSquareIcon className={`ms-3 lg:ms-5 ${modifyingStep ? "cta6-icon" : "cta2-icon"}`} src={feather}></PencilSquareIcon>
+                    <PencilSquareIcon className={`ms-3 lg:ms-5 ${modifyingStep ? "cta6-icon" : "cta2-icon"}`}></PencilSquareIcon>
                   </button>
                 )}
                 {loading && (
@@ -391,7 +390,7 @@ const Generator = () => {
                     <ArrowRightCircleIcon className="h-[35px] w-[35px] lg:w-[50px] lg:h-[50px] mx-auto" />
                   </button>
                 )}
-              </motion.div>
+              </m.div>
               </div>
             )
           }
@@ -406,23 +405,23 @@ const Generator = () => {
                 </h2>
                 {
                   doc === "Rapport" && (
-                    <motion.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Rapport", amount: 0.25 }} className={`w-full`}>
+                    <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Rapport", amount: 0.25 }} className={`w-full`}>
                       <EditTextAreaReport title={generatedTitle} setTitle={(newDoc) => setGeneratedTitle(newDoc)} setSections={(newDoc) => setGeneratedSections(newDoc)} sections={generatedSections}/>
-                    </motion.div>
+                    </m.div>
                   )
                 }
                 {
                   doc === "Message" && (
-                    <motion.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Message", amount: 0.25 }} className={`w-full`}>
+                    <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Message", amount: 0.25 }} className={`w-full`}>
                       <EditTextMessage message={finalText} setMessage={(newMessage) => setFinalText(newMessage)} />
-                    </motion.div>
+                    </m.div>
                   )
                 }
                 {
                   doc === "Email" && (
-                    <motion.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Email", amount: 0.25 }} className={`w-full`}>
+                    <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Email", amount: 0.25 }} className={`w-full`}>
                       <EditTextMail mail={finalText} setMail={(newMail) => setFinalText(newMail)} />
-                    </motion.div>
+                    </m.div>
                   )
                 }
                 <div className={`flex mt-20 ${doc === "Message" || doc === "Email" ? "justify-center" : "justify-between" } align-center w-full md:w-1/2 mx-auto`}>
@@ -465,27 +464,27 @@ const Generator = () => {
           <div className="h-full pb-40" ref={generateDocRef}>
             {
               (showGeneratedDoc && doc === "Rapport") && (
-                <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full mx-auto`}>
+                <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full mx-auto`}>
                   <ReportTemplate
                     generatedTitle={generatedTitle}
                     generatedSections={generatedSections}
                     length={length}
                   />
-                </motion.div>
+                </m.div>
               )
             }
             {
               (showEmail && doc === "Email") && (
-                <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full`}>
+                <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full`}>
                   <MailTemplate fullmail={finalText} name={myName}/>
-                </motion.div>
+                </m.div>
               )
             }
             {
               (showMessage && (doc === "Message")) && (
-                <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full`}>
+                <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full`}>
                   <MessageTemplate messageText={finalText} dest={dest} />
-                </motion.div>
+                </m.div>
               )
             }
           </div>

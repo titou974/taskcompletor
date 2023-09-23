@@ -2,7 +2,7 @@ import { Tab } from '@headlessui/react'
 import { docType } from "../../utils/constants";
 import { ClockIcon } from '@heroicons/react/20/solid';
 import ReportExample from '../doctemplates/carouseltemplates/reportexample';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { fadeIn, textVariant } from '../../utils/motion';
 
 function classNames(...classes) {
@@ -82,7 +82,7 @@ const TabsDocument = ({type, setType}) => {
                 'rounded-md w-[90%] lg:w-1/2 py-5 mx-auto text-center',
               )}
             >
-              <motion.div variants={textVariant(0.25)} initial="hidden" whileInView="show" viewport={{ once: true }} >
+              <m.div variants={textVariant(0.25)} initial="hidden" whileInView="show" viewport={{ once: true }} >
                 <h2 className="italic leading-5">
                     {type.description}
                 </h2>
@@ -90,8 +90,8 @@ const TabsDocument = ({type, setType}) => {
                   <ClockIcon className='w-6 h-6 text-white me-2' />
                   <p className='italic'>≈ {type.generation_time}</p>
                 </div>
-              </motion.div>
-                <motion.div variants={fadeIn("top", "spring", 0.5, 0.75)} initial="hidden" whileInView="show" viewport={{ once: true }} className={`${type.title === "Rapport" ? "" : "hidden" } py-10`}>
+              </m.div>
+                <m.div variants={fadeIn("top", "spring", 0.5, 0.75)} initial="hidden" whileInView="show" viewport={{ once: true }} className={`${type.title === "Rapport" ? "" : "hidden" } py-10`}>
                   <p className='font-bold'>Exemple de Rapport généré en PDF</p>
                   <div className='flex flex-col items-center'>
                     <ul className='py-5 italic text-sm'>
@@ -102,7 +102,7 @@ const TabsDocument = ({type, setType}) => {
                   <div className='w-full'>
                     <ReportExample generatedTitle={type.example.title} generatedSections={type.example.sections} length={6} />
                   </div>
-                </motion.div>
+                </m.div>
             </Tab.Panel>
           ))}
         </Tab.Panels>

@@ -1,15 +1,6 @@
 import DropDownDoc from "./forms/dropdowndoc";
 import TabsDocument from "./forms/tabsdocument";
-import TabsEmotion from "./forms/inputs/tabsemotion";
-import RadioGroupLangType from "./forms/inputs/radiogrouplangtype";
-import RadioGroupPersoType from "./forms/inputs/radiogrouppersotype";
-import styles from "./style";
-import Image from "next/image";
-import Cercle1 from "../public/img/icon1white.svg";
-import Cercle2 from "../public/img/icon2white.svg";
-import Cercle3 from "../public/img/icon3white.svg";
-import Cercle4 from "../public/img/icon4white.svg";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import ReportForm from "./forms/reportform";
 import EmailForm from "./forms/emailform";
 import MessageForm from "./forms/messageform";
@@ -24,21 +15,21 @@ const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, s
             >
                 <DropDownDoc className="sm:hidden" type={doc} setType={(newDoc) => setDoc(newDoc)} />
             </div>
-            <motion.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Rapport", amount: 0.25 }} className="hidden sm:block w-full pb-10">
+            <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Rapport", amount: 0.25 }} className="hidden sm:block w-full pb-10">
                 <TabsDocument type={doc} setType={(newDoc) => setDoc(newDoc)}/>
-            </motion.div>
-            <motion.section variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Rapport", amount: 0.25 }}  className={`w-full ${doc === "Rapport" ? "" : "hidden"}`}>
+            </m.div>
+            <m.section variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Rapport", amount: 0.25 }}  className={`w-full ${doc === "Rapport" ? "" : "hidden"}`}>
                 <ReportForm subject={subject} setSubject={(newSubject) => setSubject(newSubject)} lang={lang} setLang={(newLang) => setLang(newLang)}/>
-            </motion.section>
-            <motion.section variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Email", amount: 0.25 }} className={`w-full ${doc === "Email" ? "" : "hidden"}`}>
+            </m.section>
+            <m.section variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Email", amount: 0.25 }} className={`w-full ${doc === "Email" ? "" : "hidden"}`}>
                 <EmailForm myName={myName} setMyName={(newName) => setMyName(newName)} dest={dest} setDest={(newDest) => setDest(newDest)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} subject={subject} setSubject={(newSubject) => setSubject(newSubject)} />
-            </motion.section>
-            <motion.section variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Message", amount: 0.25 }} className={`w-full ${doc === 'Message' ? "" : "hidden"}`}>
+            </m.section>
+            <m.section variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Message", amount: 0.25 }} className={`w-full ${doc === 'Message' ? "" : "hidden"}`}>
                 <MessageForm myName={myName} setMyName={(newName) => setMyName(newName)} dest={dest} setDest={(newDest) => setDest(newDest)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)} subject={subject} setSubject={(newSubject) => setSubject(newSubject)}/>
-            </motion.section>
-            <motion.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Message", amount: 0.25 }} className={`w-full ${doc === 'Lettre de motivation' ? "" : "hidden"}`}>
+            </m.section>
+            <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Message", amount: 0.25 }} className={`w-full ${doc === 'Lettre de motivation' ? "" : "hidden"}`}>
                 <CoverLetterForm myName={myName} setMyName={(newName) => setMyName(newName)} dest={dest} setDest={(newDest) => setDest(newDest)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} job={job} setJob={(newJob) => setJob(newJob)} competences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={((newExperiences) => setExperiences(newExperiences))} />
-            </motion.div>
+            </m.div>
         </div>
     )
 }

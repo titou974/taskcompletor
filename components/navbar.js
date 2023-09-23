@@ -4,19 +4,9 @@ import { navLinks } from "../utils/constants";
 import styles from "./style";
 import Image from 'next/image';
 import feather from '../public/img/feather.png';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faQuestion,
-  faFileCirclePlus,
-  faHouse
-} from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
-import TypewriterComponent from "typewriter-effect";
-import { isMobile } from "react-device-detect";
-import { useRouter } from "next/router";
 
 const steps = [
   { title: 'Générer', description: 'Rentrez vos informations' },
