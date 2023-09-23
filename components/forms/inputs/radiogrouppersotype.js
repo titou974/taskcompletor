@@ -1,16 +1,16 @@
-import { RadioGroup } from '@headlessui/react';
-import { mailTypeIndex } from '../utils/constants/index';
+import { RadioGroup } from '@headlessui/react'
+import { persoType } from '../../../utils/constants/index';
 
 
-const RadioGroupMailType = ({mailType, setMailType}) => {
+const RadioGroupPersoType = ({perso, setPerso}) => {
 
   return (
-    <div className="w-full pt-10">
+    <div className="w-full">
       <div className="mx-auto w-full">
-        <RadioGroup value={mailType} onChange={setMailType}>
-          <RadioGroup.Label className="sr-only">Langue</RadioGroup.Label>
+        <RadioGroup value={perso} onChange={setPerso}>
+          <RadioGroup.Label className="sr-only">Type de Language</RadioGroup.Label>
           <div className="space-y-2">
-            {mailTypeIndex.map((type) => (
+            {persoType.map((type) => (
               <RadioGroup.Option
                 key={type.id}
                 value={type.id}
@@ -52,7 +52,7 @@ const RadioGroupMailType = ({mailType, setMailType}) => {
                         </div>
                       </div>
                       {checked && (
-                        <div className="shrink-0 text-white">
+                        <div className="shrink-0 text-white ps-2 sm:ps-0">
                           <CheckIcon className="h-6 w-6" />
                         </div>
                       )}
@@ -81,6 +81,6 @@ const CheckIcon = (props) => {
       />
     </svg>
   )
-};
+}
 
-export default RadioGroupMailType;
+export default RadioGroupPersoType;

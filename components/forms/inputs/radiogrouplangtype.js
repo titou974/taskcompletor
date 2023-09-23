@@ -1,19 +1,21 @@
-import { RadioGroup } from '@headlessui/react';
-import { messageLengthIndex } from '../utils/constants/index';
+import { RadioGroup } from '@headlessui/react'
+import { langType } from '../../../utils/constants/index';
+import { motion } from 'framer-motion';
+import { fadeIn } from '../../../utils/motion';
 
 
-const RadioGroupMessageLength = ({messageLength, setMessageLength}) => {
+const RadioGroupLangType = ({lang, setLang}) => {
 
   return (
     <div className="w-full pt-10">
-      <div className="mx-auto w-full">
-        <RadioGroup value={messageLength} onChange={setMessageLength}>
-          <RadioGroup.Label className="sr-only">Langue</RadioGroup.Label>
+      <motion.div variants={fadeIn("right", "spring", 0.5, 0.75)}>
+        <RadioGroup value={lang} onChange={setLang}>
+          <RadioGroup.Label className="sr-only">Type de Language</RadioGroup.Label>
           <div className="space-y-2">
-            {messageLengthIndex.map((length) => (
+            {langType.map((type) => (
               <RadioGroup.Option
-                key={length.id}
-                value={length.id}
+                key={type.id}
+                value={type.id}
                 className={({ active, checked }) =>
                   `${
                     active
@@ -37,7 +39,7 @@ const RadioGroupMessageLength = ({messageLength, setMessageLength}) => {
                               checked ? 'text-white' : 'text-slate-300'
                             }`}
                           >
-                            {length.title}
+                            {type.title}
                           </RadioGroup.Label>
                           <RadioGroup.Description
                             as="span"
@@ -46,7 +48,7 @@ const RadioGroupMessageLength = ({messageLength, setMessageLength}) => {
                             }`}
                           >
                             <span>
-                              {length.description}
+                              {type.description}
                             </span>
                           </RadioGroup.Description>
                         </div>
@@ -63,7 +65,7 @@ const RadioGroupMessageLength = ({messageLength, setMessageLength}) => {
             ))}
           </div>
         </RadioGroup>
-      </div>
+      </motion.div>
     </div>
   )
 }
@@ -81,6 +83,6 @@ const CheckIcon = (props) => {
       />
     </svg>
   )
-};
+}
 
-export default RadioGroupMessageLength;
+export default RadioGroupLangType

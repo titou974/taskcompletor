@@ -6,10 +6,10 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@heroicons/react/20/solid";
-import { docType } from "../utils/constants";
+import { docType } from "../../utils/constants";
 import { Tab } from '@headlessui/react';
 import { ClockIcon } from "@heroicons/react/20/solid";
-import ReportExample from "./reportexample";
+import ReportExample from "../doctemplates/carouseltemplates/reportexample";
 
 
 

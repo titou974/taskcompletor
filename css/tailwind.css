@@ -152,19 +152,6 @@ body {
   text-decoration: underline;
 }
 
-@media (min-width: 450px)  {
-  .a4-container {
-    height: 600px;
-  }
-  .a4 p {
-
-  }
-
-  .a4 h2,
-  .a4 h3 {
-
-  }
-}
 
 @media (min-width: 640px)  {
   .a4-container {
@@ -676,34 +663,12 @@ body {
   font-size: 20px;
 }
 
-.navbar {
-  background: #FAFAFA;
-  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(15.95704650878906px);
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-  position: fixed;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  width: 80%;
-  padding: 1.5rem 2rem;
-  margin-top: 50px
-}
 
-.navbar-phone {
-  background: #FAFAFA;
+.bg-navbar {
+  background: rgba(1, 0, 65, 0.36);
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(15.95704650878906px);
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-  position: fixed;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  width: 80%;
-  padding: 1rem 2rem;
-  top: 60px;
+  backdrop-filter: blur(17.95704650878906px);
 }
-
 
 
 .input-classic {

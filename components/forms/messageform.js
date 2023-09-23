@@ -6,10 +6,10 @@ import Cercle3 from "../../public/img/icon3white.svg";
 import Cercle4 from "../../public/img/icon4white.svg";
 import styles from "../style";
 import Image from "next/image";
-import RadioGroupLanguage from "../radiogrouplanguage";
-import RadioGroupMailType from "../radiogroupmailtype";
-import RadioGroupEmotion from "../radiogroupemotion";
-import RadioGroupMessageLength from "../radiogroupmessagelength";
+import RadioGroupLanguage from "./inputs/radiogrouplanguage";
+import RadioGroupMailType from "./inputs/radiogroupmailtype";
+import RadioGroupEmotion from "./inputs/radiogroupemotion";
+import RadioGroupMessageLength from "./inputs/radiogroupmessagelength";
 import IconNumber from "../iconnumber";
 import {useEffect, useState} from 'react'
 import { motion } from "framer-motion";

@@ -1,5 +1,5 @@
 import { RadioGroup } from '@headlessui/react';
-import { emotions } from '../utils/constants/index';
+import { emotions } from '../../../utils/constants/index';
 
 
 const RadioGroupEmotion = ({emotion, setEmotion}) => {

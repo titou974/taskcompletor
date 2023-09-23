@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image";
-import RadioGroupLangType from "../radiogrouplangtype";
+import RadioGroupLangType from "./inputs/radiogrouplangtype";
 import Cercle1 from "../../public/img/icon1white.svg";
 import Cercle2 from "../../public/img/icon2white.svg";
 import styles from "../style";

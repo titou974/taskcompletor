@@ -5,7 +5,7 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@heroicons/react/20/solid";
-import { langType } from "../utils/constants";
+import { langType } from "../../../utils/constants";
 
 const DropDownLang = ({ type, setType }) => {
   return (

@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState, isPresent } from "react";
-import Preloader from "../components/preloaderpdf";
+import Preloader from "../components/loaders/preloaderpdf";
 
 const Pdf = dynamic(() => import("../components/pdf/pdfview"), {
   ssr: false,

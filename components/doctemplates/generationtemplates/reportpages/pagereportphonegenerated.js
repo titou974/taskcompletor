@@ -2,13 +2,12 @@ import reactStringReplace from "react-string-replace";
 let replacedLogo;
 const regexTitle = /^\d+\.\s(.+)/;
 
-const PageTitleReportPhone = ({generatedTitle, generatedSections}) => {
+const PageReportPhoneGenerated = ({generatedSections, indexSection}) => {
   return (
-    <div className="a4-container-example align-center flex gap-x-4 mb-2" id="page1">
+    <div className="a4-container-example align-center flex gap-x-4 mb-2" id="basic-page">
       <div className="a4-example py-[20px] xs:py-[40px] px-5 xs:px-[34px]">
-        <h2 className="font-bold text-center pb-2 xs:pb-4">{generatedTitle}</h2>
           {generatedSections.map((section, index) => (
-            <div key={index} className="py-2">
+            <div key={index} className="py-2 xs:py-">
               <div className="flex items-center py-1 xs:py-4">
                 {
                   (replacedLogo = reactStringReplace(
@@ -16,11 +15,11 @@ const PageTitleReportPhone = ({generatedTitle, generatedSections}) => {
                     /\b\d+\./g,
                     (match, i) => (
                       <img
-                        key={`number ${index + 1}`}
-                        src={`/img/icon${index + 1}black.svg`}
-                        width={25}
-                        height={25}
-                        className="max-w-[25px]"
+                        key={`number ${index + indexSection}`}
+                        src={`/img/icon${index + indexSection}black.svg`}
+                        width={20}
+                        height={20}
+                        className="max-w-[20px]"
                       />
                     ),
                   ))
@@ -41,4 +40,4 @@ const PageTitleReportPhone = ({generatedTitle, generatedSections}) => {
   )
 }
 
-export default PageTitleReportPhone;
+export default PageReportPhoneGenerated;

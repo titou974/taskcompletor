@@ -1,11 +1,9 @@
 import { Tab } from '@headlessui/react'
-import { docType } from "../utils/constants";
+import { docType } from "../../utils/constants";
 import { ClockIcon } from '@heroicons/react/20/solid';
-import MessageTemplate from './messagetemplate';
-import MailTemplate from './mailtemplate';
-import ReportExample from './reportexample';
+import ReportExample from '../doctemplates/carouseltemplates/reportexample';
 import { motion } from 'framer-motion';
-import { fadeIn, textVariant } from '../utils/motion';
+import { fadeIn, textVariant } from '../../utils/motion';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')

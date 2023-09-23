@@ -1,11 +1,8 @@
 "use client"
-import { useEffect, useState } from "react";
-import reactStringReplace from "react-string-replace";
-import PageTitleReportPhone from "./pagetitlereportphone";
-import PageTitleReport from "./pagetitlereport";
-import PageReportPhone from "./pagereportphone";
-import PageReport from "./pagereport";
-let replacedLogo;
+import PageTitleReportPhone from "./reportpages/pagetitlereportphone";
+import PageTitleReport from "./reportpages/pagetitlereport";
+import PageReportPhone from "./reportpages/pagereportphone";
+import PageReport from "./reportpages/pagereport";
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 

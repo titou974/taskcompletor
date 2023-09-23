@@ -1,8 +1,8 @@
-import DropDownDoc from "./dropdowndoc";
-import TabsDocument from "./tabsdocument";
-import TabsEmotion from "./tabsemotion";
-import RadioGroupLangType from "./radiogrouplangtype";
-import RadioGroupPersoType from "./radiogrouppersotype";
+import DropDownDoc from "./forms/dropdowndoc";
+import TabsDocument from "./forms/tabsdocument";
+import TabsEmotion from "./forms/inputs/tabsemotion";
+import RadioGroupLangType from "./forms/inputs/radiogrouplangtype";
+import RadioGroupPersoType from "./forms/inputs/radiogrouppersotype";
 import styles from "./style";
 import Image from "next/image";
 import Cercle1 from "../public/img/icon1white.svg";
@@ -10,10 +10,10 @@ import Cercle2 from "../public/img/icon2white.svg";
 import Cercle3 from "../public/img/icon3white.svg";
 import Cercle4 from "../public/img/icon4white.svg";
 import { motion } from "framer-motion";
-import ReportForm from "./forminputs/reportform";
-import EmailForm from "./forminputs/emailform";
-import MessageForm from "./forminputs/messageform";
-import CoverLetterForm from "./forminputs/coverletterform";
+import ReportForm from "./forms/reportform";
+import EmailForm from "./forms/emailform";
+import MessageForm from "./forms/messageform";
+import CoverLetterForm from "./forms/coverletterform";
 import { staggerContainer, fadeIn } from '../utils/motion';
 
 const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, setDest, persoType, setPersoType, domain, setDomain, theme, setTheme, questions, setQuestions, job, setJob, competences, setCompetences, experiences, setExperiences, company, setCompany, myName, setMyName, emotion, setEmotion, language, setLanguage, mailType, setMailType, messageLength, setMessageLength}) => {

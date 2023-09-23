@@ -1,5 +1,5 @@
 import { Tab } from '@headlessui/react'
-import { emotions } from "../utils/constants";
+import { emotions } from "../../../utils/constants";
 
 
 function classNames(...classes) {

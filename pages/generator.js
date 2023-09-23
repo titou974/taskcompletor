@@ -1,39 +1,31 @@
 "use client";
-
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import { useRef, useState, useEffect, forwardRef } from "react";
-import { fadeIn, textVariant } from "../utils/motion";
-import SectionWrapper from "../components/sectionwrapper";
+import { useRef, useState, useEffect } from "react";
 import styles from "../components/style";
-import PenLoader from "../components/penloader";
-import { PencilSquareIcon, CheckCircleIcon, DocumentIcon, ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid";
+import { PencilSquareIcon, DocumentIcon, ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid";
 import feather from "../public/img/feather.png"
-import Loader from "../components/loader";
 import {
   createParser,
-  ParsedEvent,
-  ReconnectInterval,
 } from "eventsource-parser";
-import ReportTemplate from "../components/pdf/pdfreport";
 import axios from "axios";
 import Link from 'next/link';
-import { Dialog, Transition } from '@headlessui/react';
-import ModalIntro from "../components/modalintro";
-import ModalSaved from "../components/modalsaved";
-import { ShareIcon, BackspaceIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline";
-import EditTextAreaReport from "../components/editableinputs";
-import FormGenerator from "../components/formgenerator";
-import { docType } from "../utils/constants";
-import MailTemplate from "../components/mailtemplate";
-import MessageTemplate from "../components/messagetemplate";
-import EditTextMessage from "../components/edittextmessage";
-import EditTextMail from "../components/edittextmail";
-import ModalStepTwo from "../components/modalmodifiedstep";
-import ModalStepTwoPdf from "../components/modalmodifiedpdf";
+import ModalIntro from "../components/modals/modalintro";
+import ModalSaved from "../components/modals/modalsaved";
+import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
+import EditTextAreaReport from "../components/forms/editableinputs";
+import EditTextMessage from "../components/forms/edittextmessage";
+import EditTextMail from "../components/forms/edittextmail";
+import ModalStepTwo from "../components/modals/modalmodifiedstep";
+import ModalStepTwoPdf from "../components/modals/modalmodifiedpdf";
 import { isMobile } from "react-device-detect";
-import { staggerContainer, slideIn } from "../utils/motion";
-import dynamic from "next/dynamic";
-
+import { staggerContainer } from "../utils/motion";
+const MailTemplate = dynamic(() => import("../components/doctemplates/generationtemplates/mailtemplate"));
+const MessageTemplate = dynamic(() => import("../components/doctemplates/generationtemplates/messagetemplate"));
+const Loader = dynamic(() => import("../components/loaders/loader"));
+const PenLoader = dynamic(() => import("../components/loaders/penloader"));
+const FormGenerator = dynamic(() => import("../components/formgenerator"));
+const ReportTemplate = dynamic(() => import("../components/doctemplates/generationtemplates/pdfreport"));
 const Navbar = dynamic(() => import("../components/navbar"));
 
 

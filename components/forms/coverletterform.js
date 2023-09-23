@@ -1,5 +1,5 @@
 import styles from "../style";
-import RadioGroupLanguage from "../radiogrouplanguage";
+import RadioGroupLanguage from "./inputs/radiogrouplanguage";
 import IconNumber from "../iconnumber";
 import { motion } from "framer-motion";
 import { fadeIn, textVariant } from "../../utils/motion";

@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import TypewriterComponent from "typewriter-effect";
 import { isMobile } from "react-device-detect";
 import { useRouter } from "next/router";
@@ -28,21 +28,23 @@ const steps = [
 const Navbar = ({hover, modifyingStep, doc, lang, myName, dest, emotion, messageLength, language, subject, mailType}) => {
   const [isScrolling, setIsScrolling] = useState(false);
   const [typewriterText, setTypewriterText] = useState("");
+  const [hidden, setHidden] = useState(false);
+  const { scrollY } = useScroll();
 
-  // const changeNavbar = () => {
-  //   if (window.scrollY >= 30) {
-  //     setIsScrolling(true)
-  //   } else {
-  //     setIsScrolling(false)
-  //   }
-  // }
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious();
+    if (latest >= 10) {
+      setIsScrolling(true);
+    } else {
+      setIsScrolling(false);
+    }
 
-  // useEffect(() => {
-  //   window.addEventListener('scroll', changeNavbar);
-  //   return () => {
-  //     window.removeEventListener('scroll', changeNavbar);
-  //   };
-  // }, [])
+    if (latest > previous && latest > 180 ) {
+      setHidden(true)
+    } else {
+      setHidden(false)
+    }
+  })
 
   // const truncateText = (text, maxLength) => {
   //   if (text.length > maxLength) {
@@ -107,22 +109,57 @@ const Navbar = ({hover, modifyingStep, doc, lang, myName, dest, emotion, message
 
   return (
     <>
-        {isMobile ? (
-          <NavbarScrolling />
-        ) : (
-          <NavbarFixed />
-        )
-        }
+      <NavbarFixed startScroll={isScrolling} hidden={hidden} />
     </>
   )
 }
 
-const NavbarFixed = () => {
-
+const NavbarFixed = ({startScroll, hidden}) => {
   return (
-    <nav className={`py-4 w-full absolute flex items-center justify-center z-20 text-white top-4`}>
+    <motion.nav
+      className={`py-4 md:py-8 w-full z-20 text-white mx-auto fixed transition-all ${ startScroll ? 'bg-secondary shadow-lg' : 'bg-transparent' }`}
+
+      variants={{
+        show: { y: 0 },
+        hidden: { y: "-100%" }
+      }}
+      animate={hidden ? "hidden" : "show"}
+      transition={{ duration: 0.35, ease: "easeInOut" }}
+    >
       {/* General Navbar  */}
-      <div className={`hidden md:block cursor-pointer absolute left-5 sm:left-10 lg:left-24`}>
+      <div className={`w-full relative flex items-center justify-center ${styles.paddingX} max-w-7xl mx-auto`}>
+        <div className={`md:absolute cursor-pointer left-[120px]`}>
+            <Image src={feather} alt="A writer feather" className= {`w-[30px] sm:w-[38px] lg:w-[45px] z-50`}/>
+        </div>
+        <div className="w-full flex justify-center">
+          <ul className="hidden md:flex list-none gap-5 justify-between w-1/2">
+            {navLinks.map((link) => (
+              <li key={link.id}>
+                <Link href={`/${link.id}`} className="py-2 px-4 transition-colors hover:bg-tertiary rounded-md cursor-pointer font-bold">{link.title}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      {/* Navbar for Generator */}
+    </motion.nav>
+  )
+};
+
+const NavbarScrolling = () => {
+  return (
+    <motion.nav
+      className={`py-4 w-full absolute flex items-center justify-center z-20 text-white top-4`}
+      variants={{
+        show: { y: 0 },
+        hidden: { y: "-100%" }
+      }}
+      animate={hidden ? "hidden" : "show"}
+      transition={{ duration: 0.35, ease: "easeInOut" }}
+
+    >
+      {/* General Navbar  */}
+      <div className={`md:block cursor-pointer absolute left-5 sm:left-10 lg:left-24`}>
           <Image src={feather} alt="A writer feather" className= {`w-[30px] sm:w-[38px] lg:w-[45px] z-50`}/>
       </div>
       <div className="w-full flex justify-center max-w-7xl">
@@ -135,34 +172,7 @@ const NavbarFixed = () => {
         </ul>
       </div>
       {/* Navbar for Generator */}
-    </nav>
-  )
-};
-
-const NavbarScrolling = () => {
-  const router = useRouter()
-  return (
-    <nav
-      className={`navbar-phone rounded-full`}
-    >
-      <ul className="flex lg:hidden list-none gap-16 justify-center align-center">
-          <li key="homefixed">
-            <Link href={`/`} className={`hover:bg-tertiary text-tertiary hover:text-white rounded-full transition-colors cursor-pointer block p-3`}>
-              <FontAwesomeIcon icon={faHouse} className='h-7 w-7' size="xl" />
-            </Link>
-          </li>
-          <li key="generatorfixed">
-            <Link href={`/generator`} className={`hover:bg-tertiary rounded-full text-tertiary hover:text-white transition-colors cursor-pointer block p-3`}>
-              <FontAwesomeIcon icon={faFileCirclePlus} className='h-7 w-7' size="xl" />
-            </Link>
-          </li>
-          <li key="questionfixed">
-            <Link href="/" className={`hover:bg-tertiary rounded-full text-tertiary hover:text-white transition-colors block p-3`}>
-              <FontAwesomeIcon icon={faQuestion} className='w-7 h-7' size="xl" />
-            </Link>
-          </li>
-      </ul>
-    </nav>
+    </motion.nav>
   )
 }
 

@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import { motion, AnimatePresence, easeOut } from "framer-motion";
-import styles from "../components/style";
+import styles from "../style";
 import Loader from "./loader";
-import { fadeIn } from "../utils/motion";
+import { fadeIn } from "../../utils/motion";
 
 import PenLoader from "./penloader";
 

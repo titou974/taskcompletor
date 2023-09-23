@@ -1,19 +1,19 @@
-import { RadioGroup } from '@headlessui/react'
-import { persoType } from '../utils/constants/index';
+import { RadioGroup } from '@headlessui/react';
+import { languageIndex } from '../../../utils/constants/index';
 
 
-const RadioGroupPersoType = ({perso, setPerso}) => {
+const RadioGroupLanguage = ({language, setLanguage}) => {
 
   return (
-    <div className="w-full">
+    <div className="w-full pt-10">
       <div className="mx-auto w-full">
-        <RadioGroup value={perso} onChange={setPerso}>
-          <RadioGroup.Label className="sr-only">Type de Language</RadioGroup.Label>
+        <RadioGroup value={language} onChange={setLanguage}>
+          <RadioGroup.Label className="sr-only">Langue</RadioGroup.Label>
           <div className="space-y-2">
-            {persoType.map((type) => (
+            {languageIndex.map((language) => (
               <RadioGroup.Option
-                key={type.id}
-                value={type.id}
+                key={language.id}
+                value={language.id}
                 className={({ active, checked }) =>
                   `${
                     active
@@ -37,7 +37,7 @@ const RadioGroupPersoType = ({perso, setPerso}) => {
                               checked ? 'text-white' : 'text-slate-300'
                             }`}
                           >
-                            {type.title}
+                            {language.title}
                           </RadioGroup.Label>
                           <RadioGroup.Description
                             as="span"
@@ -46,13 +46,13 @@ const RadioGroupPersoType = ({perso, setPerso}) => {
                             }`}
                           >
                             <span>
-                              {type.description}
+                              {language.description}
                             </span>
                           </RadioGroup.Description>
                         </div>
                       </div>
                       {checked && (
-                        <div className="shrink-0 text-white ps-2 sm:ps-0">
+                        <div className="shrink-0 text-white">
                           <CheckIcon className="h-6 w-6" />
                         </div>
                       )}
@@ -81,6 +81,6 @@ const CheckIcon = (props) => {
       />
     </svg>
   )
-}
+};
 
-export default RadioGroupPersoType;
+export default RadioGroupLanguage;

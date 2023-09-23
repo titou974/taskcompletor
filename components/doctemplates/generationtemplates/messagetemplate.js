@@ -6,7 +6,7 @@ import {
   } from "@fortawesome/free-solid-svg-icons";
 import {useState, useEffect} from 'react'
 import { motion } from 'framer-motion';
-import { fadeIn, slideIn } from "../utils/motion";
+import { fadeIn, slideIn } from "../../../utils/motion";
 
 const MessageTemplate = ({messageText, dest}) => {
     const [paragraphes, setParagraphes] = useState([]);

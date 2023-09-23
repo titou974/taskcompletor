@@ -1,19 +1,19 @@
 import { RadioGroup } from '@headlessui/react';
-import { languageIndex } from '../utils/constants/index';
+import { messageLengthIndex } from '../../../utils/constants/index';
 
 
-const RadioGroupLanguage = ({language, setLanguage}) => {
+const RadioGroupMessageLength = ({messageLength, setMessageLength}) => {
 
   return (
     <div className="w-full pt-10">
       <div className="mx-auto w-full">
-        <RadioGroup value={language} onChange={setLanguage}>
+        <RadioGroup value={messageLength} onChange={setMessageLength}>
           <RadioGroup.Label className="sr-only">Langue</RadioGroup.Label>
           <div className="space-y-2">
-            {languageIndex.map((language) => (
+            {messageLengthIndex.map((length) => (
               <RadioGroup.Option
-                key={language.id}
-                value={language.id}
+                key={length.id}
+                value={length.id}
                 className={({ active, checked }) =>
                   `${
                     active
@@ -37,7 +37,7 @@ const RadioGroupLanguage = ({language, setLanguage}) => {
                               checked ? 'text-white' : 'text-slate-300'
                             }`}
                           >
-                            {language.title}
+                            {length.title}
                           </RadioGroup.Label>
                           <RadioGroup.Description
                             as="span"
@@ -46,7 +46,7 @@ const RadioGroupLanguage = ({language, setLanguage}) => {
                             }`}
                           >
                             <span>
-                              {language.description}
+                              {length.description}
                             </span>
                           </RadioGroup.Description>
                         </div>
@@ -83,4 +83,4 @@ const CheckIcon = (props) => {
   )
 };
 
-export default RadioGroupLanguage;
+export default RadioGroupMessageLength;
