@@ -1,6 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
-import { m } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
+import { fadeIn } from "../utils/motion";
 import { useRef, useState, useEffect } from "react";
 import styles from "../components/style";
 import { PencilSquareIcon, DocumentIcon, ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid";
@@ -362,7 +363,7 @@ const Generator = () => {
               <div className={`flex-col items-center justify-center gap-10 flex`}>
               {/* Generation Form */}
               <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} persoType={persoType} setPersoType={(newPersoType) => setPersoType(newPersoType)} domain={domain} setDomain={(newDomain) => setDomain(newDomain)} theme={theme} setTheme={(newTheme) => setTheme(newTheme)} questions={questions} setQuestions={(newQuestions) => setQuestions(newQuestions)} job={job} setJob={(newJob) => setJob(newJob)} competences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)}/>
-              <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className="w-full md:w-1/2 flex justify-between align-center pt-16">
+              <m.div variants={fadeIn("right", "spring", 1, 0.75)} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className="w-full md:w-1/2 flex justify-between align-center pt-16">
                 {!loading && (
                   <button
                     className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta6 w-2/3" : "cta2 w-full"} flex`}
@@ -395,72 +396,78 @@ const Generator = () => {
             )
           }
           {/* Step 2 : Modifying Text */}
-          {
-            navTwoStep && (
-              <div className={`w-full`}>
-                <h2
-                  className={`${styles.heroSubText} font-bold mx-auto text-center mt-5 mb-14`}
-                >
-                  Modifier votre {doc}
-                </h2>
-                {
-                  doc === "Rapport" && (
-                    <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Rapport", amount: 0.25 }} className={`w-full`}>
-                      <EditTextAreaReport title={generatedTitle} setTitle={(newDoc) => setGeneratedTitle(newDoc)} setSections={(newDoc) => setGeneratedSections(newDoc)} sections={generatedSections}/>
-                    </m.div>
-                  )
-                }
-                {
-                  doc === "Message" && (
-                    <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Message", amount: 0.25 }} className={`w-full`}>
-                      <EditTextMessage message={finalText} setMessage={(newMessage) => setFinalText(newMessage)} />
-                    </m.div>
-                  )
-                }
-                {
-                  doc === "Email" && (
-                    <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Email", amount: 0.25 }} className={`w-full`}>
-                      <EditTextMail mail={finalText} setMail={(newMail) => setFinalText(newMail)} />
-                    </m.div>
-                  )
-                }
-                <div className={`flex mt-20 ${doc === "Message" || doc === "Email" ? "justify-center" : "justify-between" } align-center w-full md:w-1/2 mx-auto`}>
-                  <button
-                    className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} w-[80px] h-[80px] bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary lg:w-[100px] lg:h-[100px]`}
-                    onClick={() => backToGeneration()}
+          <AnimatePresence>
+            {
+              navTwoStep && (
+                <m.div
+                  className={`w-full`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, duration: 0.75 }}
+                  exit={{opacity: 0}} >
+                  <h2
+                    className={`overflow-hidden ${styles.heroSubText} font-bold mx-auto text-center mt-5 mb-14`}
                   >
-                    <ArrowLeftCircleIcon className="h-[35px] w-[35px] mx-auto lg:w-[50px] lg:h-[50px]" />
-                  </button>
+                    Modifier votre {doc}
+                  </h2>
                   {
-                    ((!loading && !saved) && (doc === "Rapport" || doc === "Lettre de motivation")) && (
-                      <button className={`cta6 flex w-2/3 lg:h-[100px] mx-10`} onClick={saveDocument}>
-                        <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Enregistrer</p>
-                        <ArrowDownTrayIcon className="cta6-icon ms-3"/>
-                      </button>
+                    doc === "Rapport" && (
+                      <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Rapport", amount: 0.25 }} className={`w-full`}>
+                        <EditTextAreaReport title={generatedTitle} setTitle={(newDoc) => setGeneratedTitle(newDoc)} setSections={(newDoc) => setGeneratedSections(newDoc)} sections={generatedSections}/>
+                      </m.div>
                     )
                   }
-                  {loading && (
+                  {
+                    doc === "Message" && (
+                      <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Message", amount: 0.25 }} className={`w-full`}>
+                        <EditTextMessage message={finalText} setMessage={(newMessage) => setFinalText(newMessage)} />
+                      </m.div>
+                    )
+                  }
+                  {
+                    doc === "Email" && (
+                      <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Email", amount: 0.25 }} className={`w-full`}>
+                        <EditTextMail mail={finalText} setMail={(newMail) => setFinalText(newMail)} />
+                      </m.div>
+                    )
+                  }
+                  <div className={`flex mt-20 ${doc === "Message" || doc === "Email" ? "justify-center" : "justify-between" } align-center w-full md:w-1/2 mx-auto`}>
                     <button
-                      disabled
-                      className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta6 w-2/3 mx-10 disabled cursor-wait`}
+                      className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} w-[80px] h-[80px] bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary lg:w-[100px] lg:h-[100px]`}
+                      onClick={() => backToGeneration()}
                     >
-                      <Loader />
+                      <ArrowLeftCircleIcon className="h-[35px] w-[35px] mx-auto lg:w-[50px] lg:h-[50px]" />
                     </button>
-                  )}
-                  {
-                    (saved && (doc === "Rapport" || doc === "Lettre de motivation")) && (
-                      <Link href="/mypdf" legacyBehavior className={`w-full flex justify-end`}>
-                        <a target="_blank" className={`cta6 flex w-2/3`}>
-                          <p className={`${styles.sectionSubText}`}>Voir le PDF</p>
-                          <DocumentIcon className="ms-3 cta6-icon h-[35px] w-[35px]"/>
-                        </a>
-                      </Link>
-                    )
-                  }
-                </div>
-              </div>
-            )
-          }
+                    {
+                      ((!loading && !saved) && (doc === "Rapport" || doc === "Lettre de motivation")) && (
+                        <button className={`cta6 flex w-2/3 lg:h-[100px] mx-10`} onClick={saveDocument}>
+                          <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Enregistrer</p>
+                          <ArrowDownTrayIcon className="cta6-icon ms-3"/>
+                        </button>
+                      )
+                    }
+                    {loading && (
+                      <button
+                        disabled
+                        className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta6 w-2/3 mx-10 disabled cursor-wait`}
+                      >
+                        <Loader />
+                      </button>
+                    )}
+                    {
+                      (saved && (doc === "Rapport" || doc === "Lettre de motivation")) && (
+                        <Link href="/mypdf" legacyBehavior className={`w-full flex justify-end`}>
+                          <a target="_blank" className={`cta6 flex w-2/3`}>
+                            <p className={`${styles.sectionSubText}`}>Voir le PDF</p>
+                            <DocumentIcon className="ms-3 cta6-icon h-[35px] w-[35px]"/>
+                          </a>
+                        </Link>
+                      )
+                    }
+                  </div>
+                </m.div>
+              )
+            }
+          </AnimatePresence>
           <div className="h-full pb-40" ref={generateDocRef}>
             {
               (showGeneratedDoc && doc === "Rapport") && (

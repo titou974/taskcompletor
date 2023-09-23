@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import { motion, AnimatePresence, easeOut } from "framer-motion";
+import { m, AnimatePresence, easeOut } from "framer-motion";
 import styles from "../style";
 import Loader from "./loader";
 import { fadeIn } from "../../utils/motion";
@@ -11,7 +11,7 @@ const Preloader = ({isVisible}) => {
     <AnimatePresence>
       {
         isVisible && (
-          <motion.div
+          <m.div
           initial={{opacity: 0}}
           animate={{ y: "0%" , opacity: 1, duration: 0.75, ease: "easeOut"}}
           transition={{ duration: 0.75, ease: "easeOut"}}
@@ -21,7 +21,7 @@ const Preloader = ({isVisible}) => {
               <h1 className={`${styles.heroHeadText} text-center`}>Chargement de votre PDF</h1>
               <PenLoader />
             </div>
-          </motion.div>
+          </m.div>
         )
       }
     </AnimatePresence>
