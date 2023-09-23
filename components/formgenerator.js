@@ -1,11 +1,15 @@
-import DropDownDoc from "./forms/dropdowndoc";
-import TabsDocument from "./forms/tabsdocument";
 import { m } from "framer-motion";
-import ReportForm from "./forms/reportform";
-import EmailForm from "./forms/emailform";
-import MessageForm from "./forms/messageform";
-import CoverLetterForm from "./forms/coverletterform";
 import { staggerContainer, fadeIn } from '../utils/motion';
+import dynamic from "next/dynamic";
+const DropDownDoc = dynamic(() => import("./forms/dropdowndoc"));
+const TabsDocument = dynamic(() => import("./forms/tabsdocument"));
+const ReportForm = dynamic(() => import("./forms/reportform"));
+const EmailForm = dynamic(() => import("./forms/emailform"));
+const MessageForm = dynamic(() => import("./forms/messageform"));
+const CoverLetterForm = dynamic(() => import("./forms/coverletterform"));
+
+
+
 
 const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, setDest, persoType, setPersoType, domain, setDomain, theme, setTheme, questions, setQuestions, job, setJob, competences, setCompetences, experiences, setExperiences, company, setCompany, myName, setMyName, emotion, setEmotion, language, setLanguage, mailType, setMailType, messageLength, setMessageLength}) => {
     return (

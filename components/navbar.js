@@ -107,7 +107,7 @@ const Navbar = ({hover, modifyingStep, doc, lang, myName, dest, emotion, message
 const NavbarFixed = ({startScroll, hidden}) => {
   return (
     <motion.nav
-      className={`py-4 md:py-8 w-full z-20 text-white mx-auto fixed transition-all ${ startScroll ? 'bg-secondary shadow-lg' : 'bg-transparent' }`}
+      className={`py-4 md:py-8 w-full z-20 text-white mx-auto fixed transition-all ${ startScroll ? 'bg-secondary shadow-xl' : 'bg-transparent' }`}
 
       variants={{
         show: { y: 0 },

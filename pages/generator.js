@@ -43,7 +43,6 @@ const Generator = () => {
   const [job, setJob] = useState("");
   const [competences, setCompetences] = useState("");
   const [experiences, setExperiences] = useState("");
-  const [company, setCompany] = useState("");
   const [myName, setMyName] = useState("");
   const [prompt, setPrompt] = useState("");
   const [generatedDoc, setGeneratedDoc] = useState("");
@@ -57,7 +56,6 @@ const Generator = () => {
   const [saved, setSaved] = useState(false)
   const [generatorIntersection, setGeneratorIntersection] = useState(false);
   const [modalIntroVisible, setModalIntroVisible] = useState(false);
-  const [modalIntroDesactivate, setModalIntroDesactivate] = useState(false);
   const [modifyingStep, setModifyingStep] = useState(false);
   const [generationError, setGenerationError] = useState(false);
   const [doneGeneration, setDoneGeneration] = useState(false);
@@ -402,10 +400,10 @@ const Generator = () => {
                 <m.div
                   className={`w-full`}
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: 1, duration: 0.75 }}
+                  animate={{ opacity: 1, duration: 2 }}
                   exit={{opacity: 0}} >
                   <h2
-                    className={`overflow-hidden ${styles.heroSubText} font-bold mx-auto text-center mt-5 mb-14`}
+                    className={`${styles.heroSubText} font-bold mx-auto text-center mt-5 mb-14`}
                   >
                     Modifier votre {doc}
                   </h2>

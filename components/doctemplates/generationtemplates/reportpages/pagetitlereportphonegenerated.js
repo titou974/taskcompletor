@@ -4,12 +4,12 @@ const regexTitle = /^\d+\.\s(.+)/;
 
 const PageTitleReportPhoneGenerated = ({generatedTitle, generatedSections}) => {
   return (
-    <div className="a4-container-example align-center flex gap-x-4 mb-2" id="page1">
-      <div className="a4-example py-[20px] xs:py-[40px] px-5 xs:px-[34px]">
-        <h2 className="font-bold text-center pb-2 xs:pb-4">{generatedTitle}</h2>
+    <div className="a4-container align-center flex gap-x-4 mb-2" id="page1">
+      <div className="a4 py-[20px] xs:py-[25px] px-5 xs:px-[34px]">
+        <h2 className="font-bold text-center pb-5 xs:pb-6">{generatedTitle}</h2>
           {generatedSections.map((section, index) => (
-            <div key={index} className="py-2">
-              <div className="flex items-center py-1 xs:py-4">
+            <div key={index} className="py-3">
+              <div className="flex items-center py-2 xs:py-3">
                 {
                   (replacedLogo = reactStringReplace(
                     section[1],

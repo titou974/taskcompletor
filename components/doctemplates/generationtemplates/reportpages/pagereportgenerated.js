@@ -4,8 +4,8 @@ const regexTitle = /^\d+\.\s(.+)/;
 
 const PageReportGenerated = ({generatedSections, indexSection}) => {
   return (
-    <div className="a4-container-example align-center flex gap-x-4 mb-2">
-      <div className="a4-example py-[35px] md:py-[20px] lg:py-[50px] xl:py-[55px] sm:px-10 md:px-5 lg:px-10">
+    <div className="a4-container align-center flex gap-x-4 mb-2">
+      <div className="a4 py-[35px] md:py-[20px] lg:py-[50px] xl:py-[30px] sm:px-10 md:px-8 lg:px-10">
         <div className={`py-3 block md:hidden`}>
           {generatedSections.map((section, index) => (
             <div key={index} className="py-2">
@@ -39,7 +39,7 @@ const PageReportGenerated = ({generatedSections, indexSection}) => {
         <div className={`hidden md:block lg:hidden`}>
           {generatedSections.map((section, index) => (
             <div key={index} className="py-2">
-              <div className="flex items-center py-1">
+              <div className="flex items-center py-2">
                 {
                   (replacedLogo = reactStringReplace(
                     section[1],

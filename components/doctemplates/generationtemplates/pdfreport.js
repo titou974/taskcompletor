@@ -1,11 +1,9 @@
-import reactStringReplace from "react-string-replace";
-let replacedLogo;
-import { motion } from "framer-motion";
-import { fadeIn, slideIn } from "../../../utils/motion";
-import PageTitleReportPhone from "../carouseltemplates/reportpages/pagetitlereportphone";
-import PageTitleReport from "../carouseltemplates/reportpages/pagetitlereport";
-import PageReportPhone from "../carouseltemplates/reportpages/pagereportphone";
-import PageReport from "../carouseltemplates/reportpages/pagereport";
+import { m, AnimatePresence } from "framer-motion";
+import { slideIn } from "../../../utils/motion";
+import PageTitleReportPhoneGenerated from "../generationtemplates/reportpages/pagetitlereportphonegenerated";
+import PageTitleReportGenerated from "../generationtemplates/reportpages/pagetitlereportgenerated";
+import PageReportPhoneGenerated from "../generationtemplates/reportpages/pagereportphonegenerated";
+import PageReportGenerated from "../generationtemplates/reportpages/pagereportgenerated";
 
 const regexTitle = /^\d+\.\s(.+)/;
 
@@ -18,19 +16,25 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
           <div>
           {
             length >= 1 && (
-              <PageTitleReportPhone generatedTitle={generatedTitle} generatedSections={generatedSections.slice(0, 2)} id="page-1" />
+              <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
+                <PageTitleReportPhoneGenerated generatedTitle={generatedTitle} generatedSections={generatedSections.slice(0, 2)} id="page-1" />
+              </m.div>
               )
             }
           </div>
           {
             length >= 3 && (
-              <PageReportPhone generatedSections={generatedSections.slice(2, 4)} indexSection={3} id="page-2"/>
+              <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
+                <PageReportPhoneGenerated generatedSections={generatedSections.slice(2, 4)} indexSection={3} id="page-2"/>
+              </m.div>
             )
           }
           <div>
           {
             length >= 5 && (
-              <PageReportPhone generatedSections={generatedSections.slice(4, 6)} indexSection={5} id="page-3"/>
+              <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
+                <PageReportPhoneGenerated generatedSections={generatedSections.slice(4, 6)} indexSection={5} id="page-3"/>
+              </m.div>
             )
           }
           </div>
@@ -38,20 +42,20 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
         </div>
       </div>
       <div className="hidden sm:block">
-          <div>
-            {
-              length >= 1 && (
-                <PageTitleReport generatedTitle={generatedTitle} generatedSections={generatedSections.slice(0, 3)} id="page-1" />
-              )
-            }
-          </div>
-          <div>
-            {
-              length >= 4 && (
-                <PageReport generatedSections={generatedSections.slice(3, 6)} indexSection={4} id="page-2" />
-              )
-            }
-          </div>
+        {
+          length >= 1 && (
+            <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
+              <PageTitleReportGenerated generatedTitle={generatedTitle} generatedSections={generatedSections.slice(0, 3)} id="page-1" />
+            </m.div>
+          )
+        }
+        {
+          length >= 4 && (
+            <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
+              <PageReportGenerated generatedSections={generatedSections.slice(3, 6)} indexSection={4} id="page-2" />
+            </m.div>
+          )
+        }
       </div>
     </div>
   );
