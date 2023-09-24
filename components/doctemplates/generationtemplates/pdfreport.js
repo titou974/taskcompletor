@@ -17,7 +17,7 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
           {
             length >= 1 && (
               <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-                <PageTitleReportPhoneGenerated generatedTitle={generatedTitle} generatedSections={generatedSections.slice(0, 2)} id="page-1" />
+                <PageTitleReportPhoneGenerated generatedTitle={generatedTitle} generatedSections={generatedSections.slice(0, 2)} id="page-1" color={'#046CF1'} />
               </m.div>
               )
             }
@@ -25,7 +25,7 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
           {
             length >= 3 && (
               <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-                <PageReportPhoneGenerated generatedSections={generatedSections.slice(2, 4)} indexSection={3} id="page-2"/>
+                <PageReportPhoneGenerated generatedSections={generatedSections.slice(2, 4)} indexSection={3} id="page-2" color={'#046CF1'}/>
               </m.div>
             )
           }
@@ -33,7 +33,7 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
           {
             length >= 5 && (
               <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-                <PageReportPhoneGenerated generatedSections={generatedSections.slice(4, 6)} indexSection={5} id="page-3"/>
+                <PageReportPhoneGenerated generatedSections={generatedSections.slice(4, 6)} indexSection={5} id="page-3" color={'#046CF1'}/>
               </m.div>
             )
           }
@@ -45,14 +45,14 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
         {
           length >= 1 && (
             <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-              <PageTitleReportGenerated generatedTitle={generatedTitle} generatedSections={generatedSections.slice(0, 3)} id="page-1" />
+              <PageTitleReportGenerated generatedTitle={generatedTitle} generatedSections={generatedSections.slice(0, 3)} color={'#046CF1'} id="page-1" />
             </m.div>
           )
         }
         {
           length >= 4 && (
             <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-              <PageReportGenerated generatedSections={generatedSections.slice(3, 6)} indexSection={4} id="page-2" />
+              <PageReportGenerated generatedSections={generatedSections.slice(3, 6)} indexSection={4} color={'#046CF1'} id="page-2" />
             </m.div>
           )
         }

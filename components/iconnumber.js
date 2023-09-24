@@ -31,10 +31,10 @@ const IconNumber = ({number, color}) => {
     <>
       {
         number === 1 && (
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="20" cy="20" r="18.5" fill={color === "green" ? "#4ade80" : "white"} stroke={color === "green" ? "#4ade80" : "black"} strokeWidth="3" className="transition-all"/>
-      <path d="M22.5322 31H18.416V14.6377L13.0254 16.5713V13.0264L22.3125 9.67188H22.5322V31Z" fill={color === "green" ? "white" : "black"} className="transition-all"/>
-      </svg>
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="18.5" fill={color === "green" ? "#4ade80" : "white"} stroke={color === "green" ? "#4ade80" : "black"} strokeWidth="3" className="transition-all"/>
+            <path d="M22.5322 31H18.416V14.6377L13.0254 16.5713V13.0264L22.3125 9.67188H22.5322V31Z" fill={color === "green" ? "white" : "black"} className="transition-all"/>
+          </svg>
         )
       }
       {

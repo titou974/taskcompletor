@@ -143,7 +143,11 @@ body {
   font-size: 11px;
 }
 
-.a4 h2,
+.a4 h2 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 13px;
+}
+
 .a4 h3 {
   font-family: "Times New Roman", Times, serif;
   font-size: 13px;

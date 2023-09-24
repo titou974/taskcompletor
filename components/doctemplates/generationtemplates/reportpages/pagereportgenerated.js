@@ -2,7 +2,7 @@ import reactStringReplace from "react-string-replace";
 let replacedLogo;
 const regexTitle = /^\d+\.\s(.+)/;
 
-const PageReportGenerated = ({generatedSections, indexSection}) => {
+const PageReportGenerated = ({generatedSections, color}) => {
   return (
     <div className="a4-container align-center flex gap-x-4 mb-2">
       <div className="a4 py-[35px] md:py-[20px] lg:py-[50px] xl:py-[30px] sm:px-10 md:px-8 lg:px-10">
@@ -10,26 +10,8 @@ const PageReportGenerated = ({generatedSections, indexSection}) => {
           {generatedSections.map((section, index) => (
             <div key={index} className="py-2">
               <div className="flex items-center py-2">
-                {
-                  (replacedLogo = reactStringReplace(
-                    section[1],
-                    /\b\d+\./g,
-                    (match, i) => (
-                      <img
-                        key={`number ${index + indexSection}`}
-                        src={`/img/icon${index + indexSection}black.svg`}
-                        width={25}
-                        height={25}
-                        className="max-w-[25px]"
-                      />
-                    ),
-                  ))
-                }
-
-                <h3 className="px-2">
-                  {section[1].match(regexTitle)
-                    ? section[1].match(regexTitle)[1]
-                    : null}
+                <h3 className={`font-bold text-[${color}]`}>
+                  {section[1]}
                 </h3>
               </div>
               <p>{section[2]}</p>
@@ -40,26 +22,8 @@ const PageReportGenerated = ({generatedSections, indexSection}) => {
           {generatedSections.map((section, index) => (
             <div key={index} className="py-2">
               <div className="flex items-center py-2">
-                {
-                  (replacedLogo = reactStringReplace(
-                    section[1],
-                    /\b\d+\./g,
-                    (match, i) => (
-                      <img
-                        key={`number ${index + indexSection}`}
-                        src={`/img/icon${index + indexSection}black.svg`}
-                        width={20}
-                        height={20}
-                        className="max-w-[20px]"
-                      />
-                    ),
-                  ))
-                }
-
-                <h3 className="px-2">
-                  {section[1].match(regexTitle)
-                    ? section[1].match(regexTitle)[1]
-                    : null}
+                <h3 className={`font-bold text-[${color}]`}>
+                  {section[1]}
                 </h3>
               </div>
               <p>{section[2]}</p>
@@ -70,26 +34,8 @@ const PageReportGenerated = ({generatedSections, indexSection}) => {
           {generatedSections.map((section, index) => (
             <div key={index} className="py-1">
               <div className="flex items-center py-3">
-                {
-                  (replacedLogo = reactStringReplace(
-                    section[1],
-                    /\b\d+\./g,
-                    (match, i) => (
-                      <img
-                        key={`number ${index + indexSection}`}
-                        src={`/img/icon${index + indexSection}black.svg`}
-                        width={20}
-                        height={20}
-                        className="max-w-[20px]"
-                      />
-                    ),
-                  ))
-                }
-
-                <h3 className="px-2">
-                  {section[1].match(regexTitle)
-                    ? section[1].match(regexTitle)[1]
-                    : null}
+                <h3 className={`font-bold text-[${color}]`}>
+                  {section[1]}
                 </h3>
               </div>
               <p>{section[2]}</p>
@@ -100,26 +46,8 @@ const PageReportGenerated = ({generatedSections, indexSection}) => {
           {generatedSections.map((section, index) => (
             <div key={index} className="py-2">
               <div className="flex items-center py-3">
-                {
-                  (replacedLogo = reactStringReplace(
-                    section[1],
-                    /\b\d+\./g,
-                    (match, i) => (
-                      <img
-                        key={`number ${index + indexSection}`}
-                        src={`/img/icon${index + indexSection}black.svg`}
-                        width={30}
-                        height={30}
-                        className="max-w-[30px]"
-                      />
-                    ),
-                  ))
-                }
-
-                <h3 className="px-2">
-                  {section[1].match(regexTitle)
-                    ? section[1].match(regexTitle)[1]
-                    : null}
+                <h3 className={`font-bold text-[${color}]`}>
+                  {section[1]}
                 </h3>
               </div>
               <p>{section[2]}</p>
