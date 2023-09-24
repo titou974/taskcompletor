@@ -22,9 +22,9 @@ const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, s
             <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Rapport", amount: 0.25 }} className="hidden sm:block w-full pb-10">
                 <TabsDocument type={doc} setType={(newDoc) => setDoc(newDoc)}/>
             </m.div>
-            <m.section variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Rapport", amount: 0.25 }}  className={`w-full ${doc === "Rapport" ? "" : "hidden"}`}>
+            <section className={`w-full ${doc === "Rapport" ? "" : "hidden"}`}>
                 <ReportForm subject={subject} setSubject={(newSubject) => setSubject(newSubject)} lang={lang} setLang={(newLang) => setLang(newLang)}/>
-            </m.section>
+            </section>
             <m.section variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Email", amount: 0.25 }} className={`w-full ${doc === "Email" ? "" : "hidden"}`}>
                 <EmailForm myName={myName} setMyName={(newName) => setMyName(newName)} dest={dest} setDest={(newDest) => setDest(newDest)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} subject={subject} setSubject={(newSubject) => setSubject(newSubject)} />
             </m.section>

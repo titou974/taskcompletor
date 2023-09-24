@@ -1,7 +1,3 @@
-import reactStringReplace from "react-string-replace";
-let replacedLogo;
-const regexTitle = /^\d+\.\s(.+)/;
-
 const PageReportPhoneGenerated = ({generatedSections, color}) => {
   return (
     <div className="a4-container align-center flex gap-x-4 mb-2" id="basic-page">

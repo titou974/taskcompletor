@@ -3,7 +3,6 @@ import {
   Page,
   View,
   Text,
-  PDFViewer,
   StyleSheet,
   Font,
 } from "@react-pdf/renderer";

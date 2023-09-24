@@ -43,6 +43,8 @@ const Home = () => {
       </Head>
       <div className="w-full bg-primary">
         <Hero />
+        <div className="bg-tertiary h-screen">
+        </div>
       </div>
     </>
   );

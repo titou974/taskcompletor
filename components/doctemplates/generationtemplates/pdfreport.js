@@ -1,4 +1,4 @@
-import { m, AnimatePresence } from "framer-motion";
+import { m } from "framer-motion";
 import { slideIn } from "../../../utils/motion";
 import PageTitleReportPhoneGenerated from "../generationtemplates/reportpages/pagetitlereportphonegenerated";
 import PageTitleReportGenerated from "../generationtemplates/reportpages/pagetitlereportgenerated";

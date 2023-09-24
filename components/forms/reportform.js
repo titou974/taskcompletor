@@ -29,8 +29,8 @@ const ReportForm = ({lang, setLang, subject, setSubject}) => {
     })
 
     return (
-        <div className="w-full md:w-1/2 mx-auto">
-            <m.div variants={textVariant(0.5)} className={`flex items-center gap-4 pt-10`}>
+          <m.div initial="hidden" variants={fadeIn("right", "spring", 0.75, 0.75)} animate={'show'} className="w-full md:w-1/2 mx-auto">
+            <div className={`flex items-center gap-4 pt-10`}>
                 <IconNumber number={1} color={lang === "" ? "white" : "green"} />
                 <h2
                     className={`${styles.sectionSubText} lg:block hidden font-bold`}
@@ -42,29 +42,29 @@ const ReportForm = ({lang, setLang, subject, setSubject}) => {
                 >
                     Language
                 </h2>
-            </m.div>
+            </div>
             <RadioGroupLangType lang={lang} setLang={(newLang) => setLang(newLang)} />
-            <m.div variants={textVariant(0.75)} className={`flex items-center gap-4 pt-20`}>
+            <div className={`flex items-center gap-4 pt-20`}>
             <IconNumber number={2} color={colorIcon}/>
                 <h2
                     className={`${styles.sectionSubText} font-bold`}
                 >
                     Décrivez le(s) sujet(s)
                 </h2>
-            </m.div>
+            </div>
             <div className="relative">
-              <m.textarea variants={fadeIn("right", "spring", 0.75, 0.75)}
+              <textarea
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
                       rows={4}
                       className={`w-full bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black mt-10 px-4 py-2 text-gray-700 caret-gray-700`}
                       placeholder="Les espèces d’insectes qui vivent dans les tropiques, avec des précisions sur le moustique."
               />
-              <m.div variants={fadeIn("right", "spring", 0.25, 0.75)} animate={textLengthAlert ? "show" : "hidden"} className={`${textLengthAlert ? "" : "hidden"} absolute px-4 py-2 mt-2 bg-orange-400 rounded-md w-full font-bold flex align-center justify-center`} >
+              <div className={`${textLengthAlert ? "" : "hidden"} absolute px-4 py-2 mt-2 bg-orange-400 rounded-md w-full font-bold flex align-center justify-center`} >
                 <span role="img" aria-label="rapport" className='pe-5'>📢</span><p>Détaillez votre sujet pour un résultat pertinent</p>
-              </m.div>
+              </div>
             </div>
-        </div>
+        </m.div>
     )
 }
 
