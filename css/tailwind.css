@@ -145,7 +145,7 @@ body {
 
 .a4 h2 {
   font-family: "Times New Roman", Times, serif;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .a4 h3 {
@@ -165,9 +165,11 @@ body {
     font-size: 13px;
   }
 
-  .a4 h2,
+  .a4 h2 {
+    font-size: 19px;
+  }
   .a4 h3 {
-    font-size: 17px;
+    font-size: 15px;;
   }
 }
 
@@ -180,9 +182,12 @@ body {
     font-size: 13px;
   }
 
-  .a4 h2,
+  .a4 h2 {
+    font-size: 19px;
+  }
+
   .a4 h3 {
-    font-size: 17px;
+    font-size: 15px;
   }
 }
 
@@ -196,9 +201,12 @@ body {
     font-size: 11px;
   }
 
-  .a4 h2,
+  .a4 h2 {
+    font-size: 17px;
+  }
+
   .a4 h3 {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 
@@ -212,9 +220,12 @@ body {
     line-height: 2em;
   }
 
-  .a4 h2,
+  .a4 h2 {
+    font-size: 18px;
+  }
+
   .a4 h3 {
-    font-size: 15px;
+    font-size: 14px;
   }
 }
 
@@ -225,12 +236,15 @@ body {
   }
 
   .a4 p {
-    font-size: 13px;
+    font-size: 14px;
   }
 
-  .a4 h2,
+  .a4 h2 {
+    font-size: 20px;
+  }
+
   .a4 h3 {
-    font-size: 17px;
+    font-size: 16px;
   }
 }
 

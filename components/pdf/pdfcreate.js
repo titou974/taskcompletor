@@ -22,21 +22,21 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 800,
     textDecoration: 'underline',
-    color: "#046CF1",
     fontFamily: "TimesNewRomanRegular"
   },
   subtitle: {
-    paddingBottom: 10,
-    fontSize: 14,
+    paddingBottom: 12,
+    fontSize: 16,
     fontFamily: "TimesNewRomanBold",
-    color: "#046CF1"
   },
   text: {
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: "TimesNewRomanRegular",
+    lineHeight: 2,
+    paddingTop: 10
   },
   titlecontainer: {
     display: "flex",
