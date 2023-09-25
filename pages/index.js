@@ -2,6 +2,7 @@ import Head from "next/head";
 import Hero from "../components/hero";
 import Navbar from "../components/navbar";
 import { useState, useEffect, useRef } from "react";
+import Introduction from "../components/introduction";
 
 const Home = () => {
   const [navbarStepper, setNavbarStepper] = useState(false);
@@ -22,6 +23,7 @@ const Home = () => {
           name="description"
           content="Une IA qui vous génère un contenu et un design que vous choisissez, le tout en quelques secondes."
         />
+        <meta name="theme-color" content="#00003f"/>
         <link
           rel="apple-touch-icon"
           sizes="180x180"
@@ -41,9 +43,10 @@ const Home = () => {
         />
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
-      <div className="w-full bg-primary">
+      <div className="w-full">
         <Hero />
-        <div className="bg-tertiary h-screen">
+        <div className="h-screen background-introduction">
+          <Introduction />
         </div>
       </div>
     </>

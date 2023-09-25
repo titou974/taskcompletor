@@ -451,16 +451,14 @@ body {
   background-color: #00003f;
   border: 3px white solid;
   border-radius: 6px;
-  width: 100%;
-  padding: 10px 12px;
-  min-width: 100%;
+  min-width: 50%;
   transition: color 0.4s linear;
   position: relative;
 }
 
 .cta1:hover {
   color: black;
-  background: none;
+  background: white;
 }
 
 .cta1::before {
@@ -937,4 +935,14 @@ body {
   height: 100vh;
   background-color: #00003f;
   transform-origin: top;
+}
+
+.background-introduction {
+  background: rgb(2,0,36);
+  background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(4,108,241,1) 47%, rgba(86,194,225,1) 100%);
+}
+
+.background-generator {
+  background: rgb(0,54,122);
+background: linear-gradient(0deg, rgba(0,54,122,1) 0%, rgba(4,108,241,1) 75%);
 }

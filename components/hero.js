@@ -12,6 +12,7 @@ import {
 import Link from "next/link";
 import TaskCompletorSvg from "../public/img/Task Completor.svg"
 import { m, useScroll, useTransform } from "framer-motion";
+import feather from "../public/img/feather.png"
 
 const Hero = () => {
   const ref = useRef(null);
@@ -29,9 +30,15 @@ const Hero = () => {
         className={`${styles.paddingX} flex flex-col md:flex-row items-center justify-center mx-auto w-full max-w-7xl`}
       >
         <m.div style={{y: textY}} className="flex flex-col items-center md:items-start w-full z-10">
-          <h1 className={`text-[25px] sm:text-[50px] lg:text-[80px] xl:text-[100px] font-bold border-white border-2 rounded-md px-10 py-10 z-10 bg-black bg-opacity-20 shadow-md mb-[250px]`}>
-            Task Completor
-          </h1>
+          <div className={`font-bold border-white border-2 rounded-md px-10 py-10 z-10 bg-black bg-opacity-20 hover:bg-green-400 hover:bg-opacity-100 shadow-xl mb-[250px]`}>
+            <div className="flex justify-center align-center gap-4 lg:gap-6">
+              <h1 className="text-[20px] sm:text-[50px] lg:text-[60px]">Task Completor</h1>
+              <div className="w-[30px] sm:w-[50px] md:w-[60px] ">
+                <Image src={feather} />
+              </div>
+            </div>
+            <h2 className="pt-4 text-center text-sm md:text-2xl">Une IA pour gérer vos tâches du quotidien</h2>
+          </div>
           {/* <Link
             href="/generator" className={`${styles.heroSubTextLight} my-8 w-1/3 z-10 bg-tertiary rounded-md`}
           >

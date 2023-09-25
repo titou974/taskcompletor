@@ -20,7 +20,7 @@ const PageTitleReportPhone = ({generatedTitle, generatedSections}) => {
                         src={`/img/icon${index + 1}black.svg`}
                         width={20}
                         height={20}
-                        className="max-w-[25px]"
+                        className="max-w-[20px]"
                       />
                     ),
                   ))
