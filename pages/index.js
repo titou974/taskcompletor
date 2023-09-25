@@ -45,9 +45,6 @@ const Home = () => {
       </Head>
       <div className="w-full">
         <Hero />
-        <div className="h-screen background-introduction">
-          <Introduction />
-        </div>
       </div>
     </>
   );

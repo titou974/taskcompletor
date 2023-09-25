@@ -13,9 +13,11 @@ import Link from "next/link";
 import TaskCompletorSvg from "../public/img/Task Completor.svg"
 import { m, useScroll, useTransform } from "framer-motion";
 import feather from "../public/img/feather.png"
+import Introduction from "./introduction";
 
 const Hero = () => {
   const ref = useRef(null);
+  const introductionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -24,7 +26,16 @@ const Hero = () => {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "200%"])
 
+  const scrollToIntro = () => {
+    if (introductionRef.current !== null) {
+      introductionRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    } else {
+      console.log("error scrolling after generation")
+    }
+  };
+
   return (
+    <>
     <div ref={ref} className="relative grid place-items-center w-full h-screen flex justify-center text-white overflow-hidden bg-tertiary">
       <div
         className={`${styles.paddingX} flex flex-col md:flex-row items-center justify-center mx-auto w-full max-w-7xl`}
@@ -86,13 +97,27 @@ const Hero = () => {
           />
         </div> */}
       </div>
-      {/* <Link href="/generator" className="absolute bottom-12 w-full flex justify-center z-10">
+      <m.button
+        onClick={(e) => scrollToIntro()}
+        className="absolute bottom-12 w-full flex justify-center z-10"
+        animate={{
+          y: [0, 24, 0]
+        }}
+        transition={{
+          duration: 1.5,
+          repeat: Infinity,
+          repeatType: 'loop'
+        }}>
         <FontAwesomeIcon
           icon={faChevronCircleDown}
           className="w-[50px] hover:text-tertiary cursor-pointer transition-colors"
         />
-      </Link> */}
+      </m.button>
     </div>
+    <m.div className="background-introduction" ref={introductionRef}>
+      <Introduction />
+    </m.div>
+    </>
   );
 };
 

@@ -443,6 +443,7 @@ body {
 
 
 .cta1 {
+  height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -454,11 +455,15 @@ body {
   min-width: 50%;
   transition: color 0.4s linear;
   position: relative;
+  z-index: 1;
+  font-weight: bold;
+  padding: 20px;
 }
 
 .cta1:hover {
   color: black;
-  background: white;
+  background: none;
+  z-index: 1;
 }
 
 .cta1::before {
@@ -489,14 +494,15 @@ body {
   background-color: #00003f;
   border: 3px white solid;
   border-radius: 6px;
-  padding: 10px 12px;
+  padding: 20px;
   transition: color 0.4s linear;
   position: relative;
+  z-index: 1;
 }
 
 .cta3:hover {
   color: black;
-  background: none;
+  z-index: 1;
 }
 
 .cta3::before {
@@ -518,34 +524,12 @@ body {
   transform: scaleX(1);
 }
 
-.cta2 {
-  width: 100%;
-  background-color: #00003f;
-  margin: 0 auto;
-  justify-content: center;
-  align-items: center;
-  padding: 1em;
-  border-radius: 6px;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
-}
-
-.cta2-icon {
-  overflow: hidden;
-  transition: 0.5s;
-  width: 0;
-}
-
-.cta2:hover .cta2-icon {
-  width: 30px;
-}
-
 .cta6 {
   background-color: #00003f;
   justify-content: center;
   align-items: center;
   padding: 1em;
   border-radius: 6px;
-  margin-right: 0;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
@@ -944,5 +928,5 @@ body {
 
 .background-generator {
   background: rgb(0,54,122);
-background: linear-gradient(0deg, rgba(0,54,122,1) 0%, rgba(4,108,241,1) 75%);
+  background: linear-gradient(0deg, rgba(0,54,122,1) 0%, rgba(4,108,241,1) 75%);
 }

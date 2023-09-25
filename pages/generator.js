@@ -364,19 +364,19 @@ const Generator = () => {
               <m.div variants={fadeIn("right", "spring", 1, 0.75)} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className="w-full md:w-1/2 flex justify-between align-center pt-16">
                 {!loading && (
                   <button
-                    className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta6 w-2/3" : "cta2 w-full"} flex`}
+                    className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta1 w-2/3" : "cta1 w-full"} flex`}
                     onClick={(e) => developSubject && !isMobile ? setModalIntroVisible(true) : generateDoc(e)}
                     onMouseEnter={() => setHoverNavbar(true)}
                     onMouseLeave={() => setHoverNavbar(false)}
                   >
                     {`Générer`}
-                    <PencilSquareIcon className={`ms-3 lg:ms-5 ${modifyingStep ? "cta6-icon" : "cta2-icon"}`}></PencilSquareIcon>
+                    <PencilSquareIcon className={`w-[40px] md:w-[50px]`}></PencilSquareIcon>
                   </button>
                 )}
                 {loading && (
                   <button
                     disabled
-                    className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 ${modifyingStep ? "w-2/3" : "w-full"} disabled cursor-wait`}
+                    className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta1 ${modifyingStep ? "w-2/3" : "w-full"} disabled cursor-wait`}
                   >
                     <Loader />
                   </button>
@@ -437,16 +437,16 @@ const Generator = () => {
                     </button>
                     {
                       ((!loading && !saved) && (doc === "Rapport" || doc === "Lettre de motivation")) && (
-                        <button className={`cta6 flex w-2/3 lg:h-[100px] mx-10`} onClick={saveDocument}>
+                        <button className={`cta1 flex w-2/3 lg:h-[100px] ms-10`} onClick={saveDocument}>
                           <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Enregistrer</p>
-                          <ArrowDownTrayIcon className="cta6-icon ms-3"/>
+                          <ArrowDownTrayIcon className="w-[35px] md:ms-3"/>
                         </button>
                       )
                     }
                     {loading && (
                       <button
                         disabled
-                        className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta6 w-2/3 mx-10 disabled cursor-wait`}
+                        className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta1 w-2/3 ms-10 disabled cursor-wait`}
                       >
                         <Loader />
                       </button>
@@ -454,9 +454,9 @@ const Generator = () => {
                     {
                       (saved && (doc === "Rapport" || doc === "Lettre de motivation")) && (
                         <Link href="/mypdf" legacyBehavior className={`w-full flex justify-end`}>
-                          <a target="_blank" className={`cta6 flex w-2/3`}>
+                          <a target="_blank" className={`cta1 flex w-2/3`}>
                             <p className={`${styles.sectionSubText}`}>Voir le PDF</p>
-                            <DocumentIcon className="ms-3 cta6-icon h-[35px] w-[35px]"/>
+                            <DocumentIcon className="h-[25px] w-[25px]"/>
                           </a>
                         </Link>
                       )
