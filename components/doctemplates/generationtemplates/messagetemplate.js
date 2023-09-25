@@ -63,6 +63,11 @@ const MessageTemplate = ({messageText, dest}) => {
                         <p className="my-5 imessage-text" key={`paragraph${index}`} >{paragraph}</p>
                     ))
                 }
+                <svg width="26" height="38" viewBox="0 0 26 38" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute bottom-[-13px] right-[-1px]">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M17.0188 12.2934C20.2739 9.01283 22.9225 5.12408 25.4628 0.167536L19.6593 19.8361L19.6573 19.9007C19.5103 24.8087 19.863 28.2998 20.9007 31.2585C21.7433 33.6606 23.0274 35.6833 24.8109 37.812C19.7691 35.8577 16.0807 34.1019 12.9722 32.1196C9.49466 29.902 6.7243 27.3891 3.59219 23.9652L3.49827 23.8625L0.367964 22.9389C7.59849 19.7427 12.803 16.5424 17.0188 12.2934Z" fill="#046CF1"/>
+                </svg>
+
+
                 </motion.div>
             </div>
         </motion.div>

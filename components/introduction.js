@@ -1,7 +1,7 @@
 "use client"
 
 import styles from "./style";
-import { m } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { fadeIn } from "../utils/motion";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,20 +9,25 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect, useRef } from "react";
-
+import ReportTemplate from "./doctemplates/generationtemplates/pdfreport";
 import TypewriterComponent from "typewriter-effect";
+import { docType } from "../utils/constants";
 
 const Introduction = () => {
-  const [displayedText, setDisplayedText] = useState("")
+  const [displayedText, setDisplayedText] = useState("");
   const introductionTexts = ["Task Completor permet de générer ", "des Rapports en PDF...", "des Messages...", "des Emails...", "des Lettres de Motivation..."];
-  const [isVisible, setIsVisible] = useState(false);
+  const [isBubbleVisible, setIsBubbleVisible] = useState(false);
+  const [showReportExample, setShowReportExample] = useState(false);
+  const [showMessageExample, setShowMessageExample] = useState(false);
+  const [showMEmailExample, setShowEmailExample] = useState(false);
+  const [showCoverLetterExample, setShowCoverLetterExample] = useState(false);
   const typewriterRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          setIsBubbleVisible(true);
           observer.disconnect();
         }
       });
@@ -41,7 +46,7 @@ const Introduction = () => {
     <div className={`${styles.padding} relative h-screen overflow-hidden flex flex-col justify-between`}>
       <m.div initial="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} whileInView="show" viewport={{once: true}} className="flex justify-center items-center bg-[#e1e5e6] w-full md:w-1/2 h-[100px] rounded-full mx-auto relative  shadow-xl">
         <div className="break-words mx-auto w-10/12 text-center" ref={typewriterRef}>
-          {isVisible && (
+          {isBubbleVisible && (
             <TypewriterComponent
               onInit={(typewriter) => {
                 typewriter.changeDelay(50)
@@ -76,6 +81,8 @@ const Introduction = () => {
           <path fillRule="evenodd" clipRule="evenodd" d="M23.8343 12.2325C27.6179 9.57876 31.8984 7.62554 37.213 5.95954L16.8464 8.35511L16.7825 8.3461C11.9203 7.66142 8.53897 6.72376 5.79824 5.20085C3.5731 3.96441 1.79661 2.35685 -1.30763e-05 0.239299C1.07392 5.5388 2.18101 9.47094 3.60938 12.8698C5.20729 16.6721 7.21585 19.8273 10.061 23.4931L10.1464 23.603L10.5276 26.8444C14.9 20.2582 18.9339 15.6694 23.8343 12.2325Z" fill="#E1E5E6"/>
         </svg>
       </m.div>
+      <div className="w-full">
+      </div>
       <m.div initial="hidden" variants={fadeIn("right", "spring", 0.5, 0.75)} whileInView="show" viewport={{once: true}} className="w-full">
         <Link
           href="/generator" className={`font-bold my-8 z-10 rounded-md mx-auto`}
