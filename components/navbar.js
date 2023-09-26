@@ -7,6 +7,10 @@ import feather from '../public/img/feather.png';
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid";
+
+
 
 const steps = [
   { title: 'Générer', description: 'Rentrez vos informations' },
@@ -105,89 +109,138 @@ const Navbar = ({hover, modifyingStep, doc, lang, myName, dest, emotion, message
 }
 
 const NavbarFixed = ({startScroll, hidden}) => {
-  return (
-    <motion.nav
-      className={`py-4 md:py-8 w-full z-20 text-white mx-auto fixed transition-all ${ startScroll ? 'bg-secondary shadow-xl' : 'bg-transparent' }`}
 
-      variants={{
-        show: { y: 0 },
-        hidden: { y: "-100%" }
-      }}
-      animate={hidden ? "hidden" : "show"}
-      transition={{ duration: 0.35, ease: "easeInOut" }}
-    >
-      {/* General Navbar  */}
-      <div className={`w-full relative flex items-center justify-center ${styles.paddingX} max-w-7xl mx-auto`}>
-        <div className={`md:absolute cursor-pointer left-[120px]`}>
-            <Image src={feather} alt="A writer feather" className= {`w-[30px] sm:w-[38px] lg:w-[45px] z-50`}/>
+  const [mobileMenu, setMobileMenu] = useState(false);
+
+  const menuAnim = {
+    initial: {
+      scaleY: 0,
+    },
+    show: {
+      scaleY: 1,
+      transition: {
+        duration: 0.5,
+        ease: [0.12, 0, 0.39, 0],
+      }
+    },
+    exit: {
+      scaleY: 0,
+      transition: {
+        delay: 0.5,
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    }
+  }
+
+  const containerAnim = {
+    initial: {
+      transition: {
+        staggerChildren: 0.09,
+        staggerDirection: -1,
+      }
+    },
+    show: {
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.09,
+        staggerDirection: 1,
+      }
+    }
+  };
+
+
+
+  return (
+    <>
+      <motion.nav
+        className={`py-4 md:py-8 w-full z-20 text-white mx-auto fixed transition-all ${ startScroll ? 'bg-secondary shadow-xl' : 'bg-transparent' }`}
+
+        variants={{
+          show: { y: 0 },
+          hidden: { y: "-100%" }
+        }}
+        animate={hidden ? "hidden" : "show"}
+        transition={{ duration: 0.35, ease: "easeInOut" }}
+      >
+        {/* General Navbar  */}
+        <div className={`w-full relative flex items-center justify-center ${styles.paddingX} max-w-7xl mx-auto`}>
+          <div className={`lg:absolute cursor-pointer left-[120px]`}>
+              <Image src={feather} alt="A writer feather" className= {`w-[30px] sm:w-[38px] lg:w-[45px] z-50`}/>
+          </div>
+          <div className="w-full flex justify-center hidden lg:flex">
+            <ul className="hidden lg:flex list-none gap-5 justify-between w-1/2">
+              {navLinks.map((link) => (
+                <li key={link.id}>
+                  <Link href={`/${link.id}`} className="py-2 px-4 transition-colors hover:bg-tertiary rounded-md cursor-pointer font-bold">{link.title}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="w-full flex justify-end lg:hidden">
+            <button onClick={(e) => setMobileMenu(true)} className="cursor-pointer">
+              <Bars3Icon className="w-[25px]"/>
+            </button>
+          </div>
         </div>
-        <div className="w-full flex justify-center">
-          <ul className="hidden md:flex list-none gap-5 justify-between w-1/2">
-            {navLinks.map((link) => (
-              <li key={link.id}>
-                <Link href={`/${link.id}`} className="py-2 px-4 transition-colors hover:bg-tertiary rounded-md cursor-pointer font-bold">{link.title}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-      {/* Navbar for Generator */}
-    </motion.nav>
+        {/* Navbar for Generator */}
+      </motion.nav>
+      <AnimatePresence>
+      { mobileMenu && (
+          <motion.div variants={menuAnim} initial="initial" animate="show" exit="exit" className="fixed left-0 top-0 bottom-0 w-full h-screen bg-tertiary lg:hidden z-40 origin-top overflow-hidden">
+            <div className={`h-full flex flex-col ${styles.paddingX} max-w-7xl`}>
+              <div className="flex justify-center py-4 md:py-8">
+                <div className={`lg:absolute cursor-pointer left-[120px]`}>
+                  <Image src={feather} alt="A writer feather" className= {`w-[30px] sm:w-[38px] lg:w-[45px] z-50`}/>
+                </div>
+                <div className="w-full justify-end flex ">
+                  <button onClick={(e) => setMobileMenu(false)} className="cursor-pointer">
+                    <XMarkIcon className="w-[35px] text-white " />
+                  </button>
+                </div>
+              </div>
+              <motion.div variants={containerAnim} initial="initial" animate="show" exit="initial" className="mx-auto flex flex-col h-full items-center justify-center gap-40">
+                { navLinks.map((link, index) => (
+                  <div key={index} className="overflow-hidden">
+                    <MobileNavLink key={index} title={link.title} href={link.id} />
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+          </motion.div>
+        )
+      }
+      </AnimatePresence>
+    </>
   )
 };
+const MobileNavLinkAnim = {
+  initial: {
+    y: "30vh",
+    transition: {
+      duration: 0.5,
+      ease: [0.37, 0, 0.63, 1],
+    },
+  },
+  show: {
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0, 0.55, 0.45, 1],
+    },
+  },
+};
 
-const NavbarScrolling = () => {
+const MobileNavLink = ({title, href}) => {
   return (
-    <motion.nav
-      className={`py-4 w-full absolute flex items-center justify-center z-20 text-white top-4`}
-      variants={{
-        show: { y: 0 },
-        hidden: { y: "-100%" }
-      }}
-      animate={hidden ? "hidden" : "show"}
-      transition={{ duration: 0.35, ease: "easeInOut" }}
-
-    >
-      {/* General Navbar  */}
-      <div className={`md:block cursor-pointer absolute left-5 sm:left-10 lg:left-24`}>
-          <Image src={feather} alt="A writer feather" className= {`w-[30px] sm:w-[38px] lg:w-[45px] z-50`}/>
-      </div>
-      <div className="w-full flex justify-center max-w-7xl">
-        <ul className="hidden md:flex list-none gap-5">
-          {navLinks.map((link) => (
-            <li key={link.id}>
-              <Link href={`/${link.id}`} className="px-8 xl:px-10 py-2 transition-colors hover:bg-tertiary rounded-full cursor-pointer">{link.title}</Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-      {/* Navbar for Generator */}
-    </motion.nav>
+    <motion.div variants={MobileNavLinkAnim} className="text-white text-2xl uppercase">
+      <Link href={href} className="hover:bg-white hover:text-tertiary py-2 px-4 transition-colors rounded-md">
+        {title}
+      </Link>
+    </motion.div>
   )
 }
 
 
-
-const NavAnimations = {
-  initial: {
-    y: -50,
-    x: "-50%",
-    opacity: 0,
-  },
-  animate: {
-    y: 0,
-    x: "-50%",
-    opacity: 1,
-    transition: {
-      type: "spring",
-      damping: 10,
-      stiffness: 100,
-    },
-  },
-  exit: {
-    y: -50,
-    opacity: 0,
-  },
-};
 
 export default Navbar;

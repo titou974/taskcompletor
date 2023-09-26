@@ -99,7 +99,7 @@ const Hero = () => {
       </div>
       <m.button
         onClick={(e) => scrollToIntro()}
-        className="absolute bottom-12 w-full flex justify-center z-10"
+        className="absolute bottom-24 w-full flex justify-center z-10"
         animate={{
           y: [0, 24, 0]
         }}
