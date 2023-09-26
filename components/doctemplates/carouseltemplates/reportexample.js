@@ -1,4 +1,3 @@
-"use client"
 import PageTitleReportPhone from "./reportpages/pagetitlereportphone";
 import PageTitleReport from "./reportpages/pagetitlereport";
 import PageReportPhone from "./reportpages/pagereportphone";
@@ -9,30 +8,6 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 const regexTitle = /^\d+\.\s(.+)/;
 
 const ReportExample = ({ generatedTitle, generatedSections, length }) => {
-
-  // const [sectionMustBeSplitted, setSectionMustBeSplitted] = useState("")
-  // const [sectionIndexMustBeSplitted, setSectionIndexMustBeSplitted] = useState(0)
-  // let matchingSections = []
-
-  // useEffect(() => {
-  //   {/* Select the first array to be splitted */}
-  //   console.log(sectionIndexMustBeSplitted)
-  //   if (matchingSections.length !== 0) {
-  //     setSectionMustBeSplitted(matchingSections[0])
-  //     setSectionIndexMustBeSplitted(matchingSections[1])
-  //   }
-  // },)
-
-
-  // generatedSections.reduce((accumulator, instance, index) => {
-  //   const instanceLength = instance[2].length;
-  //   if (accumulator + instanceLength > 890) {
-  //     matchingSections.push(instance[2])
-  //     matchingSections.push(index)
-  //   }
-  //   return accumulator + instanceLength;
-  // }, 0);
-
 
 
   return (

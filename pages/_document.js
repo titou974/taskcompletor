@@ -5,7 +5,6 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <title>Task Completor</title>
           <meta name="theme-color" content="#00003f"/>
           <meta
           name="description"

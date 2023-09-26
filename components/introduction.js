@@ -9,13 +9,14 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect, useRef } from "react";
-import ReportTemplate from "./doctemplates/generationtemplates/pdfreport";
+import ReportIntroTemplate from "./doctemplates/introtemplates/reportintrotemplates";
 import TypewriterComponent from "typewriter-effect";
 import { docType } from "../utils/constants";
 
+
 const Introduction = () => {
   const [displayedText, setDisplayedText] = useState("");
-  const introductionTexts = ["Task Completor permet de générer ", "des Rapports en PDF...", "des Messages...", "des Emails...", "des Lettres de Motivation..."];
+  const introductionTexts = ["Générez en quelques secondes ", "des Rapports en PDF...", "des Messages...", "des Emails...", "des Lettres de Motivation..."];
   const [isBubbleVisible, setIsBubbleVisible] = useState(false);
   const [showReportExample, setShowReportExample] = useState(false);
   const [showMessageExample, setShowMessageExample] = useState(false);
@@ -43,14 +44,15 @@ const Introduction = () => {
 
 
   return (
-    <div className={`${styles.padding} relative h-screen overflow-hidden flex flex-col justify-between`}>
-      <m.div initial="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} whileInView="show" viewport={{once: true}} className="flex justify-center items-center bg-[#e1e5e6] w-full md:w-1/2 h-[100px] rounded-full mx-auto relative  shadow-xl my-6 sm:my-0">
-        <div className="break-words mx-auto w-10/12 text-center" ref={typewriterRef}>
+    <div className={`${styles.padding} relative h-screen overflow-hidden flex flex-col justify-between gap-5`}>
+      <m.div initial="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} whileInView="show" viewport={{once: true}} className="flex justify-center items-center bg-[#e1e5e6] w-full lg:w-1/2 h-[100px] rounded-full mx-auto relative  shadow-xl mt-2 sm:my-0">
+        <div className="break-words mx-auto w-10/12 text-center hide-br py-2" ref={typewriterRef}>
           {isBubbleVisible && (
             <TypewriterComponent
               onInit={(typewriter) => {
                 typewriter.changeDelay(50)
-                  .typeString(introductionTexts[0])
+                  .changeDeleteSpeed(1)
+                  .typeString(`${introductionTexts[0]}<br>`)
                   .typeString(`<strong style="color: #046CF1">${introductionTexts[1]}</strong>`)
                   .callFunction(() => {
                     console.log('String typed out!');
@@ -58,13 +60,14 @@ const Introduction = () => {
                   .pauseFor(1000)
                   .deleteChars(22)
                   .typeString(`<strong style="color: #046CF1">${introductionTexts[2]}</strong>`)
-                  .pauseFor(1000)
+                  .pauseFor(2000)
                   .callFunction(() => {
                     console.log('All strings were deleted');
                   })
                   .deleteChars(15)
                   .typeString(`<strong style="color: #046CF1">${introductionTexts[3]}</strong>`)
-                  .pauseFor(1000)
+                  .pauseFor(2000)
+                  .deleteAll(1)
                   .callFunction(() => {
                     console.log('All strings were deleted');
                   })
@@ -82,12 +85,19 @@ const Introduction = () => {
         </svg>
       </m.div>
       <div className="w-full">
+        <AnimatePresence>
+          {
+            <m.div initial="hidden" variants={fadeIn("right", "spring", 0.33, 0.75)} whileInView="show" viewport={{once: true}}>
+              <ReportIntroTemplate  generatedTitle={docType[0].example.title} generatedSections={docType[0].example.sections} length={6} />
+            </m.div>
+          }
+        </AnimatePresence>
       </div>
-      <m.div initial="hidden" variants={fadeIn("right", "spring", 0.5, 0.75)} whileInView="show" viewport={{once: true}} className="w-full">
+      <m.div initial="hidden" variants={fadeIn("right", "spring", 0.4, 0.75)} whileInView="show" viewport={{once: true}} className="w-full">
         <Link
           href="/generator" className={`font-bold my-8 z-10 rounded-md mx-auto`}
         >
-            <m.button className="cta3 py-8 w-full md:w-1/2 mx-auto" initial="hidden" variants={fadeIn("right", "spring", 0.5, 0.75)} whileInView="show" viewport={{once: true}}>
+            <m.button className="cta3 py-8 lg:py-0 xl:py-6 w-full lg:w-1/2 mx-auto" whileInView="show" viewport={{once: true}}>
               <p className={`xl:text-[60px] md:text-[35px] sm:text-[50px] xs:text-[40px] text-[30px] lg:leading-[98px]`}>Créer</p>
               <FontAwesomeIcon
                 icon={faChevronRight}
