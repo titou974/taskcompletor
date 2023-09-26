@@ -45,7 +45,7 @@ const Hero = () => {
             <div className="flex justify-center align-center gap-4 lg:gap-6">
               <h1 className="text-[20px] sm:text-[50px] lg:text-[60px]">Task Completor</h1>
               <div className="w-[30px] sm:w-[50px] md:w-[60px] ">
-                <Image src={feather} />
+                <Image src={feather} alt="a feather"/>
               </div>
             </div>
             <h2 className="pt-4 text-center text-sm md:text-2xl">Une IA pour gérer vos tâches du quotidien</h2>

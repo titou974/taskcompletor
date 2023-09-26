@@ -44,7 +44,7 @@ const Introduction = () => {
 
   return (
     <div className={`${styles.padding} relative h-screen overflow-hidden flex flex-col justify-between`}>
-      <m.div initial="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} whileInView="show" viewport={{once: true}} className="flex justify-center items-center bg-[#e1e5e6] w-full md:w-1/2 h-[100px] rounded-full mx-auto relative  shadow-xl">
+      <m.div initial="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} whileInView="show" viewport={{once: true}} className="flex justify-center items-center bg-[#e1e5e6] w-full md:w-1/2 h-[100px] rounded-full mx-auto relative  shadow-xl my-6 sm:my-0">
         <div className="break-words mx-auto w-10/12 text-center" ref={typewriterRef}>
           {isBubbleVisible && (
             <TypewriterComponent
