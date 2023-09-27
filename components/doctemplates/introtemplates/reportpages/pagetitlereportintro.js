@@ -1,11 +1,12 @@
 import reactStringReplace from "react-string-replace";
 let replacedLogo;
 const regexTitle = /^\d+\.\s(.+)/;
+import style from "../../../../css/ReportIntro.module.css";
 
 const PageTitleReportIntro = ({generatedTitle, generatedSections}) => {
   return (
-    <div className="a4-container-intro align-center flex gap-x-4 mb-2">
-      <div className="a4-intro py-[20px] md:py-[15px] lg:py-[25px] xl:py-[25px] sm:px-10 md:px-5 lg:px-10">
+    <div className={`${style.a4ContainerIntro} align-center flex gap-x-4 mb-2`}>
+      <div className={`${style.a4Intro} py-[20px] md:py-[15px] lg:py-[25px] xl:py-[25px] sm:px-10 md:px-5 lg:px-10`}>
         <h2 className="font-bold text-center pb-2">{generatedTitle}</h2>
         <div className={`py-3 hidden sm:block md:hidden`}>
           {generatedSections.map((section, index) => (

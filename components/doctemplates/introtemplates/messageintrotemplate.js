@@ -7,6 +7,7 @@ import {
 import {useState, useEffect} from 'react'
 import { motion } from 'framer-motion';
 import { fadeIn, slideIn } from "../../../utils/motion";
+import style from "../../../css/ImessageIntro.module.css"
 
 const MessageTemplateIntro = ({messageText, dest}) => {
     const [paragraphes, setParagraphes] = useState([]);
@@ -43,24 +44,24 @@ const MessageTemplateIntro = ({messageText, dest}) => {
     }
 
     return (
-        <div className="imessage-container-intro w-full rounded-md text-[10px] max-w-[521px] mx-auto">
-            <div className='imessage-bar-intro rounded-md'>
-                <div className='imessage-contact-intro'>
+        <div className={`${style.imessageContainerIntro} w-full rounded-md text-[10px] 2xl:text-[15px] max-w-[521px] 2xl:max-w-1/2 mx-auto`}>
+            <div className={`${style.imessageBarIntro} rounded-md`}>
+                <div className={`${style.imessageContactIntro}`}>
                     <p>{destInitial}</p>
                 </div>
-                <div className="imessage-name-intro">
+                <div className={style.imessageNameIntro}>
                     <p className="pt-[2px]">{dest}</p>
                     <FontAwesomeIcon icon={faChevronRight} className="w-[8px] text-[#A8AEBC]"/>
                 </div>
             </div>
-            <div className='px-5 py-5 md:p-5'>
-                <div className="imessage-bubble-intro relative">
-                    <button className={`absolute top-[-30px] right-0 bg-tertiary px-2 py-2 rounded-md font-bold hover:bg-white hover:text-black transition-colors w-9/12 md:w-1/2 text-[10px]`} onClick={copyMessage}>
+            <div className='px-5 py-5 md:p-5 2xl:py-10 '>
+                <div className={`${style.imessageBubbleIntro} relative`}>
+                    <button className={`absolute top-[-30px] right-0 bg-tertiary px-2 py-2 rounded-md font-bold hover:bg-white hover:text-black transition-colors w-9/12 md:w-1/2 text-[10px] 2xl:text-[15px]`} onClick={copyMessage}>
                         {messageCopied ? "Copié ✅" : "Copier le Message"}
                     </button>
                 {
                     paragraphes.map((paragraph, index) => (
-                        <p className="my-2 imessage-text-intro" key={`paragraph${index}`} >{paragraph}</p>
+                        <p className={`${style.imessageTextIntro} my-2 2xl:text-[20px] 2xl:my-5`} key={`paragraph${index}`} >{paragraph}</p>
                     ))
                 }
                 <svg width="26" height="38" viewBox="0 0 26 38" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute bottom-[-13px] right-[-1px]">

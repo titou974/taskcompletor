@@ -36,8 +36,6 @@ const ReportExample = ({ generatedTitle, generatedSections, length }) => {
           }
           </div>
         </Carousel>
-        <div className="pages-nav-phone absolute left-1/2">
-        </div>
       </div>
       <div className="hidden sm:block">
         <Carousel infiniteLoop autoPlay interval={5000} showStatus={false} showThumbs={false} >

@@ -1,0 +1,46 @@
+.inputClassic {
+  position: relative;
+}
+
+.inputClassic input {
+  border: none;
+  -webkit-appearance: none;
+  -ms-progress-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #0256c2;
+  width: 100%;
+  padding: 16px;
+  outline: none;
+  border-radius: 6px;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+
+.inputClassic input:valid:hover {
+  background-color: rgb(255 255 255 / 0.12);
+}
+
+.placeholderInputClassic {
+  position: absolute;
+  left: 12px;
+  top: calc(50%);
+  transform: translateY(-50%);
+  color: rgb(203 213 225);
+  cursor: text;
+  transition:
+    top 0.3s ease,
+    font-size 0.3s ease,
+    color 0.3s ease;
+}
+
+.inputClassic input:focus + .placeholderInputClassic,
+.inputClassic input:valid + .placeholderInputClassic {
+  top: -18px;
+  font-size: 14px;
+  color: white;
+}
+
+.inputClassic input:valid  {
+  background-color: #011B6B;
+}

@@ -1,4 +1,5 @@
 import "../css/tailwind.css";
+import "../css/global.css";
 import { m, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
 import { LazyMotion, domAnimation } from "framer-motion";

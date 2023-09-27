@@ -1,0 +1,56 @@
+.imessageContainer {
+  background-color: black;
+  font-family: "Helvetica Neue";
+}
+
+.imessageBar {
+  background-color: #1A1A1A;
+  width: 100%;
+  padding: 1em;
+  margin-bottom: 2em;
+}
+
+.imessageContact {
+  background-color: #A8AEBC;
+  border-radius: 100%;
+  font-family: "Helvetica Neue";
+  font-size: 1.5em;
+  color: white;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imessageName {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5em 0 0 0;
+}
+
+.imessageName > p {
+  font-family: "Helvetica Neue Condensed";
+  text-align: center;
+  margin: 0 0.2em;
+}
+
+.imessageBubble {
+  max-width: 400px;
+  word-wrap: break-word;
+  line-height: 24px;
+  position: relative;
+	padding: 10px 20px;
+  border-radius: 25px;
+  margin: 0 auto;
+  background-color: #046CF1;
+  align-self: flex-end;
+}
+
+
+.imessageText {
+  font-family: "Helvetica Neue Condensed";
+  font-size: 20px;
+}

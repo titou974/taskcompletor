@@ -7,6 +7,7 @@ import {
 import {useState, useEffect} from 'react'
 import { motion } from 'framer-motion';
 import { fadeIn, slideIn } from "../../../utils/motion";
+import style from "../../../css/ImessageGenerated.module.css"
 
 const MessageTemplate = ({messageText, dest}) => {
     const [paragraphes, setParagraphes] = useState([]);
@@ -43,24 +44,24 @@ const MessageTemplate = ({messageText, dest}) => {
     }
 
     return (
-        <motion.div variants={slideIn('left', 'tween', 0, 0.5)} animate={messageText === "" ? "hidden" : "show" } className="imessage-container w-full rounded-md">
-            <div className='imessage-bar rounded-md'>
-                <div className='imessage-contact'>
+        <motion.div variants={slideIn('left', 'tween', 0, 0.5)} animate={messageText === "" ? "hidden" : "show" } className={`${style.imessageContainer} w-full rounded-md`}>
+            <div className={`${style.imessageBar} rounded-md`}>
+                <div className={`${style.imessageContact}`}>
                     <p>{destInitial}</p>
                 </div>
-                <div className="imessage-name">
+                <div className={style.imessageName}>
                     <p>{dest}</p>
                     <FontAwesomeIcon icon={faChevronRight} className="w-[8px] text-[#A8AEBC]"/>
                 </div>
             </div>
             <div className='px-5 py-10 md:p-10'>
-                <motion.div variants={fadeIn("right", "spring", 0.75, 1)} className="imessage-bubble relative">
+                <motion.div variants={fadeIn("right", "spring", 0.75, 1)} className={`${style.imessageBubble} relative`}>
                     <button className={`absolute top-[-30px] right-0 bg-tertiary px-4 py-3 rounded-md font-bold hover:bg-white hover:text-black transition-colors w-9/12 md:w-1/2`} onClick={copyMessage}>
                         {messageCopied ? "Copié ✅" : "Copier le Message"}
                     </button>
                 {
                     paragraphes.map((paragraph, index) => (
-                        <p className="my-5 imessage-text" key={`paragraph${index}`} >{paragraph}</p>
+                        <p className={`my-5 ${style.imessageText}`} key={`paragraph${index}`} >{paragraph}</p>
                     ))
                 }
                 <svg width="26" height="38" viewBox="0 0 26 38" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute bottom-[-13px] right-[-1px]">

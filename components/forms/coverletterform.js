@@ -3,18 +3,19 @@ import RadioGroupLanguage from "./inputs/radiogrouplanguage";
 import IconNumber from "../iconnumber";
 import { m } from "framer-motion";
 import { fadeIn, textVariant } from "../../utils/motion";
+import style from "../../css/InputName.module.css"
 
 const CoverLetterForm = ({myName, setMyName, dest, setDest, language, setLanguage, job, setJob, competences, setCompetences, experiences, setExperiences}) => {
     return (
         <div className="w-full md:w-1/2 mx-auto">
             <div className="w-full flex justify-between gap-5 my-10">
-              <m.label variants={fadeIn("right", "spring", 0.5, 0.75)} className="input-classic">
-                <input required type="text" onChange={(e) => setMyName(e.target.value)} className="input-classic w-5/12 rounded-md transition-all"/>
-                <span className="placeholder-input-classic ">Votre nom</span>
+              <m.label variants={fadeIn("right", "spring", 0.5, 0.75)} className={style.inputClassic}>
+                <input required type="text" onChange={(e) => setMyName(e.target.value)} className={`${style.inputClassic} w-5/12 rounded-md transition-all`}/>
+                <span className={style.placeholderInputClassic}>Votre nom</span>
               </m.label>
-              <m.label className="input-classic" variants={fadeIn("right", "spring", 0.75, 0.75)}>
-                <input required type="text" onChange={(e) => setDest(e.target.value)} className="input-classic w-5/12 rounded-md transition-all"/>
-                <span className="placeholder-input-classic">Destinataire</span>
+              <m.label variants={fadeIn("right", "spring", 0.75, 0.75)} className={style.inputClassic}>
+                <input required type="text" onChange={(e) => setDest(e.target.value)} className={`${style.inputClassic} w-5/12 rounded-md transition-all`}/>
+                <span className={style.placeholderInputClassic}>Destinataire</span>
               </m.label>
             </div>
             <m.div variants={textVariant(1)} className={`flex items-center gap-4 w-full pt-20`}>

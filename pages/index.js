@@ -1,8 +1,6 @@
 import Head from "next/head";
 import Hero from "../components/hero";
-import Navbar from "../components/navbar";
-import { useState, useEffect, useRef } from "react";
-import Introduction from "../components/introduction";
+import { useState, useEffect } from "react";
 
 const Home = () => {
   const [navbarStepper, setNavbarStepper] = useState(false);

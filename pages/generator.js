@@ -383,7 +383,7 @@ const Generator = () => {
                 )}
                 {modifyingStep && (
                   <button
-                    className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} w-[80px] h-[80px] bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary shadow-button lg:w-[100px] lg:h-[100px]`}
+                    className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary shadow-button w-[100px] h-[100px]`}
                     onClick={() => goToModifying()}
                   >
                     <ArrowRightCircleIcon className="h-[35px] w-[35px] lg:w-[50px] lg:h-[50px] mx-auto" />
@@ -430,10 +430,10 @@ const Generator = () => {
                   }
                   <div className={`flex mt-20 ${doc === "Message" || doc === "Email" ? "justify-center" : "justify-between" } align-center w-full md:w-1/2 mx-auto`}>
                     <button
-                      className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} w-[80px] h-[80px] bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary lg:w-[100px] lg:h-[100px]`}
+                      className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary w-[100px] h-[100px]`}
                       onClick={() => backToGeneration()}
                     >
-                      <ArrowLeftCircleIcon className="h-[35px] w-[35px] mx-auto lg:w-[50px] lg:h-[50px]" />
+                      <ArrowLeftCircleIcon className="h-[35px] w-[35px] mx-auto w-[50px] h-[50px]" />
                     </button>
                     {
                       ((!loading && !saved) && (doc === "Rapport" || doc === "Lettre de motivation")) && (

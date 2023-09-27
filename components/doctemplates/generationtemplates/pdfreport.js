@@ -38,8 +38,6 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
             )
           }
           </div>
-        <div className="pages-nav-phone absolute left-1/2">
-        </div>
       </div>
       <div className="hidden sm:block">
         {

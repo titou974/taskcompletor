@@ -1,7 +1,9 @@
+import style from "../../../../css/ReportGenerated.module.css"
+
 const PageReportGenerated = ({generatedSections, color}) => {
   return (
-    <div className="a4-container align-center flex gap-x-4 mb-2">
-      <div className="a4 py-[40px] md:py-[25px] lg:py-[50px] xl:py-[30px] sm:px-10 md:px-8 lg:px-10">
+    <div className={`${style.a4Container} align-center flex gap-x-4 mb-2`}>
+      <div className={`${style.a4} a4 py-[40px] md:py-[25px] lg:py-[50px] xl:py-[30px] sm:px-10 md:px-8 lg:px-10`}>
         <div className={`py-3 block md:hidden`}>
           {generatedSections.map((section, index) => (
             <div key={index} className="py-4">
