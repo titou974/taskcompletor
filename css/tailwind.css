@@ -658,6 +658,63 @@ body {
   font-size: 20px;
 }
 
+.imessage-container-intro {
+  background-color: black;
+  font-family: "Helvetica Neue";
+}
+
+.imessage-bar-intro {
+  background-color: #1A1A1A;
+  width: 100%;
+  padding: 1em;
+  margin-bottom: 2em;
+}
+
+.imessage-contact-intro {
+  background-color: #A8AEBC;
+  border-radius: 100%;
+  font-family: "Helvetica Neue";
+  font-size: 1.5em;
+  color: white;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imessage-name-intro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5em 0 0 0;
+}
+
+.imessage-name-intro > p {
+  font-family: "Helvetica Neue Condensed";
+  text-align: center;
+  margin: 0 0.2em;
+}
+
+.imessage-bubble-intro {
+  max-width: 400px;
+  word-wrap: break-word;
+  line-height: 24px;
+  position: relative;
+	padding: 10px 20px;
+  border-radius: 25px;
+  margin: 0 auto;
+  background-color: #046CF1;
+  align-self: flex-end;
+}
+
+
+.imessage-text-intro {
+  font-family: "Helvetica Neue Condensed";
+  font-size: 10px;
+}
+
 
 .bg-navbar {
   background: rgba(1, 0, 65, 0.36);

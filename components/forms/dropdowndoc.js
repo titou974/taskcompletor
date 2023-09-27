@@ -96,18 +96,20 @@ const DropDownDoc = ({ type, setType }) => {
                   <ClockIcon className='w-6 h-6 text-white me-2' />
                   <p className='italic'>≈ {selectedDoc.generation_time}</p>
                 </div>
-                <div className={`${selectedDoc.title === "Rapport" ? "" : "hidden" } py-5`}>
-                  <p className='font-bold'>Exemple de Rapport généré en PDF</p>
-                  <div className='flex flex-col items-center'>
-                    <ul className='py-5 italic text-sm'>
-                      <li className='py-2 px-10 my-2 bg-[#011B6B] rounded-full'>Language: formel</li>
-                      <li className='py-2 px-4 my-2 bg-[#011B6B] rounded-full'>Sujet: "le musée de l'art et de l'espace"</li>
-                    </ul>
+                { selectedDoc.title === "Rapport" && (
+                  <div className={`${selectedDoc.title === "Rapport" ? "" : "hidden" } py-5`}>
+                    <p className='font-bold'>Exemple de Rapport généré en PDF</p>
+                    <div className='flex flex-col items-center'>
+                      <ul className='py-5 italic text-sm'>
+                        <li className='py-2 px-10 my-2 bg-[#011B6B] rounded-full'>Language: formel</li>
+                        <li className='py-2 px-4 my-2 bg-[#011B6B] rounded-full'>Sujet: "le musée de l'art et de l'espace"</li>
+                      </ul>
+                    </div>
+                    <div className='w-full'>
+                      <ReportExample  generatedTitle={selectedDoc.example.title} generatedSections={selectedDoc.example.sections} length={6} />
+                    </div>
                   </div>
-                  <div className='w-full'>
-                    <ReportExample  generatedTitle={selectedDoc.example.title} generatedSections={selectedDoc.example.sections} length={6} />
-                  </div>
-                </div>
+                )}
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>

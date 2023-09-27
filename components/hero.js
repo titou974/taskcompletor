@@ -24,7 +24,7 @@ const Hero = () => {
   });
   const backgroundY2 = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "200%"])
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "300%"])
 
   const scrollToIntro = () => {
     if (introductionRef.current !== null) {

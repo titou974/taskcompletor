@@ -12,6 +12,7 @@ import { useState, useEffect, useRef } from "react";
 import ReportIntroTemplate from "./doctemplates/introtemplates/reportintrotemplates";
 import TypewriterComponent from "typewriter-effect";
 import { docType } from "../utils/constants";
+import MessageTemplateIntro from "./doctemplates/introtemplates/messageintrotemplate";
 
 
 const Introduction = () => {
@@ -20,7 +21,7 @@ const Introduction = () => {
   const [isBubbleVisible, setIsBubbleVisible] = useState(false);
   const [showReportExample, setShowReportExample] = useState(false);
   const [showMessageExample, setShowMessageExample] = useState(false);
-  const [showMEmailExample, setShowEmailExample] = useState(false);
+  const [showEmailExample, setShowEmailExample] = useState(false);
   const [showCoverLetterExample, setShowCoverLetterExample] = useState(false);
   const typewriterRef = useRef(null);
 
@@ -44,27 +45,33 @@ const Introduction = () => {
 
 
   return (
-    <div className={`${styles.padding} relative h-screen overflow-hidden flex flex-col justify-between gap-5`}>
-      <m.div initial="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} whileInView="show" viewport={{once: true}} className="flex justify-center items-center bg-[#e1e5e6] w-full lg:w-1/2 h-[100px] rounded-full mx-auto relative  shadow-xl mt-2 sm:my-0">
+    <div className={`${styles.padding} relative h-screen overflow-hidden flex flex-col gap-5`}>
+      <m.div initial="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} whileInView="show" viewport={{once: true}} className="flex justify-center items-center bg-[#e1e5e6] w-full lg:w-1/2 h-[100px] min-h-[100px] rounded-full mx-auto relative  shadow-xl mt-2 sm:my-0">
         <div className="break-words mx-auto w-10/12 text-center hide-br py-2" ref={typewriterRef}>
           {isBubbleVisible && (
             <TypewriterComponent
               onInit={(typewriter) => {
                 typewriter.changeDelay(50)
                   .changeDeleteSpeed(1)
+                  .callFunction(() => {
+                    setShowReportExample(true);
+                  })
                   .typeString(`${introductionTexts[0]}<br>`)
                   .typeString(`<strong style="color: #046CF1">${introductionTexts[1]}</strong>`)
-                  .callFunction(() => {
-                    console.log('String typed out!');
-                  })
                   .pauseFor(1000)
                   .deleteChars(22)
+                  .callFunction(() => {
+                    setShowReportExample(false);
+                  })
+                  .callFunction(() => {
+                    setShowMessageExample(true);
+                  })
                   .typeString(`<strong style="color: #046CF1">${introductionTexts[2]}</strong>`)
                   .pauseFor(2000)
-                  .callFunction(() => {
-                    console.log('All strings were deleted');
-                  })
                   .deleteChars(15)
+                  .callFunction(() => {
+                    setShowMessageExample(false);
+                  })
                   .typeString(`<strong style="color: #046CF1">${introductionTexts[3]}</strong>`)
                   .pauseFor(2000)
                   .deleteAll(1)
@@ -86,14 +93,19 @@ const Introduction = () => {
       </m.div>
       <div className="w-full">
         <AnimatePresence>
-          {
-            <m.div initial="hidden" variants={fadeIn("right", "spring", 0.33, 0.75)} whileInView="show" viewport={{once: true}}>
+          { showReportExample && (
+            <m.div initial="hidden" variants={fadeIn("right", "spring", 0.33, 0.75)} exit="hidden" whileInView="show" viewport={{once: true}}>
               <ReportIntroTemplate  generatedTitle={docType[0].example.title} generatedSections={docType[0].example.sections} length={6} />
             </m.div>
-          }
+          )}
+          { showMessageExample && (
+            <m.div initial="hidden" variants={fadeIn("right", "spring", 0.33, 0.75)} exit="hidden" whileInView="show" viewport={{once: true}} className="text-white w-full lg:w-1/2 mx-auto">
+              <MessageTemplateIntro messageText={docType[1].example.messageText} dest={docType[1].example.dest} />
+            </m.div>
+          )}
         </AnimatePresence>
       </div>
-      <m.div initial="hidden" variants={fadeIn("right", "spring", 0.4, 0.75)} whileInView="show" viewport={{once: true}} className="w-full">
+      <m.div initial="hidden" variants={fadeIn("right", "spring", 0.4, 0.75)} whileInView="show" viewport={{once: true}} className={`${styles.paddingX} w-full fixed bottom-8 left-1 right-1`}>
         <Link
           href="/generator" className={`font-bold my-8 z-10 rounded-md mx-auto`}
         >

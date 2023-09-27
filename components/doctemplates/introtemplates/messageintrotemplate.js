@@ -8,7 +8,7 @@ import {useState, useEffect} from 'react'
 import { motion } from 'framer-motion';
 import { fadeIn, slideIn } from "../../../utils/motion";
 
-const MessageTemplate = ({messageText, dest}) => {
+const MessageTemplateIntro = ({messageText, dest}) => {
     const [paragraphes, setParagraphes] = useState([]);
     const [messageCopied, setMessageCopied] = useState(false);
     const [destInitial, setDestInitial] = useState('');
@@ -26,7 +26,7 @@ const MessageTemplate = ({messageText, dest}) => {
     useEffect(() => {
         regexSelector(messageText);
         handleContactName();
-    })
+    }, [messageText])
 
     const handleContactName = () => {
         const names = dest.split(' ');
@@ -43,33 +43,33 @@ const MessageTemplate = ({messageText, dest}) => {
     }
 
     return (
-        <motion.div variants={slideIn('left', 'tween', 0, 0.5)} animate={messageText === "" ? "hidden" : "show" } className="imessage-container w-full rounded-md">
-            <div className='imessage-bar rounded-md'>
-                <div className='imessage-contact'>
+        <div className="imessage-container-intro w-full rounded-md text-[10px] max-w-[521px] mx-auto">
+            <div className='imessage-bar-intro rounded-md'>
+                <div className='imessage-contact-intro'>
                     <p>{destInitial}</p>
                 </div>
-                <div className="imessage-name">
-                    <p>{dest}</p>
+                <div className="imessage-name-intro">
+                    <p className="pt-[2px]">{dest}</p>
                     <FontAwesomeIcon icon={faChevronRight} className="w-[8px] text-[#A8AEBC]"/>
                 </div>
             </div>
-            <div className='px-5 py-10 md:p-10'>
-                <motion.div variants={fadeIn("right", "spring", 0.75, 1)} className="imessage-bubble relative">
-                    <button className={`absolute top-[-30px] right-0 bg-tertiary px-4 py-3 rounded-md font-bold hover:bg-white hover:text-black transition-colors w-9/12 md:w-1/2`} onClick={copyMessage}>
+            <div className='px-5 py-5 md:p-5'>
+                <div className="imessage-bubble-intro relative">
+                    <button className={`absolute top-[-30px] right-0 bg-tertiary px-2 py-2 rounded-md font-bold hover:bg-white hover:text-black transition-colors w-9/12 md:w-1/2 text-[10px]`} onClick={copyMessage}>
                         {messageCopied ? "Copié ✅" : "Copier le Message"}
                     </button>
                 {
                     paragraphes.map((paragraph, index) => (
-                        <p className="my-5 imessage-text" key={`paragraph${index}`} >{paragraph}</p>
+                        <p className="my-2 imessage-text-intro" key={`paragraph${index}`} >{paragraph}</p>
                     ))
                 }
                 <svg width="26" height="38" viewBox="0 0 26 38" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute bottom-[-13px] right-[-1px]">
                   <path fillRule="evenodd" clipRule="evenodd" d="M17.0188 12.2934C20.2739 9.01283 22.9225 5.12408 25.4628 0.167536L19.6593 19.8361L19.6573 19.9007C19.5103 24.8087 19.863 28.2998 20.9007 31.2585C21.7433 33.6606 23.0274 35.6833 24.8109 37.812C19.7691 35.8577 16.0807 34.1019 12.9722 32.1196C9.49466 29.902 6.7243 27.3891 3.59219 23.9652L3.49827 23.8625L0.367964 22.9389C7.59849 19.7427 12.803 16.5424 17.0188 12.2934Z" fill="#046CF1"/>
                 </svg>
-                </motion.div>
+                </div>
             </div>
-        </motion.div>
+        </div>
     )
 }
 
-export default MessageTemplate;
+export default MessageTemplateIntro;

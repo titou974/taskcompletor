@@ -61,8 +61,8 @@ export const docType = [
       ]],
     generation_time: "30 secondes",
     example: {
-      title: "Rapport sur le musée de l'art et de l'espace en 1970",
-      sections: [["", ""], ["", ""], ["", ""]]
+      dest: "Mary",
+      messageText: "Hey Mary,\nI just wanted to take a moment to thank you for inviting me to your last party. I had such a great time and it meant a lot to me that you thought of me. The atmosphere was amazing, the food was delicious, and the company was fantastic. I truly appreciate your hospitality and the effort you put into making everyone feel welcome. It was definitely a night to remember.\nOnce again, thank you so much for including me. I'm incredibly grateful and I can't wait for the next get-together.\nTake care,\nLucas"
     }
   },
   {
@@ -220,5 +220,3 @@ export const messageLengthIndex = [
     description: "Genère un message long"
   }
 ]
-
-
