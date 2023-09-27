@@ -59,7 +59,7 @@ const EmailForm = ({myName, setMyName, dest, setDest, mailType, setMailType, lan
                 </h2>
             </m.div>
             <m.div variants={fadeIn("top", "spring", 1.25, 0.75)} >
-              <RadioGroupLanguage language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} />
+              <RadioGroupLanguage language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} docType="email" />
             </m.div>
             <div className={`flex items-center gap-4 w-full pt-20`}>
               <IconNumber number={3} color={colorIcon} />

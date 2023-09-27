@@ -1,8 +1,9 @@
 import { RadioGroup } from '@headlessui/react';
-import { languageIndex } from '../../../utils/constants/index';
+import { languageIndexMessage } from '../../../utils/constants/index';
+import { languageIndexEmail } from '../../../utils/constants/index';
 
 
-const RadioGroupLanguage = ({language, setLanguage}) => {
+const RadioGroupLanguage = ({language, setLanguage, docType}) => {
 
   return (
     <div className="w-full pt-10">
@@ -10,7 +11,7 @@ const RadioGroupLanguage = ({language, setLanguage}) => {
         <RadioGroup value={language} onChange={setLanguage}>
           <RadioGroup.Label className="sr-only">Langue</RadioGroup.Label>
           <div className="space-y-2">
-            {languageIndex.map((language) => (
+            {docType === "email" && ( languageIndexEmail.map((language) => (
               <RadioGroup.Option
                 key={language.id}
                 value={language.id}
@@ -60,7 +61,58 @@ const RadioGroupLanguage = ({language, setLanguage}) => {
                   </>
                 )}
               </RadioGroup.Option>
-            ))}
+            )))}
+            {docType === "message" && ( languageIndexEmail.map((language) => (
+              <RadioGroup.Option
+                key={language.id}
+                value={language.id}
+                className={({ active, checked }) =>
+                  `${
+                    active
+                      ? 'ring-2 ring-white ring-opacity-100'
+                      : ''
+                  }
+                  ${
+                    checked ? 'bg-tertiary bg-opacity-75 text-white' : 'bg-[#0256c2] hover:bg-white/[0.12] transition-colors'
+                  }
+                    relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none`
+                }
+              >
+                {({ active, checked }) => (
+                  <>
+                    <div className="flex w-full items-center justify-between">
+                      <div className="flex items-center">
+                        <div className="text-sm">
+                          <RadioGroup.Label
+                            as="p"
+                            className={`font-medium  ${
+                              checked ? 'text-white' : 'text-slate-300'
+                            }`}
+                          >
+                            {language.title}
+                          </RadioGroup.Label>
+                          <RadioGroup.Description
+                            as="span"
+                            className={`inline ${
+                              checked ? 'text-sky-100' : 'text-slate-400'
+                            }`}
+                          >
+                            <span>
+                              {language.description}
+                            </span>
+                          </RadioGroup.Description>
+                        </div>
+                      </div>
+                      {checked && (
+                        <div className="shrink-0 text-white">
+                          <CheckIcon className="h-6 w-6" />
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
+              </RadioGroup.Option>
+            )))}
           </div>
         </RadioGroup>
       </div>

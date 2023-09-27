@@ -184,7 +184,7 @@ export const mailTypeIndex = [
   }
 ];
 
-export const languageIndex = [
+export const languageIndexMessage = [
   {
     id: "français",
     title: "Français 🇫🇷"
@@ -200,6 +200,21 @@ export const languageIndex = [
   {
     id: "chinois",
     title: "Chinois 🇨🇳"
+  }
+];
+
+export const languageIndexEmail = [
+  {
+    id: "français",
+    title: "Français 🇫🇷"
+  },
+  {
+    id: "anglais",
+    title: "Anglais 🇬🇧"
+  },
+  {
+    id: "espagnol",
+    title: "Espagnol 🇪🇸"
   }
 ];
 

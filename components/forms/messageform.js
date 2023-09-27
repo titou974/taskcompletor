@@ -65,7 +65,7 @@ const MessageForm = ({myName, setMyName, dest, setDest, emotion, setEmotion, lan
                 </h2>
             </m.div>
             <m.div variants={fadeIn("bottom", "spring", 1.25, 0.75)}>
-              <RadioGroupLanguage language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} />
+              <RadioGroupLanguage language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} docType="message" />
             </m.div>
             <div className={`flex items-center gap-4 w-full pt-20`}>
                 <IconNumber number={3} color={messageLength === "" ? "white" : "green"} />

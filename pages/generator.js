@@ -102,18 +102,7 @@ const Generator = () => {
     } else {
       setDevelopSubject(false)
     }
-  })
-
-  {/* ClassList adding for navbar display*/}
-
-  useEffect(() => {
-    if (generatorIntersection) {
-      document.documentElement.classList.add("stepper")
-    } else {
-      document.documentElement.classList.remove("stepper")
-    }
-
-  })
+  }, [subject])
 
   {/* Generation Bug Alert  && nav between steps*/}
 
@@ -125,7 +114,7 @@ const Generator = () => {
     } else if (finalText === "" || !doneGeneration) {
       setModifyingStep(false);
   }
-});
+}, [finalText, doneGeneration, generationError]);
 
 
 
@@ -178,7 +167,7 @@ const Generator = () => {
         `Écrivez un rapport d'une page maximum sur le sujet ${subject} en utilisant un langage ${lang === "informel" ? "familier" : "formel"}. Structurez votre rapport ${lang === "informel" ? "avec un titre et" : ""} en sections principales, numérotées de manière claire et concise (1, 2, 3, etc.). Assurez-vous d'inclure les informations les plus importantes et les principales idées dans chaque section. Veillez à utiliser le ton et le registre appropriés pour le style de langage choisi. Concentrez-vous sur la clarté et la précision de votre écriture tout en respectant la limite d'une page maximum.`,
       );
     } else if (doc === "Email") {
-      setPrompt(`Peux-tu rédiger un courrier électronique qui commence par l'objet, suivi par le texte, et la signature, s'il te plaît ? (tu dois strictement suivre cette structure.) J'aimerais que tu inclues les informations suivantes :
+      setPrompt(`Peux-tu rédiger un courrier électronique qui commence par l'objet, suivi par le texte, et la signature (en mettant uniquement le nom de l'expéditeur), s'il te plaît ? (tu dois strictement suivre cette structure.) Tiens toi absolument à une limite de 150 mots. J'aimerais que tu inclues les informations suivantes :
 
       Nom de l'expéditeur (à mettre en signature du mail) : ${myName}
       Nom du destinataire : ${dest}
@@ -186,14 +175,6 @@ const Generator = () => {
       Langue : ${language}
       Sujet du mail : ${subject}
       Merci beaucoup !`)
-    } else if (doc === "Exercice") {
-      setPrompt(
-        `Vous êtes un ${persoType} dans le domaine de ${domain}. Vous êtes sollicité pour résoudre un exercice sur ${theme}. Veuillez répondre aux questions suivantes en tant que ${persoType} : ${questions}. Veuillez fournir des explications détaillées et des exemples pertinents pour soutenir vos réponses.`,
-      );
-    } else if (doc === "Fiche de révision") {
-      setPrompt(
-        `Générez une fiche de révision sur ${theme} en ${domain}. Assurez-vous d'inclure des exemples clairs et des illustrations si possible. Organisez la fiche de manière à faciliter la révision, en utilisant des titres, des sous-titres et des puces pour les points clés.`,
-      );
     } else if (doc === "Lettre de motivation") {
       setPrompt(
         `Cher ChatGPT, je suis à la recherche d'un emploi dans ${job}. Pouvez-vous m'aider à rédiger une lettre de motivation convaincante qui mettra en valeur mes compétences (compétences: ${competences}), mon expérience pertinente (mes expériences: ${experiences}) et ma motivation à travailler pour l'entreprise ${dest} ? Mon nom est ${myName}. J'aimerais que ma lettre soit en ${language}, claire, concise et engageante, et qu'elle capture l'attention du recruteur dès le début. Merci d'avance pour votre aide précieuse !`,
@@ -205,10 +186,10 @@ const Generator = () => {
       Destinataire : ${dest}
       Sujet : ${subject}
       Langue : ${language}
-      Taille du message (court, moyen, long) : ${messageLength}
+      Taille du message (court, moyen, long) : ${messageLength === "court" && ("respecte une limite de 50 mots")} ${messageLength === "moyen" && ("respecte une limite de 100 mots")} ${messageLength === "long" && ("respecte une limite de 180 mots")}
       Émotion : ${emotion}`)
     }
-  });
+  }, [subject, lang, myName, dest, language, mailType, job, competences, experiences, messageLength, emotion]);
 
   {/* Separate Sectionstitles and Sections */}
 
@@ -226,7 +207,8 @@ const Generator = () => {
     })
     setGeneratedSectionsTitles(extractedTitles);
     setGeneratedSectionsTexts(extractedContent);
-  })
+  }, [generatedSections])
+
   const generateDoc = async (e) => {
     {/* Generate The Document*/}
     e.preventDefault();
@@ -481,7 +463,7 @@ const Generator = () => {
             {
               (showEmail && doc === "Email") && (
                 <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full`}>
-                  <MailTemplate fullmail={finalText} name={myName}/>
+                  <MailTemplate fullmail={finalText} name={myName} language={language} />
                 </m.div>
               )
             }
