@@ -226,6 +226,12 @@ const Generator = () => {
     };
   }, [loading]);
 
+  useEffect(() => {
+    console.log(finalText)
+
+  })
+
+
   const generateDoc = async (e) => {
     {/* Generate The Document*/}
     e.preventDefault();
@@ -279,25 +285,45 @@ const Generator = () => {
       {/* Regex for Report */}
       const regex1 = /Rapport[^.]*\n/;
       const regex3 = /(\d+\.\s.+)\n(.+)/g;
+      const regex4 = /(\d+\.\s.+)\n\n(.+)/g;
+
       const titleRegex = /^([^\n]+)/;
 
       {/* Structuring the Document */}
       if (doc === "Rapport") {
         if (lang === "formel") {
-          if (regex1.test(fulltext) === false) {
-            setGeneratedTitle(fulltext);
+          if (fulltext.match(regex1)) {
+            setGeneratedTitle(fulltext.match(regex1)[0]);
+          } else {
+            setGeneratedTitle(`Rapport sur ${subject}`)
           }
           const sections = [...fulltext.matchAll(regex3)];
-          setGeneratedSections(sections);
-          setLength(sections.length);
+          const sections2 = [...fulltext.matchAll(regex4)];
+
+          if (sections.length !== 0) {
+            setGeneratedSections(sections)
+            setLength(sections.length);
+          } else if (sections2.length !== 0) {
+            setGeneratedSections(sections2);
+            setLength(sections2.length);
+          } else {
+            setGenerationError(true);
+          }
           setFinalText(fulltext);
-        } else {
+        } else if (lang === "informel") {
           if (fulltext.match(titleRegex) && fulltext.match(titleRegex)[0]) {
             setGeneratedTitle(fulltext.match(titleRegex)[0]);
           }
+
           const sections = [...fulltext.matchAll(regex3)];
-          setGeneratedSections(sections);
-          setLength(sections.length);
+          const sections2 = [...fulltext.matchAll(regex4)];
+          if (sections.length !== 0) {
+            setGeneratedSections(sections)
+            setLength(sections.length);
+          } else if (sections2.length !== 0) {
+            setGeneratedSections(sections2);
+            setLength(sections2.length);
+          }
           setFinalText(fulltext);
         }
       } else if (doc === "Email" || doc === "Message") {
@@ -337,18 +363,14 @@ const Generator = () => {
     if (!isMobile) {
       { doc === "Message" || doc === "Email" ? setModalModifiedStepOpen(true) : setModalModifiedPdfOpen(true)};
     }
-    setLoading(false);
-    setDoneGeneration(true);
-    goToModifying();
-    scrollToDoc();
-    setGenerationError(false);
-    // if (finalText !== "") {
-    //   setLoading(false);
-    //   setDoneGeneration(true);
-    //   goToModifying();
-    //   scrollToDoc();
-    //   setGenerationError(false);
-    // }
+    if (generationError) {
+      setLoading(false);
+    } else {
+      setLoading(false);
+      setDoneGeneration(true);
+      goToModifying();
+      scrollToDoc();
+    }
   };
 
   return (
@@ -411,36 +433,38 @@ const Generator = () => {
                       </m.div>
                     )
                   }
-                  { (showDownload && doneGeneration) && (
-                    <m.div initial="hidden" exit="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} className={`flex justify-center align-center w-full mx-auto fixed bottom-8 left-0 right-0 z-30 ${styles.paddingX} max-w-7xl`}>
-                      {
-                        ((!loading && !saved) && (doc === "Rapport" || doc === "Lettre de motivation")) && (
-                          <button className={`cta2 w-full mx-auto md:w-1/2`} onClick={saveDocument}>
-                            <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Enregistrer</p>
-                            <ArrowDownTrayIcon className="w-[35px] md:ms-3"/>
+                  <AnimatePresence>
+                    { (showDownload && doneGeneration) && (
+                      <m.div initial="hidden" exit="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} className={`flex justify-center align-center w-full mx-auto fixed bottom-8 left-0 right-0 z-30 ${styles.paddingX} max-w-7xl`}>
+                        {
+                          ((!loading && !saved) && (doc === "Rapport" || doc === "Lettre de motivation")) && (
+                            <button className={`cta2 w-full mx-auto md:w-1/2`} onClick={saveDocument}>
+                              <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Enregistrer</p>
+                              <ArrowDownTrayIcon className="w-[35px] md:ms-3"/>
+                            </button>
+                          )
+                        }
+                        {loading && (
+                          <button
+                            disabled
+                            className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 w-full mx-auto md:w-1/2 disabled cursor-wait`}
+                          >
+                            <Loader />
                           </button>
-                        )
-                      }
-                      {loading && (
-                        <button
-                          disabled
-                          className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 w-full mx-auto md:w-1/2 disabled cursor-wait`}
-                        >
-                          <Loader />
-                        </button>
-                      )}
-                      {
-                        (saved && (doc === "Rapport" || doc === "Lettre de motivation")) && (
-                          <Link href="/mypdf" legacyBehavior className={`w-full flex justify-end`}>
-                            <a target="_blank" className={`cta2 w-full mx-auto md:w-1/2 flex`}>
-                              <p className={`${styles.sectionSubText}`}>Voir le PDF</p>
-                              <DocumentIcon className="h-[25px] w-[25px]"/>
-                            </a>
-                          </Link>
-                        )
-                      }
-                    </m.div>
-                  )}
+                        )}
+                        {
+                          (saved && (doc === "Rapport" || doc === "Lettre de motivation")) && (
+                            <Link href="/mypdf" legacyBehavior className={`w-full flex justify-end`}>
+                              <a target="_blank" className={`cta2 w-full mx-auto md:w-1/2 flex`}>
+                                <p className={`${styles.sectionSubText}`}>Voir le PDF</p>
+                                <DocumentIcon className="h-[25px] w-[25px]"/>
+                              </a>
+                            </Link>
+                          )
+                        }
+                      </m.div>
+                    )}
+                  </AnimatePresence>
                 </m.div>
               )
             }
@@ -482,7 +506,7 @@ const Generator = () => {
           <ModalStepTwoPdf doc={doc} isOpen={modalModifiedPdfOpen} closeModal={closeModalModifiedPdf} />
           {/* Loader */}
           {
-            loading && (
+            loading && !doneGeneration && (
               <div
               className={`${styles.paddingX} m-0 fixed bottom-0 right-0 left-0`}
               >
@@ -495,7 +519,7 @@ const Generator = () => {
             {generationError && (
               <m.div variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden" className={`fixed  left-0 right-0 bottom-10 mx-auto w-10/12 md:w-1/2 2xl:w-1/3 z-50  px-4 py-4 mt-2 bg-orange-400 rounded-md font-bold flex align-center justify-center`} >
                 <m.span role="img" aria-label="rapport" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden" className={"pe-5"}>📢</m.span>
-                <m.p variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden">Task Completor est en panne. Contact du créateur en cours...</m.p>
+                <m.p variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden">Reformulez votre sujet pour que Task Completor mette en forme votre document</m.p>
               </m.div>
             )}
           </AnimatePresence>
