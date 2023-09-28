@@ -29,7 +29,7 @@ export const docType = [
         "detailed report",
       ],
     ],
-    generation_time: "1 minute",
+    generation_time: "40 secondes",
     example: {
       title: "Rapport sur le musée de l'art et de l'espace",
       sections: [
@@ -59,7 +59,7 @@ export const docType = [
         "Sélectionner la langue",
         "selectlanguage",
       ]],
-    generation_time: "30 secondes",
+    generation_time: "15 secondes",
     example: {
       dest: "Mary",
       messageText: "Hey Mary,\nI just wanted to take a moment to thank you for inviting me to your last party. I had such a great time and it meant a lot to me that you thought of me. The atmosphere was amazing, the food was delicious, and the company was fantastic. I truly appreciate your hospitality and the effort you put into making everyone feel welcome. It was definitely a night to remember.\nOnce again, thank you so much for including me. I'm incredibly grateful and I can't wait for the next get-together.\nTake care,\nLucas"
@@ -79,7 +79,7 @@ export const docType = [
         "correction",
       ]
     ],
-    generation_time: "30 secs",
+    generation_time: "30 secondes",
     example: {
       title: "Rapport sur le musée de l'art et de l'espace en 1970",
       sections: [["", ""], ["", ""], ["", ""]]
@@ -99,7 +99,7 @@ export const docType = [
         "competences & experiences",
       ]
     ],
-    generation_time: "30 secs",
+    generation_time: "50 secondes",
     example: {
       title: "Rapport sur le musée de l'art et de l'espace en 1970",
       sections: [["", ""], ["", ""], ["", ""]]

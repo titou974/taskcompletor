@@ -1,7 +1,6 @@
 import { Tab } from '@headlessui/react'
 import { docType } from "../../utils/constants";
 import { ClockIcon } from '@heroicons/react/20/solid';
-import ReportExample from '../doctemplates/carouseltemplates/reportexample';
 import { m } from 'framer-motion';
 import { fadeIn, textVariant } from '../../utils/motion';
 
@@ -91,20 +90,6 @@ const TabsDocument = ({type, setType}) => {
                   <p className='italic'>≈ {type.generation_time}</p>
                 </div>
               </m.div>
-              { type.title === "Rapport" && (
-                  <m.div variants={fadeIn("top", "spring", 0.5, 0.75)} initial="hidden" whileInView="show" viewport={{ once: true }} className={`py-10`}>
-                    <p className='font-bold'>Exemple de Rapport généré en PDF</p>
-                    <div className='flex flex-col items-center'>
-                      <ul className='py-5 italic text-sm'>
-                        <li className='py-2 px-10 my-2 bg-[#011B6B] rounded-full'>Language: formel</li>
-                        <li className='py-2 px-4 my-2 bg-[#011B6B] rounded-full'>Sujet: "le musée de l'art et de l'espace"</li>
-                      </ul>
-                    </div>
-                    <div className='w-full'>
-                      <ReportExample generatedTitle={type.example.title} generatedSections={type.example.sections} length={6} />
-                    </div>
-                  </m.div>
-              )}
             </Tab.Panel>
           ))}
         </Tab.Panels>

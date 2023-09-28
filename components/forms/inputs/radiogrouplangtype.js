@@ -8,7 +8,7 @@ const RadioGroupLangType = ({lang, setLang}) => {
 
   return (
     <div className="w-full pt-10">
-      <motion.div variants={fadeIn("right", "spring", 0.5, 0.75)}>
+      <div>
         <RadioGroup value={lang} onChange={setLang}>
           <RadioGroup.Label className="sr-only">Type de Language</RadioGroup.Label>
           <div className="space-y-2">
@@ -65,7 +65,7 @@ const RadioGroupLangType = ({lang, setLang}) => {
             ))}
           </div>
         </RadioGroup>
-      </motion.div>
+      </div>
     </div>
   )
 }

@@ -29,8 +29,8 @@ const ReportForm = ({lang, setLang, subject, setSubject}) => {
     })
 
     return (
-          <m.div initial="hidden" variants={fadeIn("right", "spring", 0.75, 0.75)} animate={'show'} className="w-full md:w-1/2 mx-auto">
-            <div className={`flex items-center gap-4 pt-10`}>
+          <div className="w-full md:w-1/2 mx-auto">
+            <m.div variants={textVariant(0.5)} className={`flex items-center gap-4 pt-10`}>
                 <IconNumber number={1} color={lang === "" ? "white" : "green"} />
                 <h2
                     className={`${styles.sectionSubText} lg:block hidden font-bold`}
@@ -42,18 +42,21 @@ const ReportForm = ({lang, setLang, subject, setSubject}) => {
                 >
                     Language
                 </h2>
-            </div>
-            <RadioGroupLangType lang={lang} setLang={(newLang) => setLang(newLang)} />
-            <div className={`flex items-center gap-4 pt-20`}>
+            </m.div>
+            <m.div variants={fadeIn("right", "spring", 0.75, 0.75)} >
+              <RadioGroupLangType lang={lang} setLang={(newLang) => setLang(newLang)} />
+            </m.div>
+            <m.div variants={textVariant(0.5)} className={`flex items-center gap-4 pt-20`}>
             <IconNumber number={2} color={colorIcon}/>
                 <h2
                     className={`${styles.sectionSubText} font-bold`}
                 >
                     Décrivez le(s) sujet(s)
                 </h2>
-            </div>
+            </m.div>
             <div className="relative">
-              <textarea
+              <m.textarea
+                      variants={fadeIn("right", "spring", 0.75, 0.75)}
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
                       rows={4}
@@ -66,7 +69,7 @@ const ReportForm = ({lang, setLang, subject, setSubject}) => {
                 </m.div>
               </AnimatePresence>
             </div>
-        </m.div>
+        </div>
     )
 }
 
