@@ -107,19 +107,6 @@ const Generator = () => {
 
   {/* Generation Bug Alert*/}
 
-  useEffect(() => {
-    let timeoutId
-    if (generationError && finalText === "") {
-      timeoutId = setTimeout(() => {
-        setGenerationErrorSafeMessage(true)
-      }, 8000);
-  }
-
-  return () => {
-      clearTimeout(timeoutId)
-    }
-
-}, [generationError, finalText]);
 
 
 
@@ -337,9 +324,13 @@ const Generator = () => {
       goToModifying();
       scrollToDoc();
       setGenerationError(false);
-    } else if (finalText === "") {
-      setGenerationError(true);
+    } else {
+      let timeoutId
+      setGenerationError(false);
       setLoading(false);
+      timeoutId = setTimeout(() => {
+        setGenerationErrorSafeMessage(true)
+      }, 8000);
     }
   };
 

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import style from "../../../css/EmailTemplate.module.css"
 
 
-const MailTemplate = ({fullmail, name, language}) => {
+const MailTemplateIntro = ({fullmail, name, language}) => {
     const [object, setObject] = useState('');
     const [mail, setMail] = useState('');
     const [mailParagraphes, setMailParagraphes] = useState([]);
@@ -82,24 +82,24 @@ const MailTemplate = ({fullmail, name, language}) => {
     }
 
     return (
-        <div className={`w-full bg-white text-black rounded-md  text-sm sm:text-base ${style.emailTemplateFont}`}>
-          <div className="flex items-center h-full border-b border-slate-300 py-4 px-5 md:px-10">
+        <div className={`w-full bg-white text-black rounded-md  text-[8px] xs:text-[9px] md:text-[8px] lg:text-[9px] xl:text-[11px] 2xl:text-[13px] ${style.emailTemplateFont}`}>
+          <div className="flex items-center h-full border-b border-slate-300 py-2 px-5 md:px-10 lg:px-5">
               <p><span className="font-bold">De: </span><span>{name}</span></p>
           </div>
-          <div className="flex flex-col-reverse md:flex-row items-start md:items-center md:justify-between h-full border-b border-slate-300 py-4 px-5 md:px-10">
-              <p><span className="font-bold">Objet: </span><span>{object}</span></p>
-              <button className={`px-4 py-3 mb-5 md:mb-0 rounded-md ${objectCopied ? "bg-tertiary text-white" : "bg-transparent hover:bg-tertiary text-tertiary hover:text-white"} border-2 border-tertiary font-bold transition-colors w-[180px]`} onClick={copyObject}>{objectCopied ? "Copié ✅" : "Copier l'Objet"}</button>
+          <div className="flex flex-col-reverse md:flex-row items-start md:items-center md:justify-between h-full border-b border-slate-300 py-2 px-5 md:px-10 lg:px-5">
+              <p className='w-1/2 xl:w-8/12'><span className="font-bold">Objet: </span><span>{object}</span></p>
+              <button className={`px-4 mb-2 md:mb-0 py-1 2xl:py-3 rounded-md ${objectCopied ? "bg-tertiary text-white" : "bg-transparent hover:bg-tertiary text-tertiary hover:text-white"} border-2 border-tertiary font-bold transition-colors w-[180px] lg:w-[130px] 2xl:w-[160px]`} onClick={copyObject}>{objectCopied ? "Copié ✅" : "Copier l'Objet"}</button>
           </div>
-          <div className="pt-6 pb-14 px-5 md:px-10">
+          <div className="pt-2 pb-5 md:pb-3 px-5 md:px-10 lg:px-5">
               <div className="w-full flex md:justify-end items-center">
-                  <button className={`px-4 py-3 rounded-md ${mailCopied ? "bg-tertiary text-white" : "bg-transparent hover:bg-tertiary text-tertiary hover:text-white"} border-2 border-tertiary font-bold transition-colors w-[180px]`} onClick={copyMail}>{mailCopied ? "Copié ✅" : "Copier l'Email"}</button>
+                  <button className={`px-4 py-1 2xl:py-3  rounded-md ${mailCopied ? "bg-tertiary text-white" : "bg-transparent hover:bg-tertiary text-tertiary hover:text-white"} border-2 border-tertiary font-bold transition-colors w-[180px] lg:w-[130px] 2xl:w-[160px]`} onClick={copyMail}>{mailCopied ? "Copié ✅" : "Copier l'Email"}</button>
               </div>
               { mailParagraphes.map((paragraph, index) => (
-                  <p key={`paragraph${index}`} className='my-5 md:my-10 leading-5 md:leading-10'>{paragraph}</p>
+                  <p key={`paragraph${index}`} className='my-2 md:my-2 xl:my-3 2xl:my-5 leading-1 md:leading-3 xl:leading-4 2xl:leading-5'>{paragraph}</p>
               ))}
           </div>
         </div>
     )
 }
 
-export default MailTemplate;
+export default MailTemplateIntro;

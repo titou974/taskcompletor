@@ -81,8 +81,9 @@ export const docType = [
     ],
     generation_time: "30 secondes",
     example: {
-      title: "Rapport sur le musée de l'art et de l'espace en 1970",
-      sections: [["", ""], ["", ""], ["", ""]]
+      name: "M. Pablo",
+      fullmail: "Asunto: Solicitud de aumento salarial y autorización para fumar en las oficinas de la empresa\nEstimado Sr. Escobar,\nEspero que este correo electrónico le encuentre bien. Me dirijo a usted en calidad de empleado de nuestra empresa para plantearle dos solicitudes importantes.\nEn primer lugar, me gustaría solicitar una revisión salarial y una posible aumento en mi remuneración. He estado desempeñando mis funciones con compromiso y dedicación, y considero que mi contribución ha sido valiosa para el crecimiento y éxito de la empresa. Por lo tanto, me gustaría solicitar una evaluación salarial justa y equitativa de acuerdo con mi desempeño y responsabilidades actuales.\nEn segundo lugar, me gustaría solicitar su consideración para permitir fumar cigarrillos en las oficinas de la empresa. Entiendo que existen restricciones legales y preocupaciones relacionadas con la salud, pero considero que esta medida podría contribuir a un ambiente más relajado y productivo para los fumadores.\nQuedo a la espera de su respuesta y agradezco de antemano su atención a mis solicitudes.\nAtentamente,\nM. Pablo",
+      language: "espagnol"
     }
   },
   {

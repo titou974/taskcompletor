@@ -13,6 +13,7 @@ import ReportIntroTemplate from "./doctemplates/introtemplates/reportintrotempla
 import TypewriterComponent from "typewriter-effect";
 import { docType } from "../utils/constants";
 import MessageTemplateIntro from "./doctemplates/introtemplates/messageintrotemplate";
+import MailTemplateIntro from "./doctemplates/introtemplates/emailintrotemplate";
 
 
 const Introduction = () => {
@@ -54,6 +55,9 @@ const Introduction = () => {
                 typewriter.changeDelay(50)
                   .changeDeleteSpeed(1)
                   .callFunction(() => {
+                    setShowEmailExample(false);
+                  })
+                  .callFunction(() => {
                     setShowReportExample(true);
                   })
                   .typeString(`${introductionTexts[0]}<br>`)
@@ -71,6 +75,9 @@ const Introduction = () => {
                   .deleteChars(15)
                   .callFunction(() => {
                     setShowMessageExample(false);
+                  })
+                  .callFunction(() => {
+                    setShowEmailExample(true);
                   })
                   .typeString(`<strong style="color: #046CF1">${introductionTexts[3]}</strong>`)
                   .pauseFor(2000)
@@ -101,6 +108,11 @@ const Introduction = () => {
           { showMessageExample && (
             <m.div initial="hidden" variants={fadeIn("right", "spring", 0.33, 0.75)} exit="hidden" whileInView="show" viewport={{once: true}} className="text-white w-full lg:w-1/2 mx-auto">
               <MessageTemplateIntro messageText={docType[1].example.messageText} dest={docType[1].example.dest} />
+            </m.div>
+          )}
+          { showEmailExample && (
+            <m.div initial="hidden" variants={fadeIn("right", "spring", 0.33, 0.75)} exit="hidden" whileInView="show" viewport={{once: true}} className="text-white w-full lg:w-1/2 mx-auto">
+              <MailTemplateIntro name={docType[2].example.name}  fullmail={docType[2].example.fullmail} language={docType[2].example.language} />
             </m.div>
           )}
         </AnimatePresence>
