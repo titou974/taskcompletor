@@ -46,8 +46,8 @@ const Introduction = () => {
 
   return (
     <div className={`${styles.padding} relative h-screen overflow-hidden flex flex-col gap-5`}>
-      <m.div initial="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} whileInView="show" viewport={{once: true}} className="flex justify-center items-center bg-[#e1e5e6] w-full lg:w-1/2 h-[100px] min-h-[100px] rounded-full mx-auto relative  shadow-xl mt-2 sm:my-0">
-        <div className="break-words mx-auto w-10/12 text-center hide-br py-2" ref={typewriterRef}>
+      <m.div initial="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} whileInView="show" viewport={{once: true}} className="flex justify-center items-center bg-[#e1e5e6] w-full lg:w-1/2 h-[100px] md:min-h-[70px] md:h-[70px] lg:min-h-[100px] rounded-full mx-auto relative  shadow-xl mt-2 sm:my-0">
+        <div className="break-words mx-auto w-10/12 text-center hide-br py-2 xl:text-lg" ref={typewriterRef}>
           {isBubbleVisible && (
             <TypewriterComponent
               onInit={(typewriter) => {
@@ -109,11 +109,11 @@ const Introduction = () => {
         <Link
           href="/generator" className={`font-bold my-8 z-10 rounded-md mx-auto`}
         >
-            <m.button className="cta3 py-8 lg:py-0 xl:py-6 w-full lg:w-1/2 mx-auto" whileInView="show" viewport={{once: true}}>
-              <p className={`xl:text-[60px] md:text-[35px] sm:text-[50px] xs:text-[40px] text-[30px] lg:leading-[98px]`}>Créer</p>
+            <m.button className="cta3 w-full md:w-1/2 mx-auto" whileInView="show" viewport={{once: true}}>
+              <p className={`xl:text-[40px] md:text-[35px] sm:text-[50px] xs:text-[40px] text-[30px] lg:leading-[98px]`}>Créer</p>
               <FontAwesomeIcon
                 icon={faChevronRight}
-                className="pt-[6px] w-[14px] sm:w-[17px] xl:w-[25px]"
+                className="pt-[6px] w-[14px] sm:w-[17px]"
               />
             </m.button>
         </Link>

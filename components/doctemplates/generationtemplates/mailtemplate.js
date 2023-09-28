@@ -21,8 +21,11 @@ const MailTemplate = ({fullmail, name, language}) => {
         const objectWithWordEnglish = fullmail.match(regexObjectEnglish);
 
         const regexObjectWithoutWordFrench = /Objet : (.+)/;
+        const regexObject2WithoutWordFrench = /Objet: (.+)/;
         const regexObjectWithoutWordSpanish = /Asunto: (.+)/;
+        const regexObject2WithoutWordSpanish = /Asunto : (.+)/;
         const regexObjectWithoutWordEnglish = /Subject: (.+)/;
+        const regexObject2WithoutWordEnglish = /Subject : (.+)/;
 
 
         const regexParagraphsSplit = /\n+/;
@@ -32,28 +35,31 @@ const MailTemplate = ({fullmail, name, language}) => {
 
         if (language === "français" && objectWithWordFrench) {
           const matchWithoutWordFrench = objectWithWordFrench[0].match(regexObjectWithoutWordFrench)
+          const match2WithoutWordFrench = objectWithWordFrench[0].match(regexObject2WithoutWordFrench)
           if (matchWithoutWordFrench) {
             object = matchWithoutWordFrench[1];
+          } else if (match2WithoutWordFrench) {
+            object = match2WithoutWordFrench[1];
           }
           mail = fullmail.replace(regexObjectFrench, '');
         } else if (language === "espagnol" && objectWithWordSpanish) {
           const matchWithoutWordSpanish = objectWithWordSpanish[0].match(regexObjectWithoutWordSpanish)
+          const match2WithoutWordSpanish = objectWithWordSpanish[0].match(regexObject2WithoutWordSpanish)
           if (matchWithoutWordSpanish) {
             object = matchWithoutWordSpanish[1];
+          } else if (match2WithoutWordSpanish) {
+            object = match2WithoutWordSpanish[1];
           }
           mail = fullmail.replace(regexObjectSpanish, '');
         } else if (language === "anglais" && objectWithWordEnglish) {
           const matchWithoutWordEnglish = objectWithWordEnglish[0].match(regexObjectWithoutWordEnglish)
+          const match2WithoutWordEnglish = objectWithWordEnglish[0].match(regexObject2WithoutWordEnglish)
           if (matchWithoutWordEnglish) {
             object = matchWithoutWordEnglish[1];
+          } else if (match2WithoutWordEnglish) {
+            object = match2WithoutWordEnglish[1];
           }
           mail = fullmail.replace(regexObjectEnglish, '');
-        } else if (language === "chinois" && objectWithWordFrench) {
-          const matchWithoutWordFrench = objectWithWordFrench[0].match(regexObjectWithoutWordFrench)
-          if (matchWithoutWordFrench) {
-            object = matchWithoutWordFrench[1];
-          }
-          mail = fullmail.replace(regexObjectFrench, '');
         }
 
         const paragraphes = mail.split(regexParagraphsSplit);

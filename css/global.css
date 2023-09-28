@@ -296,6 +296,24 @@ body {
   transform: scaleX(1);
 }
 
+@media (min-width: 1024px) {
+  .cta3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    gap: 12px;
+    background-color: #00003f;
+    border: 3px white solid;
+    border-radius: 6px;
+    padding: 5px;
+    transition: color 0.4s linear;
+    position: relative;
+    z-index: 1;
+  }
+
+}
+
 .titlemodal {
   font-family: "Roboto Mono", monospace;
 }
@@ -340,7 +358,7 @@ body {
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1536px) {
   .hide-br br {
       display: none;
   }

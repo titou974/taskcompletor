@@ -37,6 +37,13 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
               </m.div>
             )
           }
+          {
+            length >= 7 && (
+              <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
+                <PageReportPhoneGenerated generatedSections={generatedSections.slice(6, 8)} indexSection={5} id="page-3" color={'#046CF1'}/>
+              </m.div>
+            )
+          }
           </div>
       </div>
       <div className="hidden sm:block">
@@ -51,6 +58,13 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
           length >= 4 && (
             <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
               <PageReportGenerated generatedSections={generatedSections.slice(3, 6)} indexSection={4} color={'#046CF1'} id="page-2" />
+            </m.div>
+          )
+        }
+        {
+          length >= 7 && (
+            <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
+              <PageReportGenerated generatedSections={generatedSections.slice(6, 9)} indexSection={4} color={'#046CF1'} id="page-2" />
             </m.div>
           )
         }

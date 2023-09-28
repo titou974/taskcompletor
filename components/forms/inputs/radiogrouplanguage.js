@@ -62,7 +62,7 @@ const RadioGroupLanguage = ({language, setLanguage, docType}) => {
                 )}
               </RadioGroup.Option>
             )))}
-            {docType === "message" && ( languageIndexEmail.map((language) => (
+            {docType === "message" && ( languageIndexMessage.map((language) => (
               <RadioGroup.Option
                 key={language.id}
                 value={language.id}

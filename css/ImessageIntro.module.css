@@ -16,8 +16,8 @@
   font-family: "Helvetica Neue";
   font-size: 1.5em;
   color: white;
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -40,7 +40,7 @@
 .imessageBubbleIntro {
   max-width: 400px;
   word-wrap: break-word;
-  line-height: 24px;
+  line-height: 15px;
   position: relative;
 	padding: 10px 20px;
   border-radius: 25px;
@@ -55,14 +55,51 @@
   font-size: 10px;
 }
 
-@media (min-width: 1280px) {
-  .imessageTextIntro {
+@media (min-width: 768px) {
+  .imessageBubbleIntro {
+    line-height: 12px;
+  }
+
+  .imessageBarIntro {
+    background-color: #1A1A1A;
+    width: 100%;
+    padding: 1em;
+    margin-bottom: 2em;
+  }
+
+}
+
+@media (min-width: 1024px) {
+  .imessageBubbleIntro {
     line-height: 20px;
+  }
+
+  .imessageBarIntro {
+    background-color: #1A1A1A;
+    width: 100%;
+    padding: 1em;
+    margin-bottom: 2em;
+  }
+
+  .imessageContactIntro {
+    background-color: #A8AEBC;
+    border-radius: 100%;
+    font-family: "Helvetica Neue";
+    font-size: 1.5em;
+    color: white;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
 @media (min-width: 1536px) {
   .imessageTextIntro {
-    line-height: 20px;
+    font-family: "Helvetica Neue Condensed";
+    font-size: 15px;
   }
+
 }

@@ -209,6 +209,11 @@ const Generator = () => {
     setGeneratedSectionsTexts(extractedContent);
   }, [generatedSections])
 
+  useEffect(() => {
+    console.log(finalText)
+  })
+
+
   const generateDoc = async (e) => {
     {/* Generate The Document*/}
     e.preventDefault();
@@ -346,7 +351,7 @@ const Generator = () => {
               <m.div variants={fadeIn("right", "spring", 1, 0.75)} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className="w-full md:w-1/2 flex justify-between align-center pt-16">
                 {!loading && (
                   <button
-                    className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta1 w-2/3" : "cta1 w-full"} flex`}
+                    className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta1 w-2/3" : "cta1 w-full"} flex shadow-xl`}
                     onClick={(e) => developSubject && !isMobile ? setModalIntroVisible(true) : generateDoc(e)}
                     onMouseEnter={() => setHoverNavbar(true)}
                     onMouseLeave={() => setHoverNavbar(false)}

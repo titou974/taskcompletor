@@ -51,17 +51,17 @@ const MessageTemplateIntro = ({messageText, dest}) => {
                 </div>
                 <div className={style.imessageNameIntro}>
                     <p className="pt-[2px]">{dest}</p>
-                    <FontAwesomeIcon icon={faChevronRight} className="w-[8px] text-[#A8AEBC]"/>
+                    <FontAwesomeIcon icon={faChevronRight} className="w-[5px] lg:w-[8px] text-[#A8AEBC]"/>
                 </div>
             </div>
-            <div className='px-5 py-5 md:p-5 2xl:py-10 '>
+            <div className='px-5 py-5 md:p-3 2xl:py-10 '>
                 <div className={`${style.imessageBubbleIntro} relative`}>
-                    <button className={`absolute top-[-30px] right-0 bg-tertiary px-2 py-2 rounded-md font-bold hover:bg-white hover:text-black transition-colors w-9/12 md:w-1/2 text-[10px] 2xl:text-[15px]`} onClick={copyMessage}>
+                    <button className={`absolute top-[-30px] right-0 bg-tertiary px-2 py-2 rounded-md font-bold hover:bg-white hover:text-black transition-colors w-9/12 md:w-1/2 text-[10px] 2xl:text-[15px] border-white border-2`} onClick={copyMessage}>
                         {messageCopied ? "Copié ✅" : "Copier le Message"}
                     </button>
                 {
                     paragraphes.map((paragraph, index) => (
-                        <p className={`${style.imessageTextIntro} my-2 2xl:text-[20px] 2xl:my-5`} key={`paragraph${index}`} >{paragraph}</p>
+                        <p className={`${style.imessageTextIntro} my-2 2xl:my-5`} key={`paragraph${index}`} >{paragraph}</p>
                     ))
                 }
                 <svg width="26" height="38" viewBox="0 0 26 38" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute bottom-[-13px] right-[-1px]">
