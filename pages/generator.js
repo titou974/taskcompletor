@@ -109,7 +109,7 @@ const Generator = () => {
 
   useEffect(() => {
     let timeoutId
-    if (generationError) {
+    if (generationError && finalText === "") {
       timeoutId = setTimeout(() => {
         setGenerationErrorSafeMessage(true)
       }, 8000);
@@ -119,7 +119,7 @@ const Generator = () => {
       clearTimeout(timeoutId)
     }
 
-}, [generationError]);
+}, [generationError, finalText]);
 
 
 
@@ -275,10 +275,6 @@ const Generator = () => {
       const regex3 = /(\d+\.\s.+)\n(.+)/g;
       const titleRegex = /^([^\n]+)/;
 
-      {/* Regex for Email */}
-      const regexObject = /^Objet\s*:\s*([\s\S]*?)$/gm
-      const regexObjectWithoutWord = /Objet : (.+)/
-
       {/* Structuring the Document */}
       if (doc === "Rapport") {
         if (lang === "formel") {
@@ -340,6 +336,7 @@ const Generator = () => {
       setDoneGeneration(true);
       goToModifying();
       scrollToDoc();
+      setGenerationError(false);
     } else if (finalText === "") {
       setGenerationError(true);
       setLoading(false);
@@ -355,7 +352,7 @@ const Generator = () => {
               <div className={`flex-col items-center justify-center gap-10 flex`}>
               {/* Generation Form */}
               <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} persoType={persoType} setPersoType={(newPersoType) => setPersoType(newPersoType)} domain={domain} setDomain={(newDomain) => setDomain(newDomain)} theme={theme} setTheme={(newTheme) => setTheme(newTheme)} questions={questions} setQuestions={(newQuestions) => setQuestions(newQuestions)} job={job} setJob={(newJob) => setJob(newJob)} competences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)}/>
-              <m.div variants={fadeIn("right", "spring", 1, 0.75)} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className="w-full md:w-1/2 flex justify-between align-center pt-16">
+              <div className="w-full md:w-1/2 flex justify-between align-center pt-16">
                 {!loading && (
                   <button
                     className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta1 w-2/3" : "cta1 w-full"} flex shadow-xl`}
@@ -383,7 +380,7 @@ const Generator = () => {
                     <ArrowRightCircleIcon className="h-[35px] w-[35px] lg:w-[50px] lg:h-[50px] mx-auto" />
                   </button>
                 )}
-              </m.div>
+              </div>
               </div>
             )
           }
@@ -506,12 +503,14 @@ const Generator = () => {
           }
           {/* Alert Generation Error */}
           <AnimatePresence>
-            <m.div variants={fadeIn("right", "spring", 0.25, 0.75)} animate={generationError ? "show" : "hidden"} exit="hidden" className={`fixed  left-0 right-0 bottom-10 mx-auto w-10/12 md:w-1/2 2xl:w-1/3 z-50  px-4 py-4 mt-2 bg-orange-400 rounded-md font-bold flex align-center justify-center`} >
-                <m.span role="img" aria-label="rapport" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={!generationErrorSafeMessage ? "show" : "hidden"} exit="hidden" className={!generationErrorSafeMessage ? "show pe-5" : "hidden"}>📢</m.span>
-                <m.span role="img" aria-label="rapport" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={generationErrorSafeMessage ? "show" : "hidden"} exit="hidden" className={generationErrorSafeMessage ? "show pe-5" : "hidden"}>😊</m.span>
-                <m.p variants={fadeIn("right", "spring", 0.25, 0.75)} animate={!generationErrorSafeMessage ? "show" : "hidden"} exit="hidden" className={!generationErrorSafeMessage ? "show" : "hidden"}>Task Completor est en panne. Contact du créateur en cours...</m.p>
-                <m.p variants={fadeIn("right", "spring", 0.25, 0.75)} animate={generationErrorSafeMessage ? "show" : "hidden"} className={generationErrorSafeMessage ? "show" : "hidden"}>Le créateur arrive. Allez prendre un café en attendant...</m.p>
-            </m.div>
+            {generationError && (
+              <m.div variants={fadeIn("right", "spring", 0.25, 0.75)} animate={generationError ? "show" : "hidden"} exit="hidden" className={`fixed  left-0 right-0 bottom-10 mx-auto w-10/12 md:w-1/2 2xl:w-1/3 z-50  px-4 py-4 mt-2 bg-orange-400 rounded-md font-bold flex align-center justify-center`} >
+                <m.span role="img" aria-label="rapport" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={!generationErrorSafeMessage ? "show" : "hidden"} exit="hidden" className={!generationErrorSafeMessage ? "pe-5" : "hidden"}>📢</m.span>
+                <m.span role="img" aria-label="rapport" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={generationErrorSafeMessage ? "show" : "hidden"} exit="hidden" className={generationErrorSafeMessage ? "pe-5" : "hidden"}>😊</m.span>
+                <m.p variants={fadeIn("right", "spring", 0.25, 0.75)} animate={!generationErrorSafeMessage ? "show" : "hidden"} exit="hidden" className={!generationErrorSafeMessage ? "" : "hidden"}>Task Completor est en panne. Contact du créateur en cours...</m.p>
+                <m.p variants={fadeIn("right", "spring", 0.25, 0.75)} animate={generationErrorSafeMessage ? "show" : "hidden"} className={generationErrorSafeMessage ? "" : "hidden"}>Le créateur arrive. Allez prendre un café en attendant...</m.p>
+              </m.div>
+            )}
           </AnimatePresence>
         </div>
       </div>
