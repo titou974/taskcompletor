@@ -3,7 +3,7 @@ import RadioGroupLanguage from "./inputs/radiogrouplanguage";
 import RadioGroupMailType from "./inputs/radiogroupmailtype";
 import {useState, useEffect} from 'react';
 import IconNumber from "../iconnumber";
-import { m } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { textVariant, fadeIn } from "../../utils/motion";
 import style from "../../css/InputName.module.css"
 
@@ -77,9 +77,11 @@ const EmailForm = ({myName, setMyName, dest, setDest, mailType, setMailType, lan
                       className={`w-full bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black mt-10 px-4 py-2 text-gray-700 caret-gray-700`}
                       placeholder="Demande pour un semestre de césure afin de se consacrer à la programmation lors d'un stage de 4 mois."
               />
-              <m.div variants={fadeIn("right", "spring", 0.25, 0.75)} animate={textLengthAlert ? "show" : "hidden"} className={`${textLengthAlert ? "" : "hidden"} absolute px-4 py-2 mt-2 bg-orange-400 rounded-md w-full font-bold flex align-center justify-center`} >
-                  <span role="img" aria-label="rapport" className='pe-5'>📢</span><p>Détaillez votre sujet pour un résultat pertinent</p>
-              </m.div>
+              <AnimatePresence>
+                <m.div variants={fadeIn("right", "spring", 0.25, 0.75)} animate={textLengthAlert ? "show" : "hidden"} exit="hidden" className={`absolute px-4 py-2 mt-2 bg-orange-400 rounded-md w-full font-bold flex align-center justify-center`} >
+                    <span role="img" aria-label="rapport" className='pe-5'>📢</span><p>Détaillez votre sujet pour un résultat pertinent</p>
+                </m.div>
+              </AnimatePresence>
             </div>
         </div>
     )
