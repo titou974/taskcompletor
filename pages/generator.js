@@ -70,11 +70,11 @@ const Generator = () => {
   const [hoverNavbar, setHoverNavbar] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const [showEmail, setShowEmail] = useState(false);
-  const [generationErrorSafeMessage, setGenerationErrorSafeMessage] = useState(false);
+  const [showDownload, setShowDownload] = useState(false);
 
   let [isOpen, setIsOpen] = useState(false);
   const docRef = useRef();
-  const generateDocRef = useRef();
+  const generateDocRef = useRef(null);
 
   const backToGeneration = () => {
     setNavTwoStep(false);
@@ -203,8 +203,27 @@ const Generator = () => {
   }, [generatedSections])
 
   useEffect(() => {
-    console.log(finalText)
-  })
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(({target, isIntersecting}) => {
+        if (target === generateDocRef.current) {
+          setShowDownload(isIntersecting)
+        }
+      });
+    },
+    )
+
+
+    if (generateDocRef.current) {
+      observer.observe(generateDocRef.current);
+    }
+
+    return () => {
+      if (generateDocRef.current) {
+        observer.disconnect();
+      }
+    };
+  }, [loading]);
 
 
   const generateDoc = async (e) => {
@@ -315,66 +334,53 @@ const Generator = () => {
       const chunkValue = decoder.decode(value);
       parser.feed(chunkValue);
     }
-    if (finalText !== "") {
-      if (!isMobile) {
-        { doc === "Message" || doc === "Email" ? setModalModifiedStepOpen(true) : setModalModifiedPdfOpen(true)};
-      }
-      setLoading(false);
-      setDoneGeneration(true);
-      goToModifying();
-      scrollToDoc();
-      setGenerationError(false);
-    } else {
-      let timeoutId
-      setGenerationError(false);
-      setLoading(false);
-      timeoutId = setTimeout(() => {
-        setGenerationErrorSafeMessage(true)
-      }, 8000);
+    if (!isMobile) {
+      { doc === "Message" || doc === "Email" ? setModalModifiedStepOpen(true) : setModalModifiedPdfOpen(true)};
     }
+    setLoading(false);
+    setDoneGeneration(true);
+    goToModifying();
+    scrollToDoc();
+    setGenerationError(false);
+    // if (finalText !== "") {
+    //   setLoading(false);
+    //   setDoneGeneration(true);
+    //   goToModifying();
+    //   scrollToDoc();
+    //   setGenerationError(false);
+    // }
   };
 
   return (
       <div className="w-full">
         <Navbar />
         <div className={`${styles.paddingX} pt-40 max-w-7xl mx-auto relative w-full flex flex-col gap-20 text-white bg-primary`} ref={docRef}>
-          {
-            !navTwoStep && (
-              <div className={`flex-col items-center justify-center gap-10 flex`}>
-              {/* Generation Form */}
-              <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} persoType={persoType} setPersoType={(newPersoType) => setPersoType(newPersoType)} domain={domain} setDomain={(newDomain) => setDomain(newDomain)} theme={theme} setTheme={(newTheme) => setTheme(newTheme)} questions={questions} setQuestions={(newQuestions) => setQuestions(newQuestions)} job={job} setJob={(newJob) => setJob(newJob)} competences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)}/>
-              <div className="w-full md:w-1/2 flex justify-between align-center pt-16">
-                {!loading && (
-                  <button
-                    className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} ${modifyingStep ? "cta1 w-2/3" : "cta1 w-full"} flex shadow-xl`}
-                    onClick={(e) => developSubject && !isMobile ? setModalIntroVisible(true) : generateDoc(e)}
-                    onMouseEnter={() => setHoverNavbar(true)}
-                    onMouseLeave={() => setHoverNavbar(false)}
-                  >
-                    {`Générer`}
-                    <PencilSquareIcon className={`w-[40px] md:w-[50px]`}></PencilSquareIcon>
-                  </button>
-                )}
-                {loading && (
-                  <button
-                    disabled
-                    className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta1 ${modifyingStep ? "w-2/3" : "w-full"} disabled cursor-wait`}
-                  >
-                    <Loader />
-                  </button>
-                )}
-                {modifyingStep && (
-                  <button
-                    className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary shadow-button w-[100px] h-[100px]`}
-                    onClick={() => goToModifying()}
-                  >
-                    <ArrowRightCircleIcon className="h-[35px] w-[35px] lg:w-[50px] lg:h-[50px] mx-auto" />
-                  </button>
-                )}
-              </div>
-              </div>
-            )
-          }
+          <div className={`flex-col items-center justify-center gap-10 flex`}>
+          {/* Generation Form */}
+            <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} persoType={persoType} setPersoType={(newPersoType) => setPersoType(newPersoType)} domain={domain} setDomain={(newDomain) => setDomain(newDomain)} theme={theme} setTheme={(newTheme) => setTheme(newTheme)} questions={questions} setQuestions={(newQuestions) => setQuestions(newQuestions)} job={job} setJob={(newJob) => setJob(newJob)} competences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)}/>
+            <div className="w-full md:w-1/2 flex justify-between align-center pt-16">
+              {!loading && (
+                <button
+                  className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta1 w-full flex shadow-xl`}
+                  onClick={(e) => developSubject && !isMobile ? setModalIntroVisible(true) : generateDoc(e)}
+                  onMouseEnter={() => setHoverNavbar(true)}
+                  onMouseLeave={() => setHoverNavbar(false)}
+                >
+                  {`Générer`}
+                  <PencilSquareIcon className={`w-[40px] md:w-[50px]`}></PencilSquareIcon>
+                </button>
+              )}
+              {loading && (
+                <button
+                  disabled
+                  className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta1 ${modifyingStep ? "w-2/3" : "w-full"} disabled cursor-wait`}
+                >
+                  <Loader />
+                </button>
+              )}
+            </div>
+          </div>
+
           {/* Step 2 : Modifying Text */}
           <AnimatePresence>
             {
@@ -384,70 +390,62 @@ const Generator = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1, duration: 2 }}
                   exit={{opacity: 0}} >
-                  <h2
-                    className={`${styles.heroSubText} font-bold mx-auto text-center mt-5 mb-14`}
-                  >
-                    Modifier votre {doc}
-                  </h2>
                   {
                     doc === "Rapport" && (
-                      <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Rapport", amount: 0.25 }} className={`w-full`}>
+                      <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Rapport", amount: 0.25 }} className={`w-full hidden`}>
                         <EditTextAreaReport title={generatedTitle} setTitle={(newDoc) => setGeneratedTitle(newDoc)} setSections={(newDoc) => setGeneratedSections(newDoc)} sections={generatedSections}/>
                       </m.div>
                     )
                   }
                   {
                     doc === "Message" && (
-                      <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Message", amount: 0.25 }} className={`w-full`}>
+                      <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Message", amount: 0.25 }} className={`w-full hidden`}>
                         <EditTextMessage message={finalText} setMessage={(newMessage) => setFinalText(newMessage)} />
                       </m.div>
                     )
                   }
                   {
                     doc === "Email" && (
-                      <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Email", amount: 0.25 }} className={`w-full`}>
+                      <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Email", amount: 0.25 }} className={`w-full hidden`}>
                         <EditTextMail mail={finalText} setMail={(newMail) => setFinalText(newMail)} />
                       </m.div>
                     )
                   }
-                  <div className={`flex mt-20 ${doc === "Message" || doc === "Email" ? "justify-center" : "justify-between" } align-center w-full md:w-1/2 mx-auto`}>
-                    <button
-                      className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} bg-tertiary rounded-md hover:bg-white transition-colors hover:text-tertiary active:bg-white active:text-tertiary w-[100px] h-[100px]`}
-                      onClick={() => backToGeneration()}
-                    >
-                      <ArrowLeftCircleIcon className="h-[35px] w-[35px] mx-auto w-[50px] h-[50px]" />
-                    </button>
-                    {
-                      ((!loading && !saved) && (doc === "Rapport" || doc === "Lettre de motivation")) && (
-                        <button className={`cta1 flex w-2/3 lg:h-[100px] ms-10`} onClick={saveDocument}>
-                          <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Enregistrer</p>
-                          <ArrowDownTrayIcon className="w-[35px] md:ms-3"/>
+                  { (showDownload && doneGeneration) && (
+                    <m.div initial="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden" className={`flex justify-center align-center w-full mx-auto fixed bottom-8 left-0 right-0 z-30 ${styles.paddingX} max-w-7xl`}>
+                      {
+                        ((!loading && !saved) && (doc === "Rapport" || doc === "Lettre de motivation")) && (
+                          <button className={`cta2 w-full mx-auto md:w-1/2`} onClick={saveDocument}>
+                            <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Enregistrer</p>
+                            <ArrowDownTrayIcon className="w-[35px] md:ms-3"/>
+                          </button>
+                        )
+                      }
+                      {loading && (
+                        <button
+                          disabled
+                          className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta2 w-full mx-auto md:w-1/2 disabled cursor-wait`}
+                        >
+                          <Loader />
                         </button>
-                      )
-                    }
-                    {loading && (
-                      <button
-                        disabled
-                        className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta1 w-2/3 ms-10 disabled cursor-wait`}
-                      >
-                        <Loader />
-                      </button>
-                    )}
-                    {
-                      (saved && (doc === "Rapport" || doc === "Lettre de motivation")) && (
-                        <Link href="/mypdf" legacyBehavior className={`w-full flex justify-end`}>
-                          <a target="_blank" className={`cta1 flex w-2/3`}>
-                            <p className={`${styles.sectionSubText}`}>Voir le PDF</p>
-                            <DocumentIcon className="h-[25px] w-[25px]"/>
-                          </a>
-                        </Link>
-                      )
-                    }
-                  </div>
+                      )}
+                      {
+                        (saved && (doc === "Rapport" || doc === "Lettre de motivation")) && (
+                          <Link href="/mypdf" legacyBehavior className={`w-full flex justify-end`}>
+                            <a target="_blank" className={`cta2 w-full mx-auto md:w-1/2 flex`}>
+                              <p className={`${styles.sectionSubText}`}>Voir le PDF</p>
+                              <DocumentIcon className="h-[25px] w-[25px]"/>
+                            </a>
+                          </Link>
+                        )
+                      }
+                    </m.div>
+                  )}
                 </m.div>
               )
             }
           </AnimatePresence>
+
           <div className="h-full pb-40" ref={generateDocRef}>
             {
               (showGeneratedDoc && doc === "Rapport") && (
@@ -462,14 +460,14 @@ const Generator = () => {
             }
             {
               (showEmail && doc === "Email") && (
-                <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full`}>
+                <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full mx-auto`}>
                   <MailTemplate fullmail={finalText} name={myName} language={language} />
                 </m.div>
               )
             }
             {
               (showMessage && (doc === "Message")) && (
-                <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full`}>
+                <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full mx-auto`}>
                   <MessageTemplate messageText={finalText} dest={dest} />
                 </m.div>
               )
@@ -495,11 +493,9 @@ const Generator = () => {
           {/* Alert Generation Error */}
           <AnimatePresence>
             {generationError && (
-              <m.div variants={fadeIn("right", "spring", 0.25, 0.75)} animate={generationError ? "show" : "hidden"} exit="hidden" className={`fixed  left-0 right-0 bottom-10 mx-auto w-10/12 md:w-1/2 2xl:w-1/3 z-50  px-4 py-4 mt-2 bg-orange-400 rounded-md font-bold flex align-center justify-center`} >
-                <m.span role="img" aria-label="rapport" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={!generationErrorSafeMessage ? "show" : "hidden"} exit="hidden" className={!generationErrorSafeMessage ? "pe-5" : "hidden"}>📢</m.span>
-                <m.span role="img" aria-label="rapport" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={generationErrorSafeMessage ? "show" : "hidden"} exit="hidden" className={generationErrorSafeMessage ? "pe-5" : "hidden"}>😊</m.span>
-                <m.p variants={fadeIn("right", "spring", 0.25, 0.75)} animate={!generationErrorSafeMessage ? "show" : "hidden"} exit="hidden" className={!generationErrorSafeMessage ? "" : "hidden"}>Task Completor est en panne. Contact du créateur en cours...</m.p>
-                <m.p variants={fadeIn("right", "spring", 0.25, 0.75)} animate={generationErrorSafeMessage ? "show" : "hidden"} className={generationErrorSafeMessage ? "" : "hidden"}>Le créateur arrive. Allez prendre un café en attendant...</m.p>
+              <m.div variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden" className={`fixed  left-0 right-0 bottom-10 mx-auto w-10/12 md:w-1/2 2xl:w-1/3 z-50  px-4 py-4 mt-2 bg-orange-400 rounded-md font-bold flex align-center justify-center`} >
+                <m.span role="img" aria-label="rapport" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden" className={"pe-5"}>📢</m.span>
+                <m.p variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden">Task Completor est en panne. Contact du créateur en cours...</m.p>
               </m.div>
             )}
           </AnimatePresence>
