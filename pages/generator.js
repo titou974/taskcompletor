@@ -146,6 +146,7 @@ const Generator = () => {
         sections: generatedSectionsTexts,
       });
       setSaved(true)
+      window.open('mypdf', '_ blank')
       openModal();
     } catch (error) {
       console.log(error);
@@ -224,7 +225,6 @@ const Generator = () => {
       }
     };
   }, [loading]);
-
 
   const generateDoc = async (e) => {
     {/* Generate The Document*/}
@@ -412,7 +412,7 @@ const Generator = () => {
                     )
                   }
                   { (showDownload && doneGeneration) && (
-                    <m.div initial="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden" className={`flex justify-center align-center w-full mx-auto fixed bottom-8 left-0 right-0 z-30 ${styles.paddingX} max-w-7xl`}>
+                    <m.div initial="hidden" exit="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} className={`flex justify-center align-center w-full mx-auto fixed bottom-8 left-0 right-0 z-30 ${styles.paddingX} max-w-7xl`}>
                       {
                         ((!loading && !saved) && (doc === "Rapport" || doc === "Lettre de motivation")) && (
                           <button className={`cta2 w-full mx-auto md:w-1/2`} onClick={saveDocument}>
