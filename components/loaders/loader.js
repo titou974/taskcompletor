@@ -2,13 +2,13 @@ import style from "../../css/Loader.module.css"
 
 const Loader = () => {
   return (
-    <div class={`${style.typingIndicator} mx-auto`}>
-      <div class={style.typingCircle}></div>
-      <div class={style.typingCircle}></div>
-      <div class={style.typingCircle}></div>
-      <div class={style.typingShadow}></div>
-      <div class={style.typingShadow}></div>
-      <div class={style.typingShadow}></div>
+    <div className={`${style.typingIndicator} mx-auto`}>
+      <div className={style.typingCircle}></div>
+      <div className={style.typingCircle}></div>
+      <div className={style.typingCircle}></div>
+      <div className={style.typingShadow}></div>
+      <div className={style.typingShadow}></div>
+      <div className={style.typingShadow}></div>
     </div>
   );
 };
