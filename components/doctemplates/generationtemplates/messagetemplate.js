@@ -68,7 +68,7 @@ const MessageTemplate = ({messageText, dest, setFinalText, doneGeneration}) => {
             </div>
             <div className='px-5 py-10 md:p-10'>
                 <motion.div variants={fadeIn("right", "spring", 0.75, 1)} className={`${style.imessageBubble} relative`}>
-                    <button className={`absolute top-[-30px] right-0 bg-tertiary px-4 py-3 rounded-md font-bold hover:bg-white hover:text-black transition-colors w-9/12 md:w-1/2 border-white border-[3px]`} onClick={copyMessage}>
+                    <button className={`absolute top-[-30px] right-0 bg-tertiary px-4 py-3 rounded-md font-bold hover:bg-white hover:text-black transition-colors w-9/12 md:w-8/12 border-white border-[3px]`} onClick={copyMessage}>
                         {messageCopied ? "Copié ✅" : "Copier le Message"}
                     </button>
                     {
