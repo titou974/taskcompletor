@@ -58,6 +58,7 @@ const Generator = () => {
   const [modalIntroVisible, setModalIntroVisible] = useState(false);
   const [modifyingStep, setModifyingStep] = useState(false);
   const [generationError, setGenerationError] = useState(false);
+  const [apiError, setApiError] = useState(false);
   const [doneGeneration, setDoneGeneration] = useState(false);
   const [navTwoStep, setNavTwoStep] = useState(false);
   const [emotion, setEmotion] = useState("");
@@ -204,7 +205,6 @@ const Generator = () => {
   }, [generatedSections])
 
   useEffect(() => {
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(({target, isIntersecting}) => {
         if (target === generateDocRef.current) {
@@ -227,15 +227,28 @@ const Generator = () => {
   }, [loading]);
 
   useEffect(() => {
-    console.log(finalText)
+    if (doneGeneration && finalText.length === 0) {
+      setApiError(true);
+    } else if (doneGeneration && doc === "Rapport" && finalText.length !== 0 && length === 0 && showGeneratedDoc) {
+      setGenerationError(true);
+    } else if (doneGeneration && !generationError && !apiError) {
+      goToModifying();
+      scrollToDoc();
+      if (!isMobile) {
+        if (doc === "Message" || doc === "Email") {
+          setModalModifiedStepOpen(true)
+        } else {
+        setModalModifiedPdfOpen(true)};
+      }
+    }
 
-  })
+  }, [doneGeneration, length, doc, finalText, generationError, apiError])
 
 
   const generateDoc = async (e) => {
     {/* Generate The Document*/}
     e.preventDefault();
-    setModalIntroVisible(false)
+    setModalIntroVisible(false);
     setSaved(false);
     setGeneratedDoc("");
     setGeneratedTitle("");
@@ -246,6 +259,7 @@ const Generator = () => {
     setFinalText("");
     setModifyingStep(false);
     setGenerationError(false);
+    setApiError(false);
     if (doc === "Rapport") {
       setShowGeneratedDoc(true)
       setShowMessage(false)
@@ -271,8 +285,8 @@ const Generator = () => {
     });
 
     if (!response.ok) {
-      setGenerationError(true);
-      throw new Error(response.statusText);
+      setApiError(true);
+      // throw new Error(response.statusText);
     }
 
     // This data is a ReadableStream
@@ -306,9 +320,8 @@ const Generator = () => {
           } else if (sections2.length !== 0) {
             setGeneratedSections(sections2);
             setLength(sections2.length);
-          } else {
-            setGenerationError(true);
           }
+          console.log(length);
           setFinalText(fulltext);
         } else if (lang === "informel") {
           if (fulltext.match(titleRegex) && fulltext.match(titleRegex)[0]) {
@@ -344,7 +357,7 @@ const Generator = () => {
           });
         } catch (e) {
           console.error(e);
-          setGenerationError(true);
+          setApiError(true);
         }
       }
     };
@@ -360,17 +373,8 @@ const Generator = () => {
       const chunkValue = decoder.decode(value);
       parser.feed(chunkValue);
     }
-    if (!isMobile) {
-      { doc === "Message" || doc === "Email" ? setModalModifiedStepOpen(true) : setModalModifiedPdfOpen(true)};
-    }
-    if (generationError) {
-      setLoading(false);
-    } else {
-      setLoading(false);
-      setDoneGeneration(true);
-      goToModifying();
-      scrollToDoc();
-    }
+    setLoading(false);
+    setDoneGeneration(true);
   };
 
   return (
@@ -509,10 +513,15 @@ const Generator = () => {
           }
           {/* Alert Generation Error */}
           <AnimatePresence>
-            {generationError && (
+            {(generationError || apiError) && (
               <m.div variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden" className={`fixed  left-0 right-0 bottom-10 mx-auto w-10/12 md:w-1/2 2xl:w-1/3 z-50  px-4 py-4 mt-2 bg-orange-400 rounded-md font-bold flex align-center justify-center`} >
                 <m.span role="img" aria-label="rapport" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden" className={"pe-5"}>📢</m.span>
-                <m.p variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden">Reformulez votre sujet pour que Task Completor mette en forme votre document</m.p>
+                {generationError && (
+                  <m.p variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden">Reformulez votre sujet pour que Task Completor mette en forme votre document</m.p>
+                )}
+                {apiError && (
+                  <m.p variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden">Task Completor est en panne. Le créateur arrive...</m.p>
+                )}
               </m.div>
             )}
           </AnimatePresence>
