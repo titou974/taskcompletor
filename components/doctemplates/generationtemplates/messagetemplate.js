@@ -5,12 +5,11 @@ import {
     faChevronRight,
   } from "@fortawesome/free-solid-svg-icons";
 import {useState, useEffect, useRef} from 'react'
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { fadeIn, slideIn } from "../../../utils/motion";
 import style from "../../../css/ImessageGenerated.module.css"
-import EditTextMessage from "../../forms/edittextmessage";
 
-const MessageTemplate = ({messageText, dest, setFinalText, doneGeneration}) => {
+const MessageTemplate = ({messageText, dest, setMessageText, doneGeneration}) => {
     const [paragraphes, setParagraphes] = useState([]);
     const [messageCopied, setMessageCopied] = useState(false);
     const [destInitial, setDestInitial] = useState('');
@@ -36,9 +35,11 @@ const MessageTemplate = ({messageText, dest, setFinalText, doneGeneration}) => {
     useEffect(() => {
       if (editTextArea && editTextArea.current && showEditForm) {
         editTextArea.current.focus();
+      } else {
+        setShowEditForm(false)
       }
 
-    }, [showEditForm, editTextArea])
+    }, [showEditForm, editTextArea, editTextArea.current])
 
 
     const handleContactName = () => {
@@ -56,7 +57,7 @@ const MessageTemplate = ({messageText, dest, setFinalText, doneGeneration}) => {
     }
 
     return (
-        <motion.div variants={slideIn('left', 'tween', 0, 0.5)} animate={messageText === "" ? "hidden" : "show" } className={`${style.imessageContainer} w-full rounded-md`}>
+        <div className={`${style.imessageContainer} w-full rounded-md`}>
             <div className={`${style.imessageBar} rounded-md`}>
                 <div className={`${style.imessageContact}`}>
                     <p>{destInitial}</p>
@@ -68,13 +69,26 @@ const MessageTemplate = ({messageText, dest, setFinalText, doneGeneration}) => {
             </div>
             <div className='px-5 py-10 md:p-10'>
                 <motion.div variants={fadeIn("right", "spring", 0.75, 1)} className={`${style.imessageBubble} relative`}>
-                    <button className={`absolute top-[-30px] right-0 bg-tertiary px-4 py-3 rounded-md font-bold hover:bg-white hover:text-black transition-colors w-9/12 md:w-8/12 border-white border-[3px]`} onClick={copyMessage}>
-                        {messageCopied ? "Copié ✅" : "Copier le Message"}
-                    </button>
-                    {
-                      <textarea ref={editTextArea} autoFocus={true} rows="10" value={messageText} onChange={(e) => setFinalText(e.target.value)}  onBlur={(e) => setShowEditForm(false)} className={`w-full ${style.imessageTextarea} outline-2 rounded-md flex ${showEditForm ? "" : "hidden"}`}/>
-                    }
-                    <div onClick={(e) => doneGeneration && setShowEditForm(true)} className={`${doneGeneration && "cursor-pointer hover:text-primary hover:bg-white"} rounded-md ${showEditForm ? "hidden" : ""}`} >
+                  <AnimatePresence>
+                    {doneGeneration && (
+                      <div>
+                        {!showEditForm && (
+                          <motion.button onClick={(e) => setShowEditForm(true)}  initial="hidden" animate="show" exit="hidden" variants={fadeIn("top", "spring", 0.3, 1)} className={`absolute top-[-30px] right-0 bg-tertiary px-4 py-3 rounded-md font-bold hover:bg-white hover:text-black transition-colors w-10/12 md:w-8/12 border-white border-[3px]`}>
+                              {"Modifier le Message"}
+                          </motion.button>
+                        )}
+                        {showEditForm && (
+                          <button onClick={(e) => setShowEditForm(false)} className={`absolute top-[-30px] right-0 bg-tertiary px-4 py-3 rounded-md font-bold hover:bg-white hover:text-black transition-colors w-10/12 md:w-8/12 border-white border-[3px]`}>
+                            {"Valider ✅"}
+                          </button>
+                        )}
+                      </div>
+                    )}
+                  </AnimatePresence>
+                    {showEditForm && (
+                      <textarea ref={editTextArea} autoFocus={true} rows="10" value={messageText} onChange={(e) => setMessageText(e.target.value)}  onBlur={(e) => setShowEditForm(false)} className={`w-full ${style.imessageTextarea} outline-2 rounded-md flex`}/>
+                    )}
+                    <div className={`rounded-md ${showEditForm ? "hidden" : ""}`} >
 
                         {paragraphes.map((paragraph, index) => (
                             <p className={`my-5 ${style.imessageText}`} key={`paragraph${index}`} >{paragraph}</p>
@@ -85,7 +99,7 @@ const MessageTemplate = ({messageText, dest, setFinalText, doneGeneration}) => {
                 </svg>
                 </motion.div>
             </div>
-        </motion.div>
+        </div>
     )
 }
 

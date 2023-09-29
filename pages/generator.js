@@ -1,10 +1,10 @@
 "use client";
 import dynamic from "next/dynamic";
 import { AnimatePresence, m } from "framer-motion";
-import { fadeIn } from "../utils/motion";
+import { fadeIn, slideIn } from "../utils/motion";
 import { useRef, useState, useEffect } from "react";
 import styles from "../components/style";
-import { PencilSquareIcon, DocumentIcon, ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid";
+import { PencilSquareIcon, DocumentIcon } from "@heroicons/react/24/solid";
 import {
   createParser,
 } from "eventsource-parser";
@@ -13,10 +13,13 @@ import Link from 'next/link';
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import { isMobile } from "react-device-detect";
 import { staggerContainer } from "../utils/motion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCopy,
+} from "@fortawesome/free-solid-svg-icons";
 const ModalStepTwoPdf = dynamic(() => import("../components/modals/modalmodifiedpdf"));
 const ModalStepTwo = dynamic(() => import("../components/modals/modalmodifiedstep"));
 const EditTextMail = dynamic(() => import("../components/forms/edittextmail"));
-const EditTextMessage = dynamic(() => import("../components/forms/edittextmessage"));
 const EditTextAreaReport = dynamic(() => import("../components/forms/editableinputs"));
 const ModalSaved = dynamic(() => import("../components/modals/modalsaved"));
 const ModalIntro = dynamic(() => import("../components/modals/modalintro"));
@@ -30,50 +33,57 @@ const Navbar = dynamic(() => import("../components/navbar"));
 
 
 const Generator = () => {
+  {/* States for Generation Process */}
   const [loading, setLoading] = useState(false);
-  {/* States for form */}
-  const [subject, setSubject] = useState("");
-  const [doc, setDoc] = useState("Rapport");
-  const [lang, setLang] = useState("");
-  const [dest, setDest] = useState("");
-  const [persoType, setPersoType] = useState("élève");
-  const [domain, setDomain] = useState("");
-  const [theme, setTheme] = useState("");
-  const [questions, setQuestions] = useState("");
-  const [job, setJob] = useState("");
-  const [competences, setCompetences] = useState("");
-  const [experiences, setExperiences] = useState("");
-  const [myName, setMyName] = useState("");
-  const [prompt, setPrompt] = useState("");
   const [generatedDoc, setGeneratedDoc] = useState("");
-  const [generatedTitle, setGeneratedTitle] = useState("");
-  const [showGeneratedDoc, setShowGeneratedDoc] = useState(false);
-  const [generatedSections, setGeneratedSections] = useState([]);
-  const [generatedSectionsTexts,  setGeneratedSectionsTexts] = useState([]);
-  const [generatedSectionsTitles, setGeneratedSectionsTitles]  = useState([]);
-  const [length, setLength] = useState(0);
-  const [finalText, setFinalText] = useState("");
-  const [saved, setSaved] = useState(false)
-  const [generatorIntersection, setGeneratorIntersection] = useState(false);
-  const [modalIntroVisible, setModalIntroVisible] = useState(false);
-  const [modifyingStep, setModifyingStep] = useState(false);
   const [generationError, setGenerationError] = useState(false);
   const [apiError, setApiError] = useState(false);
-  const [doneGeneration, setDoneGeneration] = useState(false);
-  const [navTwoStep, setNavTwoStep] = useState(false);
-  const [emotion, setEmotion] = useState("");
-  const [mailType, setMailType] = useState("");
-  const [language, setLanguage] = useState("");
-  const [messageLength, setMessageLength] = useState("");
-  const [modalModifiedStepOpen, setModalModifiedStepOpen] = useState(false);
-  const [modalModifiedPdfOpen, setModalModifiedPdfOpen] = useState(false);
-  const [developSubject, setDevelopSubject] = useState(false);
-  const [hoverNavbar, setHoverNavbar] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const [showEmail, setShowEmail] = useState(false);
   const [showDownload, setShowDownload] = useState(false);
+  const [finalText, setFinalText] = useState("");
+  const [doneGeneration, setDoneGeneration] = useState(false);
+  const [prompt, setPrompt] = useState("");
+  const [saved, setSaved] = useState(false);
+  const [developSubject, setDevelopSubject] = useState(false);
+  {/* States for Modals */}
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalModifiedStepOpen, setModalModifiedStepOpen] = useState(false);
+  const [modalModifiedPdfOpen, setModalModifiedPdfOpen] = useState(false);
+  const [modalIntroVisible, setModalIntroVisible] = useState(false);
+  {/* States for Report form */}
+  const [doc, setDoc] = useState("Rapport");
+  const [subject, setSubject] = useState("");
+  {/* States for Report Generated */}
+  const [generatedTitle, setGeneratedTitle] = useState("");
+  const [showGeneratedDoc, setShowGeneratedDoc] = useState(false);
+  const [length, setLength] = useState(0);
+  const [generatedSections, setGeneratedSections] = useState([]);
+  {/* States for Report PDF */}
+  const [generatedSectionsTexts,  setGeneratedSectionsTexts] = useState([]);
+  const [generatedSectionsTitles, setGeneratedSectionsTitles]  = useState([]);
+  {/* States for Message Form */}
+  const [myName, setMyName] = useState("");
+  const [lang, setLang] = useState("");
+  const [dest, setDest] = useState("");
+  const [language, setLanguage] = useState("");
+  const [emotion, setEmotion] = useState("");
+  const [messageLength, setMessageLength] = useState("");
+  {/* States for Message Generated */}
+  const [messageText, setMessageText] = useState("");
+  const [messageCopied, setMessageCopied] = useState(false)
+  {/* States for Mail Form */}
+  const [mailType, setMailType] = useState("");
+  {/* States for Mail Generated */}
+  const [mailText, setMailText] = useState("");
+  {/* States for Cover Letter Form */}
+  const [job, setJob] = useState("");
+  const [competences, setCompetences] = useState("");
+  const [experiences, setExperiences] = useState("");
+  {/* States for Cover Letter Generated */}
+  const [modifyingStep, setModifyingStep] = useState(false);
+  const [navTwoStep, setNavTwoStep] = useState(false);
 
-  let [isOpen, setIsOpen] = useState(false);
   const docRef = useRef();
   const generateDocRef = useRef(null);
 
@@ -95,7 +105,13 @@ const Generator = () => {
     scrollToDoc();
   }
 
+  const copyMessage = () => {
+    navigator.clipboard.writeText(messageText);
+    setMessageCopied(true);
+}
+
   {/* Modal open for more detailed on subject */}
+
   useEffect(() => {
     const words = subject.split(/\s+/)
     const wordsCount = words.length
@@ -108,8 +124,23 @@ const Generator = () => {
 
   {/* Generation Bug Alert*/}
 
+  useEffect(() => {
+    if (doneGeneration && finalText.length === 0) {
+      setApiError(true);
+    } else if (doneGeneration && doc === "Rapport" && finalText.length !== 0 && length === 0 && showGeneratedDoc) {
+      setGenerationError(true);
+    } else if (doneGeneration && !generationError && !apiError) {
+      goToModifying();
+      scrollToDoc();
+      if (!isMobile) {
+        if (doc === "Message" || doc === "Email") {
+          setModalModifiedStepOpen(true)
+        } else {
+        setModalModifiedPdfOpen(true)};
+      }
+    }
 
-
+  }, [doneGeneration, length, finalText, generationError, apiError])
 
 
   {/* Scroll to Save Button after Generation*/}
@@ -136,6 +167,8 @@ const Generator = () => {
     setIsOpen(true)
   };
 
+  {/* Save the Report to DB */}
+
   const saveDocument = async e => {
     e.preventDefault();
     setLoading(true);
@@ -155,8 +188,9 @@ const Generator = () => {
     setLoading(false);
   };
 
+  {/* Prompt Set Up*/}
+
   useEffect(() => {
-    {/* Prompt Set Up*/}
     if (doc === "Rapport") {
       setPrompt(
         `Écrivez un rapport d'une page maximum sur le sujet ${subject} en utilisant un langage ${lang === "informel" ? "familier" : "formel"}. Structurez votre rapport ${lang === "informel" ? "avec un titre et" : ""} en sections principales, numérotées de manière claire et concise (1, 2, 3, etc.). Assurez-vous d'inclure les informations les plus importantes et les principales idées dans chaque section. Veillez à utiliser le ton et le registre appropriés pour le style de langage choisi. Concentrez-vous sur la clarté et la précision de votre écriture tout en respectant la limite d'une page maximum.`,
@@ -180,7 +214,7 @@ const Generator = () => {
       Expéditeur : ${myName}
       Destinataire : ${dest}
       Sujet : ${subject}
-      Langue : ${language}
+      Langue (français, anglais, espagnol ou chinois) : ${language}
       Taille du message (court, moyen, long) : ${messageLength === "court" && ("respecte une limite de 50 mots")} ${messageLength === "moyen" && ("respecte une limite de 100 mots")} ${messageLength === "long" && ("respecte une limite de 180 mots")}
       Émotion : ${emotion}`)
     }
@@ -204,6 +238,8 @@ const Generator = () => {
     setGeneratedSectionsTexts(extractedContent);
   }, [generatedSections])
 
+
+  {/* Show CTA on Intersection with generated Doc */}
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(({target, isIntersecting}) => {
@@ -226,27 +262,10 @@ const Generator = () => {
     };
   }, [loading]);
 
-  useEffect(() => {
-    if (doneGeneration && finalText.length === 0) {
-      setApiError(true);
-    } else if (doneGeneration && doc === "Rapport" && finalText.length !== 0 && length === 0 && showGeneratedDoc) {
-      setGenerationError(true);
-    } else if (doneGeneration && !generationError && !apiError) {
-      goToModifying();
-      scrollToDoc();
-      if (!isMobile) {
-        if (doc === "Message" || doc === "Email") {
-          setModalModifiedStepOpen(true)
-        } else {
-        setModalModifiedPdfOpen(true)};
-      }
-    }
 
-  }, [doneGeneration, length, doc, finalText, generationError, apiError])
-
+  {/* Generate The Document on Stream with GPT API*/}
 
   const generateDoc = async (e) => {
-    {/* Generate The Document*/}
     e.preventDefault();
     setModalIntroVisible(false);
     setSaved(false);
@@ -339,7 +358,11 @@ const Generator = () => {
           }
           setFinalText(fulltext);
         }
-      } else if (doc === "Email" || doc === "Message") {
+      } else if (doc === "Message") {
+        setMessageText(fulltext);
+        setFinalText(fulltext);
+      } else if (doc === "Email") {
+        setMailText(fulltext);
         setFinalText(fulltext);
       }
     }
@@ -383,14 +406,12 @@ const Generator = () => {
         <div className={`${styles.paddingX} pt-40 max-w-7xl mx-auto relative w-full flex flex-col gap-20 text-white bg-primary`} ref={docRef}>
           <div className={`flex-col items-center justify-center gap-10 flex`}>
           {/* Generation Form */}
-            <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} persoType={persoType} setPersoType={(newPersoType) => setPersoType(newPersoType)} domain={domain} setDomain={(newDomain) => setDomain(newDomain)} theme={theme} setTheme={(newTheme) => setTheme(newTheme)} questions={questions} setQuestions={(newQuestions) => setQuestions(newQuestions)} job={job} setJob={(newJob) => setJob(newJob)} competences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)}/>
+            <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} job={job} setJob={(newJob) => setJob(newJob)} competences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)}/>
             <div className="w-full md:w-1/2 flex justify-between align-center pt-16">
               {!loading && (
                 <button
                   className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta1 w-full flex shadow-xl`}
                   onClick={(e) => developSubject && !isMobile ? setModalIntroVisible(true) : generateDoc(e)}
-                  onMouseEnter={() => setHoverNavbar(true)}
-                  onMouseLeave={() => setHoverNavbar(false)}
                 >
                   {`Générer`}
                   <PencilSquareIcon className={`w-[40px] md:w-[50px]`}></PencilSquareIcon>
@@ -399,7 +420,7 @@ const Generator = () => {
               {loading && (
                 <button
                   disabled
-                  className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta1 ${modifyingStep ? "w-2/3" : "w-full"} disabled cursor-wait`}
+                  className={`${styles.sectionSubText} lg:${styles.heroSubTextLight} cta1 w-full disabled cursor-wait`}
                 >
                   <Loader />
                 </button>
@@ -434,7 +455,7 @@ const Generator = () => {
                     { (showDownload && doneGeneration && (doc === "Rapport" && showGeneratedDoc)) && (
                       <m.div initial="hidden" exit="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} className={`flex justify-center align-center w-full mx-auto fixed bottom-8 left-0 right-0 z-30 ${styles.paddingX} max-w-7xl`}>
                         {
-                          ((!loading && !saved) && (doc === "Rapport" || doc === "Lettre de motivation")) && (
+                          (!loading && !saved)  && (
                             <button className={`cta2 w-full mx-auto md:w-1/2`} onClick={saveDocument}>
                               <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Enregistrer</p>
                               <ArrowDownTrayIcon className="w-[35px] md:ms-3"/>
@@ -461,13 +482,22 @@ const Generator = () => {
                         }
                       </m.div>
                     )}
+                    { (showDownload && doneGeneration && (doc === "Message" && showMessage)) && (
+                      <m.div initial="hidden" exit="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} className={`flex justify-center align-center w-full mx-auto fixed bottom-8 left-0 right-0 z-30 ${styles.paddingX} max-w-7xl`}>
+                        <button className={`cta2 w-full mx-auto md:w-1/2`} onClick={copyMessage}>
+                          <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>{messageCopied ? "Copié ✅" : "Copier le Message"}</p>
+                          {!messageCopied && (<FontAwesomeIcon icon={faCopy} className="h-[25px] w-[25px]"/>)}
+                        </button>
+                      </m.div>
+                    )}
                   </AnimatePresence>
                 </m.div>
               )
             }
           </AnimatePresence>
-
+          {/* Documents Templates */}
           <div className="h-full pb-40" ref={generateDocRef}>
+            <AnimatePresence>
             {
               (showGeneratedDoc && doc === "Rapport") && (
                 <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full mx-auto`}>
@@ -488,17 +518,18 @@ const Generator = () => {
             }
             {
               (showMessage && (doc === "Message")) && (
-                <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full mx-auto`}>
-                  <MessageTemplate messageText={finalText} dest={dest} setFinalText={(newMessage) => setFinalText(newMessage)} doneGeneration={doneGeneration}/>
+                <m.div initial="hidden" variants={slideIn('left', 'tween', 0.5, 0.5)} animate={"show"} className={`h-full mx-auto`}>
+                  <MessageTemplate messageText={messageText} dest={dest} setMessageText={(newMessage) => setMessageText(newMessage)} doneGeneration={doneGeneration}/>
                 </m.div>
               )
             }
+            </AnimatePresence>
           </div>
           {/* Modal Intro */}
           <ModalIntro isOpen={modalIntroVisible} closeModal={() => setModalIntroVisible(false)} generateDoc={(e) => generateDoc(e)} />
-          {/* Modal Saved */}
+          {/* Modal Saved Confirmation, Go to PDF */}
           <ModalSaved isOpen={isOpen} closeModal={closeModal} generatedTitle={generatedTitle} doc={doc} />
-          {/* Modal Step Two */}
+          {/* Modified the doc Modals */}
           <ModalStepTwo doc={doc} isOpen={modalModifiedStepOpen} closeModal={closeModifiedIntro} dest={dest} />
           <ModalStepTwoPdf doc={doc} isOpen={modalModifiedPdfOpen} closeModal={closeModalModifiedPdf} />
           {/* Loader */}

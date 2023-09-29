@@ -86,7 +86,6 @@ const MessageForm = ({myName, setMyName, dest, setDest, emotion, setEmotion, lan
             </div>
             <div className="relative">
               <textarea
-                value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 rows={4}
                 className={`w-full bg-white rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black mt-10 px-4 py-2 text-gray-700 caret-gray-700`}
