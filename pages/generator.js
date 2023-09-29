@@ -97,12 +97,12 @@ const Generator = () => {
 
   const closeModifiedIntro = () => {
     setModalModifiedStepOpen(false);
-    scrollToDoc();
+    scrollToGenerate();
   }
 
   const closeModalModifiedPdf = () => {
     setModalModifiedPdfOpen(false);
-    scrollToDoc();
+    scrollToGenerate();
   }
 
   const copyMessage = () => {
@@ -131,7 +131,7 @@ const Generator = () => {
       setGenerationError(true);
     } else if (doneGeneration && !generationError && !apiError) {
       goToModifying();
-      scrollToDoc();
+      scrollToGenerate();
       if (!isMobile) {
         if (doc === "Message" || doc === "Email") {
           setModalModifiedStepOpen(true)
@@ -279,6 +279,8 @@ const Generator = () => {
     setModifyingStep(false);
     setGenerationError(false);
     setApiError(false);
+    setMessageText("");
+    setMailText("");
     if (doc === "Rapport") {
       setShowGeneratedDoc(true)
       setShowMessage(false)
@@ -403,7 +405,7 @@ const Generator = () => {
   return (
       <div className="w-full">
         <Navbar />
-        <div className={`${styles.paddingX} pt-40 max-w-7xl mx-auto relative w-full flex flex-col gap-20 text-white bg-primary`} ref={docRef}>
+        <div className={`${styles.paddingX} pt-40 max-w-7xl mx-auto relative w-full flex flex-col gap-20 text-white bg-primary`}>
           <div className={`flex-col items-center justify-center gap-10 flex`}>
           {/* Generation Form */}
             <FormGenerator subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} job={job} setJob={(newJob) => setJob(newJob)} competences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)}/>
@@ -510,9 +512,9 @@ const Generator = () => {
               )
             }
             {
-              (showEmail && doc === "Email") && (
+              true && (
                 <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full mx-auto`}>
-                  <MailTemplate fullmail={finalText} name={myName} language={language} />
+                  <MailTemplate fullmail={mailText} name={myName} language={language} setMailText={(newMailText) => setMailText(newMailText)} />
                 </m.div>
               )
             }

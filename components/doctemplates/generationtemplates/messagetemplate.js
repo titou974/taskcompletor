@@ -22,11 +22,6 @@ const MessageTemplate = ({messageText, dest, setMessageText, doneGeneration}) =>
         setParagraphes(messageText.split(regexParagraphsSplit))
     }
 
-    const copyMessage = () => {
-        navigator.clipboard.writeText(messageText);
-        setMessageCopied(true);
-    }
-
     useEffect(() => {
         regexSelector(messageText);
         handleContactName();
@@ -38,7 +33,6 @@ const MessageTemplate = ({messageText, dest, setMessageText, doneGeneration}) =>
       } else {
         setShowEditForm(false)
       }
-
     }, [showEditForm, editTextArea, editTextArea.current])
 
 

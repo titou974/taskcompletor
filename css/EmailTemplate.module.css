@@ -1,5 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-.emailTemplateFont p,  .emailTemplateFont span {
+.emailTemplateFont p,  .emailTemplateFont span, .emailTemplateFont textarea {
   font-family: 'Roboto', sans-serif;
+}
+
+.emailTextArea {
+  border: solid black 3px;
+  background-color: transparent;
+  resize: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  font-family: "Helvetica Neue Condensed";
+  height: 100%;
+  padding: 5px 0;
+  color: black;
 }

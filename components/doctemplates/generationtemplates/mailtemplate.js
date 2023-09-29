@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import style from "../../../css/EmailTemplate.module.css"
 
 
@@ -10,6 +10,8 @@ const MailTemplate = ({fullmail, name, language}) => {
     const [mailParagraphes, setMailParagraphes] = useState([]);
     const [mailCopied, setMailCopied] = useState(false);
     const [objectCopied, setObjectCopied] = useState(false);
+
+    const [showMailForm, setShowMailForm] = useState(false);
 
     const regexSelector = (fullmail) => {
         const regexObjectFrench = /^Objet\s*:\s*([\s\S]*?)$/gm;
@@ -61,7 +63,7 @@ const MailTemplate = ({fullmail, name, language}) => {
           }
           mail = fullmail.replace(regexObjectEnglish, '');
         }
-
+        console.log(mail);
         const paragraphes = mail.split(regexParagraphsSplit);
         setObject(object);
         setMail(mail);
@@ -70,7 +72,16 @@ const MailTemplate = ({fullmail, name, language}) => {
 
     useEffect(() => {
         regexSelector(fullmail)
-    }, [fullmail])
+        console.log(showMailForm);
+    }, [fullmail, showMailForm])
+
+    useEffect(() => {
+      const regexParagraphsSplit = /\n+/;
+      const paragraphes = mail.split(regexParagraphsSplit);
+      setMailParagraphes(paragraphes);
+    }, [mail])
+
+
 
     const copyMail = () => {
         navigator.clipboard.writeText(mail);
@@ -82,21 +93,27 @@ const MailTemplate = ({fullmail, name, language}) => {
     }
 
     return (
-        <div className={`w-full bg-white text-black rounded-md  text-sm sm:text-base ${style.emailTemplateFont}`}>
+        <div className={`w-full bg-white text-black rounded-md  text-sm sm:text-base ${style.emailTemplateFont} relative`}>
+          <button className={`px-4 py-3 rounded-md hover:bg-tertiary hover:text-white shadow-lg text-tertiary bg-white border-2 border-tertiary font-bold transition-colors w-8/12 shadow-lg md:w-4/12 absolute top-[-30px] right-1`} onClick={(e) => setShowMailForm(!showMailForm)}>{showMailForm ? "Valider ✅" : "Modifier l'Email"}</button>
           <div className="flex items-center h-full border-b border-slate-300 py-4 px-5 md:px-10">
               <p><span className="font-bold">De: </span><span>{name}</span></p>
           </div>
-          <div className="flex flex-col-reverse md:flex-row items-start md:items-center md:justify-between h-full border-b border-slate-300 py-4 px-5 md:px-10">
-              <p><span className="font-bold">Objet: </span><span>{object}</span></p>
-              <button className={`px-4 py-3 mb-5 md:mb-0 rounded-md ${objectCopied ? "bg-tertiary text-white" : "bg-transparent hover:bg-tertiary text-tertiary hover:text-white"} border-2 border-tertiary font-bold transition-colors w-[180px]`} onClick={copyObject}>{objectCopied ? "Copié ✅" : "Copier l'Objet"}</button>
+          <div className="flex flex-col-reverse md:flex-row items-start md:items-center md:justify-between h-full border-b border-slate-300 py-4 px-5 md:px-10 gap-2">
+              <div className='flex items-center gap-2 basis-9/12 w-full'>
+                <span className="font-bold">Objet: </span>
+                <p className={`w-full flex-1 flex-wrap overflow-hidden ${showMailForm && "hidden"}`}>{object}</p>
+                <textarea onBlur={(e) => setShowMailForm(false)} value={object} rows={1} onChange={(e) => setObject(e.target.value)} className={`${style.emailTextArea} w-full basis-full ${!showMailForm && "hidden" }`} />
+              </div>
+                <button className={`px-4 py-3 mb-5 md:mb-0 rounded-md ${objectCopied ? "bg-tertiary text-white" : "bg-transparent hover:bg-tertiary text-tertiary hover:text-white"} border-2 border-tertiary font-bold transition-colors w-[180px] shadow-lg`} onClick={copyObject}>{objectCopied ? "Copié ✅" : "Copier l'Objet"}</button>
           </div>
           <div className="pt-6 pb-14 px-5 md:px-10">
               <div className="w-full flex md:justify-end items-center">
-                  <button className={`px-4 py-3 rounded-md ${mailCopied ? "bg-tertiary text-white" : "bg-transparent hover:bg-tertiary text-tertiary hover:text-white"} border-2 border-tertiary font-bold transition-colors w-[180px]`} onClick={copyMail}>{mailCopied ? "Copié ✅" : "Copier l'Email"}</button>
+                  <button className={`px-4 py-3 rounded-md ${mailCopied ? "bg-tertiary text-white" : "bg-transparent hover:bg-tertiary text-tertiary hover:text-white"} border-2 border-tertiary font-bold transition-colors w-[180px] shadow-lg`} onClick={copyMail}>{mailCopied ? "Copié ✅" : "Copier l'Email"}</button>
               </div>
               { mailParagraphes.map((paragraph, index) => (
-                  <p key={`paragraph${index}`} className='my-5 md:my-10 leading-5 md:leading-10'>{paragraph}</p>
+                  <p key={`paragraph${index}`} className={`my-5 md:my-10 leading-5 md:leading-10 ${showMailForm && "hidden"}`}>{paragraph}</p>
               ))}
+              <textarea onBlur={(e) => setShowMailForm(false)}  value={mail} rows={10} onChange={(e) => setMail(e.target.value)} className={`${style.emailTextArea} w-full basis-full ${!showMailForm && "hidden" } my-5`} />
           </div>
         </div>
     )
