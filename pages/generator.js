@@ -420,13 +420,6 @@ const Generator = () => {
                     )
                   }
                   {
-                    doc === "Message" && (
-                      <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Message", amount: 0.25 }} className={`w-full hidden`}>
-                        <EditTextMessage message={finalText} setMessage={(newMessage) => setFinalText(newMessage)} />
-                      </m.div>
-                    )
-                  }
-                  {
                     doc === "Email" && (
                       <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Email", amount: 0.25 }} className={`w-full hidden`}>
                         <EditTextMail mail={finalText} setMail={(newMail) => setFinalText(newMail)} />
@@ -434,7 +427,7 @@ const Generator = () => {
                     )
                   }
                   <AnimatePresence>
-                    { (showDownload && doneGeneration) && (
+                    { (showDownload && doneGeneration && (doc === "Rapport" && showGeneratedDoc)) && (
                       <m.div initial="hidden" exit="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} className={`flex justify-center align-center w-full mx-auto fixed bottom-8 left-0 right-0 z-30 ${styles.paddingX} max-w-7xl`}>
                         {
                           ((!loading && !saved) && (doc === "Rapport" || doc === "Lettre de motivation")) && (
@@ -492,7 +485,7 @@ const Generator = () => {
             {
               (showMessage && (doc === "Message")) && (
                 <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full mx-auto`}>
-                  <MessageTemplate messageText={finalText} dest={dest} />
+                  <MessageTemplate messageText={finalText} dest={dest} setFinalText={(newMessage) => setFinalText(newMessage)} doneGeneration={doneGeneration}/>
                 </m.div>
               )
             }

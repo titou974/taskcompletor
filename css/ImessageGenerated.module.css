@@ -54,3 +54,16 @@
   font-family: "Helvetica Neue Condensed";
   font-size: 20px;
 }
+
+.imessageTextarea {
+  border: solid white 2px;
+  background-color: transparent;
+  resize: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  font-family: "Helvetica Neue Condensed";
+  font-size: 20px;
+  height: 100%;
+  padding: 20px 0;
+}
