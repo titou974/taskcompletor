@@ -416,7 +416,7 @@ const Generator = () => {
                   onClick={(e) => developSubject && !isMobile ? setModalIntroVisible(true) : generateDoc(e)}
                 >
                   {`Générer`}
-                  <PencilSquareIcon className={`w-[40px] md:w-[50px]`}></PencilSquareIcon>
+                  <PencilSquareIcon className={`w-[40px]`}></PencilSquareIcon>
                 </button>
               )}
               {loading && (

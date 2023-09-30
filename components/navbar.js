@@ -172,7 +172,7 @@ const NavbarFixed = ({startScroll, hidden}) => {
             <ul className="hidden lg:flex list-none gap-5 justify-between w-1/2">
               {navLinks.map((link) => (
                 <li key={link.id}>
-                  <Link href={`/${link.id}`} className="py-2 px-4 transition-colors hover:bg-tertiary rounded-md cursor-pointer font-bold">{link.title}</Link>
+                  <Link href={`/${link.id}`} className="py-2 px-4 transition-colors hover:bg-[#011B6B] rounded-md cursor-pointer font-bold">{link.title}</Link>
                 </li>
               ))}
             </ul>
@@ -233,7 +233,7 @@ const MobileNavLinkAnim = {
 
 const MobileNavLink = ({title, href}) => {
   return (
-    <motion.div variants={MobileNavLinkAnim} className="text-white text-2xl uppercase">
+    <motion.div variants={MobileNavLinkAnim} className="text-white text-2xl uppercase rounded-md py-2 px-4">
       <Link href={href} className="hover:bg-white hover:text-tertiary py-2 px-4 transition-colors rounded-md">
         {title}
       </Link>

@@ -234,7 +234,7 @@ body {
 
 .cta2:hover {
   color: rgb(255, 255, 255);
-  background: none;
+  background: #00003f;
 }
 
 .cta2::before {
@@ -276,7 +276,7 @@ body {
 
 .cta1:hover {
   color: black;
-  background: none;
+  background: #00003f;
   z-index: 1;
 }
 
