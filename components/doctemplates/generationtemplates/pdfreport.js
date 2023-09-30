@@ -4,6 +4,8 @@ import PageTitleReportPhoneGenerated from "../generationtemplates/reportpages/pa
 import PageTitleReportGenerated from "../generationtemplates/reportpages/pagetitlereportgenerated";
 import PageReportPhoneGenerated from "../generationtemplates/reportpages/pagereportphonegenerated";
 import PageReportGenerated from "../generationtemplates/reportpages/pagereportgenerated";
+import PageTitleReportGeneratedEdit from "./reportpages/pagetitlereportmodif";
+import PageReportGeneratedEdit from "./reportpages/pagereportgeneratedmodif";
 
 const regexTitle = /^\d+\.\s(.+)/;
 
@@ -49,23 +51,38 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
       <div className="hidden sm:block">
         {
           length >= 1 && (
-            <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-              <PageTitleReportGenerated generatedTitle={generatedTitle} generatedSections={generatedSections.slice(0, 3)} color={'#046CF1'} id="page-1" />
-            </m.div>
+            <div>
+              {/* <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
+                <PageTitleReportGenerated generatedTitle={generatedTitle} generatedSections={generatedSections.slice(0, 3)} color={'#046CF1'} id="page-1" />
+              </m.div> */}
+              <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
+                <PageTitleReportGeneratedEdit generatedTitle={generatedTitle} generatedSections={generatedSections.slice(0, 3)} color={'#046CF1'} id="page-1" />
+              </m.div>
+            </div>
           )
         }
         {
           length >= 4 && (
-            <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-              <PageReportGenerated generatedSections={generatedSections.slice(3, 6)} indexSection={4} color={'#046CF1'} id="page-2" />
-            </m.div>
+            <div>
+              {/* <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
+                <PageReportGenerated generatedSections={generatedSections.slice(3, 6)} indexSection={4} color={'#046CF1'} id="page-2" />
+              </m.div> */}
+              <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
+                <PageReportGeneratedEdit generatedSections={generatedSections.slice(3, 6)} indexSection={4} color={'#046CF1'} id="page-2" />
+              </m.div>
+            </div>
           )
         }
         {
           length >= 7 && (
-            <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-              <PageReportGenerated generatedSections={generatedSections.slice(6, 9)} indexSection={4} color={'#046CF1'} id="page-2" />
-            </m.div>
+            <div>
+              {/* <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
+                <PageReportGenerated generatedSections={generatedSections.slice(6, 9)} indexSection={4} color={'#046CF1'} id="page-2" />
+              </m.div> */}
+              <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
+                <PageReportGeneratedEdit generatedSections={generatedSections.slice(6, 9)} indexSection={4} color={'#046CF1'} id="page-2" />
+              </m.div>
+            </div>
           )
         }
       </div>
