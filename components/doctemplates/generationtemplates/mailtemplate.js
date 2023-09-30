@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import style from "../../../css/EmailTemplate.module.css"
 
 
-const MailTemplate = ({fullmail, name, language}) => {
+const MailTemplate = ({fullmail, name, language, doneGeneration}) => {
     const [object, setObject] = useState('');
     const [mail, setMail] = useState('');
     const [mailParagraphes, setMailParagraphes] = useState([]);
@@ -43,7 +43,7 @@ const MailTemplate = ({fullmail, name, language}) => {
           } else if (match2WithoutWordFrench) {
             object = match2WithoutWordFrench[1];
           }
-          mail = fullmail.replace(regexObjectFrench, '');
+          mail = fullmail.replace(regexObjectFrench, '').replace(/^\n{2,}/, '');
         } else if (language === "espagnol" && objectWithWordSpanish) {
           const matchWithoutWordSpanish = objectWithWordSpanish[0].match(regexObjectWithoutWordSpanish)
           const match2WithoutWordSpanish = objectWithWordSpanish[0].match(regexObject2WithoutWordSpanish)
@@ -52,7 +52,7 @@ const MailTemplate = ({fullmail, name, language}) => {
           } else if (match2WithoutWordSpanish) {
             object = match2WithoutWordSpanish[1];
           }
-          mail = fullmail.replace(regexObjectSpanish, '');
+          mail = fullmail.replace(regexObjectSpanish, '').replace(/^\n{2,}/, '');
         } else if (language === "anglais" && objectWithWordEnglish) {
           const matchWithoutWordEnglish = objectWithWordEnglish[0].match(regexObjectWithoutWordEnglish)
           const match2WithoutWordEnglish = objectWithWordEnglish[0].match(regexObject2WithoutWordEnglish)
@@ -61,7 +61,7 @@ const MailTemplate = ({fullmail, name, language}) => {
           } else if (match2WithoutWordEnglish) {
             object = match2WithoutWordEnglish[1];
           }
-          mail = fullmail.replace(regexObjectEnglish, '');
+          mail = fullmail.replace(regexObjectEnglish, '').replace(/^\n{2,}/, '');
         }
         console.log(mail);
         const paragraphes = mail.split(regexParagraphsSplit);
@@ -71,9 +71,10 @@ const MailTemplate = ({fullmail, name, language}) => {
     }
 
     useEffect(() => {
-        regexSelector(fullmail)
-        console.log(showMailForm);
-    }, [fullmail, showMailForm])
+        {!doneGeneration && (
+          regexSelector(fullmail)
+        )}
+    }, [fullmail])
 
     useEffect(() => {
       const regexParagraphsSplit = /\n+/;
@@ -94,7 +95,7 @@ const MailTemplate = ({fullmail, name, language}) => {
 
     return (
         <div className={`w-full bg-white text-black rounded-md  text-sm sm:text-base ${style.emailTemplateFont} relative`}>
-          <button className={`px-4 py-3 rounded-md hover:bg-tertiary hover:text-white shadow-lg text-tertiary bg-white border-2 border-tertiary font-bold transition-colors w-8/12 shadow-lg md:w-4/12 absolute top-[-30px] right-1`} onClick={(e) => setShowMailForm(!showMailForm)}>{showMailForm ? "Valider ✅" : "Modifier l'Email"}</button>
+          <button className={`px-4 py-3 rounded-md shadow-lg bg-tertiary text-white hover:bg-white hover:text-tertiary border-2 border-tertiary font-bold transition-colors w-8/12 shadow-lg md:w-4/12 absolute top-[-30px] right-1`} onClick={(e) => setShowMailForm(!showMailForm)}>{showMailForm ? "Valider ✅" : "Modifier l'Email"}</button>
           <div className="flex items-center h-full border-b border-slate-300 py-4 px-5 md:px-10">
               <p><span className="font-bold">De: </span><span>{name}</span></p>
           </div>
@@ -102,7 +103,7 @@ const MailTemplate = ({fullmail, name, language}) => {
               <div className='flex items-center gap-2 basis-9/12 w-full'>
                 <span className="font-bold">Objet: </span>
                 <p className={`w-full flex-1 flex-wrap overflow-hidden ${showMailForm && "hidden"}`}>{object}</p>
-                <textarea onBlur={(e) => setShowMailForm(false)} value={object} rows={1} onChange={(e) => setObject(e.target.value)} className={`${style.emailTextArea} w-full basis-full ${!showMailForm && "hidden" }`} />
+                <textarea  value={object} rows={1} onChange={(e) => setObject(e.target.value)} className={`${style.emailTextArea} w-full basis-full ${!showMailForm && "hidden" }`} />
               </div>
                 <button className={`px-4 py-3 mb-5 md:mb-0 rounded-md ${objectCopied ? "bg-tertiary text-white" : "bg-transparent hover:bg-tertiary text-tertiary hover:text-white"} border-2 border-tertiary font-bold transition-colors w-[180px] shadow-lg`} onClick={copyObject}>{objectCopied ? "Copié ✅" : "Copier l'Objet"}</button>
           </div>
@@ -113,7 +114,7 @@ const MailTemplate = ({fullmail, name, language}) => {
               { mailParagraphes.map((paragraph, index) => (
                   <p key={`paragraph${index}`} className={`my-5 md:my-10 leading-5 md:leading-10 ${showMailForm && "hidden"}`}>{paragraph}</p>
               ))}
-              <textarea onBlur={(e) => setShowMailForm(false)}  value={mail} rows={10} onChange={(e) => setMail(e.target.value)} className={`${style.emailTextArea} w-full basis-full ${!showMailForm && "hidden" } my-5`} />
+              <textarea value={mail} rows={10} onChange={(e) => setMail(e.target.value)} className={`${style.emailTextArea} w-full basis-full ${!showMailForm && "hidden" } my-5`} />
           </div>
         </div>
     )

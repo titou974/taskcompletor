@@ -501,7 +501,7 @@ const Generator = () => {
           <div className="h-full pb-40" ref={generateDocRef}>
             <AnimatePresence>
             {
-              (showGeneratedDoc && doc === "Rapport") && (
+              showGeneratedDoc && doc === "Rapport" && (
                 <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full mx-auto`}>
                   <ReportTemplate
                     generatedTitle={generatedTitle}
@@ -512,14 +512,14 @@ const Generator = () => {
               )
             }
             {
-              true && (
+              showEmail && doc === "Email" && (
                 <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full mx-auto`}>
-                  <MailTemplate fullmail={mailText} name={myName} language={language} setMailText={(newMailText) => setMailText(newMailText)} />
+                  <MailTemplate fullmail={mailText} name={myName} language={language} setMailText={(newMailText) => setMailText(newMailText)} doneGeneration={doneGeneration}/>
                 </m.div>
               )
             }
             {
-              (showMessage && (doc === "Message")) && (
+              showMessage && doc === "Message" && (
                 <m.div initial="hidden" variants={slideIn('left', 'tween', 0.5, 0.5)} animate={"show"} className={`h-full mx-auto`}>
                   <MessageTemplate messageText={messageText} dest={dest} setMessageText={(newMessage) => setMessageText(newMessage)} doneGeneration={doneGeneration}/>
                 </m.div>
@@ -547,7 +547,7 @@ const Generator = () => {
           {/* Alert Generation Error */}
           <AnimatePresence>
             {(generationError || apiError) && (
-              <m.div variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden" className={`fixed  left-0 right-0 bottom-10 mx-auto w-10/12 md:w-1/2 2xl:w-1/3 z-50  px-4 py-4 mt-2 bg-orange-400 rounded-md font-bold flex align-center justify-center`} >
+              <m.div initial="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden" className={`fixed  left-0 right-0 bottom-10 mx-auto w-10/12 md:w-1/2 2xl:w-1/3 z-50  px-4 py-4 mt-2 bg-orange-400 rounded-md font-bold flex align-center justify-center`} >
                 <m.span role="img" aria-label="rapport" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden" className={"pe-5"}>📢</m.span>
                 {generationError && (
                   <m.p variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden">Reformulez votre sujet pour que Task Completor mette en forme votre document</m.p>
