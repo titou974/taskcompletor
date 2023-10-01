@@ -56,10 +56,10 @@ const Generator = () => {
   const [doc, setDoc] = useState("Rapport");
   const [subject, setSubject] = useState("");
   {/* States for Report Generated */}
-  const [generatedTitle, setGeneratedTitle] = useState(docType[0].example.title);
+  const [generatedTitle, setGeneratedTitle] = useState("");
   const [showGeneratedDoc, setShowGeneratedDoc] = useState(false);
   const [length, setLength] = useState(docType[0].example.length);
-  const [generatedSections, setGeneratedSections] = useState(docType[0].example.sections);
+  const [generatedSections, setGeneratedSections] = useState([]);
   {/* States for Report PDF */}
   const [generatedSectionsTexts,  setGeneratedSectionsTexts] = useState([]);
   const [generatedSectionsTitles, setGeneratedSectionsTitles]  = useState([]);
@@ -98,12 +98,12 @@ const Generator = () => {
 
   const closeModifiedIntro = () => {
     setModalModifiedStepOpen(false);
-    scrollToGenerate();
+    {!isMobile && scrollToGenerate()};
   }
 
   const closeModalModifiedPdf = () => {
     setModalModifiedPdfOpen(false);
-    scrollToGenerate();
+    {!isMobile && scrollToGenerate()};
   }
 
   const copyMessage = () => {
@@ -132,13 +132,12 @@ const Generator = () => {
       setGenerationError(true);
     } else if (doneGeneration && !generationError && !apiError) {
       goToModifying();
-      scrollToGenerate();
-      if (!isMobile) {
-        if (doc === "Message" || doc === "Email") {
-          setModalModifiedStepOpen(true)
-        } else {
-        setModalModifiedPdfOpen(true)};
-      }
+      {!isMobile && scrollToGenerate()};
+      if (doc === "Message" || doc === "Email") {
+        setModalModifiedStepOpen(true)
+      } else {
+      setModalModifiedPdfOpen(true)};
+
     }
 
   }, [doneGeneration, length, finalText, generationError, apiError])
@@ -146,13 +145,6 @@ const Generator = () => {
 
   {/* Scroll to Save Button after Generation*/}
 
-  const scrollToDoc = () => {
-    if (docRef.current !== null) {
-      docRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
-    } else {
-      console.log("error scrolling after generation")
-    }
-  };
 
   const scrollToGenerate = () => {
     if (generateDocRef.current !== null) {
@@ -506,7 +498,7 @@ const Generator = () => {
           {/* Documents Templates */}
           <div className="h-full pb-40" ref={generateDocRef}>
             <AnimatePresence>
-            {true && (
+            {showGeneratedDoc && doc === "Rapport" && (
                 <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full mx-auto`}>
                   <ReportTemplate
                     generatedTitle={generatedTitle}

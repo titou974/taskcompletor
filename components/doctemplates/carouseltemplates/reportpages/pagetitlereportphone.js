@@ -3,7 +3,7 @@ let replacedLogo;
 const regexTitle = /^\d+\.\s(.+)/;
 import style from '../../../../css/ReportExample.module.css'
 
-const PageTitleReportPhone = ({generatedTitle, generatedSections}) => {
+const PageTitleReportPhone = ({generatedTitle, generatedSections, setGeneratedTitle, updateContent, doneGeneration}) => {
   return (
     <div className={`${style.a4ContainerExample} align-center flex gap-x-4 mb-2`} id="page1">
       <div className={`${style.a4Example} py-[20px] xs:py-[40px] px-5 xs:px-[34px]`}>
