@@ -30,6 +30,7 @@ const PenLoader = dynamic(() => import("../components/loaders/penloader"));
 const FormGenerator = dynamic(() => import("../components/formgenerator"));
 const ReportTemplate = dynamic(() => import("../components/doctemplates/generationtemplates/pdfreport"));
 const Navbar = dynamic(() => import("../components/navbar"));
+import { docType } from "../utils/constants";
 
 
 const Generator = () => {
@@ -55,10 +56,10 @@ const Generator = () => {
   const [doc, setDoc] = useState("Rapport");
   const [subject, setSubject] = useState("");
   {/* States for Report Generated */}
-  const [generatedTitle, setGeneratedTitle] = useState("");
+  const [generatedTitle, setGeneratedTitle] = useState(docType[0].example.title);
   const [showGeneratedDoc, setShowGeneratedDoc] = useState(false);
-  const [length, setLength] = useState(0);
-  const [generatedSections, setGeneratedSections] = useState([]);
+  const [length, setLength] = useState(docType[0].example.length);
+  const [generatedSections, setGeneratedSections] = useState(docType[0].example.sections);
   {/* States for Report PDF */}
   const [generatedSectionsTexts,  setGeneratedSectionsTexts] = useState([]);
   const [generatedSectionsTitles, setGeneratedSectionsTitles]  = useState([]);
@@ -261,6 +262,11 @@ const Generator = () => {
       }
     };
   }, [loading]);
+
+  useEffect(() => {
+    console.log(generatedSections)
+  }, [generatedSections])
+
 
 
   {/* Generate The Document on Stream with GPT API*/}
@@ -500,31 +506,28 @@ const Generator = () => {
           {/* Documents Templates */}
           <div className="h-full pb-40" ref={generateDocRef}>
             <AnimatePresence>
-            {
-              showGeneratedDoc && doc === "Rapport" && (
+            {true && (
                 <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full mx-auto`}>
                   <ReportTemplate
                     generatedTitle={generatedTitle}
                     generatedSections={generatedSections}
                     length={length}
+                    doneGeneration={doneGeneration}
+                    setGeneratedTitle={setGeneratedTitle}
+                    setGeneratedSections={setGeneratedSections}
                   />
                 </m.div>
-              )
-            }
-            {
-              showEmail && doc === "Email" && (
+              )}
+            {showEmail && doc === "Email" && (
                 <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full mx-auto`}>
                   <MailTemplate fullmail={mailText} name={myName} language={language} setMailText={(newMailText) => setMailText(newMailText)} doneGeneration={doneGeneration}/>
                 </m.div>
-              )
-            }
-            {
-              showMessage && doc === "Message" && (
+              )}
+            {showMessage && doc === "Message" && (
                 <m.div initial="hidden" variants={slideIn('left', 'tween', 0.5, 0.5)} animate={"show"} className={`h-full mx-auto`}>
                   <MessageTemplate messageText={messageText} dest={dest} setMessageText={(newMessage) => setMessageText(newMessage)} doneGeneration={doneGeneration}/>
                 </m.div>
-              )
-            }
+              )}
             </AnimatePresence>
           </div>
           {/* Modal Intro */}

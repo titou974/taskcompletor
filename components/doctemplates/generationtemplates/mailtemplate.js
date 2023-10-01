@@ -74,7 +74,7 @@ const MailTemplate = ({fullmail, name, language, doneGeneration}) => {
         {!doneGeneration && (
           regexSelector(fullmail)
         )}
-    }, [fullmail])
+    }, [fullmail, doneGeneration])
 
     useEffect(() => {
       const regexParagraphsSplit = /\n+/;

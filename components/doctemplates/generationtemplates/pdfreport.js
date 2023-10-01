@@ -1,15 +1,23 @@
 import { m } from "framer-motion";
-import { slideIn } from "../../../utils/motion";
+import { slideIn, fadeIn } from "../../../utils/motion";
 import PageTitleReportPhoneGenerated from "../generationtemplates/reportpages/pagetitlereportphonegenerated";
 import PageTitleReportGenerated from "../generationtemplates/reportpages/pagetitlereportgenerated";
 import PageReportPhoneGenerated from "../generationtemplates/reportpages/pagereportphonegenerated";
 import PageReportGenerated from "../generationtemplates/reportpages/pagereportgenerated";
 import PageTitleReportGeneratedEdit from "./reportpages/pagetitlereportmodif";
 import PageReportGeneratedEdit from "./reportpages/pagereportgeneratedmodif";
+import { AnimatePresence } from "framer-motion";
 
 const regexTitle = /^\d+\.\s(.+)/;
 
-const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
+const ReportTemplate = ({ generatedTitle, generatedSections, length, doneGeneration, setGeneratedTitle, setGeneratedSections }) => {
+
+  const updateSectionContent = (index, index2, newContent) => {
+    const updatedSections = [...generatedSections];
+    updatedSections[index][index2] = newContent;
+    setGeneratedSections(updatedSections);
+  }
+
   return (
     <div className="w-full mx-auto">
       {/* Caroussel */}
@@ -52,36 +60,50 @@ const ReportTemplate = ({ generatedTitle, generatedSections, length }) => {
         {
           length >= 1 && (
             <div>
-              {/* <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-                <PageTitleReportGenerated generatedTitle={generatedTitle} generatedSections={generatedSections.slice(0, 3)} color={'#046CF1'} id="page-1" />
-              </m.div> */}
-              <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-                <PageTitleReportGeneratedEdit generatedTitle={generatedTitle} generatedSections={generatedSections.slice(0, 3)} color={'#046CF1'} id="page-1" />
-              </m.div>
+              <AnimatePresence>
+                {doneGeneration && (
+                  <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
+                    <PageTitleReportGenerated generatedTitle={generatedTitle} generatedSections={generatedSections.slice(0, 3)} color={'#046CF1'} id="page-1" />
+                  </m.div>
+                )}
+                {!doneGeneration && (
+                  <m.div initial="hidden" variants={fadeIn("right", "spring", 1, 0.75)} animate={"show"} className="w-full">
+                    <PageTitleReportGeneratedEdit generatedTitle={generatedTitle} generatedSections={generatedSections.slice(0, 3)} updateSectionContent={updateSectionContent} setGeneratedTitle={(newTitle) => setGeneratedTitle(newTitle)} color={'#046CF1'} id="page-1" />
+                  </m.div>
+                )}
+              </AnimatePresence>
             </div>
           )
         }
         {
           length >= 4 && (
             <div>
-              {/* <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-                <PageReportGenerated generatedSections={generatedSections.slice(3, 6)} indexSection={4} color={'#046CF1'} id="page-2" />
-              </m.div> */}
-              <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-                <PageReportGeneratedEdit generatedSections={generatedSections.slice(3, 6)} indexSection={4} color={'#046CF1'} id="page-2" />
-              </m.div>
+              {!doneGeneration && (
+                <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
+                  <PageReportGenerated generatedSections={generatedSections.slice(3, 6)} indexSection={4} color={'#046CF1'} id="page-2" />
+                </m.div>
+              )}
+              {doneGeneration && (
+                <m.div initial="hidden" variants={fadeIn("right", "spring", 1, 0.75)} className="w-full">
+                  <PageReportGeneratedEdit generatedSections={generatedSections.slice(3, 6)} indexSection={4} color={'#046CF1'} id="page-2" />
+                </m.div>
+              )}
             </div>
           )
         }
         {
           length >= 7 && (
             <div>
-              {/* <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-                <PageReportGenerated generatedSections={generatedSections.slice(6, 9)} indexSection={4} color={'#046CF1'} id="page-2" />
-              </m.div> */}
-              <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-                <PageReportGeneratedEdit generatedSections={generatedSections.slice(6, 9)} indexSection={4} color={'#046CF1'} id="page-2" />
-              </m.div>
+              {!doneGeneration && (
+                <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
+                  <PageReportGenerated generatedSections={generatedSections.slice(6, 9)} indexSection={4} color={'#046CF1'} id="page-2" />
+                </m.div>
+              )}
+              {doneGeneration && (
+                <m.div initial="hidden" variants={fadeIn("right", "spring", 1, 0.75)} className="w-full">
+                  <PageReportGeneratedEdit generatedSections={generatedSections.slice(6, 9)} indexSection={4} color={'#046CF1'} id="page-2" />
+                </m.div>
+              )}
             </div>
           )
         }

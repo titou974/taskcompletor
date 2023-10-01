@@ -39,7 +39,8 @@ export const docType = [
         ["", "4. Les activités et événements spéciaux", "Le Musée de l'Art et de l'Espace propose une variété d'activités et d'événements spéciaux pour enrichir l'expérience des visiteurs. Des ateliers artistiques, des conférences, des projections de films et des rencontres avec des artistes sont régulièrement organisés. De plus, le musée accueille des expositions temporaires mettant en avant des artistes et des projets innovants. Ces activités et événements spéciaux contribuent à créer une atmosphère dynamique et stimulante au sein du musée."],
         ["", "5. L'importance culturelle du musée", "Le Musée de l'Art et de l'Espace joue un rôle essentiel dans la promotion de l'art contemporain et de l'exploration spatiale. Il offre aux visiteurs une occasion unique de découvrir et d'apprécier ces deux domaines importants de la culture moderne. En encourageant le dialogue entre l'art et la science, le musée favorise la compréhension et l'appréciation de ces disciplines auprès du public. De plus, il contribue à la préservation et à la diffusion du patrimoine culturel en exposant des œuvres d'art et des artefacts liés à l'exploration spatiale."],
         ["", "6. Conclusion", "En conclusion, le Musée de l'Art et de l'Espace offre une expérience culturelle riche et unique en combinant l'art contemporain avec des expositions sur l'exploration spatiale. Grâce à ses expositions d'art diversifiées, ses expositions sur l'exploration spatiale, ses activités et événements spéciaux, ce musée joue un rôle crucial dans la promotion de la culture et de la connaissance. Il mérite d'être reconnu comme un lieu incontournable pour les amateurs d'art et les passionnés d'exploration spatiale."]
-      ]
+      ],
+      length: 6,
     }
   },
   {
