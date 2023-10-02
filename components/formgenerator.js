@@ -22,7 +22,7 @@ const FormGenerator = ({subject, setSubject, doc, setDoc, lang, setLang, dest, s
             <div  className="hidden sm:block w-full pb-10">
               <TabsDocument type={doc} setType={(newDoc) => setDoc(newDoc)}/>
             </div>
-              { doc === "Rapport" && (
+              { doc === "Présentation" && (
                 <m.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fadeIn("right", "spring", 0.5, 0.75)} className={`w-full`}>
                   <ReportForm subject={subject} setSubject={(newSubject) => setSubject(newSubject)} lang={lang} setLang={(newLang) => setLang(newLang)}/>
                 </m.div>

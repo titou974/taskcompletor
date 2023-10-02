@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   switch (method) {
     case 'POST':
       const type = req.body.type
-      if (type === "Rapport") {
+      if (type === "Présentation") {
         const title = req.body.title
         const sectionsTitles = req.body.subtitles
         const sectionsTexts = req.body.sections

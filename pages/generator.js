@@ -53,7 +53,7 @@ const Generator = () => {
   const [modalModifiedPdfOpen, setModalModifiedPdfOpen] = useState(false);
   const [modalIntroVisible, setModalIntroVisible] = useState(false);
   {/* States for Report form */}
-  const [doc, setDoc] = useState("Rapport");
+  const [doc, setDoc] = useState("Présentation");
   const [subject, setSubject] = useState("");
   {/* States for Report Generated */}
   const [generatedTitle, setGeneratedTitle] = useState("");
@@ -87,6 +87,9 @@ const Generator = () => {
 
   const docRef = useRef();
   const generateDocRef = useRef(null);
+
+
+
 
   const backToGeneration = () => {
     setNavTwoStep(false);
@@ -128,7 +131,7 @@ const Generator = () => {
   useEffect(() => {
     if (doneGeneration && finalText.length === 0) {
       setApiError(true);
-    } else if (doneGeneration && doc === "Rapport" && finalText.length !== 0 && length === 0 && showGeneratedDoc) {
+    } else if (doneGeneration && doc === "Présentation" && finalText.length !== 0 && length === 0 && showGeneratedDoc) {
       setGenerationError(true);
     } else if (doneGeneration && !generationError && !apiError) {
       goToModifying();
@@ -184,7 +187,7 @@ const Generator = () => {
   {/* Prompt Set Up*/}
 
   useEffect(() => {
-    if (doc === "Rapport") {
+    if (doc === "Présentation") {
       setPrompt(
         `Écrivez un rapport d'une page maximum sur le sujet ${subject} en utilisant un langage ${lang === "informel" ? "familier" : "formel"}. Structurez votre rapport ${lang === "informel" ? "avec un titre et" : ""} en sections principales, numérotées de manière claire et concise (1, 2, 3, etc.). Assurez-vous d'inclure les informations les plus importantes et les principales idées dans chaque section. Veillez à utiliser le ton et le registre appropriés pour le style de langage choisi. Concentrez-vous sur la clarté et la précision de votre écriture tout en respectant la limite d'une page maximum.`,
       );
@@ -255,9 +258,7 @@ const Generator = () => {
     };
   }, [loading]);
 
-  useEffect(() => {
-    console.log(generatedSections)
-  }, [generatedSections])
+
 
 
 
@@ -279,7 +280,7 @@ const Generator = () => {
     setApiError(false);
     setMessageText("");
     setMailText("");
-    if (doc === "Rapport") {
+    if (doc === "Présentation") {
       setShowGeneratedDoc(true)
       setShowMessage(false)
       setShowEmail(false)
@@ -323,7 +324,7 @@ const Generator = () => {
       const titleRegex = /^([^\n]+)/;
 
       {/* Structuring the Document */}
-      if (doc === "Rapport") {
+      if (doc === "Présentation") {
         if (lang === "formel") {
           if (fulltext.match(regex1)) {
             setGeneratedTitle(fulltext.match(regex1)[0]);
@@ -438,8 +439,8 @@ const Generator = () => {
                   animate={{ opacity: 1, duration: 2 }}
                   exit={{opacity: 0}} >
                   {
-                    doc === "Rapport" && (
-                      <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Rapport", amount: 0.25 }} className={`w-full hidden`}>
+                    doc === "Présentation" && (
+                      <m.div variants={staggerContainer()} initial="hidden" whileInView="show" viewport={{ once: true && doc === "Présentation", amount: 0.25 }} className={`w-full hidden`}>
                         <EditTextAreaReport title={generatedTitle} setTitle={(newDoc) => setGeneratedTitle(newDoc)} setSections={(newDoc) => setGeneratedSections(newDoc)} sections={generatedSections}/>
                       </m.div>
                     )
@@ -452,7 +453,7 @@ const Generator = () => {
                     )
                   }
                   <AnimatePresence>
-                    { (showDownload && doneGeneration && (doc === "Rapport" && showGeneratedDoc)) && (
+                    { (showDownload && doneGeneration && (doc === "Présentation" && showGeneratedDoc)) && (
                       <m.div initial="hidden" exit="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} className={`flex justify-center align-center w-full mx-auto fixed bottom-8 left-0 right-0 z-30 ${styles.paddingX} max-w-7xl`}>
                         {
                           (!loading && !saved)  && (
@@ -471,7 +472,7 @@ const Generator = () => {
                           </button>
                         )}
                         {
-                          (saved && (doc === "Rapport" || doc === "Lettre de motivation")) && (
+                          (saved && (doc === "Présentation" || doc === "Lettre de motivation")) && (
                             <Link href="/mypdf" legacyBehavior className={`w-full flex justify-end`}>
                               <a target="_blank" className={`cta2 w-full mx-auto md:w-1/2 flex`}>
                                 <p className={`${styles.sectionSubText}`}>Voir le PDF</p>
@@ -498,7 +499,7 @@ const Generator = () => {
           {/* Documents Templates */}
           <div className="h-full pb-40" ref={generateDocRef}>
             <AnimatePresence>
-            {showGeneratedDoc && doc === "Rapport" && (
+            {showGeneratedDoc && doc === "Présentation" && (
                 <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} className={`h-full mx-auto`}>
                   <ReportTemplate
                     generatedTitle={generatedTitle}

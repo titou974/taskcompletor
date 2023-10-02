@@ -8,7 +8,7 @@ const RadioGroupMailType = ({mailType, setMailType}) => {
     <div className="w-full pt-10">
       <div className="mx-auto w-full">
         <RadioGroup value={mailType} onChange={setMailType}>
-          <RadioGroup.Label className="sr-only">Langue</RadioGroup.Label>
+          <RadioGroup.Label className="sr-only">TYpe d'Email</RadioGroup.Label>
           <div className="space-y-2">
             {mailTypeIndex.map((type) => (
               <RadioGroup.Option

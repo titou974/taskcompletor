@@ -18,7 +18,7 @@ import MailTemplateIntro from "./doctemplates/introtemplates/emailintrotemplate"
 
 const Introduction = () => {
   const [displayedText, setDisplayedText] = useState("");
-  const introductionTexts = ["Générez en quelques secondes ", "des Rapports en PDF...", "des Messages...", "des Emails...", "des Lettres de Motivation..."];
+  const introductionTexts = ["Générez en quelques secondes ", "des Présentations en PDF...", "des Messages...", "des Emails...", "des Lettres de Motivation..."];
   const [isBubbleVisible, setIsBubbleVisible] = useState(false);
   const [showReportExample, setShowReportExample] = useState(false);
   const [showMessageExample, setShowMessageExample] = useState(false);
@@ -43,6 +43,8 @@ const Introduction = () => {
       observer.disconnect();
     };
   }, []);
+
+
 
 
   return (

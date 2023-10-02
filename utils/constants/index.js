@@ -15,9 +15,9 @@ export const navLinks = [
 
 export const docType = [
   {
-    id: "rapport",
-    title: "Rapport",
-    description: "Rapport d'environ 2 pages sur un sujet quelconque.",
+    id: "présentation",
+    title: "Présentation",
+    description: "Présentation d'environ 2 pages sur un sujet quelconque.",
     benefits: [
       [
         "Faire un résumé rapide sur un sujet donné",
@@ -25,7 +25,7 @@ export const docType = [
 
       ],
       [
-        "Obtenir un plan pour un rapport plus détaillé",
+        "Obtenir un plan pour une présentation plus détaillée",
         "detailed report",
       ],
     ],
@@ -113,12 +113,12 @@ export const langType = [
   {
     id: "formel",
     title: "Formel 📝",
-    description: "Le rapport utilise un language soutenu et spécifique au sujet"
+    description: "Utilise un language soutenu et spécifique au sujet"
   },
   {
     id: "informel",
     title: "Informel 📢",
-    description: "Le rapport utilise un language familier et vulgarise le sujet"
+    description: "Utilise un language familier et vulgarise le sujet"
   },
 ];
 

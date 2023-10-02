@@ -8,7 +8,7 @@ const RadioGroupMessageLength = ({messageLength, setMessageLength}) => {
     <div className="w-full pt-10">
       <div className="mx-auto w-full">
         <RadioGroup value={messageLength} onChange={setMessageLength}>
-          <RadioGroup.Label className="sr-only">Langue</RadioGroup.Label>
+          <RadioGroup.Label className="sr-only">Taille du Message</RadioGroup.Label>
           <div className="space-y-2">
             {messageLengthIndex.map((length) => (
               <RadioGroup.Option

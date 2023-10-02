@@ -10,7 +10,7 @@ const RadioGroupLangType = ({lang, setLang}) => {
     <div className="w-full pt-10">
       <div>
         <RadioGroup value={lang} onChange={setLang}>
-          <RadioGroup.Label className="sr-only">Type de Language</RadioGroup.Label>
+          <RadioGroup.Label className="sr-only">Registre</RadioGroup.Label>
           <div className="space-y-2">
             {langType.map((type) => (
               <RadioGroup.Option
