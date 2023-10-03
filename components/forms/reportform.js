@@ -16,7 +16,7 @@ const ReportForm = ({lang, setLang, subject, setSubject}) => {
   const subjectArea = useRef(null);
   const text = "La science durant la Grèce Antique";
   const delay = 50;
-  const startDelay = 1000;
+  const startDelay = 1500;
 
   const HandleColorChangeTextInput = () => {
     if (1 < subject.split(/\s+/).length && subject.split(/\s+/).length < 4) {

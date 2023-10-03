@@ -22,8 +22,8 @@ const EmailForm = ({myName, setMyName, dest, setDest, mailType, setMailType, lan
   const delay = 80;
   const delaySubject = 50;
   const startDelaySubject = 1000;
-  const startDelayName = 1000;
-  const startDelayDest = 2000;
+  const startDelayName = 2000;
+  const startDelayDest = 3000;
 
   useEffect(() => {
     let indexName = 0;
@@ -143,10 +143,10 @@ const EmailForm = ({myName, setMyName, dest, setDest, mailType, setMailType, lan
                     Choisir un type d'email
                 </h2>
             </m.div>
-            <m.div variants={fadeIn("top", "spring", 1, 0.75)}>
+            <m.div variants={fadeIn("right", "spring", 1.25, 0.75)}>
             <RadioGroupMailType mailType={mailType} setMailType={(newType) => setMailType(newType)} />
             </m.div>
-            <m.div variants={textVariant(1.25)} className={`flex items-center gap-4 w-full pt-20`}>
+            <m.div variants={textVariant(1)} className={`flex items-center gap-4 w-full pt-20`}>
               <IconNumber number={2} color={language === "" ? "white" : "green"} />
                 <h2
                 className={`${styles.sectionSubText} font-bold`}
@@ -154,7 +154,7 @@ const EmailForm = ({myName, setMyName, dest, setDest, mailType, setMailType, lan
                     Choisir une langue
                 </h2>
             </m.div>
-            <m.div variants={fadeIn("top", "spring", 1.25, 0.75)} >
+            <m.div variants={fadeIn("right", "spring", 1.25, 0.75)} >
               <RadioGroupLanguage language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} docType="email" />
             </m.div>
             <div className={`flex items-center gap-4 w-full pt-20`}>
