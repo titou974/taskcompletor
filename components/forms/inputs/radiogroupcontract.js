@@ -7,7 +7,7 @@ const RadioGroupContracts = ({contractName, setContractName}) => {
   return (
     <div className="w-full pt-10">
       <div className="mx-auto w-full">
-        <RadioGroup value={contractName} onChange={setContractName}>
+        <RadioGroup value={contractName} onChange={(e) => setContractName(e)}>
           <RadioGroup.Label className="sr-only">Graduate?</RadioGroup.Label>
           <div className="space-y-2">
             {contractNameList.map((name) => (

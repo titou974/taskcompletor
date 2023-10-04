@@ -79,16 +79,16 @@ const Generator = () => {
   {/* States for Mail Generated */}
   const [mailText, setMailText] = useState("");
   {/* States for Cover Letter Form */}
-  const [job, setJob] = useState("");
+  const [job, setJob] = useState(""); // ok
   const [companyName, setCompanyName] = useState(""); // ok
   const [graduate, setGraduate] = useState(null); // ok
   const [schoolName, setSchoolName] = useState(""); // ok
   const [domainOfStudy, setDomainOfStudy] = useState(""); // ok
   const [levelOfStudy, setLevelOfStudy] = useState(""); // ok
   const [graduation, setGraduation] = useState(""); // ok
-  const [competences, setCompetences] = useState([]);
+  const [competences, setCompetences] = useState([]); // ok
   const [experiences, setExperiences] = useState([]);
-  const [hobbies, setHobbies] = useState([]);
+  const [hobbies, setHobbies] = useState([]); // ok
   const [contactDetails, setContactDetails] = useState(false);
   const [contractName, setContractName] = useState(""); // ok
   const [mailAddress, setMailAddress] = useState("");
@@ -233,15 +233,15 @@ const Generator = () => {
         - Compétences clés : ${competences}
         - Expérience passée : ${experiences}
         - Passions : ${hobbies}
-        ${contactDetails && `- Coordonnées :
+        ${contactDetails ? `- Coordonnées :
         [${myName}]
         [${mailAddress}]
-        [${phoneNumber}]`
+        [${phoneNumber}]` : `- Mon nom : ${myName}`
       }
         Met uniquement ces paramètres dans la lettre.
       `)
     }
-  }, [subject, lang, myName, dest, language, mailType, job, competences, experiences, messageLength, emotion, graduate, companyName, schoolName, domainOfStudy, levelOfStudy, graduation, hobbies, contactDetails]);
+  }, [subject, lang, myName, dest, language, mailType, job, competences, experiences, messageLength, emotion, graduate, companyName, schoolName, domainOfStudy, levelOfStudy, graduation, hobbies, contactDetails, contractName]);
 
   {/* Separate Sectionstitles and Sections */}
 
@@ -287,7 +287,7 @@ const Generator = () => {
 
 
   useEffect(() => {
-    console.log(finalText);
+    console.log(prompt);
   })
 
   {/* Generate Competences for Cover Letter */}
@@ -509,7 +509,7 @@ const Generator = () => {
         <div className={`${styles.paddingX} pt-40 max-w-7xl mx-auto relative w-full flex flex-col gap-20 text-white bg-primary`}>
           <div className={`flex-col items-center justify-center gap-10 flex`}>
           {/* Generation Form */}
-            <FormGenerator isCompetenceGenerated={isCompetenceGenerated} generateCompetences={(e) => generateCompetences(e)} hobbies={hobbies} setHobbies={(newHobbies) => setHobbies(newHobbies)}  graduation={graduation} setGraduation={(newGraduation) => setGraduation(newGraduation)} schoolName={schoolName} setSchoolName={(newSchoolName) => setSchoolName(newSchoolName)}  subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} job={job} setJob={(newJob) => setJob(newJob)} competences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)} contractName={contractName} setContractName={(newContractName) => setContractName(newContractName)} companyName={companyName} setCompanyName={(newCompanyName) => setCompanyName(newCompanyName)} graduate={graduate} setGraduate={(newStatus) => setGraduate(newStatus)} levelOfStudy={levelOfStudy} setLevelOfStudy={(newLevelOfStudy) => setLevelOfStudy(newLevelOfStudy)} domainOfStudy={domainOfStudy} setDomainOfStudy={(newDomainOfStudy) => setDomainOfStudy(newDomainOfStudy)} hobbies={hobbies} setHobbies={(newHobbies) => setNewHobbies(newHobbies)} contactDetails={contactDetails} setContactDetails={(newContactDetails) => setContactDetails(newContactDetails)} mailAddress={mailAddress} setMailAddress={(newMailAddress) =>  setMailAddress(newMailAddress)} phoneNumber={phoneNumber} setPhoneNumber={(newPhoneNumber) => setPhoneNumber(newPhoneNumber)} />
+            <FormGenerator isCompetenceGenerated={isCompetenceGenerated} generateCompetences={(e) => generateCompetences(e)} hobbies={hobbies} setHobbies={(newHobbies) => setHobbies(newHobbies)}  graduation={graduation} setGraduation={(newGraduation) => setGraduation(newGraduation)} schoolName={schoolName} setSchoolName={(newSchoolName) => setSchoolName(newSchoolName)}  subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} job={job} setJob={(newJob) => setJob(newJob)} competences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)} contractName={contractName} setContractName={(newContractName) => setContractName(newContractName)} companyName={companyName} setCompanyName={(newCompanyName) => setCompanyName(newCompanyName)} graduate={graduate} setGraduate={(newStatus) => setGraduate(newStatus)} levelOfStudy={levelOfStudy} setLevelOfStudy={(newLevelOfStudy) => setLevelOfStudy(newLevelOfStudy)} domainOfStudy={domainOfStudy} setDomainOfStudy={(newDomainOfStudy) => setDomainOfStudy(newDomainOfStudy)} hobbies={hobbies} setHobbies={(newHobbies) => setHobbies(newHobbies)} contactDetails={contactDetails} setContactDetails={(newContactDetails) => setContactDetails(newContactDetails)} mailAddress={mailAddress} setMailAddress={(newMailAddress) =>  setMailAddress(newMailAddress)} phoneNumber={phoneNumber} setPhoneNumber={(newPhoneNumber) => setPhoneNumber(newPhoneNumber)} />
             <div className="w-full md:w-1/2 flex justify-between align-center pt-16">
               {!loading && (
                 <button
