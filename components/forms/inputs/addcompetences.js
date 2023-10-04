@@ -4,11 +4,11 @@ import { AnimatePresence, m } from "framer-motion";
 import { fadeIn } from "../../../utils/motion";
 import { competences_list } from "../../../utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faXmark, faWandMagicSparkles } from "@fortawesome/free-solid-svg-icons";
 
 
 
-const AddCompetencesInput = ({input, setInput}) => {
+const AddCompetencesInput = ({input, setInput, job, generateCompetences, isGenerate}) => {
   const [suggestions, setSuggestions] = useState([]);
   const [competence, setCompetence] = useState("")
 
@@ -26,7 +26,8 @@ const AddCompetencesInput = ({input, setInput}) => {
   };
 
   const handleSuggestionClick = (suggestion) => {
-    setCompetence(suggestion);
+    setInput([...input, suggestion]),
+    setCompetence("");
     setSuggestions([]);
   };
 
@@ -39,14 +40,13 @@ const AddCompetencesInput = ({input, setInput}) => {
     setInput(input.filter((_, index) => index !== indexToDelete));
   };
 
-
   return (
     <div className="w-full relative h-full">
       <div className="w-full">
         <ul className="mb-8 flex w-full flex-wrap">
         <AnimatePresence>
-          {input.map((competence, index) => (
-              <m.li variants={fadeIn("top", "spring", 0.2, 0.75)} initial={index === input.length - 1 ? "hidden" : "show"}  animate="show" exit="hidden"  className="rounded-md text-sm bg-secondary w-fit p-2 my-1 mr-2 font-bold whitespace-nowrap flex justify-between gap-3">
+          {input.length !== 0 && input.map((competence, index) => (
+              <m.li  className="rounded-md text-sm bg-secondary w-fit p-2 my-1 mr-2 font-bold whitespace-nowrap flex justify-between gap-3">
                 {competence}
                 <button onClick={() => handleDeleteCompetence(index)}>
                   <FontAwesomeIcon icon={faXmark} size="md" />
@@ -77,6 +77,21 @@ const AddCompetencesInput = ({input, setInput}) => {
             )}
           </AnimatePresence>
         </div>
+        <AnimatePresence>
+          {job !== "" && !isGenerate && (
+            <m.button
+              className={`cta3 w-fit md:w-9/12 flex shadow-xl my-5 font-bold`}
+              onClick={(e) => generateCompetences(e)}
+              variants={fadeIn("right", "spring", 0.2, 0.75)}
+              initial="hidden"
+              animate="show"
+              exit="hidden"
+            >
+              {`Générer pour "${job}"`}
+              <FontAwesomeIcon icon={faWandMagicSparkles} size="lg" />
+            </m.button>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   )

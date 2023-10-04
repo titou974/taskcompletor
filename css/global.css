@@ -348,7 +348,7 @@ body {
     background-color: #00003f;
     border: 3px white solid;
     border-radius: 6px;
-    padding: 5px;
+    padding: 20px;
     transition: color 0.4s linear;
     position: relative;
     z-index: 1;

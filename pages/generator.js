@@ -16,6 +16,7 @@ import { staggerContainer } from "../utils/motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCopy,
+  faWandMagicSparkles
 } from "@fortawesome/free-solid-svg-icons";
 const ModalStepTwoPdf = dynamic(() => import("../components/modals/modalmodifiedpdf"));
 const ModalStepTwo = dynamic(() => import("../components/modals/modalmodifiedstep"));
@@ -93,8 +94,10 @@ const Generator = () => {
   const [mailAddress, setMailAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
-
   {/* States for Cover Letter Generated */}
+  const [isCompetenceGenerated, setIsCompetenceGenerated] = useState(false);
+
+  {/* Mail Generated */}
   const [modifyingStep, setModifyingStep] = useState(false);
   const [navTwoStep, setNavTwoStep] = useState(false);
 
@@ -153,11 +156,9 @@ const Generator = () => {
         setModalModifiedStepOpen(true)
       } else {
       setModalModifiedPdfOpen(true)};
-
     }
 
   }, [doneGeneration, length, finalText, generationError, apiError])
-
 
   {/* Scroll to Save Button after Generation*/}
 
@@ -213,10 +214,6 @@ const Generator = () => {
       Langue : ${language}
       Sujet du mail : ${subject}
       Merci beaucoup !`)
-    } else if (doc === "Lettre de motivation") {
-      setPrompt(
-        `Cher ChatGPT, je suis à la recherche d'un emploi dans ${job}. Pouvez-vous m'aider à rédiger une lettre de motivation convaincante qui mettra en valeur mes compétences (compétences: ${competences}), mon expérience pertinente (mes expériences: ${experiences}) et ma motivation à travailler pour l'entreprise ${dest} ? Mon nom est ${myName}. J'aimerais que ma lettre soit en ${language}, claire, concise et engageante, et qu'elle capture l'attention du recruteur dès le début. Merci d'avance pour votre aide précieuse !`,
-      );
     } else if (doc === "Message") {
       setPrompt(`Peux-tu créer un message en gardant uniquement le contenu, s'il te plaît ? Voici les détails :
 
@@ -232,7 +229,7 @@ const Generator = () => {
         - Poste : ${job}
         - Entreprise : ${companyName}
         ${graduate ? "- Formation Passée" : "- Formation actuelle"} : ${levelOfStudy} en ${domainOfStudy} dans l'école ${schoolName}
-        ${graduate ? `-Diplome obtenu: ${graduation}` : `-Diplome passé: ${graduation}`}
+        ${graduate ? `- Diplome obtenu: ${graduation}` : `- Diplome passé: ${graduation}`}
         - Compétences clés : ${competences}
         - Expérience passée : ${experiences}
         - Passions : ${hobbies}
@@ -290,11 +287,79 @@ const Generator = () => {
 
 
   useEffect(() => {
-    console.log(competences);
-
+    console.log(finalText);
   })
 
+  {/* Generate Competences for Cover Letter */}
 
+
+  const generateCompetences = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setFinalText("");
+    setCompetences("");
+    setDoneGeneration(false);
+    const requestBody = {
+      prompt: `Génère une liste du nom des 5 compétences clés pour un(e) ${job} sans détailler`
+    };
+    const response = await fetch("/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (!response.ok) {
+      setApiError(true);
+      console.log("coucou")
+      console.log(response.statusText);
+    }
+
+    // This data is a ReadableStream
+    const data = response.body;
+    if (!data) {
+      return;
+    }
+
+    const regexSelector = (fulltext) => {
+      const competencesArray = fulltext.split('\n').map(comp => comp.trim().split('. ')[1]);
+      setCompetences(competencesArray);
+      setFinalText(fulltext);
+    }
+
+    const onParse = (event) => {
+      {/* Parsing the Answer */}
+      if (event.type === "event") {
+        const data = event.data;
+        try {
+          let text = JSON.parse(data).text ?? "";
+          setGeneratedDoc((prev) => {
+            const fulltext = prev + text;
+            regexSelector(fulltext);
+            return fulltext;
+          });
+        } catch (e) {
+          console.error(e);
+          setApiError(true);
+        }
+      }
+    };
+
+    // https://web.dev/streams/#the-getreader-and-read-methods
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
+    const parser = createParser(onParse);
+    let done = false;
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      const chunkValue = decoder.decode(value);
+      parser.feed(chunkValue);
+    }
+    setLoading(false);
+    setIsCompetenceGenerated(true);
+  };
 
   {/* Generate The Document on Stream with GPT API*/}
 
@@ -327,7 +392,7 @@ const Generator = () => {
       setShowMessage(false)
       setShowGeneratedDoc(false)
     }
-    scrollToGenerate();
+    scrollToGenerate()
     const response = await fetch("/api/generate", {
       method: "POST",
       headers: {
@@ -354,7 +419,6 @@ const Generator = () => {
       const regex1 = /Rapport[^.]*\n/;
       const regex3 = /(\d+\.\s.+)\n(.+)/g;
       const regex4 = /(\d+\.\s.+)\n\n(.+)/g;
-
       const titleRegex = /^([^\n]+)/;
 
       {/* Structuring the Document */}
@@ -399,6 +463,10 @@ const Generator = () => {
       } else if (doc === "Email") {
         setMailText(fulltext);
         setFinalText(fulltext);
+      } else if (doc === "Lettre de motivation") {
+        if (generateCompetences) {
+          setFinalText(fulltext);
+        }
       }
     }
 
@@ -441,7 +509,7 @@ const Generator = () => {
         <div className={`${styles.paddingX} pt-40 max-w-7xl mx-auto relative w-full flex flex-col gap-20 text-white bg-primary`}>
           <div className={`flex-col items-center justify-center gap-10 flex`}>
           {/* Generation Form */}
-            <FormGenerator hobbies={hobbies} setHobbies={(newHobbies) => setHobbies(newHobbies)}  graduation={graduation} setGraduation={(newGraduation) => setGraduation(newGraduation)} schoolName={schoolName} setSchoolName={(newSchoolName) => setSchoolName(newSchoolName)}  subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} job={job} setJob={(newJob) => setJob(newJob)} competences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)} contractName={contractName} setContractName={(newContractName) => setContractName(newContractName)} companyName={companyName} setCompanyName={(newCompanyName) => setCompanyName(newCompanyName)} graduate={graduate} setGraduate={(newStatus) => setGraduate(newStatus)} levelOfStudy={levelOfStudy} setLevelOfStudy={(newLevelOfStudy) => setLevelOfStudy(newLevelOfStudy)} domainOfStudy={domainOfStudy} setDomainOfStudy={(newDomainOfStudy) => setDomainOfStudy(newDomainOfStudy)} hobbies={hobbies} setHobbies={(newHobbies) => setNewHobbies(newHobbies)} contactDetails={contactDetails} setContactDetails={(newContactDetails) => setContactDetails(newContactDetails)} mailAddress={mailAddress} setMailAddress={(newMailAddress) =>  setMailAddress(newMailAddress)} phoneNumber={phoneNumber} setPhoneNumber={(newPhoneNumber) => setPhoneNumber(newPhoneNumber)} />
+            <FormGenerator isCompetenceGenerated={isCompetenceGenerated} generateCompetences={(e) => generateCompetences(e)} hobbies={hobbies} setHobbies={(newHobbies) => setHobbies(newHobbies)}  graduation={graduation} setGraduation={(newGraduation) => setGraduation(newGraduation)} schoolName={schoolName} setSchoolName={(newSchoolName) => setSchoolName(newSchoolName)}  subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} job={job} setJob={(newJob) => setJob(newJob)} competences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)} contractName={contractName} setContractName={(newContractName) => setContractName(newContractName)} companyName={companyName} setCompanyName={(newCompanyName) => setCompanyName(newCompanyName)} graduate={graduate} setGraduate={(newStatus) => setGraduate(newStatus)} levelOfStudy={levelOfStudy} setLevelOfStudy={(newLevelOfStudy) => setLevelOfStudy(newLevelOfStudy)} domainOfStudy={domainOfStudy} setDomainOfStudy={(newDomainOfStudy) => setDomainOfStudy(newDomainOfStudy)} hobbies={hobbies} setHobbies={(newHobbies) => setNewHobbies(newHobbies)} contactDetails={contactDetails} setContactDetails={(newContactDetails) => setContactDetails(newContactDetails)} mailAddress={mailAddress} setMailAddress={(newMailAddress) =>  setMailAddress(newMailAddress)} phoneNumber={phoneNumber} setPhoneNumber={(newPhoneNumber) => setPhoneNumber(newPhoneNumber)} />
             <div className="w-full md:w-1/2 flex justify-between align-center pt-16">
               {!loading && (
                 <button
@@ -449,7 +517,7 @@ const Generator = () => {
                   onClick={(e) => developSubject && !isMobile ? setModalIntroVisible(true) : generateDoc(e)}
                 >
                   {`Générer`}
-                  <PencilSquareIcon className={`w-[40px]`}></PencilSquareIcon>
+                  <FontAwesomeIcon icon={faWandMagicSparkles} size="md" />
                 </button>
               )}
               {loading && (
