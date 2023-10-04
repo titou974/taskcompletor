@@ -517,7 +517,9 @@ const Generator = () => {
                   onClick={(e) => developSubject && !isMobile ? setModalIntroVisible(true) : generateDoc(e)}
                 >
                   {`Générer`}
-                  <FontAwesomeIcon icon={faWandMagicSparkles} size="md" />
+                  <div className="max-w-[70px]">
+                    <FontAwesomeIcon icon={faWandMagicSparkles} size="md" />
+                  </div>
                 </button>
               )}
               {loading && (

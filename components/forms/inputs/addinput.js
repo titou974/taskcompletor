@@ -3,7 +3,7 @@ import style from "../../../css/InputName.module.css";
 import { AnimatePresence, m } from "framer-motion";
 import { fadeIn } from "../../../utils/motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faXmark, faWandMagicSparkles } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 
 
