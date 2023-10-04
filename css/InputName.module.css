@@ -2,7 +2,8 @@
   position: relative;
 }
 
-.inputClassic input {
+
+.inputClassic input, .autoInput input {
   border: none;
   -webkit-appearance: none;
   -ms-progress-appearance: none;
@@ -17,7 +18,7 @@
 }
 
 
-.inputClassic input:valid:hover {
+.inputClassic input:valid:hover, .autoInput input:valid:hover {
   background-color: rgb(255 255 255 / 0.12);
 }
 
@@ -35,12 +36,14 @@
 }
 
 .inputClassic input:focus + .placeholderInputClassic,
-.inputClassic input:valid + .placeholderInputClassic {
+.inputClassic input:valid + .placeholderInputClassic,
+.autoInput input:focus + .placeholderInputClassic,
+.autoInput input:valid + .placeholderInputClassic {
   top: -18px;
   font-size: 14px;
   color: white;
 }
 
-.inputClassic input:valid  {
-  background-color: #011B6B;
+.inputClassic input:valid, .autoInput input:valid  {
+
 }

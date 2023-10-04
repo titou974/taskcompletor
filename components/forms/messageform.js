@@ -24,11 +24,11 @@ const MessageForm = ({myName, setMyName, dest, setDest, emotion, setEmotion, lan
   const namePlaceholder = "Votre nom";
   const destPlaceholder = "Destinataire";
   const subjectPlaceholder = "Arthur a pas très bien terminé la soirée d'hier soir, il avait un peu trop bu."
-  const delay = 80;
-  const delaySubject = 50;
+  const delay = 50;
+  const delaySubject = 30;
   const startDelaySubject = 1000;
   const startDelayName = 2000;
-  const startDelayDest = 3000;
+  const startDelayDest = 2500;
 
     const HandleColorChangeTextInput = () => {
       if (1 < subject.split(/\s+/).length && subject.split(/\s+/).length < 4) {

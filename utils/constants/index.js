@@ -251,20 +251,18 @@ export const graduateAnswersList = [
   }
 ]
 
-export const contractName = [
+export const contractNameList = [
   {
     id: "internship",
-    title: "Stage",
-    description: "Lettre de motivation pour un stage"
+    title: "Stage 👩‍💼",
   },
   {
     id: "apprenticeship",
-    title: "Alternance",
-    description: "Je suis en études"
+    title: "Alternance 📄",
   },
   {
     id: "contract",
-    title: "CDD ou CDI"
+    title: "CDD ou CDI 📝",
   }
 ]
 

@@ -19,11 +19,11 @@ const EmailForm = ({myName, setMyName, dest, setDest, mailType, setMailType, lan
   const namePlaceholder = "Votre nom";
   const destPlaceholder = "Destinataire";
   const subjectPlaceholder = "Demande pour une année de césure afin de se consacrer à la programmation."
-  const delay = 80;
-  const delaySubject = 50;
+  const delay = 50;
+  const delaySubject = 30;
   const startDelaySubject = 1000;
   const startDelayName = 2000;
-  const startDelayDest = 3000;
+  const startDelayDest = 2500;
 
   useEffect(() => {
     let indexName = 0;

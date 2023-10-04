@@ -15,7 +15,7 @@ const ReportForm = ({lang, setLang, subject, setSubject}) => {
   const [showTyped, setShowTyped] = useState(false);
   const subjectArea = useRef(null);
   const text = "La science durant la Grèce Antique";
-  const delay = 50;
+  const delay = 30;
   const startDelay = 1500;
 
   const HandleColorChangeTextInput = () => {
