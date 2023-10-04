@@ -55,7 +55,9 @@ const AddCompetencesInput = ({input, setInput, job, generateCompetences, isGener
                 key={index}>
                 {competence}
                 <button onClick={() => handleDeleteCompetence(index)}>
-                  <FontAwesomeIcon icon={faXmark} size="md" />
+                  <div className="max-w-[17px]">
+                    <FontAwesomeIcon icon={faXmark} size="md" />
+                  </div>
                 </button>
               </m.li>
           ))}

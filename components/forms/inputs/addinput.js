@@ -53,7 +53,9 @@ const AddInput = ({input, setInput, dataset, placeholder}) => {
                 exit="hidden">
                 {element}
                 <button onClick={() => handleDeleteCompetence(index)}>
-                  <FontAwesomeIcon icon={faXmark} size="md" />
+                  <div className="max-w-[17px]">
+                    <FontAwesomeIcon icon={faXmark} size="md" />
+                  </div>
                 </button>
               </m.li>
           ))}
