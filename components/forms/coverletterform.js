@@ -3,11 +3,14 @@ import IconNumber from "../iconnumber";
 import { m } from "framer-motion";
 import { fadeIn, textVariant } from "../../utils/motion";
 import style from "../../css/InputName.module.css";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import RadioGroupGraduateAnswers from "./inputs/radiogroupgraduate";
 import RadioGroupContracts from "./inputs/radiogroupcontract";
 import AutoSuggestionInput from "./inputs/autosuggestioninput";
 import { domaines_etudes } from "../../utils/constants";
+import { abreviations_etudes } from "../../utils/constants";
+import AddCompetencesInput from "./inputs/addcompetences";
+
 
 
 const CoverLetterForm = ({myName, setMyName, dest, setDest, language, setLanguage, job, setJob, competences, setCompetences, experiences, setExperiences, contractName, setContractName, graduate, setGraduate, levelOfStudy, setLevelOfStudy, domainOfStudy, setDomainOfStudy, hobbies, setHobbies, contactDetails, setContactDetails, mailAddress, setMailAddress, phoneNumber, setPhoneNumber, companyName, setCompanyName }) => {
@@ -16,22 +19,15 @@ const CoverLetterForm = ({myName, setMyName, dest, setDest, language, setLanguag
   const [textLengthAlert, setTextLengthAlert] = useState(false);
   const [typedName, setTypedName] = useState("");
   const [typedDest, setTypedDest] = useState("");
-  const [typedDomainName, setTypedDomainName] = useState("");
-  const [typedSchoolName, setTypedSchoolName] = useState("");
-  const [showTypedSchoolName, setShowTypedSchoolName] = useState(false);
-  const [showTypedDomainName, setShowTypedDomainName] = useState(false);
   const namePlaceholder = "Votre nom";
   const destPlaceholder = "Entreprise";
   const schoolNamePlaceholder = "Nom de votre école";
-  const domainNamePlaceholder = "Domaine d'étude";
+  const domainNamePlaceholder = "Domaine d'études";
+  const levelOfStudyPlaceholder = "Niveau d'études";
   const delay = 50;
   const startDelayName = 2000;
   const startDelayDest = 2500;
   const startDelayTextArea = 1000;
-
-
-  const textAreaSchoolName = useRef(null);
-  const textAreaDomainName = useRef(null);
 
 
   // const HandleColorChangeTextInput = () => {
@@ -50,52 +46,6 @@ const CoverLetterForm = ({myName, setMyName, dest, setDest, language, setLanguag
   // useEffect(() => {
   //   HandleColorChangeTextInput();
   // })
-
-  const useTypingEffect = (show, placeholder, setTyped, startDelay, delay) => {
-    useEffect(() => {
-      if (!show) return;
-      let index = 0;
-      const startTyping = () => {
-        const interval = setInterval(() => {
-          if (index < placeholder.length) {
-            setTyped((prev) => prev + placeholder.charAt(index));
-            index++;
-          } else {
-            clearInterval(interval);
-          }
-        }, delay);
-        return () => clearInterval(interval);
-      }
-      const timeout = setTimeout(startTyping, startDelay);
-      return () => clearTimeout(timeout);
-    }, [show, placeholder, setTyped, startDelay, delay]);
-  }
-
-  const useIntersectionObserver = (ref, setShow, rootMargin = "0px") => {
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setShow(true);
-          observer.disconnect();
-        }
-      });
-    }, { rootMargin });
-
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [ref, setShow]);
-}
-
-  useTypingEffect(showTypedSchoolName, schoolNamePlaceholder, setTypedSchoolName, startDelayTextArea, delay);
-
-  useTypingEffect(showTypedDomainName, domainNamePlaceholder, setTypedDomainName, startDelayTextArea, delay);
-
-  useIntersectionObserver(textAreaSchoolName, setShowTypedSchoolName);
-
-  useIntersectionObserver(textAreaDomainName, setShowTypedDomainName);
-
-
 
   useEffect(() => {
     let indexName = 0;
@@ -135,8 +85,6 @@ const CoverLetterForm = ({myName, setMyName, dest, setDest, language, setLanguag
       clearTimeout(timeoutDest);
     };
   }, [delay, startDelayName, startDelayDest]);
-
-
 
   return (
         <div className="w-full md:w-1/2 mx-auto">
@@ -179,24 +127,40 @@ const CoverLetterForm = ({myName, setMyName, dest, setDest, language, setLanguag
             >
               <RadioGroupContracts contractName={contractName} setContractName={(newName) => setContractName(newName)}/>
             </m.div>
-            <div className={`flex items-center w-full pt-20 gap-5`}>
-                <div className="min-w-[40px]">
-                  <IconNumber color={companyName !== "" ? "green" : "white"} number={3} className="min-w-[40px]" />
-                </div>
-                <m.label variants={fadeIn("right", "spring", 0.5, 0.75)} className={`${style.inputClassic} w-full`} ref={textAreaSchoolName} >
-                  <input required type="text" onChange={(e) => setCompanyName(e.target.value)} className={`${style.inputClassic} w-full rounded-md transition-all`}/>
-                  <span className={`${style.placeholderInputClassic}`}>{typedSchoolName}</span>
-                </m.label>
+            <div className={`flex items-center w-full pt-20 pb-14 gap-5`}>
+              <IconNumber color={companyName !== "" ? "green" : "white"} number={3} className="min-w-[40px]" />
+              <h2
+              className={`${styles.sectionSubText} font-bold`}
+              >
+                  Vos études :
+              </h2>
             </div>
-              <div className={`flex items-center gap-5 w-full pt-20 pb-20`}>
-                <div className="min-w-[40px]">
-                  <IconNumber color={domainOfStudy !== "" ? "green" : "white"} number={4} />
-                </div>
-                <div ref={textAreaDomainName} className="w-full h-full">
-                  <AutoSuggestionInput input={domainOfStudy} setInput={(newInput) => setDomainOfStudy(newInput)} dataset={domaines_etudes} typedPlaceholder={typedDomainName} />
-                </div>
+            <m.label variants={fadeIn("right", "spring", 0.5, 0.75)} className={`${style.inputClassic} w-full py-5`} >
+              <input required type="text" onChange={(e) => setCompanyName(e.target.value)} className={`${style.inputClassic} w-full rounded-md transition-all`}/>
+              <span className={`${style.placeholderInputClassic}`}>{schoolNamePlaceholder}</span>
+            </m.label>
+            <div className="w-full py-14">
+              <AutoSuggestionInput input={domainOfStudy} setInput={(newInput) => setDomainOfStudy(newInput)} dataset={domaines_etudes} typedPlaceholder={domainNamePlaceholder} />
             </div>
-        </div>
+            <div className="w-full pb-14">
+              <AutoSuggestionInput input={levelOfStudy} setInput={(newInput) => setLevelOfStudy(newInput)} dataset={abreviations_etudes} typedPlaceholder={levelOfStudyPlaceholder} />
+            </div>
+            <m.label variants={fadeIn("right", "spring", 0.5, 0.75)} className={`${style.inputClassic} w-full py-5`} >
+              <input required type="text" onChange={(e) => setCompanyName(e.target.value)} className={`${style.inputClassic} w-full rounded-md transition-all`}/>
+              <span className={`${style.placeholderInputClassic}`}>{`Diplome ${graduate ? "obtenu" : "visé"}`}</span>
+            </m.label>
+            <div className={`flex items-center w-full pt-20 pb-14 gap-5`}>
+              <div className="min-w-[45px]">
+                <IconNumber color={companyName !== "" ? "green" : "white"} number={4} className="min-w-[40px]" />
+              </div>
+              <h2
+              className={`${styles.sectionSubText} font-bold`}
+              >
+                  Ajoutez vos compétences :
+              </h2>
+            </div>
+            <AddCompetencesInput input={competences} setInput={(newInput) => setCompetences(newInput)} />
+      </div>
     )
 }
 

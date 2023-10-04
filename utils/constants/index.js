@@ -254,15 +254,15 @@ export const graduateAnswersList = [
 export const contractNameList = [
   {
     id: "internship",
-    title: "Stage 👩‍💼",
+    title: "Un Stage 👩‍💼",
   },
   {
     id: "apprenticeship",
-    title: "Alternance 📄",
+    title: "Une Alternance 📄",
   },
   {
     id: "contract",
-    title: "CDD ou CDI 📝",
+    title: "Un CDD ou CDI 📝",
   }
 ]
 
@@ -352,7 +352,7 @@ export const domaines_etudes = [
   "Vétérinaire"
 ]
 
-export const competences = [
+export const competences_list = [
   "A/B Testing",
   "Accessibilité",
   "Adaptabilité",

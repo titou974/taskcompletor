@@ -81,15 +81,15 @@ const Generator = () => {
   const [job, setJob] = useState("");
   const [companyName, setCompanyName] = useState(""); // ok
   const [graduate, setGraduate] = useState(null); // ok
-  const [schoolName, setSchoolName] = useState("");
-  const [domainOfStudy, setDomainOfStudy] = useState("");
-  const [levelOfStudy, setLevelOfStudy] = useState("");
-  const [graduation, setGraduation] = useState("");
-  const [competences, setCompetences] = useState([""]);
-  const [experiences, setExperiences] = useState([""]);
-  const [hobbies, setHobbies] = useState([""]);
+  const [schoolName, setSchoolName] = useState(""); // ok
+  const [domainOfStudy, setDomainOfStudy] = useState(""); // ok
+  const [levelOfStudy, setLevelOfStudy] = useState(""); // ok
+  const [graduation, setGraduation] = useState(""); // ok
+  const [competences, setCompetences] = useState([]);
+  const [experiences, setExperiences] = useState([]);
+  const [hobbies, setHobbies] = useState([]);
   const [contactDetails, setContactDetails] = useState(false);
-  const [contractName, setContractName] = useState("");
+  const [contractName, setContractName] = useState(""); // ok
   const [mailAddress, setMailAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
@@ -289,6 +289,10 @@ const Generator = () => {
   }, [loading]);
 
 
+  useEffect(() => {
+    console.log(competences);
+
+  })
 
 
 

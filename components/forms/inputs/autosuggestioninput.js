@@ -35,7 +35,7 @@ const AutoSuggestionInput = ({input, setInput, dataset, typedPlaceholder}) => {
       </m.label>
       <AnimatePresence>
         {suggestions.length !== 0 && (
-          <m.ul variants={fadeIn("top", "spring", 0.2, 0.75)} initial="hidden" animate="show" exit="hidden" className="absolute bg-white w-full rounded-md">
+          <m.ul variants={fadeIn("top", "spring", 0.2, 0.75)} initial="hidden" animate="show" exit="hidden" className="absolute bg-white w-full rounded-md z-50">
             {suggestions.slice(0, 5).map((suggestion, idx) => (
               <li className="w-full py-2 px-4  text-black py-3 cursor-pointer hover:bg-tertiary rounded-md transition-all hover:text-white"  key={idx} onClick={() => handleSuggestionClick(suggestion)}>
                 {suggestion}
