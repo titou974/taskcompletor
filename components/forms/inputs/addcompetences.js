@@ -4,7 +4,7 @@ import { AnimatePresence, m } from "framer-motion";
 import { fadeIn } from "../../../utils/motion";
 import { competences_list } from "../../../utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 
 
@@ -31,19 +31,29 @@ const AddCompetencesInput = ({input, setInput}) => {
   };
 
   const handleAddCompetences = () => {
-    setInput([competence, ...input]),
+    setInput([...input, competence]),
     setCompetence("");
   }
 
+  const handleDeleteCompetence = (indexToDelete) => {
+    setInput(input.filter((_, index) => index !== indexToDelete));
+  };
 
 
   return (
     <div className="w-full relative h-full">
       <div className="w-full">
-        <ul className="mb-8 flex w-full">
-          {input.map((competence) => (
-            <li className="rounded-md text-sm bg-green-800 w-fit p-2 my-1 mr-2">{competence}</li>
+        <ul className="mb-8 flex w-full flex-wrap">
+        <AnimatePresence>
+          {input.map((competence, index) => (
+              <m.li variants={fadeIn("top", "spring", 0.2, 0.75)} initial={index === input.length - 1 ? "hidden" : "show"}  animate="show" exit="hidden"  className="rounded-md text-sm bg-secondary w-fit p-2 my-1 mr-2 font-bold whitespace-nowrap flex justify-between gap-3">
+                {competence}
+                <button onClick={() => handleDeleteCompetence(index)}>
+                  <FontAwesomeIcon icon={faXmark} size="md" />
+                </button>
+              </m.li>
           ))}
+        </AnimatePresence>
         </ul>
         <div className="w-full relative">
           <m.label variants={fadeIn("right", "spring", 0.5, 0.75)} className={`${style.autoInput} w-full`} >
