@@ -12,13 +12,14 @@ export const config = {
 };
 
 const handler = async (req) => {
-  const { prompt } = await req.json();
+  const { prompt, model } = await req.json();
+  console.log(model)
 
   if (!prompt) {
     return new Response("No prompt in the request", { status: 400 });
   }
 
-  const stream = await OpenAIStream(prompt);
+  const stream = await OpenAIStream(prompt, model);
   return new Response(stream, {
     headers: new Headers({
       "Cache-Control": "no-cache",

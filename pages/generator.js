@@ -48,6 +48,7 @@ const Generator = () => {
   const [prompt, setPrompt] = useState("");
   const [saved, setSaved] = useState(false);
   const [developSubject, setDevelopSubject] = useState(false);
+  const [model, setModel] = useState("");
   {/* States for Modals */}
   const [isOpen, setIsOpen] = useState(false);
   const [modalModifiedStepOpen, setModalModifiedStepOpen] = useState(false);
@@ -205,6 +206,7 @@ const Generator = () => {
       setPrompt(
         `Écrivez un rapport d'une page maximum sur le sujet ${subject} en utilisant un langage ${lang === "informel" ? "familier" : "formel"}. Structurez votre rapport ${lang === "informel" ? "avec un titre et" : ""} en sections principales, numérotées de manière claire et concise (1, 2, 3, etc.). Assurez-vous d'inclure les informations les plus importantes et les principales idées dans chaque section. Veillez à utiliser le ton et le registre appropriés pour le style de langage choisi. Concentrez-vous sur la clarté et la précision de votre écriture tout en respectant la limite d'une page maximum.`,
       );
+      setModel("gpt-3.5-turbo");
     } else if (doc === "Email") {
       setPrompt(`Peux-tu rédiger un courrier électronique qui commence par l'objet, suivi par le texte, et la signature (en mettant uniquement le nom de l'expéditeur), s'il te plaît ? (tu dois strictement suivre cette structure.) Tiens toi absolument à une limite de 150 mots. J'aimerais que tu inclues les informations suivantes :
 
@@ -213,7 +215,8 @@ const Generator = () => {
       Type de mail et sa forme (pour l'école, une entreprise, administratif ou personnel) :  ${mailType}
       Langue : ${language}
       Sujet du mail : ${subject}
-      Merci beaucoup !`)
+      Merci beaucoup !`);
+      setModel("gpt-3.5-turbo");
     } else if (doc === "Message") {
       setPrompt(`Peux-tu créer un message en gardant uniquement le contenu, s'il te plaît ? Voici les détails :
 
@@ -222,7 +225,8 @@ const Generator = () => {
       Sujet : ${subject}
       Langue (français, anglais, espagnol ou chinois) : ${language}
       Taille du message (court, moyen, long) : ${messageLength === "court" && ("respecte une limite de 50 mots")} ${messageLength === "moyen" && ("respecte une limite de 100 mots")} ${messageLength === "long" && ("respecte une limite de 180 mots")}
-      Émotion : ${emotion}`)
+      Émotion : ${emotion}`);
+      setModel("gpt-3.5-turbo");
     } else if (doc === "Lettre de motivation") {
       setPrompt(`Écris une lettre de motivation pour le poste suivant :
         - Type de contrat : ${contractName}
@@ -240,6 +244,7 @@ const Generator = () => {
       }
         Met uniquement ces paramètres dans la lettre.
       `)
+      setModel("gpt-4");
     }
   }, [subject, lang, myName, dest, language, mailType, job, competences, experiences, messageLength, emotion, graduate, companyName, schoolName, domainOfStudy, levelOfStudy, graduation, hobbies, contactDetails, contractName]);
 
@@ -286,10 +291,6 @@ const Generator = () => {
   }, [loading]);
 
 
-  useEffect(() => {
-    console.log(prompt);
-  })
-
   {/* Generate Competences for Cover Letter */}
 
 
@@ -300,7 +301,8 @@ const Generator = () => {
     setCompetences("");
     setDoneGeneration(false);
     const requestBody = {
-      prompt: `Génère une liste du nom des 5 compétences clés pour un(e) ${job} sans détailler`
+      prompt: `Génère une liste du nom des 5 compétences clés pour un(e) ${job} sans détailler`,
+      model: model
     };
     const response = await fetch("/api/generate", {
       method: "POST",
@@ -312,7 +314,6 @@ const Generator = () => {
 
     if (!response.ok) {
       setApiError(true);
-      console.log("coucou")
       console.log(response.statusText);
     }
 
@@ -400,6 +401,7 @@ const Generator = () => {
       },
       body: JSON.stringify({
         prompt,
+        model: model
       }),
     });
 
@@ -653,7 +655,7 @@ const Generator = () => {
                   <m.p variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden">Reformulez votre sujet pour que Task Completor mette en forme votre document</m.p>
                 )}
                 {apiError && (
-                  <m.p variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden">Task Completor est en panne. Le créateur arrive...</m.p>
+                  <m.p variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} exit="hidden">Oupsi... Tu viens de tomber sur un bug</m.p>
                 )}
               </m.div>
             )}

@@ -4,12 +4,12 @@ import {
   ReconnectInterval,
 } from "eventsource-parser";
 
-export async function OpenAIStream(prompt) {
+export async function OpenAIStream(prompt, model) {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
 
   const payload = {
-    model: "gpt-3.5-turbo",
+    model: model,
     messages: [{ role: "user", content: prompt }],
     temperature: 0.7,
     top_p: 1,
