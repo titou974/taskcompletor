@@ -31,6 +31,8 @@ const PenLoader = dynamic(() => import("../components/loaders/penloader"));
 const FormGenerator = dynamic(() => import("../components/formgenerator"));
 const ReportTemplate = dynamic(() => import("../components/doctemplates/generationtemplates/pdfreport"));
 const Navbar = dynamic(() => import("../components/navbar"));
+const CoverLetterTemplate = dynamic(() => import("../components/doctemplates/generationtemplates/coverlettertemplate"));
+
 import { docType } from "../utils/constants";
 
 
@@ -96,6 +98,7 @@ const Generator = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
 
   {/* States for Cover Letter Generated */}
+  const [showCoverLetter, setShowCoverLetter] = useState(false);
   const [isCompetenceGenerated, setIsCompetenceGenerated] = useState(false);
 
   {/* Mail Generated */}
@@ -290,6 +293,11 @@ const Generator = () => {
     };
   }, [loading]);
 
+  useEffect(() => {
+
+    console.log(finalText);
+
+  })
 
   {/* Generate Competences for Cover Letter */}
 
@@ -466,9 +474,7 @@ const Generator = () => {
         setMailText(fulltext);
         setFinalText(fulltext);
       } else if (doc === "Lettre de motivation") {
-        if (generateCompetences) {
-          setFinalText(fulltext);
-        }
+        setFinalText(fulltext);
       }
     }
 
@@ -626,6 +632,11 @@ const Generator = () => {
                 <m.div initial="hidden" variants={slideIn('left', 'tween', 0.5, 0.5)} animate={"show"} className={`h-full mx-auto`}>
                   <MessageTemplate messageText={messageText} dest={dest} setMessageText={(newMessage) => setMessageText(newMessage)} doneGeneration={doneGeneration}/>
                 </m.div>
+              )}
+              {showCoverLetter && doc === "Lettre de motivation" && (
+                <div className={`h-full mx-auto`}>
+                  <CoverLetterTemplate />
+                </div>
               )}
             </AnimatePresence>
           </div>

@@ -68,8 +68,8 @@ const AddCompetencesInput = ({input, setInput, job, generateCompetences, isGener
             <input required type="text" value={competence} onChange={(e) => handleChange(e)} className={`${style.inputClassic} w-full rounded-md transition-all text-white`}/>
             <span className={`${style.placeholderInputClassic}`}>Compétences</span>
             <button onClick={handleAddCompetences} className="p-1 bg-tertiary rounded-md w-[50px] h-[50px] absolute right-[4px] bottom-[3px] border-white hover:bg-white hover:text-tertiary transition-all">
-              <div className="max-w-[50px] mx-auto">
-                <FontAwesomeIcon icon={faPlus} size="lg" />
+              <div className="max-w-[20px] mx-auto">
+                <FontAwesomeIcon icon={faPlus} size="md" />
               </div>
             </button>
           </m.label>
@@ -96,7 +96,9 @@ const AddCompetencesInput = ({input, setInput, job, generateCompetences, isGener
               exit="hidden"
             >
               {`Générer pour "${job}"`}
-              <FontAwesomeIcon icon={faWandMagicSparkles} size="lg" />
+              <div className="max-w-[20px]">
+                <FontAwesomeIcon icon={faWandMagicSparkles} size="md" />
+              </div>
             </m.button>
           )}
         </AnimatePresence>

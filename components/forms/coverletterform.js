@@ -191,6 +191,17 @@ const CoverLetterForm = ({isGenerate, generateCompetences, myName, setMyName, de
             </h2>
           </div>
           <AddInput input={hobbies} setInput={(newInput) => setHobbies(newInput)} dataset={passions} placeholder={"Passions"} />
+          <div className={`flex items-center w-full pt-20 pb-14 gap-5`}>
+            <div className="min-w-[45px]">
+              <IconNumber color={experiences.length > 0 ? "green" : "white"} number={6} className="min-w-[40px]" />
+            </div>
+            <h2
+            className={`${styles.sectionSubText} font-bold`}
+            >
+                Ajoutez vos expériences :
+            </h2>
+          </div>
+          <AddInput input={experiences} setInput={(newInput) => setExperiences(newInput)} placeholder={"Expériences"} />
       </div>
     )
 }

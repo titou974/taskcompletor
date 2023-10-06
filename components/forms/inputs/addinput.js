@@ -14,7 +14,7 @@ const AddInput = ({input, setInput, dataset, placeholder}) => {
   const handleChange = (e) => {
     const value = e.target.value;
     setElement(value)
-    if (value.length > 0) {
+    if (value.length > 0 && dataset) {
       const filteredSuggestions = dataset.filter((domain) =>
         domain.toLowerCase().startsWith(value.toLowerCase())
       );
@@ -44,13 +44,14 @@ const AddInput = ({input, setInput, dataset, placeholder}) => {
       <div className="w-full">
         <ul className="mb-8 flex w-full flex-wrap">
         <AnimatePresence>
-          {input.length !== 0 && input.map((element, index) => (
+          {input && input.length !== 0 && input.map((element, index) => (
               <m.li
                 className="rounded-md text-sm bg-secondary w-fit p-2 my-1 mr-2 font-bold flex justify-between gap-3"
                 variants={fadeIn("top", "spring", 0.2, 0.75)}
                 initial="hidden"
                 animate="show"
-                exit="hidden">
+                exit="hidden"
+                key={index}>
                 {element}
                 <button onClick={() => handleDeleteCompetence(index)}>
                   <div className="max-w-[17px]">
@@ -66,8 +67,8 @@ const AddInput = ({input, setInput, dataset, placeholder}) => {
             <input required type="text" value={element} onChange={(e) => handleChange(e)} className={`${style.inputClassic} w-full rounded-md transition-all text-white`}/>
             <span className={`${style.placeholderInputClassic}`}>{placeholder}</span>
             <button onClick={handleAddCompetences} className="p-1 bg-tertiary rounded-md w-[50px] h-[50px] absolute right-[4px] bottom-[3px] border-white hover:bg-white hover:text-tertiary transition-all">
-              <div className="max-w-[50px] mx-auto">
-                <FontAwesomeIcon icon={faPlus} size="lg" />
+              <div className="max-w-[20px] mx-auto">
+                <FontAwesomeIcon icon={faPlus} size="md" />
               </div>
             </button>
           </m.label>
