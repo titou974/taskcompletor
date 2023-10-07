@@ -100,6 +100,8 @@ const Generator = () => {
   {/* States for Cover Letter Generated */}
   const [showCoverLetter, setShowCoverLetter] = useState(false);
   const [isCompetenceGenerated, setIsCompetenceGenerated] = useState(false);
+  const [letterTitle, setLetterTitle] = useState("");
+  const [letterParagraphs, setLetterParagraphs] = useState("");
 
   {/* Mail Generated */}
   const [modifyingStep, setModifyingStep] = useState(false);
@@ -137,14 +139,18 @@ const Generator = () => {
   {/* Modal open for more detailed on subject */}
 
   useEffect(() => {
-    const words = subject.split(/\s+/)
-    const wordsCount = words.length
-    if (wordsCount < 4) {
-      setDevelopSubject(true)
-    } else {
-      setDevelopSubject(false)
+    let words
+    let wordsCount
+    if (doc !== "Lettre de motivation") {
+      words = subject.split(/\s+/)
+      wordsCount = words.length
+      if (wordsCount < 4) {
+        setDevelopSubject(true)
+      } else {
+        setDevelopSubject(false)
+      }
     }
-  }, [subject])
+  }, [subject, doc])
 
   {/* Generation Bug Alert*/}
 
@@ -232,11 +238,10 @@ const Generator = () => {
       setModel("gpt-3.5-turbo");
     } else if (doc === "Lettre de motivation") {
       setPrompt(`Écris une lettre de motivation pour le poste suivant :
-        - Type de contrat : ${contractName}
-        - Poste : ${job}
+        - ${contractName} : ${job}
         - Entreprise : ${companyName}
         ${graduate ? "- Formation Passée" : "- Formation actuelle"} : ${levelOfStudy} en ${domainOfStudy} dans l'école ${schoolName}
-        ${graduate ? `- Diplome obtenu: ${graduation}` : `- Diplome passé: ${graduation}`}
+        ${graduate ? `- Diplome obtenu: ${graduation}` : `- Diplome visé: ${graduation}`}
         - Compétences clés : ${competences}
         - Expérience passée : ${experiences}
         - Passions : ${hobbies}
@@ -245,7 +250,7 @@ const Generator = () => {
         [${mailAddress}]
         [${phoneNumber}]` : `- Mon nom : ${myName}`
       }
-        Met uniquement ces paramètres dans la lettre.
+        Met uniquement ces paramètres dans la lettre, ne précise pas les coordoonées et soit clair et convaincant pour le recruteur. Commence la lettre de motivation par un titre.
       `)
       setModel("gpt-4");
     }
@@ -294,7 +299,7 @@ const Generator = () => {
   }, [loading]);
 
   useEffect(() => {
-
+    console.log(prompt)
     console.log(finalText);
 
   })
@@ -388,18 +393,28 @@ const Generator = () => {
     setApiError(false);
     setMessageText("");
     setMailText("");
+    setLetterTitle("");
+    setLetterParagraphs([]);
     if (doc === "Présentation") {
       setShowGeneratedDoc(true)
       setShowMessage(false)
       setShowEmail(false)
+      setShowCoverLetter(false);
     } else if (doc === "Message") {
       setShowMessage(true)
       setShowGeneratedDoc(false)
       setShowEmail(false)
+      setShowCoverLetter(false);
     } else if (doc === "Email") {
       setShowEmail(true)
+      setShowCoverLetter(false);
       setShowMessage(false)
       setShowGeneratedDoc(false)
+    } else {
+      setShowCoverLetter(true);
+      setShowEmail(false);
+      setShowMessage(false);
+      setShowGeneratedDoc(false);
     }
     scrollToGenerate()
     const response = await fetch("/api/generate", {
@@ -430,6 +445,7 @@ const Generator = () => {
       const regex3 = /(\d+\.\s.+)\n(.+)/g;
       const regex4 = /(\d+\.\s.+)\n\n(.+)/g;
       const titleRegex = /^([^\n]+)/;
+      const coverlettertitleregex = /Titre ?: (.*)/;
 
       {/* Structuring the Document */}
       if (doc === "Présentation") {
@@ -474,8 +490,18 @@ const Generator = () => {
         setMailText(fulltext);
         setFinalText(fulltext);
       } else if (doc === "Lettre de motivation") {
+        const lines = fulltext.split('\n').map(line => line.trim()).filter(line => line);
+        if (lines.length > 0) {
+          const match = lines[0].match(coverlettertitleregex);
+          if (match && match[1]) {
+            setLetterTitle(lines[0].match(coverlettertitleregex)[1]);
+          } else {
+            setLetterTitle(lines[0]);
+          }
+          setLetterParagraphs(lines.slice(1));
+        }
         setFinalText(fulltext);
-      }
+    }
     }
 
     const onParse = (event) => {
@@ -635,7 +661,7 @@ const Generator = () => {
               )}
               {showCoverLetter && doc === "Lettre de motivation" && (
                 <div className={`h-full mx-auto`}>
-                  <CoverLetterTemplate />
+                  <CoverLetterTemplate generatedTitle={letterTitle} generatedSections={letterParagraphs} doneGeneration={doneGeneration} />
                 </div>
               )}
             </AnimatePresence>

@@ -7,110 +7,107 @@ import PageReportGenerated from "../generationtemplates/reportpages/pagereportge
 import PageTitleReportGeneratedEdit from "./reportpages/pagetitlereportmodif";
 import PageReportGeneratedEdit from "./reportpages/pagereportgeneratedmodif";
 import { AnimatePresence } from "framer-motion";
+import style from "../../../css/LetterGenerated.module.css";
+
 
 const regexTitle = /^\d+\.\s(.+)/;
 
 const CoverLetterTemplate = ({ generatedTitle, generatedSections, length, doneGeneration, setGeneratedTitle, setGeneratedSections }) => {
 
-  const updateSectionContent = (index, index2, newContent) => {
-    const updatedSections = [...generatedSections];
-    updatedSections[index][index2] = newContent;
-    setGeneratedSections(updatedSections);
-  }
+  // const updateSectionContent = (index, index2, newContent) => {
+  //   const updatedSections = [...generatedSections];
+  //   updatedSections[index][index2] = newContent;
+  //   setGeneratedSections(updatedSections);
+  // }
 
   return (
     <div className="w-full mx-auto">
       {/* Caroussel */}
 
       <div className="sm:hidden relative" >
-          <div>
-          {
-            length >= 1 && (
-              <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-                <PageTitleReportPhoneGenerated generatedTitle={generatedTitle} generatedSections={generatedSections.slice(0, 2)} setGeneratedTitle={(newTitle) => setGeneratedTitle(newTitle)} updateSectionContent={updateSectionContent} id="page-1" color={'#046CF1'} doneGeneration={doneGeneration} />
-              </m.div>
-              )
-            }
-          </div>
-          {
-            length >= 3 && (
-              <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-                <PageReportPhoneGenerated generatedSections={generatedSections.slice(2, 4)} indexSection={2} id="page-2" color={'#046CF1'} doneGeneration={doneGeneration} updateSectionContent={updateSectionContent}/>
-              </m.div>
-            )
-          }
-          <div>
-          {
-            length >= 5 && (
-              <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-                <PageReportPhoneGenerated generatedSections={generatedSections.slice(4, 6)} indexSection={4} id="page-3" color={'#046CF1'} doneGeneration={doneGeneration} updateSectionContent={updateSectionContent}/>
-              </m.div>
-            )
-          }
-          {
-            length >= 7 && (
-              <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-                <PageReportPhoneGenerated generatedSections={generatedSections.slice(6, 8)} indexSection={6} id="page-3" color={'#046CF1'} doneGeneration={doneGeneration} updateSectionContent={updateSectionContent}/>
-              </m.div>
-            )
-          }
-          </div>
       </div>
       <div className="hidden sm:block">
-        {
-          length >= 1 && (
-            <div>
-              <AnimatePresence>
-                {!doneGeneration && (
-                  <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-                    <PageTitleReportGenerated generatedTitle={generatedTitle} generatedSections={generatedSections.slice(0, 3)} color={'#046CF1'} id="page-1" />
-                  </m.div>
-                )}
-                {doneGeneration && (
-                  <m.div initial="hidden" variants={fadeIn("right", "spring", 1, 0.75)} animate={"show"} className="w-full">
-                    <PageTitleReportGeneratedEdit generatedTitle={generatedTitle} generatedSections={generatedSections.slice(0, 3)} updateSectionContent={updateSectionContent} setGeneratedTitle={(newTitle) => setGeneratedTitle(newTitle)} color={'#046CF1'} id="page-1" />
-                  </m.div>
-                )}
-              </AnimatePresence>
+        {true && (
+          <div className={`${style.a4Container} align-center flex gap-x-4 mb-2`}>
+            <div className={`${style.a4} py-[40px] md:py-[25px] lg:py-[30px] xl:py-[30px] sm:px-10 md:px-8 lg:px-10 xl:px-12`}>
+              <h2 className={`text-center pb-3`}>{generatedTitle}</h2>
+              <div className={`py-4 hidden sm:block md:hidden`}>
+                {generatedSections.map((section, index) => (
+                  <div key={index} className="py-2">
+                    <p>{section}</p>
+                  </div>
+                ))}
+              </div>
+              <div className={`hidden md:block lg:hidden`}>
+                {generatedSections.map((section, index) => (
+                  <div key={index} className="py-2">
+                    <p>{section}</p>
+                  </div>
+                ))}
+              </div>
+              <div className={`py-3 hidden lg:block xl:hidden`}>
+                {generatedSections.map((section, index) => (
+                  <div key={index} className="py-2">
+                    <p>{section}</p>
+                  </div>
+                ))}
+              </div>
+              <div className={`py-4 hidden xl:block`}>
+                {generatedSections.map((section, index) => (
+                  <div key={index} className="py-1">
+                    <p>{section}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-          )
-        }
-        {
-          length >= 4 && (
-            <div>
-              <AnimatePresence>
-                {!doneGeneration && (
-                  <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-                    <PageReportGenerated generatedSections={generatedSections.slice(3, 6)} indexSection={4} color={'#046CF1'} id="page-2" />
-                  </m.div>
-                )}
-                {doneGeneration && (
-                  <m.div initial="hidden" variants={fadeIn("right", "spring", 1, 0.75)} animate={"show"}  className="w-full">
-                    <PageReportGeneratedEdit generatedSections={generatedSections.slice(3, 6)} updateSectionContent={updateSectionContent} indexSection={3} color={'#046CF1'} id="page-2" />
-                  </m.div>
-                )}
-              </AnimatePresence>
+          </div>
+        )}
+        {/* {doneGeneration && (
+          <div className={`${style.a4ContainerEdit} align-center flex gap-x-4 mb-2`}>
+            <div className={`${style.a4Edit} py-[40px] md:py-[60px] lg:py-[70px] xl:py-[100px] sm:px-10 md:px-8 lg:px-20 xl:px-[110px]`}>
+              <div className={`py-3 block md:hidden`}>
+                {generatedSections.map((section, index) => (
+                  <div key={index} className="pb-4 pt-2">
+                    <div className="flex items-center py-2">
+                      <textarea value={section[1]} className={`${style.subtitleTextArea}`} onChange={(e) => updateSectionContent(index + indexSection, 1, e.target.value)} rows={1}/>
+                    </div>
+                    <textarea value={section[2]} className={`${style.sectionTextArea}`} onChange={(e) => updateSectionContent(index + indexSection, 2, e.target.value)} rows={5}/>
+                  </div>
+                ))}
+              </div>
+              <div className={`hidden md:block lg:hidden`}>
+                {generatedSections.map((section, index) => (
+                  <div key={index} className="py-3">
+                    <div className="flex items-center py-3">
+                      <textarea value={section[1]} className={`${style.subtitleTextArea}`} onChange={(e) => updateSectionContent(index + indexSection, 1, e.target.value)} rows={1}/>
+                    </div>
+                    <textarea value={section[2]} className={`${style.sectionTextArea}`} onChange={(e) => updateSectionContent(index + indexSection, 2, e.target.value)} rows={5}/>
+                  </div>
+                ))}
+              </div>
+              <div className={`py-4 hidden lg:block xl:hidden`}>
+                {generatedSections.map((section, index) => (
+                  <div key={index} className="py-5">
+                    <div className="flex items-center py-4">
+                      <textarea value={section[1]} className={`${style.subtitleTextArea}`} onChange={(e) => updateSectionContent(index + indexSection, 1, e.target.value)} rows={1}/>
+                    </div>
+                    <textarea value={section[2]} className={`${style.sectionTextArea}`} onChange={(e) => updateSectionContent(index + indexSection, 2, e.target.value)} rows={5}/>
+                  </div>
+                ))}
+              </div>
+              <div className={`py-3 hidden xl:block`}>
+                {generatedSections.map((section, index) => (
+                  <div key={index} className="py-8">
+                    <div className="flex items-center py-5">
+                      <textarea value={section[1]} className={`${style.subtitleTextArea}`} onChange={(e) => updateSectionContent(index + indexSection, 1, e.target.value)} rows={1}/>
+                    </div>
+                    <textarea value={section[2]} className={`${style.sectionTextArea}`} onChange={(e) => updateSectionContent(index + indexSection, 2, e.target.value)} rows={5}/>
+                  </div>
+                ))}
+              </div>
             </div>
-          )
-        }
-        {
-          length >= 7 && (
-            <div>
-              <AnimatePresence>
-                {!doneGeneration && (
-                  <m.div variants={slideIn('left', 'tween', 0, 0.5)} animate="show" initial="hidden" className="w-full">
-                    <PageReportGenerated generatedSections={generatedSections.slice(6, 9)} indexSection={7} color={'#046CF1'} id="page-2" />
-                  </m.div>
-                )}
-                {doneGeneration && (
-                  <m.div initial="hidden" variants={fadeIn("right", "spring", 1, 0.75)} animate={"show"}  className="w-full">
-                    <PageReportGeneratedEdit generatedSections={generatedSections.slice(6, 9)} updateSectionContent={updateSectionContent} indexSection={6} color={'#046CF1'} id="page-2" />
-                  </m.div>
-                )}
-              </AnimatePresence>
-            </div>
-          )
-        }
+          </div>
+        )} */}
       </div>
     </div>
   );
