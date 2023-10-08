@@ -92,8 +92,8 @@ const Generator = () => {
   const [competences, setCompetences] = useState([]); // ok
   const [experiences, setExperiences] = useState([]);
   const [hobbies, setHobbies] = useState([]); // ok
-  const [contactDetails, setContactDetails] = useState(false);
   const [contractName, setContractName] = useState(""); // ok
+  const [contactDetails, setContactDetails] = useState(false);
   const [mailAddress, setMailAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
@@ -101,7 +101,7 @@ const Generator = () => {
   const [showCoverLetter, setShowCoverLetter] = useState(false);
   const [isCompetenceGenerated, setIsCompetenceGenerated] = useState(false);
   const [letterTitle, setLetterTitle] = useState("");
-  const [letterParagraphs, setLetterParagraphs] = useState("");
+  const [letterParagraphs, setLetterParagraphs] = useState([]);
 
   {/* Mail Generated */}
   const [modifyingStep, setModifyingStep] = useState(false);
@@ -299,8 +299,8 @@ const Generator = () => {
   }, [loading]);
 
   useEffect(() => {
-    console.log(prompt)
-    console.log(finalText);
+
+    console.log(letterParagraphs);
 
   })
 
@@ -446,6 +446,7 @@ const Generator = () => {
       const regex4 = /(\d+\.\s.+)\n\n(.+)/g;
       const titleRegex = /^([^\n]+)/;
       const coverlettertitleregex = /Titre ?: (.*)/;
+      const coverlettertitleregex2 = /Objet ?: (.*)/;
 
       {/* Structuring the Document */}
       if (doc === "Présentation") {
@@ -493,8 +494,11 @@ const Generator = () => {
         const lines = fulltext.split('\n').map(line => line.trim()).filter(line => line);
         if (lines.length > 0) {
           const match = lines[0].match(coverlettertitleregex);
+          const match2 = lines[0].match(coverlettertitleregex2);
           if (match && match[1]) {
-            setLetterTitle(lines[0].match(coverlettertitleregex)[1]);
+            setLetterTitle(match[1]);
+          } else if (match2 && match2[1]) {
+            setLetterTitle(match2[1]);
           } else {
             setLetterTitle(lines[0]);
           }
@@ -552,7 +556,7 @@ const Generator = () => {
                 >
                   {`Générer`}
                   <div className="max-w-[70px]">
-                    <FontAwesomeIcon icon={faWandMagicSparkles} size="md" />
+                    <FontAwesomeIcon icon={faWandMagicSparkles} size="sm" />
                   </div>
                 </button>
               )}
@@ -659,9 +663,9 @@ const Generator = () => {
                   <MessageTemplate messageText={messageText} dest={dest} setMessageText={(newMessage) => setMessageText(newMessage)} doneGeneration={doneGeneration}/>
                 </m.div>
               )}
-              {showCoverLetter && doc === "Lettre de motivation" && (
+              {true && doc === "Lettre de motivation" && (
                 <div className={`h-full mx-auto`}>
-                  <CoverLetterTemplate generatedTitle={letterTitle} generatedSections={letterParagraphs} doneGeneration={doneGeneration} />
+                  <CoverLetterTemplate generatedTitle={letterTitle} generatedSections={letterParagraphs} doneGeneration={doneGeneration} setGeneratedSections={(e) => setLetterParagraphs(e)} setGeneratedTitle={(e) => setLetterTitle(e)} />
                 </div>
               )}
             </AnimatePresence>

@@ -20,7 +20,7 @@ const CoverLetterForm = ({isGenerate, generateCompetences, myName, setMyName, de
   const [typedName, setTypedName] = useState("");
   const [typedDest, setTypedDest] = useState("");
   const [typedJob, setTypedJob] = useState("");
-  const namePlaceholder = "Votre nom";
+  const namePlaceholder = "Prénom et nom";
   const destPlaceholder = "Entreprise";
   const jobPlaceholder = "Job visé";
   const schoolNamePlaceholder = "Nom de votre école";
@@ -28,9 +28,7 @@ const CoverLetterForm = ({isGenerate, generateCompetences, myName, setMyName, de
   const levelOfStudyPlaceholder = "Niveau d'études";
   const delay = 50;
   const startDelayName = 2000;
-  const startDelayDest = 2500;
-  const startDelayJob = 3000;
-  const startDelayTextArea = 1000;
+  const startDelayDest = 3000;
 
 
   // const HandleColorChangeTextInput = () => {
@@ -55,8 +53,6 @@ const CoverLetterForm = ({isGenerate, generateCompetences, myName, setMyName, de
     let intervalName;
     let indexDest = 0;
     let intervalDest;
-    let indexJob = 0;
-    let intervalJob;
 
     const startTypingName = () => {
         intervalName = setInterval(() => {
@@ -80,28 +76,15 @@ const CoverLetterForm = ({isGenerate, generateCompetences, myName, setMyName, de
     }, delay);
   }
 
-  const startTypingJob = () => {
-    intervalJob = setInterval(() => {
-    if (indexJob < jobPlaceholder.length) {
-      setTypedJob((prev) => prev + jobPlaceholder.charAt(indexJob));
-      indexJob++;
-    } else {
-      clearInterval(intervalJob);
-    }
-  }, delay);
-}
 
     const timeoutName = setTimeout(startTypingName, startDelayName);
     const timeoutDest = setTimeout(startTypingDest, startDelayDest);
-    const timeoutJob = setTimeout(startTypingJob, startDelayJob);
 
     return () => {
       clearInterval(intervalName);
       clearTimeout(timeoutName);
       clearInterval(intervalDest);
       clearTimeout(timeoutDest);
-      clearInterval(intervalJob);
-      clearTimeout(timeoutJob);
     };
   }, [delay, startDelayName, startDelayDest]);
 
@@ -146,7 +129,7 @@ const CoverLetterForm = ({isGenerate, generateCompetences, myName, setMyName, de
           >
             <RadioGroupContracts contractName={contractName} setContractName={(newName) => setContractName(newName)}/>
           </m.div>
-          <AutoSuggestionInput input={job} setInput={(newInput) => setJob(newInput)} typedPlaceholder={typedJob} dataset={job_list}/>
+          <AutoSuggestionInput input={job} setInput={(newInput) => setJob(newInput)} typedPlaceholder={jobPlaceholder} dataset={job_list}/>
           <div className={`flex items-center w-full pt-20 pb-14 gap-5`}>
             <IconNumber color={companyName !== "" ? "green" : "white"} number={3} className="min-w-[40px]" />
             <h2

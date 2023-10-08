@@ -56,7 +56,7 @@ const AddCompetencesInput = ({input, setInput, job, generateCompetences, isGener
                 {competence}
                 <button onClick={() => handleDeleteCompetence(index)}>
                   <div className="max-w-[17px]">
-                    <FontAwesomeIcon icon={faXmark} size="md" />
+                    <FontAwesomeIcon icon={faXmark} size="sm" />
                   </div>
                 </button>
               </m.li>
@@ -64,15 +64,17 @@ const AddCompetencesInput = ({input, setInput, job, generateCompetences, isGener
         </AnimatePresence>
         </ul>
         <div className="w-full relative">
-          <m.label variants={fadeIn("right", "spring", 0.5, 0.75)} className={`${style.autoInput} w-full`} >
-            <input required type="text" value={competence} onChange={(e) => handleChange(e)} className={`${style.inputClassic} w-full rounded-md transition-all text-white`}/>
-            <span className={`${style.placeholderInputClassic}`}>Compétences</span>
-            <button onClick={handleAddCompetences} className="p-1 bg-tertiary rounded-md w-[50px] h-[50px] absolute right-[4px] bottom-[3px] border-white hover:bg-white hover:text-tertiary transition-all">
+          <div className="w-full relative bg-secondary flex items-center rounded-md pr-2 py-1 shadow-lg">
+            <m.label variants={fadeIn("right", "spring", 0.5, 0.75)} className={`${style.autoInput} w-full`} >
+              <input required type="text" value={competence} onChange={(e) => handleChange(e)} className={`${style.inputClassic} w-full rounded-md transition-all text-white`}/>
+              <span className={`${style.placeholderInputClassic}`}>Compétences</span>
+            </m.label>
+            <button onClick={handleAddCompetences} className="p-1 bg-tertiary rounded-md min-w-[50px] min-h-[50px] border-white hover:bg-white hover:text-tertiary transition-all">
               <div className="max-w-[20px] mx-auto">
-                <FontAwesomeIcon icon={faPlus} size="md" />
+                <FontAwesomeIcon icon={faPlus} size="sm" />
               </div>
             </button>
-          </m.label>
+          </div>
           <AnimatePresence>
             {suggestions.length !== 0 && (
               <m.ul variants={fadeIn("top", "spring", 0.2, 0.75)} initial="hidden" animate="show" exit="hidden" className="absolute bg-white w-full rounded-md z-50">
@@ -97,7 +99,7 @@ const AddCompetencesInput = ({input, setInput, job, generateCompetences, isGener
             >
               {`Générer pour "${job}"`}
               <div className="max-w-[20px]">
-                <FontAwesomeIcon icon={faWandMagicSparkles} size="md" />
+                <FontAwesomeIcon icon={faWandMagicSparkles} size="sm" />
               </div>
             </m.button>
           )}

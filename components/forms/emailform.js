@@ -16,14 +16,14 @@ const EmailForm = ({myName, setMyName, dest, setDest, mailType, setMailType, lan
   const [typedSubject, setTypedSubject] = useState("");
   const [showTypedSubject, setShowTypedSubject] = useState(false);
   const subjectArea = useRef(null);
-  const namePlaceholder = "Votre nom";
+  const namePlaceholder = "Prénom et Nom";
   const destPlaceholder = "Destinataire";
   const subjectPlaceholder = "Demande pour une année de césure afin de se consacrer à la programmation."
   const delay = 50;
   const delaySubject = 30;
   const startDelaySubject = 1000;
   const startDelayName = 2000;
-  const startDelayDest = 2500;
+  const startDelayDest = 3000;
 
   useEffect(() => {
     let indexName = 0;

@@ -177,15 +177,17 @@
     height: 800px;
   }
   .a4Edit .sectionTextArea {
-    font-size: 14px;
+    font-size: 11px;
     height: 100%;
     border: solid black 3px;
+    padding: 1em 2em;
   }
 
   .a4Edit .titleTextArea {
-    font-size: 20px;
+    font-size: 15px;
     height: 100%;
     border: solid black 3px;
+    padding: 1em;
   }
 
   .a4Edit .subtitleTextArea {
@@ -200,11 +202,12 @@
     height: 900px;
   }
   .a4Edit .sectionTextArea {
-    font-size: 16px;
+    font-size: 12px;
+    padding: 1em 2em;
   }
 
   .a4Edit .titleTextArea {
-    font-size: 22px;
+    font-size: 16px;
   }
 
   .a4Edit .subtitleTextArea {
@@ -218,12 +221,12 @@
   }
 
   .a4Edit .sectionTextArea {
-    font-size: 20px;
+    font-size: 14px;
     line-height: 2em;
   }
 
   .a4Edit .titleTextArea {
-    font-size: 26px;
+    font-size: 18px;
   }
 
   .a4Edit .subtitleTextArea {
@@ -238,11 +241,11 @@
   }
 
   .a4Edit .sectionTextArea {
-    font-size: 25px;
+    font-size: 20px;
   }
 
   .a4Edit .titleTextArea {
-    font-size: 33px;
+    font-size: 24px;
   }
   .a4Edit .subtitleTextArea {
     font-size: 29px;
