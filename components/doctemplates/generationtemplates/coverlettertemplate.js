@@ -8,7 +8,7 @@ import PageTitleReportGeneratedEdit from "./reportpages/pagetitlereportmodif";
 import PageReportGeneratedEdit from "./reportpages/pagereportgeneratedmodif";
 import { AnimatePresence } from "framer-motion";
 import style from "../../../css/LetterGenerated.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 
@@ -17,6 +17,11 @@ const regexTitle = /^\d+\.\s(.+)/;
 const CoverLetterTemplate = ({ generatedTitle, generatedSections, length, doneGeneration, setGeneratedTitle, setGeneratedSections }) => {
 
   const [fulltext, setFulltext] = useState(generatedSections.join("\n\n"))
+
+  useEffect(() => {
+    setFulltext(generatedSections.join("\n\n"))
+  }, [generatedSections])
+
   const updateParagraphs = () => {
     // Diviser le texte en paragraphes en utilisant deux sauts de ligne comme délimiteur
     const newParagraphs = fulltext.split('\n').map(line => line.trim()).filter(line => line);

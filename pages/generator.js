@@ -189,7 +189,7 @@ const Generator = () => {
 
   {/* Save the Report to DB */}
 
-  const saveDocument = async e => {
+  const saveReport = async e => {
     e.preventDefault();
     setLoading(true);
     try {
@@ -198,6 +198,24 @@ const Generator = () => {
         title: generatedTitle,
         subtitles: generatedSectionsTitles,
         sections: generatedSectionsTexts,
+      });
+      setSaved(true)
+      window.open('mypdf', '_ blank')
+      openModal();
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  };
+
+  const saveLetter = async e => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await axios.post("/api/documents", {
+        type: doc,
+        title: letterTitle,
+        sections: letterParagraphs,
       });
       setSaved(true)
       window.open('mypdf', '_ blank')
@@ -595,11 +613,11 @@ const Generator = () => {
                     )
                   }
                   <AnimatePresence>
-                    { (showDownload && doneGeneration && (doc === "Présentation" && showGeneratedDoc)) && (
+                    { (showDownload && doneGeneration && ((doc === "Présentation" && showGeneratedDoc) || (doc === "Lettre de motivation" && showCoverLetter))) && (
                       <m.div initial="hidden" exit="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} className={`flex justify-center align-center w-full mx-auto fixed bottom-8 left-0 right-0 z-30 ${styles.paddingX} max-w-7xl`}>
                         {
                           (!loading && !saved)  && (
-                            <button className={`cta2 w-full mx-auto md:w-1/2`} onClick={saveDocument}>
+                            <button className={`cta2 w-full mx-auto md:w-1/2`} onClick={doc === "Lettre de motivation" ? saveLetter : saveReport}>
                               <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Enregistrer</p>
                               <ArrowDownTrayIcon className="w-[35px] md:ms-3"/>
                             </button>
@@ -663,7 +681,7 @@ const Generator = () => {
                   <MessageTemplate messageText={messageText} dest={dest} setMessageText={(newMessage) => setMessageText(newMessage)} doneGeneration={doneGeneration}/>
                 </m.div>
               )}
-              {true && doc === "Lettre de motivation" && (
+              {showCoverLetter && doc === "Lettre de motivation" && (
                 <div className={`h-full mx-auto`}>
                   <CoverLetterTemplate generatedTitle={letterTitle} generatedSections={letterParagraphs} doneGeneration={doneGeneration} setGeneratedSections={(e) => setLetterParagraphs(e)} setGeneratedTitle={(e) => setLetterTitle(e)} />
                 </div>

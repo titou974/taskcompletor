@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { PDFViewer } from "@react-pdf/renderer";
-import PDF from "./pdfcreate";
+import PDFReport from "./reportpdfcreate";
+import PDFLetter from "./letterpdfcreate";
 
 
 
@@ -32,7 +33,12 @@ const PDFView = () => {
 
   return (
     <PDFViewer className="w-full h-screen">
-      <PDF title={fetchedTitle} subtitles={fetchedSubtitles} sections={fetchedSections} />
+      {fetchedType === "Rapport" && (
+        <PDFReport title={fetchedTitle} subtitles={fetchedSubtitles} sections={fetchedSections} />
+      )}
+      {fetchedType === "Lettre de motivation" && (
+        <PDFLetter title={fetchedTitle} sections={fetchedSections} />
+      )}
     </PDFViewer>
   );
 };

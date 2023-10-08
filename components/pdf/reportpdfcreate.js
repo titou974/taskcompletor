@@ -57,7 +57,7 @@ const generatedSections = [['1. Introduction', 'Les poissons sont des créatures
 
 
 
-const PDF = ({ title, subtitles, sections }) => {
+const PDFReport = ({ title, subtitles, sections }) => {
   return (
     <Document>
       <Page size="A4" style={styles.body}>
@@ -75,4 +75,4 @@ const PDF = ({ title, subtitles, sections }) => {
   );
 };
 
-export default PDF;
+export default PDFReport;

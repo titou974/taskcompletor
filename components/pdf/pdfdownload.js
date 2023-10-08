@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { usePDF } from "@react-pdf/renderer";
-import PDF from "./pdfcreate";
+import PDFReport from "./reportpdfcreate";
 import axios from "axios";
 import Link from "next/link";
 
@@ -34,7 +34,7 @@ const PDFDownload = () => {
   }, []);
 
 
-  const [instance, updateInstance] = usePDF({ document: <PDF title={fetchedTitle} subtitles={fetchedSubtitles} sections={fetchedSections}/> });
+  const [instance, updateInstance] = usePDF({ document: <PDFReport title={fetchedTitle} subtitles={fetchedSubtitles} sections={fetchedSections}/> });
 
 
   if (instance.loading) return <div>Loading ...</div>;
