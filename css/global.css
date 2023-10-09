@@ -427,3 +427,11 @@ body {
   transform-origin: top;
   z-index: 50;
 }
+
+.navbar-icons path {
+  color: white;
+}
+
+.navbar-icons-hover {
+  color: #00003f;
+}

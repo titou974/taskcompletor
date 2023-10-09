@@ -68,7 +68,8 @@ const AddInput = ({input, setInput, dataset, placeholder}) => {
               <input required type="text" value={element} onChange={(e) => handleChange(e)} className={`${style.inputClassic} w-full rounded-md transition-all text-white`}/>
               <span className={`${style.placeholderInputClassic}`}>{placeholder}</span>
             </m.label>
-            <button onClick={handleAddCompetences} className="p-1 bg-tertiary rounded-md min-w-[50px] min-h-[50px] border-white hover:bg-white hover:text-tertiary transition-all">
+            <button onClick={handleAddCompetences} className="p-4 bg-tertiary rounded-md min-w-[50px] min-h-[50px] border-white hover:bg-white hover:text-tertiary transition-all flex items-center justify-center gap-2">
+              <p className="font-bold">Ajouter</p>
               <div className="max-w-[20px] mx-auto">
                 <FontAwesomeIcon icon={faPlus} size="sm"/>
               </div>

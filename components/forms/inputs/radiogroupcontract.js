@@ -13,7 +13,7 @@ const RadioGroupContracts = ({contractName, setContractName}) => {
             {contractNameList.map((name) => (
               <RadioGroup.Option
                 key={name.id}
-                value={name.title}
+                value={name.id}
                 className={({ active, checked }) =>
                   `${
                     active

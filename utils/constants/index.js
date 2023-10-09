@@ -4,12 +4,12 @@ export const navLinks = [
     title: "Générer un document",
   },
   {
-    id: "about",
-    title: "À Propos",
-  },
-  {
     id: "faq",
     title: "FAQ",
+  },
+  {
+    id: "about",
+    title: "À Propos",
   },
 ];
 
@@ -253,15 +253,15 @@ export const graduateAnswersList = [
 
 export const contractNameList = [
   {
-    id: "internship",
+    id: "Stage",
     title: "Un Stage 👩‍💼",
   },
   {
-    id: "apprenticeship",
+    id: "Alternance",
     title: "Une Alternance 📄",
   },
   {
-    id: "contract",
+    id: "CDD OU CDI",
     title: "Un CDD ou CDI 📝",
   }
 ]
@@ -914,3 +914,37 @@ export const passions = [
   "Sécurité civile"
   //... et ainsi de suite jusqu'à 100
 ];
+
+export const about_sections = [
+  {
+    title: "🚀 Introduction",
+    description: "Bienvenue dans l'univers de Task Completor, l'outil qui transforme votre manière de gérer les tâches quotidiennes avec l'appui de l'intelligence artificielle de pointe. Sa mission est simple: faciliter votre manière de créer des documents et communiquer en utilisant la puissance du GPT-3.5 et GPT-4."
+  },
+  {
+    title: "🎯 La Problématique",
+    description: "Nous vivons dans un monde où le temps est un bien précieux et où la communication écrite joue un rôle central. Comment améliorer l'efficacité de la génération de contenu, tout en maintenant une qualité irréprochable dans vos présentations, lettres de motivation, emails et messages ?"
+  },
+  {
+    title: "✨ La Solution : Task Completor",
+    description: "Avec Task Completor, bénéficiez d'un outil intelligent qui automatise la génération de vos documents et communications :",
+    list_points_1: "📧 Communication Épurée : Rédigez des emails et messages pertinents avec une variante de choix, afin d’optimiser votre communication.",
+    list_points_2: "📄 Génération de Documents : Créez des présentations et lettres de motivation personnalisées en PDF en un clin d'œil.",
+    list_points_3: "Profitez de la précision, la créativité et l’efficacité des algorithmes avancés de GPT pour booster votre productivité quotidienne !"
+  },
+  {
+    title: "🔄 Comment Ça Marche",
+    description: "Consulter la FAQ"
+  },
+  {
+    title: "👥 Qui Suis-Je",
+    description: "Je m'appelle Titouan et je suis développeur junior full-stack. Je créer des projets pour résoudre des problèmes, faire surchauffer mon cerveau, et partager ce que j'ai appris aux intéressés."
+  },
+  {
+    title: "🤝 Contactez-Moi",
+    description: "Pour toute question, propositions, ou par simple curiosité... Contactez-moi sur Instagram pour une réponse rapide."
+  },
+  {
+    title: "🚀 Prêt à Décupler Votre Productivité ?",
+    description: "Lancez-vous avec Task Completor et découvrez une nouvelle dimension de gestion efficace de vos tâches quotidiennes avec la puissance de l’IA."
+  }
+]

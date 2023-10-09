@@ -22,7 +22,7 @@ const CoverLetterForm = ({isGenerate, generateCompetences, myName, setMyName, de
   const [typedJob, setTypedJob] = useState("");
   const namePlaceholder = "Prénom et nom";
   const destPlaceholder = "Entreprise";
-  const jobPlaceholder = "Job visé";
+  const jobPlaceholder = `Poste visé ${contractName !== "" ? `pour votre ${contractName}` : ""}`;
   const schoolNamePlaceholder = "Nom de votre école";
   const domainNamePlaceholder = "Domaine d'études";
   const levelOfStudyPlaceholder = "Niveau d'études";
@@ -105,14 +105,14 @@ const CoverLetterForm = ({isGenerate, generateCompetences, myName, setMyName, de
               <h2
               className={`${styles.sectionSubText} font-bold`}
               >
-                  Êtes-vous étudiant ?
+                  Êtes-vous diplomé ?
               </h2>
           </m.div>
           <m.div variants={fadeIn("right", "spring", 1.25, 0.75)}>
             <RadioGroupGraduateAnswers graduate={graduate} setGraduate={(e) => setGraduate(e)} />
           </m.div>
           <m.div variants={textVariant(1)}  className={`flex items-center gap-4 w-full pt-20`}>
-              <IconNumber color={contractName !== "" ? "green" : "white"} number={2} />
+              <IconNumber color={contractName !== "" && job !== "" ? "green" : "white"} number={2} />
               <h2
               className={`${styles.sectionSubText} font-bold`}
               >
@@ -131,7 +131,7 @@ const CoverLetterForm = ({isGenerate, generateCompetences, myName, setMyName, de
           </m.div>
           <AutoSuggestionInput input={job} setInput={(newInput) => setJob(newInput)} typedPlaceholder={jobPlaceholder} dataset={job_list}/>
           <div className={`flex items-center w-full pt-20 pb-14 gap-5`}>
-            <IconNumber color={companyName !== "" ? "green" : "white"} number={3} className="min-w-[40px]" />
+            <IconNumber color={levelOfStudy !== "" && schoolName !== "" && domainOfStudy !== "" && graduation !== "" ? "green" : "white"} number={3} className="min-w-[40px]" />
             <h2
             className={`${styles.sectionSubText} font-bold`}
             >
