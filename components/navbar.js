@@ -251,7 +251,7 @@ const MobileNavLinkAnim = {
 
 const MobileNavLink = ({title, href}) => {
   return (
-    <motion.div variants={MobileNavLinkAnim} className="text-white text-2xl uppercase rounded-md py-2 px-4">
+    <motion.div variants={MobileNavLinkAnim} className="text-white text-xl md:text-2xl uppercase rounded-md py-2">
       <Link href={href} className="hover:bg-white hover:text-tertiary py-2 px-4 transition-colors rounded-md flex items-center justify-center gap-5">
         {title}
         {title === "Générer un document" && (

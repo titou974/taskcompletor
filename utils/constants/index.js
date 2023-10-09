@@ -948,3 +948,38 @@ export const about_sections = [
     description: "Lancez-vous avec Task Completor et découvrez une nouvelle dimension de gestion efficace de vos tâches quotidiennes avec la puissance de l’IA."
   }
 ]
+
+
+export const faq_questions = [
+  {
+    question: "🚀 Introduction",
+    answer: "Bienvenue dans l'univers de Task Completor, l'outil qui transforme votre manière de gérer les tâches quotidiennes avec l'appui de l'intelligence artificielle de pointe. Sa mission est simple: faciliter votre manière de créer des documents et communiquer en utilisant la puissance du GPT-3.5 et GPT-4."
+  },
+  {
+    question: "🎯 La Problématique",
+    answer: "Nous vivons dans un monde où le temps est un bien précieux et où la communication écrite joue un rôle central. Comment améliorer l'efficacité de la génération de contenu, tout en maintenant une qualité irréprochable dans vos présentations, lettres de motivation, emails et messages ?"
+  },
+  {
+    question: "✨ La Solution : Task Completor",
+    answer: "Avec Task Completor, bénéficiez d'un outil intelligent qui automatise la génération de vos documents et communications :",
+    list_points_1: "📧 Communication Épurée : Rédigez des emails et messages pertinents avec une variante de choix, afin d’optimiser votre communication.",
+    list_points_2: "📄 Génération de Documents : Créez des présentations et lettres de motivation personnalisées en PDF en un clin d'œil.",
+    list_points_3: "Profitez de la précision, la créativité et l’efficacité des algorithmes avancés de GPT pour booster votre productivité quotidienne !"
+  },
+  {
+    question: "🔄 Comment Ça Marche",
+    answer: "Consulter la FAQ"
+  },
+  {
+    question: "👥 Qui Suis-Je",
+    answer: "Je m'appelle Titouan et je suis développeur junior full-stack. Je créer des projets pour résoudre des problèmes, faire surchauffer mon cerveau, et partager ce que j'ai appris aux intéressés."
+  },
+  {
+    question: "🤝 Contactez-Moi",
+    answer: "Pour toute question, propositions, ou par simple curiosité... Contactez-moi sur Instagram pour une réponse rapide."
+  },
+  {
+    question: "🚀 Prêt à Décupler Votre Productivité ?",
+    answer: "Lancez-vous avec Task Completor et découvrez une nouvelle dimension de gestion efficace de vos tâches quotidiennes avec la puissance de l’IA."
+  }
+]

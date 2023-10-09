@@ -435,3 +435,28 @@ body {
 .navbar-icons-hover {
   color: #00003f;
 }
+
+.cta-link {
+  padding: 1em 2em;
+  background-color: #011B6B;
+  gap: 0.5rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font-weight: bold;
+}
+
+.cta-link:hover {
+  background-color: white;
+  color: #011B6B;
+}
+
+.cta-link path {
+  fill: white;
+}
+
+.cta-link:hover path {
+  fill: #011B6B;
+}
