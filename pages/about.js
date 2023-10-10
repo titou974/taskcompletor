@@ -7,12 +7,13 @@ const Navbar = dynamic(() => import("../components/navbar"));
 const SocialLinks = dynamic(() => import("../components/sociallinks"))
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWandMagicSparkles } from "@fortawesome/free-solid-svg-icons";
+import Footer from "../components/footer";
 
 const About = () => {
   return (
     <div className={`w-full`}>
       <Navbar />
-      <div className={`h-full ${styles.paddingX} py-40 w-full max-w-7xl mx-auto`}>
+      <div className={`h-full ${styles.paddingX} py-20 md:py-40 w-full max-w-7xl mx-auto`}>
         {about_sections.map((section, index) => (
           <div key={index} className="py-6">
             <h2 className={`text-white font-bold ${styles.sectionSubText} pb-4`}>{section.title}</h2>
@@ -65,6 +66,7 @@ const About = () => {
           </div>
         ))}
       </div>
+      <Footer />
     </div>
   )
 }

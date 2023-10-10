@@ -952,34 +952,27 @@ export const about_sections = [
 
 export const faq_questions = [
   {
-    question: "🚀 Introduction",
-    answer: "Bienvenue dans l'univers de Task Completor, l'outil qui transforme votre manière de gérer les tâches quotidiennes avec l'appui de l'intelligence artificielle de pointe. Sa mission est simple: faciliter votre manière de créer des documents et communiquer en utilisant la puissance du GPT-3.5 et GPT-4."
+    question: "🦾 Quelle technologie est utilisée ?",
+    answer: "Task Completor est basé sur l'IA GPT d'OpenAI.",
   },
   {
-    question: "🎯 La Problématique",
-    answer: "Nous vivons dans un monde où le temps est un bien précieux et où la communication écrite joue un rôle central. Comment améliorer l'efficacité de la génération de contenu, tout en maintenant une qualité irréprochable dans vos présentations, lettres de motivation, emails et messages ?"
+    question: "🧐 La différence avec Chat GPT ?",
+    answer: "Task Completor choisit le meilleur 'prompt' (autrement dit, la demande d'instructions à l'IA) afin de générer le contenu le plus pertinent pour votre tâche. Il met également en forme votre PDF. L'outil peut donc offrir un gain de temps considérable."
   },
   {
-    question: "✨ La Solution : Task Completor",
-    answer: "Avec Task Completor, bénéficiez d'un outil intelligent qui automatise la génération de vos documents et communications :",
-    list_points_1: "📧 Communication Épurée : Rédigez des emails et messages pertinents avec une variante de choix, afin d’optimiser votre communication.",
-    list_points_2: "📄 Génération de Documents : Créez des présentations et lettres de motivation personnalisées en PDF en un clin d'œil.",
-    list_points_3: "Profitez de la précision, la créativité et l’efficacité des algorithmes avancés de GPT pour booster votre productivité quotidienne !"
+    question: "🛠 Comment fonctionne l'algorithme ?",
+    answer: "Task Completor propose de paramétrer l'IA de manière à générer une réponse pertinente. Quand l'outil génère le contenu, il met en forme la réponse de l'IA pour créer un PDF (Lettre de motivation et Présentation). L'outil permet également de modifier le contenu généré via un éditeur de document intégré."
   },
   {
-    question: "🔄 Comment Ça Marche",
-    answer: "Consulter la FAQ"
+    question: "💸 Est-ce payant ?",
+    answer: "Tant que Task Completor possède un nombre d'utilisateurs modéré, l'outil est gratuit 🩵",
   },
   {
-    question: "👥 Qui Suis-Je",
-    answer: "Je m'appelle Titouan et je suis développeur junior full-stack. Je créer des projets pour résoudre des problèmes, faire surchauffer mon cerveau, et partager ce que j'ai appris aux intéressés."
+    question: "❌ Mon document ne se génère pas...",
+    answer: "Il est probable qu'il faille reformuler le sujet de votre document et que vous complétiez bien tous les champs. Le bug le plus courant est lié à l'intégration de la technologie GPT."
   },
   {
-    question: "🤝 Contactez-Moi",
-    answer: "Pour toute question, propositions, ou par simple curiosité... Contactez-moi sur Instagram pour une réponse rapide."
-  },
-  {
-    question: "🚀 Prêt à Décupler Votre Productivité ?",
-    answer: "Lancez-vous avec Task Completor et découvrez une nouvelle dimension de gestion efficace de vos tâches quotidiennes avec la puissance de l’IA."
+    question: "😁 Pensez à modifier votre document !",
+    answer: "Relisez. L'IA peut choisir de prendre parfois sa propre direction, elle ne vous remplace pas, à vous de la corriger. Par exemple, les lettres de motivation nécessitent d'inclure des connaissances sur l'entreprise auxquelles l'IA ne peut pas accéder."
   }
 ]

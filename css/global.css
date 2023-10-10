@@ -460,3 +460,34 @@ body {
 .cta-link:hover path {
   fill: #011B6B;
 }
+
+
+.navbar-links {
+  color: white;
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+@media (min-width: 450px) {
+  .navbar-links {
+    font-size: 25px;
+  }
+}
+.navbar-links path {
+  fill: white;
+}
+
+.navbar-links:hover {
+  background-color: white;
+  color: #00003f;
+}
+
+.navbar-links:hover path {
+  fill: #00003f;
+}

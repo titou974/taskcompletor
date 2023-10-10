@@ -18,6 +18,7 @@ import {
   faCopy,
   faWandMagicSparkles
 } from "@fortawesome/free-solid-svg-icons";
+import Footer from "../components/footer";
 const ModalStepTwoPdf = dynamic(() => import("../components/modals/modalmodifiedpdf"));
 const ModalStepTwo = dynamic(() => import("../components/modals/modalmodifiedstep"));
 const EditTextMail = dynamic(() => import("../components/forms/edittextmail"));
@@ -262,7 +263,6 @@ const Generator = () => {
         ${graduate ? `- Diplome obtenu: ${graduation}` : `- Diplome visé: ${graduation}`}
         - Compétences clés : ${competences}
         - Expérience passée : ${experiences}
-        - Passions : ${hobbies}
         ${contactDetails ? `- Coordonnées :
         [${myName}]
         [${mailAddress}]
@@ -720,6 +720,7 @@ const Generator = () => {
             )}
           </AnimatePresence>
         </div>
+        <Footer />
       </div>
   );
 };
