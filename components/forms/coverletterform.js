@@ -10,10 +10,11 @@ import AutoSuggestionInput from "./inputs/autosuggestioninput";
 import { domaines_etudes, abreviations_etudes, job_list, passions } from "../../utils/constants";
 import AddCompetencesInput from "./inputs/addcompetences";
 import AddInput from "./inputs/addinput";
+import RadioGroupContactDetails from "./inputs/radiogroupcontactdetails";
 
 
 
-const CoverLetterForm = ({isGenerate, generateCompetences, myName, setMyName, dest, setDest, language, setLanguage, job, setJob, competences, setCompetences, experiences, setExperiences, contractName, setContractName, graduate, setGraduate, graduation, setGraduation, levelOfStudy, setLevelOfStudy, domainOfStudy, setDomainOfStudy, hobbies, setHobbies, contactDetails, setContactDetails, mailAddress, setMailAddress, phoneNumber, setPhoneNumber, companyName, setCompanyName, schoolName, setSchoolName }) => {
+const CoverLetterForm = ({isGenerate, generateCompetences, myName, setMyName, dest, setDest, language, setLanguage, job, setJob, competences, setCompetences, experiences, setExperiences, contractName, setContractName, graduate, setGraduate, graduation, setGraduation, levelOfStudy, setLevelOfStudy, domainOfStudy, setDomainOfStudy, hobbies, setHobbies, contactDetails, setContactDetails, mailAddress, setMailAddress, phoneNumber, setPhoneNumber, companyName, setCompanyName, schoolName, setSchoolName, myAddress, setMyAddress, companyAddress, setCompanyAddress }) => {
 
   const [colorIcon, setColorIcon] = useState('white');
   const [textLengthAlert, setTextLengthAlert] = useState(false);
@@ -174,6 +175,45 @@ const CoverLetterForm = ({isGenerate, generateCompetences, myName, setMyName, de
             </h2>
           </div>
           <AddInput input={experiences} setInput={(newInput) => setExperiences(newInput)} placeholder={"Expériences"} />
+          <div className={`flex items-center w-full pt-20 pb-14 gap-5`}>
+            <div className="min-w-[45px]">
+              <IconNumber color={experiences.length > 0 ? "green" : "white"} number={6} className="min-w-[40px]" />
+            </div>
+            <h2
+            className={`${styles.sectionSubText} font-bold`}
+            >
+                Ajoutez vos coordoonées:
+            </h2>
+          </div>
+          <RadioGroupContactDetails contactDetails={contactDetails} setContactDetails = {(e) => setContactDetails(e)}/>
+          {contactDetails && (
+            <div>
+              <div className="my-14">
+                <label className={`${style.inputClassic} w-full py-5`} >
+                  <input required type="text" value={myAddress} onChange={(e) => setMyAddress(e.target.value)} className={`${style.inputClassic} w-full rounded-md transition-all`}/>
+                  <span className={`${style.placeholderInputClassic} text-sm`}>Votre Adresse, code postal et ville</span>
+                </label>
+              </div>
+              <div className="my-14">
+                <label className={`${style.inputClassic} w-full py-5`} >
+                  <input required type="text" value={companyAddress} onChange={(e) => setCompanyAddress(e.target.value)} className={`${style.inputClassic} w-full rounded-md transition-all`}/>
+                  <span className={`${style.placeholderInputClassic}`}>Adresse de l'entreprise</span>
+                </label>
+              </div>
+              <div className="my-14">
+                <label className={`${style.inputClassic} w-full py-5`} >
+                  <input required type="email" value={mailAddress} onChange={(e) => setMailAddress(e.target.value)} className={`${style.inputClassic} w-full rounded-md transition-all`}/>
+                  <span className={`${style.placeholderInputClassic}`}>Votre adresse mail</span>
+                </label>
+              </div>
+              <div className="my-14">
+                <label className={`${style.inputClassic} w-full py-5`} >
+                  <input required type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} className={`${style.inputClassic} w-full rounded-md transition-all`}/>
+                  <span className={`${style.placeholderInputClassic}`}>Votre numéro de téléphone</span>
+                </label>
+              </div>
+            </div>
+          )}
       </div>
     )
 }

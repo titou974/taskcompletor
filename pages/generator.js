@@ -35,6 +35,7 @@ const Navbar = dynamic(() => import("../components/navbar"));
 const CoverLetterTemplate = dynamic(() => import("../components/doctemplates/generationtemplates/coverlettertemplate"));
 
 import { docType } from "../utils/constants";
+import ConvertDate from "../lib/convertDate";
 
 
 const Generator = () => {
@@ -97,6 +98,8 @@ const Generator = () => {
   const [contactDetails, setContactDetails] = useState(false);
   const [mailAddress, setMailAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [myAddress, setMyAddress] = useState("");
+  const [companyAddress, setCompanyAddress] = useState("");
 
   {/* States for Cover Letter Generated */}
   const [showCoverLetter, setShowCoverLetter] = useState(false);
@@ -264,15 +267,22 @@ const Generator = () => {
         - Compétences clés : ${competences}
         - Expérience passée : ${experiences}
         ${contactDetails ? `- Coordonnées :
-        [${myName}]
-        [${mailAddress}]
-        [${phoneNumber}]` : `- Mon nom : ${myName}`
-      }
-        Met uniquement ces paramètres dans la lettre, ne précise pas les coordoonées et soit clair et convaincant pour le recruteur. Commence la lettre de motivation par un titre.
+          mon Prénom-Nom : [${myName}],
+          Mon adresse mail: [${mailAddress}],
+          Mon adresse: ${myAddress},
+          Mon numéro de téléphone: [${phoneNumber}],
+          Nom de l'entreprise: ${companyName},
+          Adresse de l'entreprise: ${companyAddress},`
+          : `- Mon nom : ${myName}`
+        }
+        - Date: ${ConvertDate(new Date())}
+        Met uniquement ces paramètres dans la lettre, ne précise pas les coordoonées et soit clair et convaincant pour le recruteur. ${!contactDetails ? "Commence la lettre de motivation par un titre." : ""}
       `)
       setModel("gpt-4");
+      console.log(ConvertDate(new Date()));
     }
-  }, [subject, lang, myName, dest, language, mailType, job, competences, experiences, messageLength, emotion, graduate, companyName, schoolName, domainOfStudy, levelOfStudy, graduation, hobbies, contactDetails, contractName]);
+
+  }, [subject, lang, myName, dest, language, mailType, job, competences, experiences, messageLength, emotion, graduate, companyName, schoolName, domainOfStudy, levelOfStudy, graduation, hobbies, contactDetails, contractName, companyName, mailAddress, companyAddress, myAddress, phoneNumber]);
 
   {/* Separate Sectionstitles and Sections */}
 
@@ -565,7 +575,7 @@ const Generator = () => {
         <div className={`${styles.paddingX} pt-40 max-w-7xl mx-auto relative w-full flex flex-col gap-20 text-white bg-primary`}>
           <div className={`flex-col items-center justify-center gap-10 flex`}>
           {/* Generation Form */}
-            <FormGenerator isCompetenceGenerated={isCompetenceGenerated} generateCompetences={(e) => generateCompetences(e)} hobbies={hobbies} setHobbies={(newHobbies) => setHobbies(newHobbies)}  graduation={graduation} setGraduation={(newGraduation) => setGraduation(newGraduation)} schoolName={schoolName} setSchoolName={(newSchoolName) => setSchoolName(newSchoolName)}  subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} job={job} setJob={(newJob) => setJob(newJob)} competences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)} contractName={contractName} setContractName={(newContractName) => setContractName(newContractName)} companyName={companyName} setCompanyName={(newCompanyName) => setCompanyName(newCompanyName)} graduate={graduate} setGraduate={(newStatus) => setGraduate(newStatus)} levelOfStudy={levelOfStudy} setLevelOfStudy={(newLevelOfStudy) => setLevelOfStudy(newLevelOfStudy)} domainOfStudy={domainOfStudy} setDomainOfStudy={(newDomainOfStudy) => setDomainOfStudy(newDomainOfStudy)} hobbies={hobbies} setHobbies={(newHobbies) => setHobbies(newHobbies)} contactDetails={contactDetails} setContactDetails={(newContactDetails) => setContactDetails(newContactDetails)} mailAddress={mailAddress} setMailAddress={(newMailAddress) =>  setMailAddress(newMailAddress)} phoneNumber={phoneNumber} setPhoneNumber={(newPhoneNumber) => setPhoneNumber(newPhoneNumber)} />
+            <FormGenerator isCompetenceGenerated={isCompetenceGenerated} generateCompetences={(e) => generateCompetences(e)} graduation={graduation} setGraduation={(newGraduation) => setGraduation(newGraduation)} schoolName={schoolName} setSchoolName={(newSchoolName) => setSchoolName(newSchoolName)}  subject={subject} setSubject={(newSubject) => setSubject(newSubject)} doc={doc} setDoc={(newDoc) => setDoc(newDoc)} lang={lang} setLang={(newLang) => setLang(newLang)} dest={dest} setDest={(newDest) => setDest(newDest)} job={job} setJob={(newJob) => setJob(newJob)} competences={competences} setCompetences={(newCompetences) => setCompetences(newCompetences)} experiences={experiences} setExperiences={(experiences) => setExperiences(experiences)} myName={myName} setMyName={(newName) => setMyName(newName)} emotion={emotion} setEmotion={(newEmotion) => setEmotion(newEmotion)} language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} mailType={mailType} setMailType={(newMailType) => setMailType(newMailType)} messageLength={messageLength} setMessageLength={(newLength) => setMessageLength(newLength)} contractName={contractName} setContractName={(newContractName) => setContractName(newContractName)} companyName={companyName} setCompanyName={(newCompanyName) => setCompanyName(newCompanyName)} graduate={graduate} setGraduate={(newStatus) => setGraduate(newStatus)} levelOfStudy={levelOfStudy} setLevelOfStudy={(newLevelOfStudy) => setLevelOfStudy(newLevelOfStudy)} domainOfStudy={domainOfStudy} setDomainOfStudy={(newDomainOfStudy) => setDomainOfStudy(newDomainOfStudy)} hobbies={hobbies} setHobbies={(newHobbies) => setHobbies(newHobbies)} contactDetails={contactDetails} setContactDetails={(newContactDetails) => setContactDetails(newContactDetails)} mailAddress={mailAddress} setMailAddress={(newMailAddress) =>  setMailAddress(newMailAddress)} phoneNumber={phoneNumber} setPhoneNumber={(newPhoneNumber) => setPhoneNumber(newPhoneNumber)} myAddress={myAddress} setMyAddress={(e) => setMyAddress(e)} companyAddress={companyAddress} setCompanyAddress={(e) => setCompanyAddress(e)}  />
             <div className="w-full md:w-1/2 flex justify-between align-center pt-16">
               {!loading && (
                 <button

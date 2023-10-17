@@ -33,7 +33,7 @@ const PDFView = () => {
 
   return (
     <PDFViewer className="w-full h-screen">
-      {fetchedType === "Rapport" && (
+      {fetchedType === "Présentation" && (
         <PDFReport title={fetchedTitle} subtitles={fetchedSubtitles} sections={fetchedSections} />
       )}
       {fetchedType === "Lettre de motivation" && (

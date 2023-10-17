@@ -976,3 +976,18 @@ export const faq_questions = [
     answer: "Relisez. L'IA peut choisir de prendre parfois sa propre direction, elle ne vous remplace pas, à vous de la corriger. Par exemple, les lettres de motivation nécessitent d'inclure des connaissances sur l'entreprise auxquelles l'IA ne peut pas accéder."
   }
 ]
+
+export const contactDetailsList = [
+  {
+    id: "yes",
+    title: "Préciser mes coordoonées 📱",
+    description: "Précisez vos coordoonées et celles de l'entreprise",
+    contactDetails: true,
+  },
+  {
+    id: "no",
+    title: "Non 🫣",
+    description: "Je ne souhaite pas préciser mes coordoonées",
+    contactDetails: false,
+  },
+]

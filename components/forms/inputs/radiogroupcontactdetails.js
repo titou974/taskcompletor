@@ -1,19 +1,19 @@
 import { RadioGroup } from '@headlessui/react';
-import { contractNameList } from '../../../utils/constants/index';
+import { contactDetailsList } from '../../../utils/constants/index';
 
 
-const RadioGroupContract = ({contractName, setContractName}) => {
+const RadioGroupContactDetails = ({contactDetails, setContactDetails}) => {
 
   return (
     <div className="w-full pt-10">
       <div className="mx-auto w-full">
-        <RadioGroup value={contractName} onChange={(e) => setContractName(e)}>
-          <RadioGroup.Label className="sr-only">Coordoonées</RadioGroup.Label>
+        <RadioGroup value={contactDetails} onChange={(e) => setContactDetails(e)}>
+          <RadioGroup.Label className="sr-only"></RadioGroup.Label>
           <div className="space-y-2">
-            {contractNameList.map((name) => (
+            {contactDetailsList.map((name) => (
               <RadioGroup.Option
                 key={name.id}
-                value={name.id}
+                value={name.contactDetails}
                 className={({ active, checked }) =>
                   `${
                     active
@@ -83,4 +83,4 @@ const CheckIcon = (props) => {
   )
 };
 
-export default RadioGroupContract;
+export default RadioGroupContactDetails;
