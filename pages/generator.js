@@ -36,6 +36,8 @@ const CoverLetterTemplate = dynamic(() => import("../components/doctemplates/gen
 
 import { docType } from "../utils/constants";
 import ConvertDate from "../lib/convertDate";
+import CoverLetterDetails from "../components/doctemplates/generationtemplates/coverlettertemplatedetails";
+
 
 
 const Generator = () => {
@@ -95,17 +97,20 @@ const Generator = () => {
   const [experiences, setExperiences] = useState([]);
   const [hobbies, setHobbies] = useState([]); // ok
   const [contractName, setContractName] = useState(""); // ok
-  const [contactDetails, setContactDetails] = useState(false);
-  const [mailAddress, setMailAddress] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [myAddress, setMyAddress] = useState("");
-  const [companyAddress, setCompanyAddress] = useState("");
+  const [contactDetails, setContactDetails] = useState(false);  // ok
+  const [mailAddress, setMailAddress] = useState("");  // ok
+  const [phoneNumber, setPhoneNumber] = useState("");  // ok
+  const [myAddress, setMyAddress] = useState("");  // ok
+  const [companyAddress, setCompanyAddress] = useState(""); // ok
 
   {/* States for Cover Letter Generated */}
   const [showCoverLetter, setShowCoverLetter] = useState(false);
   const [isCompetenceGenerated, setIsCompetenceGenerated] = useState(false);
   const [letterTitle, setLetterTitle] = useState("");
   const [letterParagraphs, setLetterParagraphs] = useState([]);
+  const [generatedDetails, setGeneratedDetails] = useState("");
+  const [generatedLetterObject, setGeneratedLetterObject] = useState("");
+  const [generatedLetter, setGeneratedLetter] = useState("");
 
   {/* Mail Generated */}
   const [modifyingStep, setModifyingStep] = useState(false);
@@ -275,11 +280,11 @@ const Generator = () => {
           Adresse de l'entreprise: ${companyAddress},`
           : `- Mon nom : ${myName}`
         }
-        - Date: ${ConvertDate(new Date())}
-        Met uniquement ces paramètres dans la lettre, ne précise pas les coordoonées et soit clair et convaincant pour le recruteur. ${!contactDetails ? "Commence la lettre de motivation par un titre." : ""}
+        - Date d'écriture de la lettre à ${myAddress}: ${ConvertDate(new Date())}
+        Met uniquement ces paramètres dans la lettre, ${!contactDetails ? "ne précise pas les coordoonées et" : ""} soit clair et convaincant pour le recruteur. ${!contactDetails ? "Commence la lettre de motivation par un titre." : "Commence la lettre par mes coordonnées, les coordoonées de l'entreprise, la date d'écriture de la lettre, l'objet et développe la lettre ensuite."}
       `)
       setModel("gpt-4");
-      console.log(ConvertDate(new Date()));
+      console.log(prompt);
     }
 
   }, [subject, lang, myName, dest, language, mailType, job, competences, experiences, messageLength, emotion, graduate, companyName, schoolName, domainOfStudy, levelOfStudy, graduation, hobbies, contactDetails, contractName, companyName, mailAddress, companyAddress, myAddress, phoneNumber]);
@@ -328,7 +333,10 @@ const Generator = () => {
 
   useEffect(() => {
 
-    console.log(letterParagraphs);
+    console.log(finalText);
+    console.log("details", generatedDetails);
+    console.log("object", generatedLetterObject);
+    console.log("letter", generatedLetter)
 
   })
 
@@ -423,6 +431,9 @@ const Generator = () => {
     setMailText("");
     setLetterTitle("");
     setLetterParagraphs([]);
+    setGeneratedDetails("");
+    setGeneratedLetterObject("");
+    setGeneratedLetter("");
     if (doc === "Présentation") {
       setShowGeneratedDoc(true)
       setShowMessage(false)
@@ -475,6 +486,10 @@ const Generator = () => {
       const titleRegex = /^([^\n]+)/;
       const coverlettertitleregex = /Titre ?: (.*)/;
       const coverlettertitleregex2 = /Objet ?: (.*)/;
+      const regexDetails = /[\s\S]+(?=\n\nObjet :)/;
+      const regexObject = /Objet\s?: (.+?)\n/;
+      const regexLetter = /(Objet\s?:.*\n\n)/;
+
 
       {/* Structuring the Document */}
       if (doc === "Présentation") {
@@ -520,6 +535,24 @@ const Generator = () => {
         setFinalText(fulltext);
       } else if (doc === "Lettre de motivation") {
         const lines = fulltext.split('\n').map(line => line.trim()).filter(line => line);
+        const matchDetails = fulltext.match(regexDetails);
+        const matchObject = fulltext.match(regexObject);
+        const splitParts = fulltext.split(regexLetter);
+
+        if (matchDetails) {
+          setGeneratedDetails(matchDetails[0])
+        } else {
+          setGeneratedDetails(fulltext)
+        }
+
+        if (matchObject) {
+          setGeneratedLetterObject(matchObject[0].trim())
+        }
+
+        if (splitParts.length > 1) {
+          setGeneratedLetter(splitParts[2])
+        }
+
         if (lines.length > 0) {
           const match = lines[0].match(coverlettertitleregex);
           const match2 = lines[0].match(coverlettertitleregex2);
@@ -691,9 +724,14 @@ const Generator = () => {
                   <MessageTemplate messageText={messageText} dest={dest} setMessageText={(newMessage) => setMessageText(newMessage)} doneGeneration={doneGeneration}/>
                 </m.div>
               )}
-              {showCoverLetter && doc === "Lettre de motivation" && (
+              {showCoverLetter && doc === "Lettre de motivation" && !contactDetails && (
                 <div className={`h-full mx-auto`}>
                   <CoverLetterTemplate generatedTitle={letterTitle} generatedSections={letterParagraphs} doneGeneration={doneGeneration} setGeneratedSections={(e) => setLetterParagraphs(e)} setGeneratedTitle={(e) => setLetterTitle(e)} />
+                </div>
+              )}
+              {showCoverLetter && doc === "Lettre de motivation" && contactDetails && (
+                <div>
+                  <CoverLetterDetails generatedDetails={generatedDetails} setGeneratedDetails={(e) => setGeneratedDetails(e)} generatedLetterObject={generatedLetterObject} setGeneratedLetterObject={(e) => setGeneratedLetterObject} generatedLetter={generatedLetter} setGeneratedLetter={(e) => setGeneratedLetter(e)} />
                 </div>
               )}
             </AnimatePresence>
