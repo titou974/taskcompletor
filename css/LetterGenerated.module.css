@@ -181,6 +181,38 @@
   text-decoration: underline;
 }
 
+.a4Edit .sectionTextArea {
+  font-family: "Times New Roman", Times, serif;
+  white-space: pre-wrap;
+  font-size: 11px;
+}
+
+.a4Edit .letterDetails {
+  width: 100%;
+  border: solid black 3px;
+  padding: 1em 2em;
+  border-radius: 0.375rem;
+  font-family: "Times New Roman", Times, serif;
+  font-style: italic;
+}
+
+.a4Edit .object {
+  width: 100%;
+  border: solid black 3px;
+  padding: 1em 2em;
+  border-radius: 0.375rem;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+}
+
+.a4Edit .letter {
+  width: 100%;
+  border: solid black 3px;
+  padding: 1em 2em;
+  border-radius: 0.375rem;
+  font-family: "Times New Roman", Times, serif;
+}
+
 @media (min-width: 450px)  {
   .a4ContainerEdit {
     height: 600px;
@@ -274,6 +306,17 @@
   }
   .a4Edit .subtitleTextArea {
     font-size: 29px;
+  }
+  .a4Edit .letterDetails {
+    font-size: 20px;
+  }
+
+  .a4Edit .object {
+    font-size: 20px;
+  }
+
+  .a4Edit .letter {
+    font-size: 20px;
   }
 }
 

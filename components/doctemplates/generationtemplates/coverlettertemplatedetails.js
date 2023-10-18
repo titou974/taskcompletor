@@ -14,31 +14,31 @@ import { useState, useEffect } from "react";
 
 const regexTitle = /^\d+\.\s(.+)/;
 
-const CoverLetterDetails = ({ generatedDetails, generatedLetterObject, generatedLetter, setGeneratedDetails, setGeneratedLetterObject, setGeneratedLetter }) => {
+const CoverLetterDetails = ({ doneGeneration, generatedDetails, generatedLetterObject, generatedLetter, setGeneratedDetails, setGeneratedLetterObject, setGeneratedLetter }) => {
 
-  // const [fulltext, setFulltext] = useState(generatedSections.join("\n\n"))
+  const detailsString = generatedDetails.map(section => section.join('\n')).join('\n\n');
+  const letterString = generatedLetter.join('\n\n');
 
-  // useEffect(() => {
-  //   setFulltext(generatedSections.join("\n\n"))
-  // }, [generatedSections])
+  const [detailsTextArea, setDetailsTextArea] = useState(detailsString);
+  const [letterTextArea, setLetterTextArea] = useState(letterString);
 
-  // const updateParagraphs = () => {
-  //   // Diviser le texte en paragraphes en utilisant deux sauts de ligne comme délimiteur
-  //   const newParagraphs = fulltext.split('\n').map(line => line.trim()).filter(line => line);
-  //   setGeneratedSections(newParagraphs);
-  //   // Mettre à jour l'état initial ou effectuer d'autres actions avec les nouveaux paragraphes
-  //   console.log(newParagraphs);
-  // };
 
-  // const handleParagraphsChange = (e) => {
-  //   updateParagraphs();
-  //   setFulltext(e.target.value);
-  // }
+  const handleDetailsChange = (e) => {
+    setDetailsTextArea(e.target.value);
+  };
+
+  const handleLetterChange = (e) => {
+    setLetterTextArea(e.target.value);
+  };
+
+
+  useEffect(() => {
+    setGeneratedDetails(detailsTextArea.split('\n\n').map(section => section.split('\n')));
+    setGeneratedLetter(letterTextArea.split('\n'));
+  }, [detailsTextArea, letterTextArea]);
 
   return (
     <div className="w-full mx-auto">
-      {/* Caroussel */}
-
       <div className="sm:hidden relative" >
         {true && (
             <div className={`${style.a4Container} align-center flex gap-x-4 mb-2`}>
@@ -71,7 +71,7 @@ const CoverLetterDetails = ({ generatedDetails, generatedLetterObject, generated
           )}
       </div>
       <div className="hidden sm:block">
-        {true && (
+        {!doneGeneration && (
           <div className={`${style.a4Container} align-center flex gap-x-4 mb-2`}>
             <div className={`${style.a4} py-[40px] md:py-[25px] lg:py-[30px] xl:py-[30px] sm:px-10 md:px-8 lg:px-10 xl:px-12`}>
               <div className={`py-2 hidden sm:block md:py-0 lg:py-0 xl:py-4`}>
@@ -100,30 +100,49 @@ const CoverLetterDetails = ({ generatedDetails, generatedLetterObject, generated
             </div>
           </div>
         )}
-        {false && (
+        {doneGeneration && (
           <div className={`${style.a4ContainerEdit} align-center flex gap-x-4 mb-2`}>
-            <div className={`${style.a4Edit} py-[30px] md:py-[40px] lg:py-[60px] xl:pt-[60px] sm:px-5 md:px-15 lg:px-20 xl:px-[60px]`}>
-              <h2 className={`text-center`}>
-                <textarea className={`${style.titleTextArea} text-center`} value={generatedTitle} rows={1} onChange={(e) => setGeneratedTitle(e.target.value)} />
-              </h2>
-              <div className={`py-1 hidden sm:block md:hidden`}>
-                <div className="pt-2">
-                  <textarea value={fulltext} className={`${style.sectionTextArea}`} onChange={(e) => handleParagraphsChange(e)} rows={36}/>
+            <div className={`${style.a4Edit} py-[40px] md:py-[25px] lg:py-[30px] xl:py-[30px] sm:px-10 md:px-8 lg:px-10 xl:px-12`}>
+              <div className={`py-2 hidden sm:block md:py-0 lg:py-0 xl:py-4`}>
+                <div className="pb-2">
+                  <textarea
+                    className={style.letterDetails}
+                    value={detailsTextArea}
+                    onChange={handleDetailsChange}
+                    rows={9}
+                  />
                 </div>
-              </div>
-              <div className={`hidden md:block lg:hidden`}>
-                <div className="pt-8">
-                  <textarea value={fulltext} className={`${style.sectionTextArea}`} onChange={(e) => handleParagraphsChange(e)} rows={36}/>
+                <div className="py-4">
+                  <textarea
+                    rows={1}
+                    className={style.object}
+                    value={generatedLetterObject}
+                    onChange={e => setGeneratedLetterObject(e.target.value)}
+                  />
                 </div>
-              </div>
-              <div className={`py-4 hidden lg:block xl:hidden`}>
-                <div className="pt-2">
-                  <textarea value={fulltext} className={`${style.sectionTextArea}`} onChange={(e) => handleParagraphsChange(e)} rows={33}/>
+                <div className="lg:hidden">
+                  <textarea
+                    className={style.letter}
+                    value={letterTextArea}
+                    onChange={handleLetterChange}
+                    rows={16}
+                  />
                 </div>
-              </div>
-              <div className={`py-3 hidden xl:block`}>
-                <div className="pt-2">
-                  <textarea value={fulltext} className={`${style.sectionTextArea}`} onChange={(e) => handleParagraphsChange(e)} rows={33}/>
+                <div className="hidden lg:block xl:hidden">
+                  <textarea
+                    className={style.letter}
+                    value={letterTextArea}
+                    onChange={handleLetterChange}
+                    rows={28}
+                  />
+                </div>
+                <div className="hidden xl:block">
+                  <textarea
+                    className={style.letter}
+                    value={letterTextArea}
+                    onChange={handleLetterChange}
+                    rows={32}
+                  />
                 </div>
               </div>
             </div>

@@ -19,12 +19,13 @@ Font.register({ family: "TimesNewRomanItalic", src: 'assets/TimesNewRoman/TimesN
 const styles = StyleSheet.create({
   body: {
     fontFamily: "TimesNewRomanRegular",
-    paddingVertical: 50,
+    paddingVertical: 40,
     paddingHorizontal: 50,
   },
   details: {
     fontSize: 10,
-    fontFamily: "TimesNewRomanItalic"
+    fontFamily: "TimesNewRomanItalic",
+    lineHeight: 2,
   },
   detailscontainer: {
     paddingBottom: 10,
@@ -36,27 +37,27 @@ const styles = StyleSheet.create({
   objectcontainer: {
     paddingVertical: 15,
   },
-  subtitle: {
-    paddingBottom: 12,
-    fontSize: 16,
-    fontFamily: "TimesNewRomanBold",
-  },
   text: {
     fontSize: 10,
     fontFamily: "TimesNewRomanRegular",
     lineHeight: 2,
     paddingTop: 10
   },
-  titlecontainer: {
-    display: "flex",
-    justifyContent: "center",
-    paddingBottom: 30
-  },
   sectioncontainer: {
     display: "flex",
     justifyContent: "between",
     paddingVertical: 3
   },
+  footer: {
+    fontFamily: "TimesNewRomanItalic",
+    position: 'absolute',
+    fontSize: 10,
+    bottom: 30,
+    left: 0,
+    right: 0,
+    textAlign: 'center',
+    color: 'grey',
+  }
 })
 
 
@@ -80,6 +81,9 @@ const PDFLetterDetails = ({ title, sections, details }) => {
             <Text style={styles.text} wrap={true}>{section}</Text>
           ))}
         </View>
+        <Text style={styles.footer} fixed>
+          Généré par Task Completor
+        </Text>
       </Page>
     </Document>
   );

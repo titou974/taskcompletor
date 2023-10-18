@@ -108,9 +108,9 @@ const Generator = () => {
   const [isCompetenceGenerated, setIsCompetenceGenerated] = useState(false);
   const [letterTitle, setLetterTitle] = useState("");
   const [letterParagraphs, setLetterParagraphs] = useState([]);
-  const [generatedDetails, setGeneratedDetails] = useState("");
-  const [generatedLetterObject, setGeneratedLetterObject] = useState("");
-  const [generatedLetter, setGeneratedLetter] = useState([]);
+  const [generatedDetails, setGeneratedDetails] = useState(docType[3].example_2.details);
+  const [generatedLetterObject, setGeneratedLetterObject] = useState(docType[3].example_2.object);
+  const [generatedLetter, setGeneratedLetter] = useState(docType[3].example_2.letter);
 
   {/* Mail Generated */}
   const [modifyingStep, setModifyingStep] = useState(false);
@@ -754,7 +754,7 @@ const Generator = () => {
               )}
               {showCoverLetter && doc === "Lettre de motivation" && contactDetails && (
                 <div>
-                  <CoverLetterDetails generatedDetails={generatedDetails} setGeneratedDetails={(e) => setGeneratedDetails(e)} generatedLetterObject={generatedLetterObject} setGeneratedLetterObject={(e) => setGeneratedLetterObject} generatedLetter={generatedLetter} setGeneratedLetter={(e) => setGeneratedLetter(e)} />
+                  <CoverLetterDetails doneGeneration={doneGeneration} generatedDetails={generatedDetails} setGeneratedDetails={(e) => setGeneratedDetails(e)} generatedLetterObject={generatedLetterObject} setGeneratedLetterObject={(e) => setGeneratedLetterObject(e)} generatedLetter={generatedLetter} setGeneratedLetter={(e) => setGeneratedLetter(e)} />
                 </div>
               )}
             </AnimatePresence>
