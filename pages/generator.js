@@ -280,7 +280,7 @@ const Generator = () => {
           Adresse de l'entreprise: ${companyAddress},`
           : `- Mon nom : ${myName}`
         }
-        - Date d'écriture de la lettre à ${myAddress}: ${ConvertDate(new Date())}
+        ${contactDetails ? `- Date d'écriture de la lettre à ${myAddress}: ${ConvertDate(new Date())}` : ""}
         Met uniquement ces paramètres dans la lettre, ${!contactDetails ? "ne précise pas les coordoonées et" : ""} soit clair et convaincant pour le recruteur. ${!contactDetails ? "Commence la lettre de motivation par un titre." : "Commence la lettre par mes coordonnées, les coordoonées de l'entreprise, la date d'écriture de la lettre, l'objet et développe la lettre ensuite."}
       `)
       setModel("gpt-4");
