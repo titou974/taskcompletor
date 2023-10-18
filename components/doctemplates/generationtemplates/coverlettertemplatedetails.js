@@ -40,20 +40,61 @@ const CoverLetterDetails = ({ generatedDetails, generatedLetterObject, generated
       {/* Caroussel */}
 
       <div className="sm:hidden relative" >
+        {true && (
+            <div className={`${style.a4Container} align-center flex gap-x-4 mb-2`}>
+              <div className={`${style.a4} py-[20px] px-[20px]`}>
+                <div className={``}>
+                  <div className="pb-2">
+                    {generatedDetails.length > 0 && typeof generatedDetails === "object" ? generatedDetails.map((section, index) => (
+                      <div key={index} className="py-1">
+                        {section.length > 0 && section.map((line, index) => (
+                          <p className={style.letterDetails} key={index}>{line}</p>
+                        ))}
+                      </div>
+                    )) : (
+                      <p className={style.letterDetails}>{generatedDetails}</p>
+                    )}
+                  </div>
+                  <div className="py-2">
+                    <p className={style.letterObject}>{generatedLetterObject}</p>
+                  </div>
+                  <div>
+                    {generatedLetter.length > 0 && generatedLetter.map((section, index) =>(
+                      <div key={index} className="py-1">
+                        <p className={style.letter}>{section}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
       </div>
       <div className="hidden sm:block">
         {true && (
           <div className={`${style.a4Container} align-center flex gap-x-4 mb-2`}>
             <div className={`${style.a4} py-[40px] md:py-[25px] lg:py-[30px] xl:py-[30px] sm:px-10 md:px-8 lg:px-10 xl:px-12`}>
-              <div className={`py-4 hidden sm:block md:py-0 lg:py-3 xl:py-4`}>
-                <div className="py-2">
-                  <p className="italic">{generatedDetails}</p>
+              <div className={`py-2 hidden sm:block md:py-0 lg:py-0 xl:py-4`}>
+                <div className="pb-2">
+                  {generatedDetails.length > 0 && typeof generatedDetails === "object" ? generatedDetails.map((section, index) => (
+                    <div key={index} className="py-1">
+                      {section.length > 0 && section.map((line, index) => (
+                        <p className={style.letterDetails} key={index}>{line}</p>
+                      ))}
+                    </div>
+                  )) : (
+                    <p className={style.letterDetails}>{generatedDetails}</p>
+                  )}
                 </div>
-                <div className="py-2">
-                  <p className="font-bold py-2">{generatedLetterObject}</p>
+                <div className="py-4">
+                  <p className={style.letterObject}>{generatedLetterObject}</p>
                 </div>
                 <div>
-                  <p>{generatedLetter}</p>
+                  {generatedLetter.length > 0 && generatedLetter.map((section, index) =>(
+                    <div key={index} className="py-1">
+                      <p className={style.letter}>{section}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

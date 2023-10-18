@@ -16,6 +16,7 @@ model Document {
   subtitles String[]
   sections String[]
   type  String?
+  details Json?
   author    User?   @relation(fields: [authorId], references: [id])
   authorId  String?
 }

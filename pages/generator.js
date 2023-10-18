@@ -110,7 +110,7 @@ const Generator = () => {
   const [letterParagraphs, setLetterParagraphs] = useState([]);
   const [generatedDetails, setGeneratedDetails] = useState("");
   const [generatedLetterObject, setGeneratedLetterObject] = useState("");
-  const [generatedLetter, setGeneratedLetter] = useState("");
+  const [generatedLetter, setGeneratedLetter] = useState([]);
 
   {/* Mail Generated */}
   const [modifyingStep, setModifyingStep] = useState(false);
@@ -234,6 +234,25 @@ const Generator = () => {
     }
     setLoading(false);
   };
+
+  const saveLetterDetails = async e => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await axios.post("/api/documents", {
+        type: "Lettre de motivation détaillée",
+        title: generatedLetterObject,
+        sections: generatedLetter,
+        details: generatedDetails,
+      })
+      setSaved(true)
+      window.open('mypdf', '_blank')
+      openModal()
+    } catch (error) {
+      console.log(error, error.message)
+    }
+    setLoading(false);
+  }
 
   {/* Prompt Set Up*/}
 
@@ -540,9 +559,12 @@ const Generator = () => {
         const splitParts = fulltext.split(regexLetter);
 
         if (matchDetails) {
-          setGeneratedDetails(matchDetails[0])
+          const sectionsDetails = matchDetails[0].trim().split(/\n\n+/).map(section => section.split('\n'));
+          if (sectionsDetails.length > 0) {
+            setGeneratedDetails(sectionsDetails);
+          }
         } else {
-          setGeneratedDetails(fulltext)
+          setGeneratedDetails(fulltext);
         }
 
         if (matchObject) {
@@ -550,7 +572,8 @@ const Generator = () => {
         }
 
         if (splitParts.length > 1) {
-          setGeneratedLetter(splitParts[2])
+          const letterParts = splitParts[2].trim().split('\n\n');
+          setGeneratedLetter(letterParts);
         }
 
         if (lines.length > 0) {
@@ -660,7 +683,7 @@ const Generator = () => {
                       <m.div initial="hidden" exit="hidden" variants={fadeIn("right", "spring", 0.25, 0.75)} animate={"show"} className={`flex justify-center align-center w-full mx-auto fixed bottom-8 left-0 right-0 z-30 ${styles.paddingX} max-w-7xl`}>
                         {
                           (!loading && !saved)  && (
-                            <button className={`cta2 w-full mx-auto md:w-1/2`} onClick={doc === "Lettre de motivation" ? saveLetter : saveReport}>
+                            <button className={`cta2 w-full mx-auto md:w-1/2`} onClick={doc === "Lettre de motivation" && !contactDetails ? saveLetter : doc === "Lettre de motivation" && contactDetails ?  saveLetterDetails : saveReport}>
                               <p className={`${styles.sectionSubText} lg:${styles.heroSubTextLight}`}>Enregistrer</p>
                               <ArrowDownTrayIcon className="w-[35px] md:ms-3"/>
                             </button>

@@ -31,6 +31,20 @@ export default async function handler(req, res) {
         })
         console.log(post)
         res.status(201).json(post)
+      } else if (type === "Lettre de motivation détaillée") {
+        const title = req.body.title;
+        const sectionsTexts = req.body.sections;
+        const details = req.body.details;
+        const post = await prisma.document.create({
+          data: {
+            type: type,
+            title: title,
+            sections: sectionsTexts,
+            details: details,
+          }
+        })
+        console.log(post);
+        res.status(201).json(post);
       }
       break
     case 'GET':

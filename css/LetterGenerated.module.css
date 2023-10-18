@@ -24,6 +24,20 @@
   font-size: 11px;
 }
 
+.a4 .letterDetails {
+  font-style: italic;
+  font-size: 6px;
+}
+
+.a4 .letterObject {
+  font-weight: bold;
+  font-size: 7px;
+}
+
+.a4 .letter {
+  font-size: 7px;
+}
+
 .a4 h2 {
   font-family: "Times New Roman", Times, serif;
   font-size: 16px;
@@ -39,9 +53,11 @@
 }
 
 @media (min-width: 450px)  {
+
   .a4Container {
     height: 600px;
   }
+
   .a4 p {
     font-size: 13px;
   }
@@ -49,6 +65,7 @@
   .a4 h2 {
     font-size: 19px;
   }
+
   .a4 h3 {
     font-size: 15px;;
   }
@@ -77,6 +94,9 @@
   .a4 p {
     font-size: 9px;
   }
+  .a4 .letterObject, .a4 .letter {
+    font-size: 8px;
+  }
 
   .a4 h2 {
     font-size: 13px;
@@ -97,6 +117,14 @@
   .a4 h2 {
     font-size: 14px;
   }
+
+  .a4 .letterObject, .a4 .letter {
+    font-size: 9px;
+  }
+
+  .a4 .letterDetails {
+    font-size: 9px;
+  }
 }
 
 @media (min-width: 1280px)  {
@@ -105,13 +133,10 @@
     height: 750px;
   }
 
-  .a4 p {
-    font-size: 10px;
-  }
-
   .a4 h2 {
     font-size: 14px;
   }
+
 
 
 }
