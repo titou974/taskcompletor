@@ -450,9 +450,9 @@ const Generator = () => {
     setMailText("");
     setLetterTitle("");
     setLetterParagraphs([]);
-    setGeneratedDetails("");
+    setGeneratedDetails([]);
     setGeneratedLetterObject("");
-    setGeneratedLetter("");
+    setGeneratedLetter([]);
     if (doc === "Présentation") {
       setShowGeneratedDoc(true)
       setShowMessage(false)

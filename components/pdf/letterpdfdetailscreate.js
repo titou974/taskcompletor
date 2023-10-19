@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontFamily: "TimesNewRomanRegular",
     lineHeight: 2,
-    paddingTop: 10
+    paddingTop: 5
   },
   sectioncontainer: {
     display: "flex",

@@ -16,11 +16,8 @@ const regexTitle = /^\d+\.\s(.+)/;
 
 const CoverLetterDetails = ({ doneGeneration, generatedDetails, generatedLetterObject, generatedLetter, setGeneratedDetails, setGeneratedLetterObject, setGeneratedLetter }) => {
 
-  const detailsString = generatedDetails.map(section => section.join('\n')).join('\n\n');
-  const letterString = generatedLetter.join('\n\n');
-
-  const [detailsTextArea, setDetailsTextArea] = useState(detailsString);
-  const [letterTextArea, setLetterTextArea] = useState(letterString);
+  const [detailsTextArea, setDetailsTextArea] = useState('');
+  const [letterTextArea, setLetterTextArea] = useState('');
 
 
   const handleDetailsChange = (e) => {
@@ -31,11 +28,22 @@ const CoverLetterDetails = ({ doneGeneration, generatedDetails, generatedLetterO
     setLetterTextArea(e.target.value);
   };
 
+  useEffect(() => {
+    if (doneGeneration) {
+      const updatedDetailsString = generatedDetails?.map(section => section.join('\n')).join('\n\n');
+      const updatedLetterString = generatedLetter.join('\n\n');
+
+      setDetailsTextArea(updatedDetailsString);
+      setLetterTextArea(updatedLetterString);
+    }
+  }, [doneGeneration]);
 
   useEffect(() => {
-    setGeneratedDetails(detailsTextArea.split('\n\n').map(section => section.split('\n')));
-    setGeneratedLetter(letterTextArea.split('\n'));
-  }, [detailsTextArea, letterTextArea]);
+    if (doneGeneration) {
+      setGeneratedDetails(detailsTextArea.split('\n\n').map(section => section.split('\n')));
+      setGeneratedLetter(letterTextArea.split('\n'));
+    }
+  }, [detailsTextArea, letterTextArea, doneGeneration]);
 
   return (
     <div className="w-full mx-auto">
